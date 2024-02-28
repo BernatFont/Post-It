@@ -4,11 +4,32 @@
             <div class="flex justify-center pt-8 sm:text-gray-600 dark:text-gray-400 text-sm">
                 <h1>{{ $t('welcome_starter_title') }}</h1>
             </div>
+            <div v-for="publicacion in publicaciones">
+                <span>{{ publicacion.id }}</span><br>
+                <span>{{ publicacion.id_usuario }}</span><br>
+                <span>{{ publicacion.texto }}</span><br>
+                <span>{{ publicacion.created_at }}</span><br>
+                <span>{{ publicacion.updated_at }}</span>
+            </div>
         </div>
     </div>
 </template>
 
 <script setup>
+
+    import axios from "axios";
+    import {ref,inject,onMounted} from "vue";
+
+    const publicaciones = ref();
+
+    onMounted(() => {
+        axios.get('/api/publicacions')
+        .then(response => {
+            publicaciones.value = response.data;
+            console.log(response.data);
+        })
+    })
+
 </script>
 
 <style scoped>

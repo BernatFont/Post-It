@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Category;
 use App\Models\User;
+use App\Models\Publicacion;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -23,6 +24,11 @@ class CreateAdminUserSeeder extends Seeder
             'username' => 'admin',
             'email' => 'admin@demo.com',
             'password' => bcrypt('12345678')
+        ]);
+
+        $publicacion = Publicacion::create([
+            'id_usuario' => '1',
+            'texto' => 'Primer post de prueba DavidValero BernatFont',
         ]);
 
         $role = Role::create(['name' => 'admin']);
