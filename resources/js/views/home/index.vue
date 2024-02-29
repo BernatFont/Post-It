@@ -1,10 +1,10 @@
 <template>
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0 align-items-center">
+    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0 principal">
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 main_container">
             <div class="flex justify-center pt-8 sm:text-gray-600 dark:text-gray-400 text-sm responsive_container">
                 <div class="title_description d-flex flex-column ">
-                    <h1><b>{{ $t('welcome_starter_title') }}</b></h1>
-                    <h3>{{ $t('welcome_starter_description') }}</h3>
+                    <h1 class="titulo"><b>{{ $t('welcome_starter_title') }}</b></h1>
+                    <h3 class="descripcion">{{ $t('welcome_starter_description') }}</h3>
                 </div>
                 <div class="login_buttons d-flex flex-column justify-content-center">   
                     <router-link class="btn btn-success mb-4 py-2" to="/login">{{ $t('login') }}</router-link>
@@ -46,10 +46,12 @@ body {
 </style>
 
 <style>
-    .main_container {
-        max-width: 1200px;
+    .principal {
+        align-items: center;
     }
-   
+    .main_container {
+        max-width: 80%;
+    }
     .title_description {
         width: 60%;    
         /* background: red; */
@@ -64,10 +66,19 @@ body {
         width: 65%;
         font-size: 20px;
     }
-    h1 {
-        font-size: 8rem;
+    .titulo {
+        font-size: 75px;
+    }
+    .descripcion {
+        font-size: 30px;
     }
     @media (max-width: 920px) {
+        .principal {
+            align-items:flex-start;
+        }
+        .title_description, .login_buttons a {
+            width: 100%;    
+        }
         .responsive_container {
             flex-direction: column;
             align-items: center;
@@ -77,6 +88,12 @@ body {
             align-items: center;
             margin-top: 40px;
             width: 100%;
+        }
+        .titulo {
+            font-size: 55px;
+        }
+        .descripcion {
+            font-size: 20px;
         }
     }
 </style>
