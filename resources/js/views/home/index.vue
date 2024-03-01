@@ -3,7 +3,10 @@
         <div class="max-w-6xl mx-auto sm:px-6 lg:px-8 main_container">
             <div class="flex justify-center pt-8 sm:text-gray-600 dark:text-gray-400 text-sm responsive_container">
                 <div class="title_description d-flex flex-column ">
-                    <h1 class="titulo"><b>{{ $t('welcome_starter_title') }}</b></h1>
+                    <div class="flex">
+                        <img class="imagen" src="/images/post-it.png" alt="Descripción de la imagen">
+                        <h1 class="titulo"><b>{{ $t('welcome_starter_title') }}</b></h1> 
+                    </div>
                     <h3 class="descripcion">{{ $t('welcome_starter_description') }}</h3>
                 </div>
                 <div class="login_buttons d-flex flex-column justify-content-center">   
@@ -68,9 +71,15 @@ body {
     }
     .titulo {
         font-size: 75px;
+        margin: 0;
     }
     .descripcion {
         font-size: 30px;
+    }
+
+    .imagen {
+        height: 100px;
+        width: auto;
     }
     @media (max-width: 920px) {
         .principal {
@@ -94,6 +103,9 @@ body {
         }
         .descripcion {
             font-size: 20px;
+        }
+        .imagen {
+            height: 72.8px;
         }
     }
 </style>

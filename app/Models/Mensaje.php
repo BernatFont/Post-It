@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Comentario extends Model
+class Mensaje extends Model
 {
     use HasFactory;
 
     protected $fillable = [
-        'id_publicacion',
-        'id_usuario',
+        'id_remitente',
+        'id_destinatario',
         'contenido'
     ];
 

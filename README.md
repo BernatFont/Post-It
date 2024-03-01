@@ -67,3 +67,11 @@ npm run dev
 ```bash
 npm run build or yarn build
 ```
+### Crear Modelo
+```bash
+php artisan make:model Modelo -f -m
+```
+### Crear Controlador
+```bash
+php artisan make:controller api/NameController
+```

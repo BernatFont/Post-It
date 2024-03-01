@@ -18,7 +18,7 @@ function requireLogin(to, from, next) {
     if (isLogin) {
         next()
     } else {
-        next('/login')
+        next('/login') // Si no detecta el login redirige a la ruta indicada
     }
 }
 
@@ -34,17 +34,17 @@ function guest(to, from, next) {
 }
 
 export default [
+    { // Ruta de la pagina inicial /home
+        path: '/',
+        name: 'home',
+        component: () => import('../views/home/index.vue'),
+    },
     {
         path: '/',
         // redirect: { name: 'login' },
         component: GuestLayout,
         children: [
            
-            {
-                path: '/',
-                name: 'home',
-                component: () => import('../views/home/index.vue'),
-            },
             {
                 path: 'posts',
                 name: 'public-posts.index',

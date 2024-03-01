@@ -13,5 +13,10 @@ class Like extends Model
         'id_usuario',
         'id_publicacion'
     ];
+
+    public function notificacions()
+    {
+        return $this->morphMany(Notificacion::class, 'contenido');
+    }
 }
 
