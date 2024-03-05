@@ -1,0 +1,119 @@
+<template>
+    <div class="d-flex justify-content-between py-2 top-content">
+        <h2>Home</h2>
+        <button class="btn btn-secondary">
+            Publicar post
+        </button>
+    </div>
+    <div class="content-feed">
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+        <div>hola</div>
+    </div>
+</template>
+
+<script>
+
+
+</script>
+<style>
+    .top-content{
+        border-bottom: 2px solid #000;
+    }
+    .content-feed{
+        width: 70%;
+        margin: 20px auto;
+        background-color: #fff;
+    }
+</style>

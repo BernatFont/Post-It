@@ -4,6 +4,7 @@ import store from "../store";
 const AuthenticatedLayout = () => import('../layouts/Authenticated.vue')
 const GuestLayout = ()  => import('../layouts/Guest.vue');
 
+const UserIndex = () => import('../layouts/AppPostIt.vue');
 const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
 const PostsCreate  = ()  => import('../views/admin/posts/Create.vue');
 const PostsEdit  = ()  => import('../views/admin/posts/Edit.vue');
@@ -83,6 +84,20 @@ export default [
                 name: 'auth.reset-password',
                 component: () => import('../views/auth/passwords/Reset.vue'),
                 beforeEnter: guest,
+            },
+        ]
+    },
+    {
+        path: '/feed',
+        component: UserIndex,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Dashboard' },
+        children: [
+            {
+                name: 'user.index',
+                path: '',
+                component: () => import('../layouts/AppPostIt.vue'),
+                meta: { breadCrumb: 'Index' }
             },
         ]
     },
