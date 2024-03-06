@@ -4,7 +4,7 @@
             <AppSidebar/>
         </div>
         <div class="content p-5">
-            <AppFeed/>
+            <router-view></router-view>
         </div>
 
     </div>
@@ -12,7 +12,6 @@
 
 <script setup>
     import AppSidebar from './AppSidebar.vue';
-    import AppFeed from '../views/user/feed.vue';
 
 </script>
 

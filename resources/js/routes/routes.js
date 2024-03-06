@@ -5,6 +5,11 @@ const AuthenticatedLayout = () => import('../layouts/Authenticated.vue')
 const GuestLayout = ()  => import('../layouts/Guest.vue');
 
 const UserIndex = () => import('../layouts/AppPostIt.vue');
+const UserPerfil = () => import('../views/user/perfil.vue');
+const UserMensajes= () => import('../views/user/mensajes.vue');
+const UserNotificaciones= () => import('../views/user/notificaciones.vue');
+
+
 const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
 const PostsCreate  = ()  => import('../views/admin/posts/Create.vue');
 const PostsEdit  = ()  => import('../views/admin/posts/Edit.vue');
@@ -15,7 +20,7 @@ const ExercisesEdit  = ()  => import('../views/admin/exercises/Edit.vue');
 function requireLogin(to, from, next) {
     let isLogin = false;
     isLogin = !!store.state.auth.authenticated;
-console.log(store.state.auth);
+    console.log(store.state.auth);
     if (isLogin) {
         next()
     } else {
@@ -88,15 +93,33 @@ export default [
         ]
     },
     {
-        path: '/feed',
+        path: '/app',
         component: UserIndex,
         beforeEnter: requireLogin,
         meta: { breadCrumb: 'Dashboard' },
         children: [
             {
-                name: 'user.index',
                 path: '',
-                component: () => import('../layouts/AppPostIt.vue'),
+                name: 'user.index',
+                component: () => import('../views/user/feed.vue'),
+                meta: { breadCrumb: 'Index' }
+            },
+            {
+                path: 'perfil',
+                name: 'user.perfil',
+                component: UserPerfil,
+                meta: { breadCrumb: 'Index' }
+            },
+            {
+                path: 'mensajes',
+                name: 'user.mensajes',
+                component: UserMensajes,
+                meta: { breadCrumb: 'Index' }
+            },
+            {
+                path: 'notificaciones',
+                name: 'user.notificaciones',
+                component: UserNotificaciones,
                 meta: { breadCrumb: 'Index' }
             },
         ]

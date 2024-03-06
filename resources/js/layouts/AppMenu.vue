@@ -35,11 +35,11 @@ const vela = "pepe";
 const model = ref([
     {
         items: [
-            { label:  '$t("home_name")', icon: 'pi pi-fw pi-home', to: '/feed', permision: 'all'},
-            { label: 'Buscar', icon: 'pi pi-fw pi-id-card', to: '#', permision: 'user-list' },
-            { label: 'Notificaciones', icon: 'pi pi-fw pi-check-square', to: '#', permision:'role-list' },
-            { label: 'Mensajes', icon: 'pi pi-fw pi-bookmark', to: '#', permision:'permission-list' },
-            { label: 'Perfil', icon: 'pi pi-fw pi-bookmark', to: '#', permision:'permission-list' }
+            { label:  '$t("home_name")', icon: 'pi pi-fw pi-home', to: '/app', permision: 'all'},
+            { label: 'Buscar', icon: 'pi pi-fw pi-id-card', to: '/app/buscar', permision: 'user-list' },
+            { label: 'Notificaciones', icon: 'pi pi-fw pi-check-square', to: '/app/notificaciones', permision:'role-list' },
+            { label: 'Mensajes', icon: 'pi pi-fw pi-bookmark', to: '/app/mensajes', permision:'permission-list' },
+            { label: 'Perfil', icon: 'pi pi-fw pi-bookmark', to: '/app/perfil', permision:'permission-list' }
         ]
     },
 ]);
