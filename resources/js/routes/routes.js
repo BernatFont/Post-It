@@ -15,7 +15,7 @@ const ExercisesEdit  = ()  => import('../views/admin/exercises/Edit.vue');
 function requireLogin(to, from, next) {
     let isLogin = false;
     isLogin = !!store.state.auth.authenticated;
-
+console.log(store.state.auth);
     if (isLogin) {
         next()
     } else {

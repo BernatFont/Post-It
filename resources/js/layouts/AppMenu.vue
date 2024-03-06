@@ -26,6 +26,7 @@
 import { ref } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 import {useAbility} from '@casl/vue'
+
 const {can} = useAbility();
 
 const vela = "pepe";
@@ -34,7 +35,7 @@ const vela = "pepe";
 const model = ref([
     {
         items: [
-            { label: '{{$t("home_name")}}', icon: 'pi pi-fw pi-home', to: '/feed', permision: 'all'},
+            { label:  '$t("home_name")', icon: 'pi pi-fw pi-home', to: '/feed', permision: 'all'},
             { label: 'Buscar', icon: 'pi pi-fw pi-id-card', to: '#', permision: 'user-list' },
             { label: 'Notificaciones', icon: 'pi pi-fw pi-check-square', to: '#', permision:'role-list' },
             { label: 'Mensajes', icon: 'pi pi-fw pi-bookmark', to: '#', permision:'permission-list' },
