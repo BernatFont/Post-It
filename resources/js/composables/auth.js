@@ -56,7 +56,7 @@ export default function useAuth() {
                     showConfirmButton: false,
                     timer: 1500
                 })
-                await router.push({ name: 'user.index' })//Nombre de la redireccion al iniciar sesion
+                await router.push({ name: 'feed' })//Nombre de la redireccion al iniciar sesion
             })
             .catch(error => {
                 if (error.response?.data) {

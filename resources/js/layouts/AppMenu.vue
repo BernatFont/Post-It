@@ -26,20 +26,24 @@
 import { ref } from 'vue';
 import AppMenuItem from './AppMenuItem.vue';
 import {useAbility} from '@casl/vue'
+import useAuth from "@/composables/auth";
 
+const { processing, logout } = useAuth();
 const {can} = useAbility();
 
 const vela = "pepe";
+
+/*Funcion*/
 
 
 const model = ref([
     {
         items: [
-            { label:  '$t("home_name")', icon: 'pi pi-fw pi-home', to: '/app', permision: 'all'},
-            { label: 'Buscar', icon: 'pi pi-fw pi-id-card', to: '/app/buscar', permision: 'user-list' },
-            { label: 'Notificaciones', icon: 'pi pi-fw pi-check-square', to: '/app/notificaciones', permision:'role-list' },
-            { label: 'Mensajes', icon: 'pi pi-fw pi-bookmark', to: '/app/mensajes', permision:'permission-list' },
-            { label: 'Perfil', icon: 'pi pi-fw pi-bookmark', to: '/app/perfil', permision:'permission-list' }
+            { label: '$t("home_name")', icon: 'pi pi-fw pi-home', to: '/', permision: 'all'},
+            { label: 'Buscar', icon: 'pi pi-fw pi-id-card', to: '/buscar', permision: 'user-list' },
+            { label: 'Notificaciones', icon: 'pi pi-fw pi-check-square', to: '/notificaciones', permision:'role-list' },
+            { label: 'Mensajes', icon: 'pi pi-fw pi-bookmark', to: '/mensajes', permision:'permission-list' },
+            { label: 'Usuario', icon: 'pi pi-fw pi-bookmark', to: '/usuario', permision:'permission-list' }
         ]
     },
 ]);
@@ -47,8 +51,8 @@ const model2 = ref([
     {
         // label: 'Ejercicios',
         items: [
-            { label: 'Configuración', icon: 'pi pi-fw pi-id-card', to: '/admin/exercises', permision: 'exercise-list' },
-            { label: 'Cerrar sesión', icon: 'pi pi-fw pi-id-card', to: '/admin/categories', permision: 'category-list' }
+            { label: 'Configuración', icon: 'pi pi-fw pi-id-card', to: '/configuracion', permision: 'exercise-list' },
+            { label: 'Cerrar sesión', icon: 'pi pi-fw pi-id-card', to: '/logout', permision: 'category-list', command: () =>{console.log('Logout')} }
         ]
     },
 ]);

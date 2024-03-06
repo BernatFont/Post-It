@@ -3,11 +3,14 @@ import store from "../store";
 
 const AuthenticatedLayout = () => import('../layouts/Authenticated.vue')
 const GuestLayout = ()  => import('../layouts/Guest.vue');
+const UserLayout = () => import('../layouts/AppPostIt.vue')
 
-const UserIndex = () => import('../layouts/AppPostIt.vue');
-const UserPerfil = () => import('../views/user/perfil.vue');
-const UserMensajes= () => import('../views/user/mensajes.vue');
-const UserNotificaciones= () => import('../views/user/notificaciones.vue');
+const Home = () => import('../views/home/index.vue')
+const Feed = () => import('../views/user/feed.vue');
+const Usuario = () => import('../views/user/perfil.vue');
+// const Buscar = () => import('');
+const Mensajes= () => import('../views/user/mensajes.vue');
+const Notificaciones= () => import('../views/user/notificaciones.vue');
 
 
 const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
@@ -24,7 +27,7 @@ function requireLogin(to, from, next) {
     if (isLogin) {
         next()
     } else {
-        next('/login') // Si no detecta el login redirige a la ruta indicada
+        next('/') // Si no detecta el login redirige a la ruta indicada
     }
 }
 
@@ -33,38 +36,92 @@ function guest(to, from, next) {
     isLogin = !!store.state.auth.authenticated;
 
     if (isLogin) {
-        next('/')
+        next('/inicio')
     } else {
         next()
     }
 }
 
+
 export default [
-    { // Ruta de la pagina inicial /home
-        path: '/',
-        name: 'home',
-        component: () => import('../views/home/index.vue'),
+
+    {
+        path: '/inicio',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Feed'},
+        children: [
+            {
+                path: '',
+                name: 'feed',
+                component: Feed,
+                meta: { breadCrumb: 'Feed Index' }
+            },
+        ]
     },
     {
+        path: '/usuario',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Perfil' },
+        children: [
+            {
+                path: '',
+                component: Usuario,
+                meta: { breadCrumb: 'Perfil Index' }
+            },
+        ]
+    },
+    // {
+    //     path: '/buscar',
+    //     component: UserLayout,
+    //     beforeEnter: requireLogin,
+    //     meta: { breadCrumb: 'Buscar' },
+    //     children: [
+    //         {
+    //             path: '',
+    //             component: Buscar,
+    //             meta: { breadCrumb: 'Buscador de Post y personas' }
+    //         },
+    //     ]
+    // },
+    { 
+        path: '/mensajes',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Mensajes' },
+        children: [
+            {
+                path: '',
+                component: Mensajes,
+                meta: { breadCrumb: 'Mensajes Index' }
+            },
+        ]
+    },
+    { 
+        path: '/notificaciones',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Notificaciones' },
+        children: [
+            {
+                path: '',
+                component: Notificaciones,
+                meta: { breadCrumb: 'Notificaciones Index' }
+            },
+        ]
+    },
+    
+    {
+        // Ruta inicial
         path: '/',
         // redirect: { name: 'login' },
-        component: GuestLayout,
         children: [
-           
             {
-                path: 'posts',
-                name: 'public-posts.index',
-                component: () => import('../views/posts/index.vue'),
-            },
-            {
-                path: 'posts/:id',
-                name: 'public-posts.details',
-                component: () => import('../views/posts/details.vue'),
-            },
-            {
-                path: 'category/:id',
-                name: 'category-posts.index',
-                component: () => import('../views/category/posts.vue'),
+                path: '',
+                name: 'index',
+                component: Home,
+                beforeEnter: guest,
             },
             {
                 path: 'login',
@@ -90,37 +147,20 @@ export default [
                 component: () => import('../views/auth/passwords/Reset.vue'),
                 beforeEnter: guest,
             },
-        ]
-    },
-    {
-        path: '/app',
-        component: UserIndex,
-        beforeEnter: requireLogin,
-        meta: { breadCrumb: 'Dashboard' },
-        children: [
             {
-                path: '',
-                name: 'user.index',
-                component: () => import('../views/user/feed.vue'),
-                meta: { breadCrumb: 'Index' }
+                path: 'posts',
+                name: 'public-posts.index',
+                component: () => import('../views/posts/index.vue'),
             },
             {
-                path: 'perfil',
-                name: 'user.perfil',
-                component: UserPerfil,
-                meta: { breadCrumb: 'Index' }
+                path: 'posts/:id',
+                name: 'public-posts.details',
+                component: () => import('../views/posts/details.vue'),
             },
             {
-                path: 'mensajes',
-                name: 'user.mensajes',
-                component: UserMensajes,
-                meta: { breadCrumb: 'Index' }
-            },
-            {
-                path: 'notificaciones',
-                name: 'user.notificaciones',
-                component: UserNotificaciones,
-                meta: { breadCrumb: 'Index' }
+                path: 'category/:id',
+                name: 'category-posts.index',
+                component: () => import('../views/category/posts.vue'),
             },
         ]
     },
