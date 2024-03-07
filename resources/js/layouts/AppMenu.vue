@@ -4,69 +4,86 @@
         <div class="top-menu">
             <div class="logo d-flex justify-content-evenly p-2">
                 <img src="/images/post-it.png" alt="imagen del logo">
-                <h1>POST-IT</h1>
+                <h1 class="titulo">POST-IT</h1>
             </div>
-            <ul class="bottom-top-menu">
-                <template v-for="(item, i) in model" :key="item">
-                    <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
-                    <li v-if="item.separator" class="menu-separator"></li>
-                </template>
-            </ul>
         </div>
-        <ul class="">
-            <template v-for="(item, i) in model2" :key="item">
-                <app-menu-item v-if="!item.separator" :item="item" :index="i"></app-menu-item>
-                <li v-if="item.separator" class="menu-separator"></li>
-            </template>
-        </ul>
+        <div class="menu-container">
+            <Menu :model="model">
+                <template #item="{ item, props }">
+                    <router-link v-if="item.route" :to="item.route" custom></router-link>
+                    <!--<a class="" v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">-->
+                    <a class="item-container" v-else v-ripple :href="item.url" :style="{ 'border-left': $route.path === item.route ? '5px solid #000' : 'none' }" >
+                        <span :class="item.icon" />
+                        <span>{{ $t(item.label) }}</span>
+                    </a>
+                </template>
+            </Menu>
+            <Menu :model="model2">
+                <template #item="{ item, props }">
+                    <router-link v-if="item.route" :to="item.route" custom></router-link>
+                    <a class="item-container" v-else v-ripple :href="item.url" >
+                        <span :class="item.icon" />
+                        <span>{{ $t(item.label) }}</span>
+                    </a>
+                </template>
+            </Menu>
+        </div>
     </div>
+    
 </template>
 
 <script setup>
 import { ref } from 'vue';
-import AppMenuItem from './AppMenuItem.vue';
-import {useAbility} from '@casl/vue'
+import { useAbility } from '@casl/vue';
 import useAuth from "@/composables/auth";
 
 const { processing, logout } = useAuth();
-const {can} = useAbility();
+const { can } = useAbility();
 
-const vela = "pepe";
 
 /*Funcion*/
 
 
 const model = ref([
-    {
-        items: [
-            { label: '$t("home_name")', icon: 'pi pi-fw pi-home', to: '/', permision: 'all'},
-            { label: 'Buscar', icon: 'pi pi-fw pi-id-card', to: '/buscar', permision: 'user-list' },
-            { label: 'Notificaciones', icon: 'pi pi-fw pi-check-square', to: '/notificaciones', permision:'role-list' },
-            { label: 'Mensajes', icon: 'pi pi-fw pi-bookmark', to: '/mensajes', permision:'permission-list' },
-            { label: 'Usuario', icon: 'pi pi-fw pi-bookmark', to: '/usuario', permision:'permission-list' }
-        ]
-    },
+  {
+    items: [
+      { label: 'home_name', icon: 'pi pi-fw pi-home', url: '/inicio', permision: 'all'},
+      { label: 'search', icon: 'pi pi-fw pi-search', url: '/buscar', permision: 'user-list' },
+      { label: 'notifications', icon: 'pi pi-fw pi-bell', url: '/notificaciones', permision:'role-list' },
+      { label: 'messages', icon: 'pi pi-fw pi-inbox', url: '/mensajes', permision:'permission-list' },
+      { label: 'user', icon: 'pi pi-fw pi-user', url: '/usuario', permision:'permission-list' }
+    ]
+  },
 ]);
+
 const model2 = ref([
-    {
-        // label: 'Ejercicios',
-        items: [
-            { label: 'Configuración', icon: 'pi pi-fw pi-id-card', to: '/configuracion', permision: 'exercise-list' },
-            { label: 'Cerrar sesión', icon: 'pi pi-fw pi-id-card', to: '/logout', permision: 'category-list', command: () =>{console.log('Logout')} }
-        ]
-    },
+  {
+    items: [
+      { label: 'settings', icon: 'pi pi-fw pi-cog', url: '/configuracion', permision: 'exercise-list' },
+      { label: 'logout', icon: 'pi pi-fw pi-sign-out', url: '#', permision: 'category-list', command: () => Logout() } // Llama a la funcion logout
+    ]
+  },
 ]);
+
+function Logout() {
+  // Realizar acciones adicionales antes del cierre de sesión si es necesario
+  logout();
+  // Redireccionar al usuario a la página de inicio o donde prefieras
+  router.push('/');
+}
 </script>
 
-
-<style lang="scss" scoped></style>
 <style>
+
     .logo{
         background-color: #fde756;
     }
     .logo img{
         width: 75px;
         height: auto;
+    }
+    .logo .titulo {
+        font-weight: 700;
     }
     .menu{
         position: fixed;
@@ -84,11 +101,24 @@ const model2 = ref([
         /* padding: 0.5rem 1.5rem; */
         box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.22), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
     }
-    .bottom-top-menu{
+    .menu-container{
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         margin-top: 20px;
+        margin-bottom: 40px;
+        
     }
     .menu ul{
         list-style-type: none;
+    }
+    .item-container {
+        color: black;
+        font-weight: 600;
+        font-size: 20px;
+        line-height: 50px;
+        
     }
     
 </style>

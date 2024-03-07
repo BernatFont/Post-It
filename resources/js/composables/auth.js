@@ -163,7 +163,7 @@ export default function useAuth() {
                 user.name = ''
                 user.email = ''
                 store.dispatch('auth/logout')
-                router.push({ name: 'auth.login' })
+                router.push({ name: 'index' }) // Ruta a la que se dirige al cerrar sesion
             })
             .catch(error => {
                 // swal({
