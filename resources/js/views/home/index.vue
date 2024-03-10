@@ -7,11 +7,11 @@
                         <img class="imagen" src="/images/post-it.png" alt="Descripción de la imagen">
                         <h1 class="titulo"><b>{{ $t('welcome_starter_title') }}</b></h1> 
                     </div>
-                    <h3 class="descripcion">{{ $t('welcome_starter_description') }}</h3>
+                    <h3 class="descripcion"><span>📌</span>{{ $t('welcome_starter_description') }}</h3>
                 </div>
                 <div class="login_buttons d-flex flex-column justify-content-center">   
-                    <router-link class="btn btn-success mb-4 py-2" to="/login">{{ $t('login') }}</router-link>
-                    <router-link class="btn btn-success py-2" to="/register">{{ $t('register') }}</router-link>
+                    <router-link class="btn btn-postit mb-4 py-2" to="/login">{{ $t('login') }}</router-link>
+                    <router-link class="btn btn-postit py-2" to="/register">{{ $t('register') }}</router-link>
                 </div>
             </div>
             <!-- <div v-for="publicacion in publicaciones">
@@ -51,6 +51,8 @@ body {
 <style>
     .principal {
         align-items: center;
+        background-image: url(/public/images/landing-bg.jpg);
+        background-size: cover;
     }
     .main_container {
         max-width: 80%;
@@ -72,7 +74,11 @@ body {
     .titulo {
         font-size: 75px;
         margin: 0;
+        background: linear-gradient(to top left, #B5FF90 20%, #76FD31 80%);
+        -webkit-background-clip: text;
+        color: transparent; /* Make the text color transparent */
     }
+
     .descripcion {
         font-size: 30px;
     }
@@ -81,6 +87,7 @@ body {
         height: 100px;
         width: auto;
     }
+
     @media (max-width: 920px) {
         .principal {
             align-items:flex-start;

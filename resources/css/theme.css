@@ -56,6 +56,16 @@
     font-size: 1rem;
     font-weight: normal
 }*/
+.btn-postit{
+    background: linear-gradient(to top left, #B5FF90 20%, #76FD31 80%);
+    cursor: pointer;
+    color: #000;
+    transition: background .5s ease-in-out;
+}
+
+.btn-postit:hover {
+  background: linear-gradient(to top left, #76FD31 20%, #B5FF90 80%);
+}
 
 .p-component-overlay {
     background-color: rgba(0, 0, 0, .4);
