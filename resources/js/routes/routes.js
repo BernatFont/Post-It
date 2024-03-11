@@ -11,6 +11,7 @@ const Usuario = () => import('../views/user/perfil.vue');
 // const Buscar = () => import('');
 const Mensajes= () => import('../views/user/mensajes.vue');
 const Notificaciones= () => import('../views/user/notificaciones.vue');
+const CrearPublicacion= () => import('../views/user/crearPublicacion.vue');
 
 
 const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
@@ -57,6 +58,18 @@ export default [
                 component: Feed,
                 meta: { breadCrumb: 'Feed Index' }
             },
+            {
+                name: 'publicacion.create',
+                path: 'create',
+                component: CrearPublicacion,
+                meta: { breadCrumb: 'Crear publicación' }
+            },
+            // {
+            //     name: 'tasks.update',
+            //     path: 'update/:id',
+            //     component: TasksUpdate,
+            //     meta: { breadCrumb: 'Update tareas' }
+            // }
         ]
     },
     {
@@ -100,6 +113,19 @@ export default [
     },
     { 
         path: '/notificaciones',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Notificaciones' },
+        children: [
+            {
+                path: '',
+                component: Notificaciones,
+                meta: { breadCrumb: 'Notificaciones Index' }
+            },
+        ]
+    },
+    { 
+        path: '/crear',
         component: UserLayout,
         beforeEnter: requireLogin,
         meta: { breadCrumb: 'Notificaciones' },

@@ -14,31 +14,11 @@
                     <router-link class="btn btn-postit py-2" to="/register">{{ $t('register') }}</router-link>
                 </div>
             </div>
-            <!-- <div v-for="publicacion in publicaciones">
-                <span>{{ publicacion.id }}</span><br>
-                <span>{{ publicacion.id_usuario }}</span><br>
-                <span>{{ publicacion.texto }}</span><br>
-                <span>{{ publicacion.created_at }}</span><br>
-                <span>{{ publicacion.updated_at }}</span>
-            </div> -->
         </div>
     </div>
 </template>
 
 <script setup>
-
-    import axios from "axios";
-    import {ref,inject,onMounted} from "vue";
-
-    const publicaciones = ref();
-
-    onMounted(() => {
-        axios.get('/api/publicacions')
-        .then(response => {
-            publicaciones.value = response.data;
-            console.log(response.data);
-        })
-    })
 
 </script>
 

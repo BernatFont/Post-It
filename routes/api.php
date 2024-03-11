@@ -19,6 +19,7 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 
 
 Route::get('publicacions', [PublicacionController::class, 'index']);
+Route::post('publicacions/',[PublicacionController::class,'store']);
 
 
 
