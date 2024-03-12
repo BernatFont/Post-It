@@ -1,10 +1,12 @@
 <template>
-    <div class="general">
-        <div class="layout-sidebar">
-            <AppSidebar/>
-        </div>
-        <div class="content p-5">
-            <router-view></router-view>
+    <div class="general container-fluid">
+        <div class="row">
+            <div class="menu-sidebar col-md-2 d-none d-md-block">
+                <AppSidebar/>
+            </div>
+            <div class="col-10 col-md-12 content p-5">
+                <router-view></router-view>
+            </div>
         </div>
 
     </div>
@@ -17,13 +19,9 @@
 
 <style scoped>
  .general{
-    width: 100vw;
     height: 100%;
     background-color: #bdbdbd;
  }
- .content{
-    margin-left: 25vw;
-    width: 75vw;
- }
+
  
 </style>

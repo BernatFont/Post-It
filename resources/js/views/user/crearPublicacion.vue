@@ -1,9 +1,9 @@
 <template>
     <form @submit.prevent="addPublicacion">
-        <div class="form-group mb-2">
+        <!-- <div class="form-group mb-2">
             <label>ID</label><span class="text-danger"> *</span>
             <input v-model="publicacion.id_usuario" type="text" class="form-control">
-        </div>
+        </div> -->
         <div class="form-group mb-2">
             <label>Descripción</label><span class="text-danger"> *</span>
             <textarea v-model="publicacion.texto" class="form-control" rows="3" placeholder="Escribe aquí..."></textarea>
@@ -16,19 +16,26 @@
 
 <script setup>
     import axios from "axios";
-    import { ref } from "vue";
-
+    import { inject, ref } from "vue";
+    import router from "../../routes";
     
     const publicacion = ref({});
     const strError = ref();
     const strSuccess = ref();
+    const swal = inject('$swal');
 
-    function addPublicacion(){
-        axios.post('/api/publicacions',publicacion.value)
+    const addPublicacion = async () =>{
+        await axios.post('/api/publicacions',publicacion.value)
         .then(response => {
             console.log(response);
             strSuccess.value = response.data.success
             strError.value = ''
+            swal({
+                icon: 'success',
+                title: 'Publicación creada',
+                showConfirmButton: false,
+                timer: 1500
+            })
             // Redirige a otra página después de una tarea exitosa
             router.push('/inicio');
         }).catch(error => {

@@ -17,12 +17,14 @@ class PublicacionController extends Controller
     //CREA Y GUARDA EN LA BD
     public function store(Request $request){
         $request->validate([
-            'id_usuario' => 'required',
             'texto' => 'required'
         ]);
         $publicacion = $request->all();
+        $publicacion['id_usuario'] = auth()->id();
         $post = Publicacion::create($publicacion);
 
         return response()->json(['success'=> true,'data'=> $post]);
     }
+
+    
 }

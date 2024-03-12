@@ -48,6 +48,7 @@ export default [
 
     {
         path: '/inicio',
+        name: "inicio",
         component: UserLayout,
         beforeEnter: requireLogin,
         meta: { breadCrumb: 'Feed'},

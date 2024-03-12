@@ -87,7 +87,7 @@ function Logout() {
     }
     .menu{
         position: fixed;
-        width: 25vw;
+        /* width: 25vw; */
         height: 100vh;
         /* height: calc(100vh - 9rem); */
         z-index: 999;
