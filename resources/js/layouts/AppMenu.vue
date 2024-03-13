@@ -2,9 +2,9 @@
 <template>
     <div class="menu d-flex flex-column justify-content-between">
         <div class="top-menu">
-            <div class="logo d-flex justify-content-evenly p-2">
-                <img src="/images/post-it.png" alt="imagen del logo">
-                <h1 class="titulo">POST-IT</h1>
+            <div class="logo d-flex p-2">
+                <!-- <img src="/images/post-it.png" alt="imagen del logo"> -->
+                <h1 class="titulo p-4">POST-IT</h1>
             </div>
         </div>
         <div class="menu-container">
@@ -74,10 +74,6 @@ function Logout() {
 </script>
 
 <style>
-
-    .logo{
-        background-color: #fde756;
-    }
     .logo img{
         width: 75px;
         height: auto;
@@ -87,7 +83,7 @@ function Logout() {
     }
     .menu{
         position: fixed;
-        /* width: 25vw; */
+        width: 20vw;
         height: 100vh;
         /* height: calc(100vh - 9rem); */
         z-index: 999;
@@ -117,8 +113,11 @@ function Logout() {
         color: black;
         font-weight: 600;
         font-size: 20px;
-        line-height: 50px;
-        
+        line-height: 50px; 
+    }
+
+    .item-container span:first-child{
+        margin-right: 12px;
     }
     
 </style>

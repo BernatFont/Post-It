@@ -1,4 +1,5 @@
 :root {
+    --color-primario: #36F0A8;
     --surface-a: #ffffff;
     --surface-b: #f8f9fa;
     --surface-c: #e9ecef;
@@ -57,14 +58,32 @@
     font-weight: normal
 }*/
 .btn-postit{
-    background: linear-gradient(to top left, #B5FF90 20%, #76FD31 80%);
+    background-color: var(--color-primario);
     cursor: pointer;
     color: #000;
-    transition: background .5s ease-in-out;
+    transition: border .2s ease-in-out;
 }
 
 .btn-postit:hover {
-  background: linear-gradient(to top left, #76FD31 20%, #B5FF90 80%);
+    background-color: var(--color-primario);
+    color: #000;
+    border: 1px solid #000;
+}
+
+/*Contenido de la parte superior de las vistas*/
+.top-content-view{
+    background-color: #fff;
+    margin-top: 24px;
+    padding: 24px 24px 12px 24px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+    width: 65%;
+}
+
+/*Contenedor de las vistas*/
+.content-view{
+    width: 65%;
+    margin: 20px auto;
 }
 
 .p-component-overlay {
@@ -5761,7 +5780,7 @@
     border-left: 5px solid rgba(0, 0, 0, 0.0);
 }
 .p-menu .p-menuitem>.p-menuitem-content:hover {
-    border-left: 5px solid rgba(0, 0, 0, 0.6);
+    border-left: 5px solid var(--color-primario);
 }
 .p-menu .p-menuitem>.p-menuitem-content:active {
     border-left: 5px solid rgba(0, 0, 0, 1.0);
