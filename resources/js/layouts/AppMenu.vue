@@ -4,7 +4,7 @@
         <div class="top-menu">
             <div class="logo d-flex p-2">
                 <!-- <img src="/images/post-it.png" alt="imagen del logo"> -->
-                <h1 class="titulo p-4">POST-IT</h1>
+                <h1 class="titulo-sidebar p-4">POST-IT</h1>
             </div>
         </div>
         <div class="menu-container">
@@ -78,7 +78,7 @@ function Logout() {
         width: 75px;
         height: auto;
     }
-    .logo .titulo {
+    .titulo-sidebar {
         font-weight: 700;
     }
     .menu{

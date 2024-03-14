@@ -10,8 +10,8 @@ class PublicacionController extends Controller
 {
     //OBTENEMOS LOS DATOS DE LA BD
     public function index(){
-        $publicaciones = Publicacion::all()->toArray();
-        return $publicaciones;
+        $publicaciones = Publicacion::orderBy('created_at', 'desc')->get()->toArray();
+    return $publicaciones;
     }
 
     //CREA Y GUARDA EN LA BD

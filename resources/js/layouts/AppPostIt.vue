@@ -31,7 +31,7 @@
     }
     
     .contenido-view{
-    padding: 12px;
+        padding: 12px;
     }    
 }
 

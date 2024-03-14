@@ -19,11 +19,9 @@
                         <span>{{ publicacion.id_usuario }}</span> -->
                     </div>
                 </div>
-                <span>{{ formatearFecha(publicacion.created_at) }}</span>
+                <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
             </div>
             <div class="px-3 py-2 card-post-text">
-                <span>{{ publicacion.texto }}</span><br>
-                <span>{{ publicacion.texto }}</span><br>
                 <span>{{ publicacion.texto }}</span>
             </div>
             <div class="card-post-img d-flex justify-content-center">
@@ -85,43 +83,5 @@ onMounted(() => {
 <style>
     .btn-crear-post{
         font-weight: 600;
-    }
-    .card-post{
-        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        border-radius: 8px;
-    }
-
-    .card-post-top{
-        background-color: #ffffff;
-        border-radius: 8px 8px 0px 0px;
-    }
-    .card-post-top img{
-        height: 50px;
-        width: 50px;
-        border-radius: 50%;
-    }
-
-    .card-post-text{
-        background-color: #ffffff;
-    }
-
-    .card-post-img{
-        border-bottom: 1px solid rgb(212, 219, 226);
-        border-top: 1px solid rgb(212, 219, 226);
-        background-color: #ffffff;
-        width: 100%;
-        aspect-ratio: 16/9;
-        position: relative;
-        overflow: hidden;
-    }
-    .card-post-img img{
-        position: absolute;
-        height: 100%;
-        object-fit: cover;
-    }
-
-    .card-post-bottom{
-        border-radius: 0px 0px 8px 8px;
-        background-color: #ffffff;
     }
 </style>
