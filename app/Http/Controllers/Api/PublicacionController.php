@@ -5,13 +5,15 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Publicacion;
+use App\Modelos\User;
 
 class PublicacionController extends Controller
 {
     //OBTENEMOS LOS DATOS DE LA BD
     public function index(){
-        $publicaciones = Publicacion::orderBy('created_at', 'desc')->get()->toArray();
-    return $publicaciones;
+        // With de user para importar sus datos y orderby para mostrar los post por fecha de mas reciente a mas antiguo
+        $publicaciones = Publicacion::with('user')->orderBy('created_at', 'desc')->get()->toArray();
+        return $publicaciones;
     }
 
     //CREA Y GUARDA EN LA BD
@@ -28,3 +30,4 @@ class PublicacionController extends Controller
 
     
 }
+

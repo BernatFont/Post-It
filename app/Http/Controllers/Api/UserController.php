@@ -54,21 +54,43 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return UserResource
      */
-    public function store(StoreUserRequest $request)
-    {
-        $role = Role::find($request->role_id);
-        $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+    // public function store(StoreUserRequest $request)
+    // {
+    //     $role = Role::find($request->role_id);
+    //     $user = new User();
+    //     $user->name = $request->name;
+    //     $user->email = $request->email;
+    //     $user->password = Hash::make($request->password);
 
-        if ($user->save()) {
-            if ($role) {
-                $user->assignRole($role);
-            }
-            return new UserResource($user);
+    //     if ($user->save()) {
+    //         if ($role) {
+    //             $user->assignRole($role);
+    //         }
+    //         return new UserResource($user);
+    //     }
+    // }
+    public function store(StoreUserRequest $request)
+{
+    $role = Role::find($request->role_id);
+    $user = new User();
+    $user->name = $request->name;
+    $user->email = $request->email;
+    $user->password = Hash::make($request->password);
+
+    try {
+        $user->save();
+
+        if ($role) {
+            $user->assignRole($role);
         }
+
+        return new UserResource($user);
+    } catch (\Exception $e) {
+        // Manejar el error, por ejemplo, registrar el error y devolver una respuesta adecuada
+        \Log::error('Error al crear el usuario: ' . $e->getMessage());
+        return response()->json(['error' => 'Error al crear el usuario. Por favor, inténtelo de nuevo más tarde.'], 500);
     }
+}
 
     /**
      * Display the specified resource.

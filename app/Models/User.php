@@ -53,4 +53,9 @@ class User extends Authenticatable
     {
         $this->notify(new UserResetPasswordNotification($token));
     }
+
+    public function publicacion()
+    {
+        return $this->belongsTo(Publicacion::class);
+    }
 }

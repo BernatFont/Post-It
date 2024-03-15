@@ -13,4 +13,9 @@ class Publicacion extends Model
         'id_usuario',
         'texto'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_usuario', 'id'); // 
+    }
 }
