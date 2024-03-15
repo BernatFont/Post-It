@@ -14,6 +14,7 @@ class Publicacion extends Model
         'texto'
     ];
 
+    //Obtenemos todos los datos del usuario pasandole su id, para mostrarlo en el post
     public function user()
     {
         return $this->belongsTo(User::class, 'id_usuario', 'id'); // 

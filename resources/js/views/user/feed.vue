@@ -13,8 +13,8 @@
                 <div class="d-flex">
                     <img src="/images/placeholder.jpg" alt="" class="ms-2">
                     <div class="ms-3 d-flex flex-column justify-content-center">
-                        <span>{{publicacion['user']['name']}} {{ publicacion['user']['surname'] }}</span>
-                        <span>@{{publicacion['user']['username']}}</span>
+                        <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
+                        <span>@{{ publicacion.user.username }}</span>
                         <!-- <span>{{ publicacion.id }}</span>
                         <span>{{ publicacion.id_usuario }}</span> -->
                     </div>
