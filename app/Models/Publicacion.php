@@ -17,6 +17,16 @@ class Publicacion extends Model
     //Obtenemos todos los datos del usuario pasandole su id, para mostrarlo en el post
     public function user()
     {
-        return $this->belongsTo(User::class, 'id_usuario', 'id'); // 
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
+    }
+
+    public function like()
+    {
+        return $this->belongsTo(Like::class, 'id_publicacion', 'id'); 
+    }
+
+    public function likes()
+    {
+        return $this->hasMany(Like::class, 'id_publicacion');
     }
 }

@@ -6,14 +6,15 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Publicacion;
 //Importamos modelo usuario para poder hacer la relacion con el post (como un join)
-use App\Modelos\User;
+use App\Models\User;
+use App\Models\Like;
 
 class PublicacionController extends Controller
 {
     //OBTENEMOS LOS DATOS DE LA BD
     public function index(){
         // 'With' de 'user' para importar sus datos y 'orderby' para mostrar los post por fecha de mas reciente a mas antiguo
-        $publicaciones = Publicacion::with('user')->orderBy('created_at', 'desc')->get()->toArray();
+        $publicaciones = Publicacion::with('user')->withCount('likes')->orderBy('created_at', 'desc')->get()->toArray();
         return $publicaciones;
     }
 

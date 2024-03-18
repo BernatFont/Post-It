@@ -15,8 +15,6 @@
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                         <span>@{{ publicacion.user.username }}</span>
-                        <!-- <span>{{ publicacion.id }}</span>
-                        <span>{{ publicacion.id_usuario }}</span> -->
                     </div>
                 </div>
                 <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
@@ -26,11 +24,11 @@
             </div>
             <div class="card-post-img d-flex justify-content-center">
                 <img src="/images/prueba.jpg" alt="">
-                <!-- <img src="/images/placeholder.jpg" alt=""> -->
             </div>
             <div class="card-post-bottom d-flex">
-                <div class="d-flex align-items-center">
-                    <i class="pi pi-heart p-3"></i><span>999</span>
+                <div class="d-flex align-items-center" @click="like(publicacion.id)">
+                    <i class="pi p-3" :class="publicacion.liked ? 'pi-heart-fill' : 'pi-heart'"></i>
+                    <span>{{ publicacion.likes_count }}</span>
                 </div>
                 <div class="d-flex align-items-center">
                     <i class="pi pi-comment p-3"></i><span>999</span>
@@ -47,6 +45,21 @@ import { ref, onMounted } from "vue";
 
 const publicaciones = ref();
 
+const like = (id) => {
+    axios.post('/api/like/add/' + id)
+    .then(response => {
+        console.log("Like");
+        // Actualiza la cantidad de likes en la vista
+        const index = publicaciones.value.findIndex(publicacion => publicacion.id === id);
+        if (index !== -1) {
+            publicaciones.value[index].likes_count += response.data.liked ? 1 : -1;
+            publicaciones.value[index].liked = response.data.liked;
+        }
+    }).catch(error => {
+        console.error("Error al dar like:", error);
+    });
+
+}
 // Función para calcular la diferencia en minutos, horas y días
 const calcularDiferencia = (fechaPublicacion) => {
   const fechaPublicacionObjeto = new Date(fechaPublicacion);
@@ -75,8 +88,11 @@ const formatearFecha = (fechaPublicacion) => {
 onMounted(() => {
   axios.get('/api/publicacions')
     .then(response => {
-      publicaciones.value = response.data;
-      console.log(response.data);
+        const publicacionesConLiked = response.data.map(publicacion => ({
+            ...publicacion,
+            liked: publicacion.liked_by_current_user === true
+        }));
+        publicaciones.value = publicacionesConLiked;
     })
 })
 </script>

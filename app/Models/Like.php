@@ -14,6 +14,11 @@ class Like extends Model
         'id_publicacion'
     ];
 
+    public function publicacion()
+    {
+        return $this->belongsTo(Publicacion::class, 'id_publicacion', 'id');
+    }
+    
     public function notificacions()
     {
         return $this->morphMany(Notificacion::class, 'contenido');
