@@ -5,37 +5,36 @@
         </div>
     </div>
     <div class="d-md-flex justify-content-between p-5 h-100">
-
-        
-        <form @submit.prevent="addPublicacion" class="w-100 w-md-50 pe-4">
+        <div class="w-100 w-md-50">
             <h3 class="text-center">Crea tu post</h3>
-            <div class="form-group mb-2">
-                <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
-                <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
-            </div>
-            <div class="d-flex justify-content-between">
-                <div class="pt-4">
-                    <div v-if="!imageSelected">
-                        <label for="file-upload" class="btn btn-primary">Subir imagen</label>
-                        <input type="file" id="file-upload" @change="onFileChange">
+            <form @submit.prevent="addPublicacion" class="create-post-form me-4">
+                <div class="form-group mb-2">
+                    <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
+                    <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
+                </div>
+                <div class="d-flex justify-content-between">
+                    <div class="pt-4">
+                        <div v-if="!imageSelected">
+                            <label for="file-upload" class="btn btn-primary">Subir imagen</label>
+                            <input type="file" id="file-upload" @change="onFileChange">
+                        </div>
+                        <div v-if="imageSelected">
+                            <button @click="discardImage" class="btn btn-primary">Descartar imagen</button>
+                        </div>
                     </div>
-                    <div v-if="imageSelected">
-                        <button @click="discardImage" class="btn btn-primary">Descartar imagen</button>
+                    <div class="pt-4">
+                        <div>
+                            <button type="submit" class="btn btn-postit">Subir publicación</button>
+                        </div>
                     </div>
                 </div>
-                <div class="pt-4">
-                    <div>
-                        <button type="submit" class="btn btn-postit">Subir publicación</button>
-                    </div>
-                </div>
-            </div>
-
-        </form>
+            </form>
+        </div>
         <div class="w-100 w-md-50">
             <h3 class="text-center">Vista previa</h3>
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <img src="/images/placeholder.jpg" alt="" class="ms-2">
+                    <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span>{{ user.name }} {{ user.surname }}</span>
                         <span>@{{ user.username}}</span>
@@ -55,11 +54,12 @@
                 </div>
                 <div class="d-flex align-items-center">
                     <i class="pi pi-comment p-3"></i><span>0</span>
-                </div>   
+                </div>  
             </div>
         </div>
     </div>    
 </template>
+
 
 <script setup>
     import axios from "axios";
@@ -67,14 +67,17 @@
     import router from "../../routes";
     import { useStore } from 'vuex';
 
+
     /* Obtenemos datos del usuario */
     const store = useStore();
     const user = computed(() => store.state.auth.user)
+
 
     const publicacion = ref({});
     const strError = ref();
     const strSuccess = ref();
     const swal = inject('$swal');
+
 
     // Esta función formatea el texto para hacer saltos de línea cuando es demasiado largo
     const formatText = (texto) => {
@@ -89,8 +92,10 @@
         return texto;
     };
 
+
     const maxLenghtTexto = (texto) => {
         const maxLength = 300;
+
 
         if ((typeof texto === 'undefined') || (texto.length != maxLength)) {
             return false; // Devuelve una cadena vacía si texto es undefined
@@ -100,8 +105,10 @@
         }
     }
 
+
     let imageSelected = ref(false);
     let imageUrl = ref('');
+
 
     const onFileChange = (event) => {
         const file = event.target.files[0];
@@ -109,19 +116,23 @@
         console.log(filePath);
         const reader = new FileReader();
 
+
         reader.onload = () => {
             imageUrl.value = reader.result;
             imageSelected.value = true;
         };
 
+
         reader.readAsDataURL(file);
     };
+
 
     const discardImage = () => {
         // Reinicia las variables relacionadas con la imagen seleccionada
         imageUrl.value = '';
         imageSelected.value = false;
     };
+
 
     const addPublicacion = async () => {
         // Agrega la lógica para enviar la imagen junto con el texto
@@ -144,11 +155,8 @@
                 strSuccess.value = '';
             });
     };
-
-    onMounted(() => {
- 
-    });
 </script>
+
 
 <style>
     .post-text {
@@ -156,13 +164,26 @@
         word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
     }
 
+
     .textarea{
         resize: none;
         height: 100px;
     }
 
+
     input[type="file"] {
-    display: none;
-}
+        display: none;
+    }
+
+
+    .create-post-form{
+        background-color: #fff;
+        padding: 24px;
+        border-radius: 8px;
+    }
+
 
 </style>
+
+
+

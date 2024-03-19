@@ -90,7 +90,7 @@
     background-color: #ffffff;
     border-radius: 8px 8px 0px 0px;
 }
-.card-post-top img{
+.img-perfil{
     border: solid 3px var(--color-primario);
     height: 50px;
     width: 50px;

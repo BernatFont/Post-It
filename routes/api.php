@@ -24,6 +24,8 @@ Route::post('publicacions/',[PublicacionController::class,'store']);
 Route::post('get-publicacions',[PublicacionController::class,'getPosts']);
 Route::post('/like/add/{id}', [LikeController::class, 'store']);
 
+Route::get('followers/{id}', [UserController::class, 'getUserFollowsFollowers']);
+Route::get('followers/data/{id}', [UserController::class, 'getUserFollowsFollowersData']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function() {

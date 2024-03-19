@@ -58,4 +58,19 @@ class User extends Authenticatable
     {
         return $this->belongsTo(Publicacion::class);
     }
+    
+    // Definición de la relación con el campo 'id_usuario_seguido' de la tabla Seguido
+    public function getUsuariosQueLeSiguen()
+    {
+        return $this->hasMany(Seguido::class, 'id_usuario_seguido');
+    }
+
+
+    // Definición de la relación con el campo 'id_usuario' de la tabla Seguido
+    public function getUsuarioSeguidos()
+    {
+        return $this->hasMany(Seguido::class, 'id_usuario');
+    }
+
 }
+

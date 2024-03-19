@@ -11,7 +11,7 @@
         <div v-for="publicacion in publicaciones" class="card-post mb-5">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <img src="/images/placeholder.jpg" alt="" class="ms-2">
+                    <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                         <span>@{{ publicacion.user.username }}</span>
