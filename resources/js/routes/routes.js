@@ -12,7 +12,9 @@ const Usuario = () => import('../views/user/perfil.vue');
 const Mensajes= () => import('../views/user/mensajes.vue');
 const Notificaciones= () => import('../views/user/notificaciones.vue');
 const CrearPublicacion= () => import('../views/user/crearPublicacion.vue');
-
+const ViewSeguidores= () => import('../views/user/viewSeguidores.vue');
+const ViewSeguidos= () => import('../views/user/viewSeguidos.vue');
+const MostrarPublicacion= () => import('../views/user/publicacion.vue');
 
 const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
 const PostsCreate  = ()  => import('../views/admin/posts/Create.vue');
@@ -64,6 +66,24 @@ export default [
                 path: 'create',
                 component: CrearPublicacion,
                 meta: { breadCrumb: 'Crear publicación' }
+            },
+            {
+                name: 'publicacion.mostrar',
+                path: 'mostrar/:id',
+                component: MostrarPublicacion,
+                meta: { breadCrumb: 'Mostrar publicación' }
+            },
+            {
+                name: 'view.seguidores',
+                path: 'seguidores',
+                component: ViewSeguidores,
+                meta: { breadCrumb: 'Vista de seguidores' }
+            },
+            {
+                name: 'view.seguidos',
+                path: 'seguidos',
+                component: ViewSeguidos,
+                meta: { breadCrumb: 'Vista de seguidos' }
             },
             // {
             //     name: 'tasks.update',
