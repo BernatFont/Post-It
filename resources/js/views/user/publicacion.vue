@@ -22,7 +22,7 @@
                 <span>{{ publicacion.likes_count }}</span>
             </div>
             <div class="d-flex align-items-center">
-                <i class="pi pi-comment p-3"></i><span>0</span>
+                <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
             </div>
         </div>
         <div class="card-post-comentarios">
@@ -38,7 +38,20 @@
                         </div>
                     </form>
                 </div>
-                <div class=""> <!--Seccion donde mostrar los comentarios -->
+                <!--Seccion donde mostrar los comentarios -->
+                <div v-for="comentario in publicacion.comentarios" class="card-post mb-5"> 
+                    <div class="d-flex flex-row align-items-center">
+                        <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                        <div class="d-flex flex-column m-auto">
+                            <div class="d-flex flex-row justify-content-between">
+                                <span>{{ comentario.user.name }}{{ comentario.user.surname }}</span>
+                                <span>{{ formatearFecha(comentario.created_at) }}</span>
+                            </div>
+                            
+                            <span>@{{ comentario.user.username }}</span>
+                        </div> 
+                    </div>
+                    <div>{{ comentario.contenido }}</div>
                 </div>
             </div>
         </div>
@@ -53,6 +66,7 @@ import axios from "axios";
 import { ref, onMounted } from "vue";
 import { useRouter } from 'vue-router';
 
+const comentarios = ref();
 const comentario = ref({});
 const router = useRouter();
 const id = router.currentRoute.value.params.id; // Obtener el ID de la URL
@@ -72,11 +86,11 @@ const addComentario = (contenido) => {
         });
     }
 }
-
 onMounted(() => {
     axios.get('/api/publicacions/' + id)
         .then(response => {
             publicacion.value = response.data;
+            console.log(publicacion.value);
         })
         .catch(error => {
             console.error('Error al obtener la publicación:', error);

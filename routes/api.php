@@ -19,12 +19,14 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 Route::post('forget-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forget.password.post');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
-
 Route::get('publicacions', [PublicacionController::class, 'index']);
 Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']);
 Route::post('publicacions/',[PublicacionController::class,'store']);
 Route::post('get-publicacions',[PublicacionController::class,'getPosts']);
+
 Route::post('/like/add/{id}', [LikeController::class, 'store']);
+
+Route::get('comentarios', [ComentarioController::class, 'index']);
 Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']);
 
 Route::get('followers/{id}', [UserController::class, 'getUserFollowsFollowers']);

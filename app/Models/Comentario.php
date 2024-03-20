@@ -15,6 +15,15 @@ class Comentario extends Model
         'contenido'
     ];
 
+    public function publicacion()
+    {
+        return $this->belongsTo(Publicacion::class, 'id_publicacion', 'id');
+    }
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
+    }
+    
     public function notificacions()
     {
         return $this->morphMany(Notificacion::class, 'contenido');
