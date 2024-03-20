@@ -13,9 +13,7 @@ class LikeController extends Controller
     public function store($id, Request $request)
     {
         $userId = auth()->id();
-        $like = Like::where('id_publicacion', $id)
-                    ->where('id_usuario', $userId)
-                    ->first();
+        $like = Like::where('id_publicacion', $id)->where('id_usuario', $userId)->first();
     
         // Si el like existe, lo eliminamos
         if ($like) {

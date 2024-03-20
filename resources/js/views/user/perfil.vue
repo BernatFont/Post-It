@@ -9,55 +9,44 @@
                 </div>
             </div>
             <div class="d-flex flex-column">
-                <a href=""><span>Seguidores: {{ followers.get_usuarios_que_le_siguen_count }}</span></a>
-                <span>Sigues: {{ followers.get_usuario_seguidos_count }}</span>
+                <router-link :to="{name: 'view.seguidores'}">Seguidores: {{ numSeguidores }}</router-link>
+                <router-link :to="{name: 'view.seguidos'}">Seguidos: {{ numSeguidos }}</router-link>
             </div>
             <div>
-                <button class="btn btn-warning">Editar perfil</button>
+                <button class="btn btn-postit">Editar perfil</button>
             </div>
         </div>
     </div>
     <div class="px-5">
         <div class="top-content-view w-100">
-            <div v-for="(seguidor, index) in dataFollowers.get_usuarios_que_le_siguen" :key="index">
-                <p>ID del seguidor: {{ seguidor.id }}</p>
-                <p>ID del usuario seguido: {{ seguidor.id_usuario_seguido }}</p>
-            </div>
-            <!-- {{ dataFollowers }} -->
+            {{ dataFollowers }}
         </div>    
     </div>
 </template>
 
 
 <script setup>
-    import { inject, onMounted, ref , computed} from "vue";
+    import { onMounted, ref , computed} from "vue";
     import { useStore } from 'vuex';
-
-
+    
     /* Obtenemos datos del usuario */
     const store = useStore();
     const user = computed(() => store.state.auth.user)
-    const followers = ref(0);
     const dataFollowers = ref(0);
 
+    const numSeguidores = ref(0);
+    const numSeguidos = ref(0);
 
-    const num = 0;
     onMounted(() => {
         axios.get('/api/followers/' + user.value.id)
             .then(response => {
-                followers.value = response.data;
-                // console.log(followers.value);
-            })
-    })
-
-
-    onMounted(() => {
-        axios.get('/api/followers/data/' + user.value.id)
-            .then(response => {
                 dataFollowers.value = response.data;
                 console.log(dataFollowers.value);
+                numSeguidores.value = dataFollowers.value.seguidores_count;
+                numSeguidos.value = dataFollowers.value.seguidos_count;
             })
     })
+
 </script>
 
 

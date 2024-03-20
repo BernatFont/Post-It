@@ -143,21 +143,14 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    /*
-    Funcion que llamo en el axios de la vista perfil
-    Lo que hace es contar los seguidores y la gente a la que sigue el usuario, en los parametros del withCount
-    Estos parametros son funciones del modelo Usuario
-    */
-    public function getUserFollowsFollowers($id)
-    {
-        return User::withCount('getUsuariosQueLeSiguen','getUsuarioSeguidos')->findOrFail($id);
-    }
-
-
-    /* Lo mismo que la anterior pero mostrando los seguidores y los seguidos */
     public function getUserFollowsFollowersData($id)
     {
-        return User::with('getUsuariosQueLeSiguen','getUsuarioSeguidos')->findOrFail($id);
+        return User::with('seguidores','seguidos')->findOrFail($id);
+    }
+
+    public function getUserFollowsFollowers($id)
+    {
+        return User::withCount('seguidores','seguidos')->findOrFail($id);
     }
 
 }
