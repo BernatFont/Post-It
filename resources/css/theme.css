@@ -57,6 +57,10 @@
     font-size: 1rem;
     font-weight: normal
 }*/
+
+.textColor {
+    color: var(--text-color);
+}
 .btn-postit{
     background-color: var(--color-primario);
     cursor: pointer;
@@ -120,6 +124,17 @@
     border-radius: 0px 0px 8px 8px;
     background-color: #ffffff;
 }
+
+.card-post-comentarios {
+    border-radius: 0px 0px 8px 8px;
+    background-color: #ffffff;
+}
+
+.card-post-comentario-content {
+    margin: 0 10px 10px 10px;
+    width: 100%;
+}
+
 
 /*Contenedor de las vistas*/
 .content-view{

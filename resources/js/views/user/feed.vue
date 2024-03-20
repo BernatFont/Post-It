@@ -19,20 +19,24 @@
                 </div>
                 <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
             </div>
+            <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
             <div class="px-3 py-2 card-post-text">
                 <span>{{ publicacion.texto }}</span>
             </div>
             <div class="card-post-img d-flex justify-content-center">
                 <img src="/images/prueba.jpg" alt="">
             </div>
+            </router-link>
             <div class="card-post-bottom d-flex">
-                <div class="d-flex align-items-center" @click="like(publicacion.id)">
+                <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion.id)">
                     <i class="pi p-3" :class="publicacion.liked ? 'pi-heart-fill' : 'pi-heart'"></i>
                     <span>{{ publicacion.likes_count }}</span>
                 </div>
-                <div class="d-flex align-items-center">
-                    <i class="pi pi-comment p-3"></i><span>999</span>
-                </div>   
+                <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-comment p-3 contentBlack"></i><span class="contentBlack">0</span>
+                    </div>   
+                </router-link>
             </div>
         </div>
     </div>
@@ -60,6 +64,7 @@ const like = (id) => {
     });
 
 }
+
 // Función para calcular la diferencia en minutos, horas y días
 const calcularDiferencia = (fechaPublicacion) => {
   const fechaPublicacionObjeto = new Date(fechaPublicacion);

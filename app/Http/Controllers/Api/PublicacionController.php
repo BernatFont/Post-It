@@ -8,6 +8,7 @@ use App\Models\Publicacion;
 //Importamos modelo usuario para poder hacer la relacion con el post (como un join)
 use App\Models\User;
 use App\Models\Like;
+use App\Models\Comentario;
 
 class PublicacionController extends Controller
 {
@@ -28,6 +29,20 @@ class PublicacionController extends Controller
         $post = Publicacion::create($publicacion);
 
         return response()->json(['success'=> true,'data'=> $post]);
+    }
+
+    // Funcion para devolver una publicacion por id
+    public function mostrarPublicacion($id, Request $request) {
+        $publicacion = Publicacion::find($id);
+    
+        // Verifica si la publicación existe
+        if (!$publicacion) {
+            return response()->json(['error' => 'Publicación no encontrada'], 404);
+        } else {
+            $publicacion = $publicacion->load('user')->loadCount('likes')->toArray();
+        }
+        // Devuelve solo la publicación encontrada por su ID
+        return response()->json($publicacion);
     }
 
     

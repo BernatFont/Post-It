@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PublicacionController;
 use App\Http\Controllers\Api\LikeController;
+use App\Http\Controllers\Api\ComentarioController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -20,9 +21,11 @@ Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('
 
 
 Route::get('publicacions', [PublicacionController::class, 'index']);
+Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']);
 Route::post('publicacions/',[PublicacionController::class,'store']);
 Route::post('get-publicacions',[PublicacionController::class,'getPosts']);
 Route::post('/like/add/{id}', [LikeController::class, 'store']);
+Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']);
 
 Route::get('followers/{id}', [UserController::class, 'getUserFollowsFollowers']);
 Route::get('followers/data/{id}', [UserController::class, 'getUserFollowsFollowersData']);
