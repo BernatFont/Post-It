@@ -19,7 +19,7 @@
                             <input type="file" id="file-upload" @change="onFileChange">
                         </div>
                         <div v-if="imageSelected">
-                            <button @click="discardImage" class="btn btn-primary">Descartar imagen</button>
+                            <button @click="discardImage" class="btn btn-discard">Descartar imagen</button>
                         </div>
                     </div>
                     <div class="pt-4">

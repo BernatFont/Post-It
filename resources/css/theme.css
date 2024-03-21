@@ -1,5 +1,8 @@
 :root {
-    --color-primario: #36F0A8;
+    --color-primario: #00FFFF;
+    --color-secundario: #324B4B;
+    --color-terciario: #EEFCFC;
+    --color-cuaternario: #E6F4F1;
     --surface-a: #ffffff;
     --surface-b: #f8f9fa;
     --surface-c: #e9ecef;
@@ -57,6 +60,9 @@
     font-size: 1rem;
     font-weight: normal
 }*/
+p,span,a,label,button,h1,h2,h3{
+    color: var(--color-secundario);
+}
 
 .textColor {
     color: var(--text-color);
@@ -64,14 +70,25 @@
 .btn-postit{
     background-color: var(--color-primario);
     cursor: pointer;
-    color: #000;
+    color: var(--color-secundario);
     transition: border .2s ease-in-out;
 }
-
 .btn-postit:hover {
     background-color: var(--color-primario);
-    color: #000;
-    border: 1px solid #000;
+    color: var(--color-secundario);
+    border: 1px solid var(--color-secundario);
+}
+
+.btn-discard{
+    background-color: var(--color-secundario);
+    cursor: pointer;
+    color: var(--color-terciario);
+    transition: border .2s ease-in-out;
+}
+.btn-discard:hover {
+    background-color: var(--color-primario);
+    color: var(--color-secundario);
+    border: 1px solid var(--color-secundario);
 }
 
 /*Contenido de la parte superior de las vistas*/
@@ -106,8 +123,8 @@
 }
 
 .card-post-img{
-    border-bottom: 1px solid rgb(212, 219, 226);
-    border-top: 1px solid rgb(212, 219, 226);
+    border-bottom: 1px solid var(--color-cuaternario);
+    border-top: 1px solid var(--color-cuaternario);
     background-color: #ffffff;
     width: 100%;
     aspect-ratio: 16/9;

@@ -17,7 +17,7 @@
 <style scoped>
  .general{
     height: 100%;
-    background-color:#e0ffd0;
+    background-color:var(--color-terciario);
  }
 
  .contenido-view{
