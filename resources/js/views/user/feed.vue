@@ -34,7 +34,7 @@
                 </div>
                 <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
                     <div class="d-flex align-items-center">
-                        <i class="pi pi-comment p-3 contentBlack"></i><span class="contentBlack">0</span>
+                        <i class="pi pi-comment p-3 contentBlack"></i><span class="contentBlack">{{publicaciones.comentarios_count}}</span>
                     </div>   
                 </router-link>
             </div>
@@ -98,6 +98,7 @@ onMounted(() => {
             liked: publicacion.liked_by_current_user === true
         }));
         publicaciones.value = publicacionesConLiked;
+        console.log(publicaciones.value);
     })
 })
 </script>
