@@ -28,6 +28,22 @@ class PublicacionController extends Controller
         $publicacion['id_usuario'] = auth()->id();
         $post = Publicacion::create($publicacion);
 
+       // Verifica si la solicitud HTTP contiene un archivo con el nombre 'imagen'
+        if ($request->hasFile('imagen')) {
+            // Si hay un archivo en la solicitud, añádelo al modelo de publicación ($post)
+            // Utilizando el método addMediaFromRequest() proporcionado por Laravel Media Library
+            // 'imagen' se refiere al nombre del campo en el formulario HTML que contiene el archivo de imagen
+            $post->addMediaFromRequest('imagen')
+                // Garantiza que se conserve el archivo original sin procesar que se ha cargado
+                // Útil cuando se desea conservar la imagen sin procesar además de realizar manipulaciones adicionales en la imagen
+                ->preservingOriginal()
+                // Guarda la imagen en una colección de medios llamada 'images-publicacion'
+                // Esto significa que la imagen se almacenará y se asociará con el modelo de publicación ($post) bajo esta colección de medios
+                ->toMediaCollection('images-publicacion');
+        }
+        
+
+
         return response()->json(['success'=> true,'data'=> $post]);
     }
 

@@ -14,13 +14,18 @@
                 </div>
                 <div class="d-flex justify-content-between">
                     <div class="pt-4">
-                        <div v-if="!imageSelected">
+                        <div>
+                            <!-- Agregamos un input de tipo file -->
+                            <label for="file-upload" class="btn btn-primary">Subir imagen</label>
+                            <input type="file" id="file-upload" @change="onFileChange">
+                        </div>
+                        <!-- <div v-if="!imageSelected">
                             <label for="file-upload" class="btn btn-primary">Subir imagen</label>
                             <input type="file" id="file-upload" @change="onFileChange">
                         </div>
                         <div v-if="imageSelected">
                             <button @click="discardImage" class="btn btn-discard">Descartar imagen</button>
-                        </div>
+                        </div> -->
                     </div>
                     <div class="pt-4">
                         <div>
@@ -115,7 +120,8 @@
         const filePath =event.target.value; // Obtiene la ruta completa del archivo seleccionado
         console.log(filePath);
         const reader = new FileReader();
-
+        publicacion.value.imagen = file;
+        console.log(publicacion.value.imagen);
 
         reader.onload = () => {
             imageUrl.value = reader.result;
@@ -136,7 +142,22 @@
 
     const addPublicacion = async () => {
         // Agrega la lógica para enviar la imagen junto con el texto
-        await axios.post('/api/publicacions', publicacion.value)
+        let PublicacionFormateada = new FormData()
+        console.log(publicacion.value);
+        for (let item in publicacion.value) {
+            console.log(item);
+            console.log(publicacion.value.hasOwnProperty(item));
+            if (publicacion.value.hasOwnProperty(item)) {
+
+                PublicacionFormateada.append(item, publicacion.value[item])
+            }
+        }   
+        console.log(PublicacionFormateada);
+        axios.post('/api/publicacions', PublicacionFormateada, {
+            headers: {
+                "content-type": "multipart/form-data"
+            }
+        })
             .then(response => {
                 console.log(response);
                 strSuccess.value = response.data.success;
@@ -150,13 +171,14 @@
                 // Redirige a otra página después de una tarea exitosa
                 router.push('/inicio');
             }).catch(error => {
+                console.log("Error al publicar")
                 console.log(error);
                 strError.value = error.response.data.message;
                 strSuccess.value = '';
             });
     };
+    
 </script>
-
 
 <style>
     .post-text {
@@ -181,7 +203,6 @@
         padding: 24px;
         border-radius: 8px;
     }
-
 
 </style>
 
