@@ -1,6 +1,6 @@
 <template>
-    <div class="py-2 d-flex justify-content-center">
-        <div class="top-content-view d-flex justify-content-between">
+    <div class="py-2 d-flex justify-content-center ">
+        <div class="top-content-view d-flex justify-content-between ">
             <h2>Home</h2>
             <div>
                 <router-link :to="{name: 'publicacion.create'}" class="btn btn-postit btn-crear-post px-5">Publicar post</router-link>
@@ -23,8 +23,9 @@
             <div class="px-3 py-2 card-post-text">
                 <span>{{ publicacion.texto }}</span>
             </div>
-            <div class="card-post-img d-flex justify-content-center">
-                <img src="/images/prueba.jpg" alt="">
+            <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
+            <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
+                <img :src="publicacion.media[0].original_url" alt="">
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">

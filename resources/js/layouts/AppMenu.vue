@@ -85,16 +85,9 @@ function Logout() {
         position: fixed;
         width: 20vw;
         height: 100vh;
-        /* height: calc(100vh - 9rem); */
         z-index: 999;
-        /* overflow-y: auto; */
         user-select: none;
-        /* left: 0rem; */
-        /* top: 0rem; */
-        /* transition: transform $transitionDuration, left $transitionDuration; */
-        background-color: #fff;
-        /* border-radius: $borderRadius; */
-        /* padding: 0.5rem 1.5rem; */
+        background-color: var(--color-primario);
         box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.22), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
     }
     .menu-container{

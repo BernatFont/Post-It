@@ -13,9 +13,9 @@
         <div class="px-3 py-2 card-post-text">
             <span>{{ publicacion.texto }}</span>
         </div>
-        <div class="card-post-img d-flex justify-content-center">
-            <img src="/images/prueba.jpg" alt="">
-        </div>
+        <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
+                <img :src="publicacion.media[0].original_url" alt="">
+            </div>
         <div class="card-post-bottom d-flex">
             <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
                 <i class="pi p-3" :class="publicacion.liked ? 'pi-heart-fill' : 'pi-heart'"></i>

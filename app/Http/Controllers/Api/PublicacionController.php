@@ -9,13 +9,14 @@ use App\Models\Publicacion;
 use App\Models\User;
 use App\Models\Like;
 use App\Models\Comentario;
+use App\Models\Media;
 
 class PublicacionController extends Controller
 {
     //OBTENEMOS LOS DATOS DE LA BD
     public function index(){
         // 'With' de 'user' para importar sus datos y 'orderby' para mostrar los post por fecha de mas reciente a mas antiguo
-        $publicaciones = Publicacion::with('user')->withCount('likes','comentarios')->orderBy('created_at', 'desc')->get()->toArray();
+        $publicaciones = Publicacion::with('user','media')->withCount('likes','comentarios')->orderBy('created_at', 'desc')->get()->toArray();
         return $publicaciones;
     }
 
@@ -55,7 +56,7 @@ class PublicacionController extends Controller
         if (!$publicacion) {
             return response()->json(['error' => 'Publicación no encontrada'], 404);
         } else {
-            $publicacion = $publicacion->load('user','comentarios.user')->loadCount('likes','comentarios')->toArray();
+            $publicacion = $publicacion->load('user','comentarios.user','media')->loadCount('likes','comentarios')->toArray();
         }
         // Devuelve solo la publicación encontrada por su ID
         return response()->json($publicacion);

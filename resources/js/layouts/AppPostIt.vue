@@ -3,7 +3,7 @@
         <div class="menu-sidebar">
             <AppSidebar/>
         </div>
-        <div class="contenido-view">
+        <div class="contenido-view ">
             <router-view></router-view>
         </div>
     </div>
@@ -17,7 +17,7 @@
 <style scoped>
  .general{
     height: 100%;
-    background-color:var(--color-terciario);
+    background-color:var(--color-contraste2); 
  }
 
  .contenido-view{
