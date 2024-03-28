@@ -19,10 +19,13 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 Route::post('forget-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forget.password.post');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
-Route::get('publicacions', [PublicacionController::class, 'index']);
-Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']);
-Route::post('publicacions/',[PublicacionController::class,'store']);
+Route::get('publicacions', [PublicacionController::class, 'index']); // Listar
+Route::post('publicacions/',[PublicacionController::class,'store']); // Guardar
+Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']); // Mostrar una publicacion
 Route::post('get-publicacions',[PublicacionController::class,'getPosts']);
+Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar
+Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar
+Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']); // Eliminar
 
 Route::post('/like/add/{id}', [LikeController::class, 'store']);
 

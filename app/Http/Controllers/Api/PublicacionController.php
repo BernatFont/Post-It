@@ -16,7 +16,7 @@ class PublicacionController extends Controller
     //OBTENEMOS LOS DATOS DE LA BD
     public function index(){
         // 'With' de 'user' para importar sus datos y 'orderby' para mostrar los post por fecha de mas reciente a mas antiguo
-        $publicaciones = Publicacion::with('user','media')->withCount('likes','comentarios')->orderBy('created_at', 'desc')->get()->toArray();
+        $publicaciones = Publicacion::with('user','media','likes')->withCount('likes','comentarios')->orderBy('created_at', 'desc')->get()->toArray();
         return $publicaciones;
     }
 
@@ -43,8 +43,6 @@ class PublicacionController extends Controller
                 ->toMediaCollection('images-publicacion');
         }
         
-
-
         return response()->json(['success'=> true,'data'=> $post]);
     }
 
@@ -56,10 +54,39 @@ class PublicacionController extends Controller
         if (!$publicacion) {
             return response()->json(['error' => 'Publicación no encontrada'], 404);
         } else {
-            $publicacion = $publicacion->load('user','comentarios.user','media')->loadCount('likes','comentarios')->toArray();
+            $publicacion = $publicacion->load('user','comentarios.user','media','likes')->loadCount('likes','comentarios')->toArray();
         }
         // Devuelve solo la publicación encontrada por su ID
         return response()->json($publicacion);
+    }
+
+    // Funcion para actualizar una publicacion
+    public function update($id, Request $request){
+
+        $publicacion = Publicacion::find($id);       
+        $request->validate([
+            'texto' => 'required|max:300'
+        ]);
+
+        $dataToUpdate = $request->all();
+        $publicacion->update($dataToUpdate);
+
+        return response()->json(['success'=> true,'data'=> $publicacion]);
+
+    }
+
+    // Funcion que elimina una publicacion
+    public function destroy($id) 
+    {
+        $publicacion = Publicacion::find($id);
+        // Verifica si la publicación existe
+        if (!$publicacion) {
+            return response()->json(['error' => 'Publicación no encontrada'], 404);
+        } else {
+            $publicacion->delete();
+        }
+        
+        return response()->noContent();
     }
 
     

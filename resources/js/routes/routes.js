@@ -12,6 +12,7 @@ const Usuario = () => import('../views/user/perfil.vue');
 const Mensajes= () => import('../views/user/mensajes.vue');
 const Notificaciones= () => import('../views/user/notificaciones.vue');
 const CrearPublicacion= () => import('../views/user/crearPublicacion.vue');
+const EditarPublicacion  = ()  => import('../views/user/actualizarPublicacion.vue');
 const ViewSeguidores= () => import('../views/user/viewSeguidores.vue');
 const ViewSeguidos= () => import('../views/user/viewSeguidos.vue');
 const MostrarPublicacion= () => import('../views/user/publicacion.vue');
@@ -74,6 +75,12 @@ export default [
                 meta: { breadCrumb: 'Mostrar publicación' }
             },
             {
+                  name: 'publicacion.update',
+                  path: 'update/:id',
+                  component: EditarPublicacion,
+                  meta: { breadCrumb: 'Modificar publicacion' }
+            },
+            {
                 name: 'view.seguidores',
                 path: 'seguidores',
                 component: ViewSeguidores,
@@ -85,12 +92,6 @@ export default [
                 component: ViewSeguidos,
                 meta: { breadCrumb: 'Vista de seguidos' }
             },
-            // {
-            //     name: 'tasks.update',
-            //     path: 'update/:id',
-            //     component: TasksUpdate,
-            //     meta: { breadCrumb: 'Update tareas' }
-            // }
         ]
     },
     {
