@@ -16,23 +16,20 @@
         <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
                 <img :src="publicacion.media[0].original_url" alt="">
             </div>
-        <div class="card-post-bottom d-flex">
-            <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
-                <!-- <i class="pi p-3" :class="publicacion.liked ? 'pi-heart-fill' : 'pi-heart'"></i> -->
-                <i class="pi p-3" :class="comprobarLike(publicacion) ? 'pi-heart-fill' : 'pi-heart'"></i>
-
-                <span>{{ publicacion.likes_count }}</span>
-            </div>
-            <div class="d-flex align-items-center">
-                <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
-            </div>
-            <div>
-                <router-link :to="{name: 'publicacion.update'}" class="btn btn-postit btn-crear-post px-5">Modificar</router-link>
-            </div>
-            <div>
-                <button @click="eliminarPublicacion()" class="btn btn-danger">Eliminar</button>
-            </div>
+        <div class="card-post-bottom d-flex justify-content-between">
+                <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
+                    <i class="pi p-3" :class="comprobarLike(publicacion) ? 'pi-heart-fill' : 'pi-heart'"></i><span>{{ publicacion.likes_count }}</span>
+                    <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
+                </div>
+                <div class="d-flex align-items-center mr-4">
+                    <span>{{ obtenerFecha(publicacion.created_at) }}</span>
+                </div>
         </div>
+        <div class="d-flex flex-row">
+            <router-link :to="{name: 'publicacion.update'}" class="btn btn-postit btn-crear-post px-5">Modificar</router-link>
+            <button @click="eliminarPublicacion()" class="btn btn-danger">Eliminar</button>
+        </div>
+        
         <div class="card-post-comentarios">
             <div class="px-3 pb-2">
                 <div class=""> <!--Seccion donde escribir un comentario -->
@@ -133,6 +130,7 @@ const eliminarPublicacion = () => {
         axios.delete('/api/publicacions/delete/' + id)
             .then(response => {
                 console.log("Publicación eliminada exitosamente");
+                router.push({ name: 'feed' });
             })
             .catch(error => {
                 console.error("Error al eliminar la publicación:", error);
@@ -187,6 +185,20 @@ const formatearFecha = (fechaPublicacion) => {
     return `Hace ${dias} días`;
   }
 };
+function obtenerFecha(fecha) {
+    // Crear un objeto de fecha a partir de la cadena proporcionada
+    const fechaObjeto = new Date(fecha);
+    
+    // Obtener los componentes de la fecha
+    const horas = fechaObjeto.getHours().toString().padStart(2, '0'); // Añadir ceros a la izquierda si es necesario
+    const minutos = fechaObjeto.getMinutes().toString().padStart(2, '0');
+    const dia = fechaObjeto.getDate().toString().padStart(2, '0');
+    const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // El mes es base 0, por lo que se agrega 1
+    const año = fechaObjeto.getFullYear();
+
+    // Devolver la fecha formateada en el formato deseado
+    return `${horas}:${minutos} ${dia}/${mes}/${año}`;
+}
 
 </script>
 
