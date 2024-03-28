@@ -74,13 +74,12 @@
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 const comentarios = ref([]);
 const comentario = ref({});
 const router = useRouter();
 const id = router.currentRoute.value.params.id; // Obtener el ID de la URL
-import { useStore } from 'vuex';
-
 const store = useStore(); // Obtenemos la instancia del store de Vuex
 const usuarioActual = computed(() => store.state.auth.user);
 
