@@ -142,17 +142,6 @@ class UserController extends Controller
 
         return response()->noContent();
     }
-    
-    // public function getUserFollowsFollowers($id)
-    // {
-    //     return User::withCount('seguidores','seguidos')->findOrFail($id);
-    // }
-    
-    public function getUserFollowsFollowersData($id)
-    {
-        return User::with('seguidores','seguidos')->findOrFail($id);
-    }
-
 
     // Funcion para obtener usuario por id, se declara el contenido json aqui por no utilizar el UserResource ya que genera errores con la fecha created_at.
     public function obtenerUsuario($username) {

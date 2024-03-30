@@ -80,18 +80,6 @@ export default [
                   component: EditarPublicacion,
                   meta: { breadCrumb: 'Modificar publicacion' }
             },
-            {
-                name: 'view.seguidores',
-                path: 'seguidores',
-                component: ViewSeguidores,
-                meta: { breadCrumb: 'Vista de seguidores' }
-            },
-            {
-                name: 'view.seguidos',
-                path: 'seguidos',
-                component: ViewSeguidos,
-                meta: { breadCrumb: 'Vista de seguidos' }
-            },
         ]
     },
     {
@@ -101,11 +89,37 @@ export default [
         meta: { breadCrumb: 'Perfil' },
         children: [
             {
-                name: 'usuario.mostrar',
+                name: '',
                 path: ':username',
-                component: Usuario,
-                meta: { breadCrumb: 'Perfil usuario'}
+                meta: { breadCrumb: ''},
+                children: [
+                    {
+                        name: 'usuario.mostrar',
+                        path: '',
+                        component: Usuario,
+                        meta: { breadCrumb: 'Perfil usuario'},
+                    },
+                    // {
+                    // name: 'usuario.editar',
+                    //path: 'editar',
+                    //component: Usuario,
+                    //meta: { breadCrumb: 'Editar usuario'},
+                    // },
+                    {
+                        name: 'usuario.seguidores',
+                        path: 'seguidores',
+                        component: ViewSeguidores,
+                        meta: { breadCrumb: 'Vista de seguidores' }
+                    },
+                    {
+                        name: 'usuario.seguidos',
+                        path: 'seguidos',
+                        component: ViewSeguidos,
+                        meta: { breadCrumb: 'Vista de seguidos' }
+                    },
+                ]
             },
+
         ]
     },
     // {
@@ -121,7 +135,7 @@ export default [
     //         },
     //     ]
     // },
-    { 
+    {
         path: '/mensajes',
         component: UserLayout,
         beforeEnter: requireLogin,
@@ -134,7 +148,7 @@ export default [
             },
         ]
     },
-    { 
+    {
         path: '/notificaciones',
         component: UserLayout,
         beforeEnter: requireLogin,
@@ -147,7 +161,7 @@ export default [
             },
         ]
     },
-    { 
+    {
         path: '/crear',
         component: UserLayout,
         beforeEnter: requireLogin,
@@ -160,7 +174,7 @@ export default [
             },
         ]
     },
-    
+
     {
         // Ruta inicial
         path: '/',
@@ -281,7 +295,7 @@ export default [
                     }
                 ]
             },
-        
+
             {
                 name: 'categories',
                 path: 'categories',
@@ -297,9 +311,9 @@ export default [
                         name: 'categories.create',
                         path: 'create',
                         component: () => import('../views/admin/categories/Create.vue'),
-                        meta: { 
+                        meta: {
                             breadCrumb: 'Add new category' ,
-                            linked: false, 
+                            linked: false,
                         }
                     },
                     {
@@ -329,16 +343,16 @@ export default [
                         name: 'permissions.create',
                         path: 'create',
                         component: () => import('../views/admin/permissions/Create.vue'),
-                        meta: { 
+                        meta: {
                             breadCrumb: 'Create Permission',
-                            linked: false,  
+                            linked: false,
                         }
                     },
                     {
                         name: 'permissions.edit',
                         path: 'edit/:id',
                         component: () => import('../views/admin/permissions/Edit.vue'),
-                        meta: { 
+                        meta: {
                             breadCrumb: 'Permission Edit',
                             linked: false,
                         }

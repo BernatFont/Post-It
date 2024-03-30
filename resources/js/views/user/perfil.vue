@@ -1,27 +1,27 @@
 <template>
-    <div class="py-2 px-5">
+    <div v-if="usuario" class="py-2 px-5">
         <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
             <div>
                 <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
-                <img :src="usuario && usuario.imagen ? usuario.imagen : '/images/placeholder.jpg'" alt="imagen del perfil del usuario" class="img-perfil">
+                <img :src="usuario.imagen ? usuario.imagen : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
                 <div class="ms-3 mt-5 d-flex flex-column">
                     <!-- Mostramos el nombre y apellido del usuario -->
-                    <span>{{ usuario ? usuario.name + (usuario.surname ? ' ' + usuario.surname : '') : 'Cargando...' }}</span>
+                    <span>{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
 
                     <!-- Mostramos el nombre de usuario -->
-                    <span class="mt-3">@{{ usuario ? usuario.username : 'Cargando...' }}</span>
+                    <span class="mt-3">@{{usuario.username}}</span>
                 </div>
             </div>
             <div class="d-flex flex-column">
                 <!-- Enlaces a las vistas de seguidores y seguidos -->
-                <router-link :to="{name: 'view.seguidores'}">Seguidores: {{ usuario ? usuario.seguidores_count : 'Cargando...' }} </router-link>
-                <router-link :to="{name: 'view.seguidos'}">Seguidos: {{ usuario ? usuario.seguidos_count : 'Cargando...' }}</router-link>
+                <router-link :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
+                <router-link :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
             </div>
             <div>
                 <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
-                <button v-if="usuario && userLogin && usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
-                <button v-else-if="usuario && userLogin && !seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
-                <button v-else-if="usuario && userLogin && seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
+                <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
+                <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
+                <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
             </div>
         </div>
     </div>
@@ -41,7 +41,7 @@ import axios from 'axios';
 
 /* Obtenemos datos del usuario */
 const store = useStore();
-const route = useRoute(); // Importar $route utilizando useRoute()
+const route = useRoute(); 
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const username = route.params.username; // Obtiene el usuario por la ruta
 const usuario = ref(null);

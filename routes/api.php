@@ -37,9 +37,6 @@ Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']
 
 Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
-Route::get('followers/data/{id}', [UserController::class, 'getUserFollowsFollowersData']);
-// Route::get('followers/{id}', [UserController::class, 'getUserFollowsFollowers']);
-
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);
