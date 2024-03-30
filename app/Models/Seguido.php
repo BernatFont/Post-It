@@ -13,4 +13,9 @@ class Seguido extends Model
         'id_usuario',
         'id_usuario_seguido'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'id_usuario', 'id');
+    }
 }

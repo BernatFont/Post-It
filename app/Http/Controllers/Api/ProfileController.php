@@ -31,4 +31,6 @@ class ProfileController extends Controller
 
         return $this->successResponse($user, 'User found');
     }
+
+    
 }

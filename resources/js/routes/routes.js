@@ -101,9 +101,10 @@ export default [
         meta: { breadCrumb: 'Perfil' },
         children: [
             {
-                path: '',
+                name: 'usuario.mostrar',
+                path: ':username',
                 component: Usuario,
-                meta: { breadCrumb: 'Perfil Index' }
+                meta: { breadCrumb: 'Perfil usuario'}
             },
         ]
     },

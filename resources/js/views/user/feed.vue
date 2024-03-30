@@ -11,7 +11,9 @@
         <div v-for="publicacion in publicaciones" class="card-post mb-5">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                    <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
+                        <img :src="publicacion.user.image ? publicacion.user.image : '/images/placeholder.jpg'" alt="" class="ms-2 img-perfil">
+                    </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                         <span>@{{ publicacion.user.username }}</span>
@@ -52,22 +54,6 @@ import { useStore } from 'vuex';
 const publicaciones = ref();
 const store = useStore(); // Obtenemos la instancia del store de Vuex
 const usuarioActual = computed(() => store.state.auth.user);
-
-// const like = (id) => {
-//     axios.post('/api/like/add/' + id)
-//     .then(response => {
-//         console.log("Like");
-//         // Actualiza la cantidad de likes en la vista
-//         const index = publicaciones.value.findIndex(publicacion => publicacion.id === id);
-//         if (index !== -1) {
-//             publicaciones.value[index].likes_count += response.data.liked ? 1 : -1;
-//             publicaciones.value[index].liked = response.data.liked;
-//         }
-//     }).catch(error => {
-//         console.error("Error al dar like:", error);
-//     });
-
-// }
 
 onMounted(() => {
     obtenerPublicaciones();

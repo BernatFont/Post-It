@@ -10,7 +10,10 @@ use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PublicacionController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ComentarioController;
+use App\Http\Controllers\Api\SeguidoController;
+
 use App\Http\Controllers\Auth\ResetPasswordController;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,15 +28,17 @@ Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacio
 Route::post('get-publicacions',[PublicacionController::class,'getPosts']);
 Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar
 Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar
-Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']); // Eliminar
 
 Route::post('/like/add/{id}', [LikeController::class, 'store']);
 
 Route::get('comentarios', [ComentarioController::class, 'index']);
 Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']);
+Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']); // Eliminar
 
-Route::get('followers/{id}', [UserController::class, 'getUserFollowsFollowers']);
+Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
+Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
 Route::get('followers/data/{id}', [UserController::class, 'getUserFollowsFollowersData']);
+// Route::get('followers/{id}', [UserController::class, 'getUserFollowsFollowers']);
 
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
