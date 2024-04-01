@@ -18,6 +18,9 @@
                 <router-link :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
             </div>
             <div>
+                <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
+                <button @click="chat" class="btn btn-postit">Mensaje</button>
+
                 <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
                 <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
                 <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
@@ -84,6 +87,18 @@ const comprobarSeguido = () => {
         seguidorUsuarioActual.value = seguidores.includes(userLogin.value.id);
     }
 };
+
+const chat = () => {
+    // Verificar si ya existe un chat entre el usuario actualmente logueado y el usuario visitado
+    axios.post('/api/chat/' + usuario.value.id)
+    .then(response => {
+        console.log("Chat");
+    })
+    .catch(error => {
+        console.error('Error al mostrar chat:', error);
+    });
+}
+
 </script>
 
 <style>

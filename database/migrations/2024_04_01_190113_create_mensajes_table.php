@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('mensajes', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('id_remitente');
-            $table->unsignedBigInteger('id_destinatario');
-            $table->foreign('id_remitente')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_destinatario')->references('id')->on('users')->onDelete('cascade');
-            $table->string('contenido');
+            $table->unsignedBigInteger('chat_id');
+            $table->unsignedBigInteger('user_id'); // El remitente del mensaje
+            $table->text('contenido');
             $table->timestamps();
+
+            $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.

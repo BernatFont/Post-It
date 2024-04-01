@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PublicacionController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ComentarioController;
 use App\Http\Controllers\Api\SeguidoController;
+use App\Http\Controllers\Api\ChatController;
 
 use App\Http\Controllers\Auth\ResetPasswordController;
 
@@ -37,6 +38,7 @@ Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']
 
 Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
+Route::post('/chat/{id}', [ChatController::class, 'store']); // Crear chat
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);
