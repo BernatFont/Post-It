@@ -1,18 +1,14 @@
-
 <template>
     <div class="menu d-flex flex-column justify-content-between">
-        <div class="top-menu">
-            <div class="logo d-flex p-2">
-                <!-- <img src="/images/post-it.png" alt="imagen del logo"> -->
-                <h1 class="titulo-sidebar p-4">POST-IT</h1>
-            </div>
+        <div class="logo mt-2 d-flex justify-content-center align-items-center">
+            <h1 class="titulo-sidebar">POST-IT</h1>
         </div>
         <div class="menu-container">
             <Menu :model="model">
                 <template #item="{ item, props }">
                     <router-link v-if="item.route" :to="item.route" custom></router-link>
                     <!--<a class="" v-else v-ripple :href="item.url" :target="item.target" v-bind="props.action">-->
-                    <a class="item-container" v-else v-ripple :href="item.url" :style="{ 'border-left': $route.path === item.route ? '5px solid #000' : 'none' }" >
+                    <a class="item-container ps-3" v-else v-ripple :href="item.url" :style="{ 'border-left': $route.path === item.route ? '5px solid #000' : 'none' }" >
                         <span :class="item.icon" />
                         <span>{{ $t(item.label) }}</span>
                     </a>
@@ -74,9 +70,12 @@ function Logout() {
 </script>
 
 <style>
-    .logo img{
-        width: 75px;
-        height: auto;
+    .logo {
+        height: 250px;
+        background-image: url(/public/images/papel_logo.svg);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
     }
     .titulo-sidebar {
         font-weight: 700;
@@ -87,16 +86,17 @@ function Logout() {
         height: 100vh;
         z-index: 999;
         user-select: none;
-        background-color: var(--color-primario);
-        box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.22), 0px 0px 2px rgba(0, 0, 0, 0.05), 0px 1px 4px rgba(0, 0, 0, 0.08);
+        background-image: url(/public/images/fondo_sidebar.jpg);
+        border-right: solid 2px #AC5708;
+        box-shadow: 8px 0px 10px rgba(0, 0, 0, 0.5);
     }
     .menu-container{
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        margin-top: 20px;
-        margin-bottom: 40px;
+        margin-top: 10px;
+        margin-bottom: 20px;
         
     }
     .menu ul{
