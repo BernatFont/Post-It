@@ -59,6 +59,11 @@
     box-sizing: border-box
 }
 
+@font-face {
+    font-family: 'Itty';
+    src: url('/public/fonts/IttyBittyNotebook-2X7K.ttf') format('truetype');
+  }
+  
 /*.p-component {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 1rem;
@@ -98,23 +103,47 @@ p,span,a,label,button,h1,h2,h3{
 
 /*Contenido de la parte superior de las vistas*/
 .top-content-view{
-    background-color: #fff;
     margin-top: 24px;
     padding: 24px 24px 12px 24px;
-    border-radius: 8px;
-    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
-    width: 65%;
+    width: 90%;
 }
 
+.title_page{
+    width: 160px;
+    background-image: url(/public/images/papel_title.svg);
+    background-repeat: no-repeat;
+}
+
+h2{
+    font-family: 'Itty',sans-serif;
+    font-size: 40px;
+}
 /* ESTRUCTURAMOS EL POST */
+.bg-1 {
+    background-color: #FDAAC4; /* Fondo rojo */
+    transform: rotate(-5deg);
+}
+
+.bg-2 {
+    background-color: #8BFAFE; /* Fondo azul */
+}
+
+.bg-3 {
+    background-color: #B2DB82; /* Fondo verde */
+    transform: rotate(2deg);
+}
+
+.bg-4 {
+    background-color: #FFFEBB; /* Fondo amarillo */
+    transform: rotate(-3deg);
+}
+
 .card-post{
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 8px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .card-post-top{
-    background-color: #ffffff;
-    border-radius: 8px 8px 0px 0px;
+
 }
 .img-perfil{
     border: solid 3px var(--color-primario);
@@ -124,33 +153,25 @@ p,span,a,label,button,h1,h2,h3{
 }
 
 .card-post-text{
-    background-color: #ffffff;
+
 }
 
 .card-post-img{
-    border-bottom: 1px solid var(--color-cuaternario);
-    border-top: 1px solid var(--color-cuaternario);
-    background-color: var(--gray-900);
     width: 100%;
     aspect-ratio: 16/9;
-    position: relative;
     overflow: hidden;
 }
 .card-post-img img{
-    position: absolute;
     height: 100%;
     object-fit: cover;
-    background-color: var(--color-contraste2);
 }
 
 .card-post-bottom{
-    border-radius: 0px 0px 8px 8px;
-    background-color: var(--color-contraste2);
+
 }
 
 .card-post-comentarios {
     border-radius: 0px 0px 8px 8px;
-    background-color: #ffffff;
 }
 
 .card-post-comentario-content {
@@ -5830,7 +5851,6 @@ p,span,a,label,button,h1,h2,h3{
 
 .p-megamenu.p-megamenu-horizontal .p-megamenu-root-list>.p-menuitem>.p-menuitem-content .p-menuitem-link .p-submenu-icon {
     color: #6c757d;
-    margin-left: .5rem
 }
 
 .p-megamenu.p-megamenu-horizontal .p-megamenu-root-list>.p-menuitem:not(.p-highlight):not(.p-disabled)>.p-menuitem-content:hover {
@@ -5859,9 +5879,10 @@ p,span,a,label,button,h1,h2,h3{
 /* SIDEBAR */
 
 .p-menu .p-menuitem>.p-menuitem-content {
-    margin: 8px 0px;
     background-image: url(/public/images/papel.svg);
     background-repeat: no-repeat;
+    margin-top: 14px;
+    padding-top: 4px;
 }
 
 .p-menu .p-menuitem>.p-menuitem-content:hover {
@@ -5942,14 +5963,14 @@ p,span,a,label,button,h1,h2,h3{
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, .1)
 }
 
-.p-menu .p-submenu-header {
+/* .p-menu .p-submenu-header {
     margin: 0;
     padding: .75rem 1.25rem;
     color: #343a40;
     font-weight: 700;
     border-top-right-radius: 0;
     border-top-left-radius: 0
-}
+} */
 
 .p-menu .p-menuitem-separator {
     border-top: 1px solid #dee2e6;

@@ -17,7 +17,10 @@
 <style scoped>
  .general{
     height: 100%;
-    background-color:var(--color-contraste2); 
+    background-image: url(/public/images/Corcho.jpg); 
+    background-size: cover; 
+    background-repeat: no-repeat;
+    background-attachment: fixed;
  }
 
  .contenido-view{

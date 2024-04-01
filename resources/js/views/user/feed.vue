@@ -1,14 +1,16 @@
 <template>
     <div class="py-2 d-flex justify-content-center ">
         <div class="top-content-view d-flex justify-content-between ">
-            <h2>Home</h2>
+            <div class="title_page d-flex justify-content-center align-items-center">
+                <h2 class="pt-3">Home</h2>
+            </div>
             <div>
                 <router-link :to="{name: 'publicacion.create'}" class="btn btn-postit btn-crear-post px-5">Publicar post</router-link>
             </div>
         </div>
     </div>
     <div class="content-view">
-        <div v-for="publicacion in publicaciones" class="card-post mb-5">
+        <div v-for="publicacion in publicaciones" class="mb-5 card-post" :class="publicacion.backgroundColorClass">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
@@ -26,7 +28,7 @@
                 <span>{{ publicacion.texto }}</span>
             </div>
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
-            <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
+            <div class="py-3 card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
                 <img :src="publicacion.media[0].original_url" alt="">
             </div>
             </router-link>
@@ -54,6 +56,7 @@ import { useStore } from 'vuex';
 const publicaciones = ref();
 const store = useStore(); // Obtenemos la instancia del store de Vuex
 const usuarioActual = computed(() => store.state.auth.user);
+const coloresAsignados = {}; // Objeto para mantener un registro de las clases de fondo asignadas
 
 onMounted(() => {
     obtenerPublicaciones();
@@ -62,14 +65,28 @@ onMounted(() => {
 const obtenerPublicaciones = () => {
     axios.get('/api/publicacions')
     .then(response => {
-        const publicacionesConLiked = response.data.map(publicacion => ({
-            ...publicacion,
-            liked: publicacion.liked_by_current_user === true
-        }));
+        const publicacionesConLiked = response.data.map(publicacion => {
+            const backgroundColorClass = coloresAsignados[publicacion.id] || obtenerClaseFondo(); // Usa la clase de fondo asignada o asigna una nueva
+            coloresAsignados[publicacion.id] = backgroundColorClass; // Almacena la clase de fondo asignada
+            return {
+                ...publicacion,
+                liked: publicacion.liked_by_current_user === true,
+                backgroundColorClass: backgroundColorClass,
+            };
+        });
         publicaciones.value = publicacionesConLiked;
         console.log(publicaciones.value);
     })
 }
+
+
+// Función para obtener la clase de fondo de forma aleatoria
+const obtenerClaseFondo = () => {
+    const clasesFondo = ['bg-1', 'bg-2', 'bg-3', 'bg-4']; // Lista de clases de fondo disponibles
+    const indiceAleatorio = Math.floor(Math.random() * clasesFondo.length); // Generar un índice aleatorio
+    return clasesFondo[indiceAleatorio]; // Devolver la clase de fondo correspondiente al índice aleatorio generado
+};
+
 const like = (id) => {
     axios.post('/api/like/add/' + id)
         .then(response => {
@@ -116,6 +133,7 @@ const formatearFecha = (fechaPublicacion) => {
     return `Hace ${dias} días`;
   }
 };
+
 
 </script>
 <style>
