@@ -19,7 +19,8 @@
             </div>
             <div>
                 <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
-                <button @click="chat" class="btn btn-postit">Mensaje</button>
+                <button v-if="usuario.id !== userLogin.id" @click="chat" class="btn btn-postit">Mensaje</button>
+                
 
                 <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
                 <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
