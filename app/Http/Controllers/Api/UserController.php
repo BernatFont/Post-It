@@ -143,14 +143,14 @@ class UserController extends Controller
         return response()->noContent();
     }
 
-    public function getUserFollowsFollowersData($id)
-    {
-        return User::with('seguidores','seguidos')->findOrFail($id);
-    }
-
-    public function getUserFollowsFollowers($id)
-    {
-        return User::withCount('seguidores','seguidos')->findOrFail($id);
+    // Funcion para obtener usuario por id, se declara el contenido json aqui por no utilizar el UserResource ya que genera errores con la fecha created_at.
+    public function obtenerUsuario($username) {
+        try {
+            return $user = User::where('username', $username)->with('seguidores','seguidos')->withCount('seguidores','seguidos')->firstOrFail();
+        } catch (\Exception $e) {
+            \Log::error('Error al obtener el usuario: ' . $e->getMessage());
+            return response()->json(['error' => 'Error al obtener el usuario. Por favor, inténtelo de nuevo más tarde.'], 500);
+        }
     }
 
 }

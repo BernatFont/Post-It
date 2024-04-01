@@ -1,40 +1,36 @@
 <template>
-    <div class="px-5">
+    <div v-if="usuario" class="px-5">
         <div class="top-content-view w-100">
-            <div v-for="usuario in dataFollowers.seguidos">
-                <p>ID del seguidor: {{ usuario.username }}</p>
+            <div v-for="usuario in usuario.seguidos">
+                <p>Usuario seguido: {{ usuario.username }}</p>
             </div>
-            {{ dataFollowers }}
+            {{ usuario }}
         </div>    
     </div>
 </template>
 
-
 <script setup>
     import { onMounted, ref , computed} from "vue";
     import { useStore } from 'vuex';
-    
+    import { useRoute } from 'vue-router';
     
     /* Obtenemos datos del usuario */
     const store = useStore();
-    const user = computed(() => store.state.auth.user)
-    const dataFollowers = ref(0);
-    
-
-    const numSeguidores = ref(0);
-    const numSeguidos = ref(0);
+    const route = useRoute(); 
+    const userLogin = computed(() => store.state.auth.user); // Usuario actual con sesion iniciada
+    const username = route.params.username; // Obtiene el usuario por la ruta
+    const usuario = ref(null);
 
     onMounted(() => {
-        axios.get('/api/followers/data/' + user.value.id)
+        axios.get('/api/usuario/' + username)
             .then(response => {
-                dataFollowers.value = response.data;
-                console.log(dataFollowers.value);
-                numSeguidores.value = dataFollowers.value.seguidores.length;
-                numSeguidos.value = dataFollowers.value.seguidos.length;
+                usuario.value = response.data;
+                console.log(usuario.value);
             })
     })
 
 </script>
+
 
 
 <style>

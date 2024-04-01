@@ -11,7 +11,9 @@
         <div v-for="publicacion in publicaciones" class="card-post mb-5">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
-                    <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                    <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
+                        <img :src="publicacion.user.image ? publicacion.user.image : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                    </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                         <span>@{{ publicacion.user.username }}</span>
@@ -30,7 +32,7 @@
             </router-link>
             <div class="card-post-bottom d-flex">
                 <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion.id)">
-                    <i class="pi p-3" :class="publicacion.liked ? 'pi-heart-fill' : 'pi-heart'"></i>
+                    <i class="pi p-3" :class="comprobarLike(publicacion.id) ? 'pi-heart-fill' : 'pi-heart'"></i>
                     <span>{{ publicacion.likes_count }}</span>
                 </div>
                 <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
@@ -46,26 +48,50 @@
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
+import { useStore } from 'vuex';
 
 const publicaciones = ref();
+const store = useStore(); // Obtenemos la instancia del store de Vuex
+const usuarioActual = computed(() => store.state.auth.user);
 
+onMounted(() => {
+    obtenerPublicaciones();
+})
+
+const obtenerPublicaciones = () => {
+    axios.get('/api/publicacions')
+    .then(response => {
+        const publicacionesConLiked = response.data.map(publicacion => ({
+            ...publicacion,
+            liked: publicacion.liked_by_current_user === true
+        }));
+        publicaciones.value = publicacionesConLiked;
+        console.log(publicaciones.value);
+    })
+}
 const like = (id) => {
     axios.post('/api/like/add/' + id)
-    .then(response => {
-        console.log("Like");
-        // Actualiza la cantidad de likes en la vista
-        const index = publicaciones.value.findIndex(publicacion => publicacion.id === id);
-        if (index !== -1) {
-            publicaciones.value[index].likes_count += response.data.liked ? 1 : -1;
-            publicaciones.value[index].liked = response.data.liked;
-        }
-    }).catch(error => {
-        console.error("Error al dar like:", error);
-    });
+        .then(response => {
+            console.log("Like");
+            comprobarLike(id);
+            obtenerPublicaciones();
+        })
+        .catch(error => {
+            console.error("Error al dar like:", error);
+        });
+};
 
-}
-
+const comprobarLike = (id) => {
+    const index = publicaciones.value.findIndex(publicacion => publicacion.id === id);
+    if (index !== -1 && publicaciones.value[index].likes && usuarioActual.value) {
+        const tieneLike = publicaciones.value[index].likes.some(like => like.id_usuario === usuarioActual.value.id);
+        publicaciones.value[index].liked = tieneLike; // Actualiza el estado de liked en la publicación
+        return tieneLike;
+    } else {
+        return false;
+    }
+};
 // Función para calcular la diferencia en minutos, horas y días
 const calcularDiferencia = (fechaPublicacion) => {
   const fechaPublicacionObjeto = new Date(fechaPublicacion);
@@ -91,17 +117,6 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
-onMounted(() => {
-  axios.get('/api/publicacions')
-    .then(response => {
-        const publicacionesConLiked = response.data.map(publicacion => ({
-            ...publicacion,
-            liked: publicacion.liked_by_current_user === true
-        }));
-        publicaciones.value = publicacionesConLiked;
-        console.log(publicaciones.value);
-    })
-})
 </script>
 <style>
     .btn-crear-post{

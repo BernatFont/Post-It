@@ -34,4 +34,18 @@ class ComentarioController extends Controller
         // Devolver el comentario creado en la respuesta JSON
         return response()->json(['success' => true, 'data' => $comentario]);
     }
+    
+    // Funcion que elimina un comentario
+    public function destroy($id) 
+    {
+        $comentario = Comentario::find($id);
+        // Verifica si el comentario existe
+        if (!$comentario) {
+            return response()->json(['error' => 'Comentario no encontrado'], 404);
+        } else {
+            $comentario->delete();
+        }
+        
+        return response()->noContent();
+    }
 }

@@ -1,62 +1,97 @@
 <template>
-    <div class="py-2 px-5">
-        <div class="top-content-view w-100 d-flex  justify-content-between container-datos-usuario">
+    <div v-if="usuario" class="py-2 px-5">
+        <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
             <div>
-                <img src="/images/prueba.jpg" alt="imagen del perfil del usuario" class="img-perfil">
+                <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
+                <img :src="usuario.imagen ? usuario.imagen : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
                 <div class="ms-3 mt-5 d-flex flex-column">
-                    <span>{{ user.name }} {{ user.surname }}</span>
-                    <span class="mt-3">@{{ user.username }}</span>
+                    <!-- Mostramos el nombre y apellido del usuario -->
+                    <span>{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
+
+                    <!-- Mostramos el nombre de usuario -->
+                    <span class="mt-3">@{{usuario.username}}</span>
                 </div>
             </div>
             <div class="d-flex flex-column">
-                <router-link :to="{name: 'view.seguidores'}">Seguidores: {{ numSeguidores }}</router-link>
-                <router-link :to="{name: 'view.seguidos'}">Seguidos: {{ numSeguidos }}</router-link>
+                <!-- Enlaces a las vistas de seguidores y seguidos -->
+                <router-link :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
+                <router-link :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
             </div>
             <div>
-                <button class="btn btn-postit">Editar perfil</button>
+                <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
+                <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
+                <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
+                <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
             </div>
         </div>
     </div>
     <div class="px-5">
         <div class="top-content-view w-100">
-            {{ dataFollowers }}
+            <!-- Contenido adicional -->
+            {{ usuario }}
         </div>    
     </div>
 </template>
 
-
 <script setup>
-    import { onMounted, ref , computed} from "vue";
-    import { useStore } from 'vuex';
-    
-    /* Obtenemos datos del usuario */
-    const store = useStore();
-    const user = computed(() => store.state.auth.user)
-    const dataFollowers = ref(0);
+import { onMounted, ref, computed } from "vue";
+import { useStore } from 'vuex';
+import { useRoute } from 'vue-router';
+import axios from 'axios';
 
-    const numSeguidores = ref(0);
-    const numSeguidos = ref(0);
+/* Obtenemos datos del usuario */
+const store = useStore();
+const route = useRoute(); 
+const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
+const username = route.params.username; // Obtiene el usuario por la ruta
+const usuario = ref(null);
+const seguidorUsuarioActual = ref(false);
 
-    onMounted(() => {
-        axios.get('/api/followers/' + user.value.id)
-            .then(response => {
-                dataFollowers.value = response.data;
-                console.log(dataFollowers.value);
-                numSeguidores.value = dataFollowers.value.seguidores_count;
-                numSeguidos.value = dataFollowers.value.seguidos_count;
-            })
+onMounted(() => {
+obtenerUsuario();
+});
+
+// Realizamos la solicitud para obtener los datos del usuario
+const obtenerUsuario = () => {
+    axios.get('/api/usuario/' + username)
+    .then(response => {
+            // Actualizamos los datos del usuario
+            usuario.value = response.data;
+            console.log(usuario.value);
+            comprobarSeguido();
     })
+    .catch(error => {
+            console.error('Error al cargar los datos del usuario:', error);
+    }); 
+};
 
+const seguir = () => {
+    axios.post('/api/follow/' + usuario.value.id)
+    
+    .then(response => {
+        console.log("Seguir");
+        comprobarSeguido();
+        obtenerUsuario();
+    })
+    .catch(error => {
+        console.error('Error al seguir al usuario:', error);
+    });
+}
+
+const comprobarSeguido = () => {
+    if (usuario.value && userLogin.value) {
+        const seguidores = usuario.value.seguidores.map(seguidor => seguidor.id);
+        seguidorUsuarioActual.value = seguidores.includes(userLogin.value.id);
+    }
+};
 </script>
 
-
 <style>
-    .container-datos-usuario img{
-        width: 100px;
-        height: 100px;
-    }
-    .container-datos-usuario div span{
-        font-size: 20px;
-    }
-   
+.container-datos-usuario img {
+    width: 100px;
+    height: 100px;
+}
+.container-datos-usuario div span {
+    font-size: 20px;
+}
 </style>
