@@ -18,9 +18,9 @@
  .general{
     height: 100%;
     background-image: url(/public/images/Corcho.jpg); 
-    background-size: cover; 
-    background-repeat: no-repeat;
-    background-attachment: fixed;
+    /* background-size: cover;  */
+    /* background-repeat: no-repeat; */
+    /* background-attachment: fixed; */
  }
 
  .contenido-view{

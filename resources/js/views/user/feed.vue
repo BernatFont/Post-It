@@ -2,7 +2,7 @@
     <div class="py-2 d-flex justify-content-center ">
         <div class="top-content-view d-flex justify-content-between ">
             <div class="title_page d-flex justify-content-center align-items-center">
-                <h2 class="pt-3">Home</h2>
+                <h2 class="pt-3 itty">Inicio</h2>
             </div>
             <div>
                 <router-link :to="{name: 'publicacion.create'}" class="btn btn-postit btn-crear-post px-5">Publicar post</router-link>
@@ -10,36 +10,39 @@
         </div>
     </div>
     <div class="content-view">
-        <div v-for="publicacion in publicaciones" class="mb-5 card-post" :class="publicacion.backgroundColorClass">
+        <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post" :class="publicacion.backgroundColorClass">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
                         <img :src="publicacion.user.image ? publicacion.user.image : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
                     </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
-                        <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
+                        <span class="itty username">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                         <span>@{{ publicacion.user.username }}</span>
                     </div>
                 </div>
+                <div class="d-flex justify-content-center">
+                    <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="">
+                </div>
                 <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
             </div>
-            <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
+            <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
             <div class="px-3 py-2 card-post-text">
                 <span>{{ publicacion.texto }}</span>
             </div>
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
-            <div class="py-3 card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
+            <div class="py-3 card-post-img d-flex justify-content-center align-items-center" v-if="publicacion.media.length > 0">
                 <img :src="publicacion.media[0].original_url" alt="">
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">
                 <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion.id)">
                     <i class="pi p-3" :class="comprobarLike(publicacion.id) ? 'pi-heart-fill' : 'pi-heart'"></i>
-                    <span>{{ publicacion.likes_count }}</span>
+                    <span class="itty number-of">{{ publicacion.likes_count }}</span>
                 </div>
                 <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
                     <div class="d-flex align-items-center">
-                        <i class="pi pi-comment p-3 contentBlack"></i><span class="contentBlack">{{publicacion.comentarios_count}}</span>
+                        <i class="pi pi-comment p-3 contentBlack"></i><span class="itty number-of">{{publicacion.comentarios_count}}</span>
                     </div>   
                 </router-link>
             </div>
@@ -137,7 +140,5 @@ const formatearFecha = (fechaPublicacion) => {
 
 </script>
 <style>
-    .btn-crear-post{
-        font-weight: 600;
-    }
+
 </style>

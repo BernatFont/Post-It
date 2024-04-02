@@ -112,6 +112,8 @@ model2.value[0].items.forEach(item => {
         z-index: 999;
         user-select: none;
         background-image: url(/public/images/fondo_sidebar.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
         border-right: solid 2px #AC5708;
         box-shadow: 8px 0px 10px rgba(0, 0, 0, 0.5);
     }

@@ -1,6 +1,13 @@
 <template>
-    <div v-if="publicacion" class="card-post mb-5 content-view ">
-        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+    <!-- <div class="d-flex justify-content-center ">
+        <div class="top-content-view d-flex justify-content-start">
+            <div class="title_page d-flex justify-content-center align-items-center">
+                <h2 class="pt-3 itty">Inicio</h2>
+            </div>
+        </div>
+    </div> -->
+    <div v-if="publicacion" class="card-post m-auto">
+        <div class="card-post-top d-flex justify-content-between align-items-center">
             <div class="d-flex">
                 <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
                 <div class="ms-3 d-flex flex-column justify-content-center">
@@ -16,7 +23,7 @@
         <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
                 <img :src="publicacion.media[0].original_url" alt="">
             </div>
-        <div class="card-post-bottom d-flex justify-content-between">
+        <div class=" d-flex justify-content-between">
                 <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
                     <i class="pi p-3" :class="comprobarLike(publicacion) ? 'pi-heart-fill' : 'pi-heart'"></i><span>{{ publicacion.likes_count }}</span>
                     <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
@@ -26,7 +33,7 @@
                 </div>
         </div>
         <div class="d-flex flex-row">
-            <router-link :to="{name: 'publicacion.update'}" class="btn btn-postit btn-crear-post px-5">Modificar</router-link>
+            <router-link :to="{name: 'publicacion.update'}" class="btn btn-success btn-crear-post px-5">Modificar</router-link>
             <button @click="eliminarPublicacion()" class="btn btn-danger">Eliminar</button>
         </div>
         
@@ -203,11 +210,9 @@ function obtenerFecha(fecha) {
 </script>
 
 <style>
-.card-post-bottom{
-    border-radius: 0px;
-    background-color: #ffffff;
+.card-post{
+    background-color: var(--);
 }
-
 .post-text {
     max-width: 100%;
     word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
@@ -216,7 +221,6 @@ function obtenerFecha(fecha) {
 .textarea{
     resize: none;
     height: 100px;
-    background-color: var(--bs-gray-100)
 }
 
 </style>
