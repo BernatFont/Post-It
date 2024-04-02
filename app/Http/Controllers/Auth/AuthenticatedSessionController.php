@@ -75,6 +75,8 @@ class AuthenticatedSessionController extends Controller
      */
     public function register(RegisterRequest $request)
     {
+
+        //return $request;
         $user = User::where('email', $request['email'])->first();
         if ($user) {
             return response(['error' => 1, 'message' => 'user already exists'], 409);
@@ -84,6 +86,7 @@ class AuthenticatedSessionController extends Controller
             'email' => $request['email'],
             'password' => Hash::make($request['password']),
             'name' => $request['name'],
+            'username' => $request['username']
         ]);
 
         return $this->successResponse($user, 'Registration Successfully');

@@ -42,5 +42,6 @@
     "messages": "Messages",
     "user": "Profile",
     "settings": "Settings",
-    "logout": "Logout"
+    "logout": "Logout",
+    "username": "Username"
 }

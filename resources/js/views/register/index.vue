@@ -28,6 +28,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">{{ $t('username') }}</label>
+                                    <input v-model="registerForm.username" id="username" type="text" class="form-control">
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger mt-1">
+                                        <div v-for="message in validationErrors?.username">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                </div>
                                 <!-- Password -->
                                 <div class="mb-4">
                                     <label for="password" class="form-label">

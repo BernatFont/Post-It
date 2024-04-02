@@ -36,6 +36,7 @@ export default function useAuth() {
     const registerForm = reactive({
         name: '',
         email: '',
+        username: '',
         password: '',
         password_confirmation: ''
     })
@@ -71,7 +72,8 @@ export default function useAuth() {
 
         processing.value = true
         validationErrors.value = {}
-
+        console.log(registerForm);
+        console.log(processing.value);
         await axios.post('/register', registerForm)
             .then(async response => {
                 // await store.dispatch('auth/getUser')
@@ -88,6 +90,7 @@ export default function useAuth() {
                 if (error.response?.data) {
                     validationErrors.value = error.response.data.errors
                 }
+                console.log("error")
             })
             .finally(() => processing.value = false)
     }

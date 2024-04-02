@@ -37,5 +37,6 @@
     "messages": "Mensajes",
     "user": "Perfil",
     "settings": "Configuracion",
-    "logout": "Cerrar Sesión"
+    "logout": "Cerrar Sesión",
+    "username": "Nombre de usuario"
 }

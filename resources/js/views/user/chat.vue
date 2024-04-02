@@ -1,7 +1,6 @@
+<!--Chat individual con mensajes-->
 <template>
-    <div>
-        {{ chats }}
-    </div>
+    {{ mensajes }}
 </template>
 
 <script setup>
@@ -13,17 +12,20 @@
     const store = useStore();
     const route = useRoute(); 
     const userLogin = computed(() => store.state.auth.user); // Usuario actual con sesion iniciada
-    const username = route.params.username; // Obtiene el usuario por la ruta
-    const usuario = ref(null);
+    const id = route.params.id; // Obtiene el chat por la ruta
+    const mensajes = ref(null);
 
     onMounted(() => {
-        axios.get('/api/chats')
+        axios.get('/api/chat/mensajes' + id)
             .then(response => {
-                chats.value = response.data;
-                console.log(chats.value);
+                mensajes.value = response.data;
+                console.log(mensajes.value);
+                
             })
+            .catch(error => {
+            console.error('Error al obtener los mensajes del chat:', error);
+        }); 
     })
-
 </script>
 
 <style>

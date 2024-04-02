@@ -5,12 +5,16 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Chat;
+use App\Models\User;
+
 
 class ChatController extends Controller
 {
     public function index()
     {
-        $chats = Chat::all()->toArray();
+        $userLogeado = auth()->id();
+        $chats = Chat::with(['user1', 'user2'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
+    
         return $chats;
     }
 

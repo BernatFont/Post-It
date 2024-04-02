@@ -9,6 +9,8 @@ const Home = () => import('../views/home/index.vue')
 const Feed = () => import('../views/user/feed.vue');
 const Usuario = () => import('../views/user/perfil.vue');
 // const Buscar = () => import('');
+const Chats= () => import('../views/user/chats.vue');
+const Chat= () => import('../views/user/chat.vue');
 const Mensajes= () => import('../views/user/mensajes.vue');
 const Notificaciones= () => import('../views/user/notificaciones.vue');
 const CrearPublicacion= () => import('../views/user/crearPublicacion.vue');
@@ -135,6 +137,25 @@ export default [
     //         },
     //     ]
     // },
+    {
+        path: '/chats',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Chats' },
+        children: [
+            {
+                path: '',
+                component: Chats,
+                meta: { breadCrumb: 'Chats Index' }
+            },
+            {
+                name: 'mostrar.chat',
+                path: ':id',
+                component: Chat,
+                meta: {breadCrumb: 'Mostrar Chat'}
+            }
+        ]
+    },
     {
         path: '/mensajes',
         component: UserLayout,

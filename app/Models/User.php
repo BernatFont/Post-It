@@ -59,28 +59,25 @@ class User extends Authenticatable
         return $this->belongsTo(Publicacion::class);
     }
 
-    public function seguidores()
-{
-    // Relación que obtiene los seguidores del usuario a través de la tabla intermedia Seguido.
-    return $this->hasManyThrough(User::class, Seguido::class,
-        'id_usuario_seguido', // Clave foránea de la tabla intermedia en Seguido
-        'id', // Clave primaria de la tabla de usuarios
-        'id', // Clave primaria local en el modelo de usuario
-        'id_usuario' // Clave foránea local en el modelo de usuario
-    );
-}
+    public function seguidores() {
+        // Relación que obtiene los seguidores del usuario a través de la tabla intermedia Seguido.
+        return $this->hasManyThrough(User::class, Seguido::class,
+            'id_usuario_seguido', // Clave foránea de la tabla intermedia en Seguido
+            'id', // Clave primaria de la tabla de usuarios
+            'id', // Clave primaria local en el modelo de usuario
+            'id_usuario' // Clave foránea local en el modelo de usuario
+        );
+    }
 
-public function seguidos()
-{
-    // Relación que obtiene los usuarios seguidos por el usuario a través de la tabla intermedia Seguido.
-    return $this->hasManyThrough(User::class, Seguido::class,
-        'id_usuario', // Clave foránea local en la tabla intermedia en Seguido
-        'id', // Clave primaria de la tabla de usuarios
-        'id', // Clave primaria local en el modelo de usuario
-        'id_usuario_seguido' // Clave foránea en la tabla de usuarios en Seguido
-    );
-}
-
+    public function seguidos() {
+        // Relación que obtiene los usuarios seguidos por el usuario a través de la tabla intermedia Seguido.
+        return $this->hasManyThrough(User::class, Seguido::class,
+            'id_usuario', // Clave foránea local en la tabla intermedia en Seguido
+            'id', // Clave primaria de la tabla de usuarios
+            'id', // Clave primaria local en el modelo de usuario
+            'id_usuario_seguido' // Clave foránea en la tabla de usuarios en Seguido
+        );
+    }
 
 }
 

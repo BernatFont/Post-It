@@ -14,4 +14,13 @@ class Chat extends Model
         'user_id_2'
     ];
 
+    public function user1()
+    {
+        return $this->belongsTo(User::class, 'user_id_1', 'id'); 
+    }
+
+    public function user2()
+    {
+        return $this->belongsTo(User::class, 'user_id_2', 'id'); 
+    }
 }
