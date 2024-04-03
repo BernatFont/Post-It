@@ -28,10 +28,11 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useAbility } from '@casl/vue';
 import useAuth from "@/composables/auth";
 import { useRouter } from "vue-router";
+import { useStore } from 'vuex';
 
 /* Importamos SVG */
 import casa from '/public/images/casa.svg'; 
@@ -49,6 +50,8 @@ import cerrarSesion_hover from '/public/images/cerrarSesion_hover.svg';
 const { processing, logout } = useAuth();
 const { can } = useAbility();
 const router = useRouter();
+const store = useStore();
+const userLogin = computed(() => store.state.auth.user);
 
 /*Funcion*/
 console.log(casa)
@@ -57,10 +60,10 @@ const model = ref([
   {
     items: [
       { label: 'home_name', icon: casa, hoverIcon: casa_hover, url: '/inicio', permision: 'all'},
-      { label: 'search', icon: 'pi pi-fw pi-search', url: '/buscar', permision: 'user-list' },
+      { label: 'search',  url: '/buscar', permision: 'user-list' },
       { label: 'notifications', icon: campana, hoverIcon: campana_hover, url: '/notificaciones', permision:'role-list' },
-      { label: 'messages', icon: mensajes, hoverIcon: mensajes_hover, url: '/mensajes', permision:'permission-list' },
-      { label: 'user', icon: 'pi pi-fw pi-user', url: '/usuario', permision:'permission-list' }
+      { label: 'messages', icon: mensajes, hoverIcon: mensajes_hover, url: '/chats', permision:'permission-list' },
+      { label: 'user', url: '/usuario/' + userLogin.value.username, permision:'permission-list'}
     ]
   },
 ]);
