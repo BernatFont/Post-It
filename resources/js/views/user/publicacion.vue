@@ -1,79 +1,116 @@
 <template>
-    <!-- <div class="d-flex justify-content-center ">
-        <div class="top-content-view d-flex justify-content-start">
-            <div class="title_page d-flex justify-content-center align-items-center">
-                <h2 class="pt-3 itty">Inicio</h2>
-            </div>
-        </div>
-    </div> -->
-    <div v-if="publicacion" class="card-post m-auto">
-        <div class="card-post-top d-flex justify-content-between align-items-center">
-            <div class="d-flex">
-                <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
-                <div class="ms-3 d-flex flex-column justify-content-center">
-                    <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
-                    <span>@{{ publicacion.user.username }}</span>
+    <div class="contenedor-publicacion">
+        <!-- <div class="d-flex justify-content-center ">
+            <div class="top-content-view d-flex justify-content-start">
+                <div class="title_page d-flex justify-content-center align-items-center">
+                    <h2 class="pt-3 itty">Inicio</h2>
                 </div>
             </div>
-            <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
-        </div>
-        <div class="px-3 py-2 card-post-text">
-            <span>{{ publicacion.texto }}</span>
-        </div>
-        <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
-                <img :src="publicacion.media[0].original_url" alt="">
-            </div>
-        <div class=" d-flex justify-content-between">
-                <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
-                    <i class="pi p-3" :class="comprobarLike(publicacion) ? 'pi-heart-fill' : 'pi-heart'"></i><span>{{ publicacion.likes_count }}</span>
-                    <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
-                </div>
-                <div class="d-flex align-items-center mr-4">
-                    <span>{{ obtenerFecha(publicacion.created_at) }}</span>
-                </div>
-        </div>
-        <div class="d-flex flex-row">
-            <router-link :to="{name: 'publicacion.update'}" class="btn btn-success btn-crear-post px-5">Modificar</router-link>
-            <button @click="eliminarPublicacion()" class="btn btn-danger">Eliminar</button>
-        </div>
-        
-        <div class="card-post-comentarios">
-            <div class="px-3 pb-2">
-                <div class=""> <!--Seccion donde escribir un comentario -->
-                    <!-- <span>Comentario:</span> -->
-                    <form @submit.prevent="addComentario(comentario.contenido)" class="create-post-form">
-                        <div class="form-group mb-1">
-                            <textarea v-model="comentario.contenido" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Publica un comentario..."></textarea>
-                        </div>
-                        <div class="d-flex justify-content-end">
-                            <button type="submit" class="btn btn-postit">Publicar comentario</button>
-                        </div>
-                    </form>
-                </div>
-                <!--Seccion donde mostrar los comentarios -->
-                <div v-for="comentario in publicacion.comentarios" class="card-post mb-5"> 
-                    <div class="d-flex flex-row align-items-center">
+        </div> -->
+        <div v-if="publicacion">
+            <div class="card-post m-auto pt-3 px-2">
+                <div class="card-post-top d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
                         <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
-                        <div class="d-flex flex-column m-auto">
-                            <div class="d-flex flex-row justify-content-between">
-                                <span>{{ comentario.user.name }}{{ comentario.user.surname }}</span>
+                        <div class="ms-3 d-flex flex-column justify-content-center">
+                            <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
+                            <span>@{{ publicacion.user.username }}</span>
+                        </div>
+                    </div>
+                    <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
+                </div>
+                <div class="px-3 py-2 card-post-text">
+                    <span>{{ publicacion.texto }}</span>
+                </div>
+                <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
+                    <img :src="publicacion.media[0].original_url" alt="">
+                </div>
+                <div class=" d-flex justify-content-between">
+                    <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
+                        <i class="pi p-3" :class="comprobarLike(publicacion) ? 'pi-heart-fill' : 'pi-heart'"></i><span>{{ publicacion.likes_count }}</span>
+                        <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
+                    </div>
+                    <div class="d-flex align-items-center mr-4">
+                        <span>{{ obtenerFecha(publicacion.created_at) }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="w-75 m-auto">
+                <div class="d-flex py-5">
+                    <router-link :to="{name: 'publicacion.update'}" class="postit-btn px-5">Modificar</router-link>
+                    <button @click="eliminarPublicacion()" class="delete-btn ms-3">
+                        <div class="img-btn"></div>
+                    </button>
+                </div>
+                
+                <div>
+                    <div class="px-3 pb-2">
+                        <div class=""> <!--Seccion donde escribir un comentario -->
+                            <!-- <span>Comentario:</span> -->
+                            <form @submit.prevent="addComentario(comentario.contenido)" class="create-post-form">
+                                <div class="form-group mb-1">
+                                    <textarea v-model="comentario.contenido" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Publica un comentario..."></textarea>
+                                </div>
+                                <div class="d-flex justify-content-end">
+                                    <button type="submit" class="my-3 postit-btn">Publicar comentario</button>
+                                </div>
+                            </form>
+                        </div>
+                        <!--Seccion donde mostrar los comentarios -->
+                        <div v-for="comentario in publicacion.comentarios" class="comments mb-3 p-5"> 
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <div class="d-flex align-items-center">
+                                    <img src="/images/placeholder.jpg" alt="" class="img-perfil">
+                                    <div class="ms-3 d-flex flex-column">
+                                        <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
+                                        <span>@{{ comentario.user.username }}</span>
+                                    </div>
+                                </div>
                                 <span>{{ formatearFecha(comentario.created_at) }}</span>
                             </div>
-                            
-                            <span>@{{ comentario.user.username }}</span>
-                        </div> 
+                            <div class="mb-2">{{ comentario.contenido }}</div>
+                            <div class="d-flex justify-content-end">
+                                <button @click="eliminarComentario(comentario.id)" class="delete-btn ms-3">
+                                    <div class="img-btn"></div>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div>{{ comentario.contenido }}</div>
-                    <button @click="eliminarComentario(comentario.id)" class="btn btn-danger">Eliminar</button>
                 </div>
             </div>
         </div>
-    </div>
-    <div v-else>
-        <p>Cargando...</p>
+        <div v-else>
+            <p>Cargando...</p>
+        </div>
     </div>
         
 </template>
+
+<style>
+.contenedor-publicacion{
+    padding-top: 50px;
+}
+
+.card-post{
+    background-color: var(--cuarto);
+}
+.comments{
+    background-image: url(/public/images/papel-comment.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.post-text {
+    max-width: 100%;
+    word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
+}
+
+.textarea{
+    resize: none;
+    height: 100px;
+}
+
+</style>
+
 <script setup>
 import axios from "axios";
 import { ref, onMounted, computed } from "vue";
@@ -208,19 +245,3 @@ function obtenerFecha(fecha) {
 }
 
 </script>
-
-<style>
-.card-post{
-    background-color: var(--);
-}
-.post-text {
-    max-width: 100%;
-    word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
-}
-
-.textarea{
-    resize: none;
-    height: 100px;
-}
-
-</style>

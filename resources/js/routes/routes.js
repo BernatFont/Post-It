@@ -157,19 +157,6 @@ export default [
         ]
     },
     {
-        path: '/mensajes',
-        component: UserLayout,
-        beforeEnter: requireLogin,
-        meta: { breadCrumb: 'Mensajes' },
-        children: [
-            {
-                path: '',
-                component: Mensajes,
-                meta: { breadCrumb: 'Mensajes Index' }
-            },
-        ]
-    },
-    {
         path: '/notificaciones',
         component: UserLayout,
         beforeEnter: requireLogin,

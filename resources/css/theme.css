@@ -74,6 +74,30 @@
     font-weight: normal
 }*/
 
+/* buttons */
+
+.delete-btn{
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    color: black;
+    border: none;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    
+}
+.img-btn{
+    width: 24px;
+    height: 34px;
+    background-image: url(/public/images/paperbin.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.img-btn:hover, .img-btn:hover delete-btn{
+    background-image: url(/public/images/paperbin_hover.svg);
+}
+
+
 p,span,a,label,button,h1,h2,h3{
     color: var(--color-contraste1);
 }
@@ -81,29 +105,6 @@ p,span,a,label,button,h1,h2,h3{
 .textColor {
     color: var(--text-color);
     font-size: 1.5rem;
-}
-.btn-postit{
-    background-color: var(--color-primario);
-    cursor: pointer;
-    color: var(--color-contraste1);
-    transition: border .2s ease-in-out;
-}
-.btn-postit:hover {
-    background-color: var(--color-primario);
-    color: var(--color-contraste2);
-    border: 1px solid var(--color-secundario);
-}
-
-.btn-discard{
-    background-color: var(--color-secundario);
-    cursor: pointer;
-    color: var(--color-terciario);
-    transition: border .2s ease-in-out;
-}
-.btn-discard:hover {
-    background-color: var(--color-primario);
-    color: var(--color-secundario);
-    border: 1px solid var(--color-secundario);
 }
 
 /*Contenido de la parte superior de las vistas*/
@@ -152,9 +153,9 @@ h2{
 }
 
 .soporte{
-    width: 3rem;
-    height: 3rem;
-    margin-top: -46px;
+    width: 4rem;
+    height: 4rem;
+    margin-top: -60px;
 }
 
 .img-perfil{
@@ -169,16 +170,14 @@ h2{
 }
 
 .card-post-img{
-    aspect-ratio: 4/3;
+    aspect-ratio: 16/9;
     overflow: hidden;
 }
 .card-post-img img{
     height: 80%;
+    transform: rotate(5deg);
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
     object-fit: cover;
-}
-
-.card-post-bottom{
-
 }
 
 .number-of{

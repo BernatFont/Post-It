@@ -31,18 +31,24 @@
                 <span>{{ publicacion.texto }}</span>
             </div>
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
-            <div class="py-3 card-post-img d-flex justify-content-center align-items-center" v-if="publicacion.media.length > 0">
-                <img :src="publicacion.media[0].original_url" alt="">
+            <div v-if="publicacion.media.length > 0" class="d-flex justify-content-center" style="position: relative; z-index: 1;">
+                <img src="/images/celo.png" alt="" class="celo">
+            </div>
+            <div class="card-post-img d-flex justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
+                <img :src="publicacion.media[0].original_url" alt="" :style="{ transform: publicacion.liked ? 'rotate(0deg)' : 'rotate(' + obtenerRotacionAleatoria() + 'deg)' }">
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">
                 <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion.id)">
-                    <i class="pi p-3" :class="comprobarLike(publicacion.id) ? 'pi-heart-fill' : 'pi-heart'"></i>
+                    <div class="pi p-3" @click="toggleLike(publicacion.id)">
+                        <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                        <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                    </div>
                     <span class="itty number-of">{{ publicacion.likes_count }}</span>
                 </div>
-                <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor">
-                    <div class="d-flex align-items-center">
-                        <i class="pi pi-comment p-3 contentBlack"></i><span class="itty number-of">{{publicacion.comentarios_count}}</span>
+                <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="d-flex align-items-center textColor">
+                    <div class="d-flex align-items-center justify-content-center">
+                        <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
                     </div>   
                 </router-link>
             </div>
@@ -137,8 +143,24 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
+const obtenerRotacionAleatoria = () => {
+    // Genera un ángulo aleatorio entre -5 y 5 grados
+    return Math.floor(Math.random() * 11) - 5;
+};
+
+
 
 </script>
 <style>
-
+.celo{
+    transform: rotate(-35deg);
+    height: 50px;
+    margin-bottom: -64px;
+}
+.corazon-img{
+    height: 20px;
+}
+.comment-icon{
+    height: 22px;
+}
 </style>
