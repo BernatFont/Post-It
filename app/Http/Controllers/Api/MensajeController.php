@@ -8,5 +8,26 @@ use App\Models\Mensaje;
 
 class MensajeController extends Controller
 {
-    // Falta añadir funcion index con la logica para cargar los mensajes de un chat
+    public function index($chatId)
+    {
+        $mensajes = Mensaje::with('user')->where('chat_id', $chatId)->get();
+    
+        return $mensajes;
+    }
+
+    public function store(Request $request, $chatId)
+    {
+        // Validación de los datos del mensaje
+        $request->validate([
+            'user_id' => 'required',
+            'contenido' => 'required|string|max:255',
+        ]);
+
+        // Crear el mensaje
+        $mensaje = Mensaje::create([
+            'chat_id' => $chatId,
+            'user_id' => $request->user_id,
+            'contenido' => $request->contenido,
+        ]);
+    }
 }

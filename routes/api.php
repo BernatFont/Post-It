@@ -12,6 +12,7 @@ use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ComentarioController;
 use App\Http\Controllers\Api\SeguidoController;
 use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\MensajeController;
 
 use App\Http\Controllers\Auth\ResetPasswordController;
 
@@ -41,6 +42,7 @@ Route::get('/chats', [ChatController::class, 'index']);
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
 Route::post('/chat/{id}', [ChatController::class, 'store']); // Crear chat
 Route::get('/chat/mensajes/{id}', [MensajeController::class, 'index']); // Obtener mensajes de un chat
+Route::post('/chat/mensajes/{id}', [MensajeController::class, 'store']); // Obtener mensajes de un chat
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);
