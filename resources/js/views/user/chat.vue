@@ -1,27 +1,33 @@
 <template>
-    <div>
-        <h2>Chat privado</h2>
+    <div class="div-form-msg">
+        <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
+            <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
+            <button class="enviar" type="submit">Enviar</button>
+        </form>
+    </div>
+    <div class="mainPrincipal">
+        <div class="title_page d-flex justify-content-center align-items-center mb-10">
+                <h2 class="pt-3 itty">Chat</h2>
+            </div>
         <div v-if="mensajes.length === 0">
             <p>No se ha enviado ningun mensaje</p>
         </div>
         <div v-else>
-            <div v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
+            <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
 
-                <div>
-                    <span>{{ mensaje.user.name }}: </span>
-                    <span>{{ mensaje.contenido }}</span>
-                    <br>
+                <div class="container-msg d-flex flex-column" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
+                    <div>
+                        <span class="itty textName" v-if="mensaje.user.id === userLogin.id"><img class="imgPerfil" src="/images/user-default.png" alt="">{{ mensaje.user.name }} </span>
+                        <span class="itty textName" v-else>{{ mensaje.user.name }}<img class="imgPerfil" src="/images/user-default.png" alt=""> </span>
+                    </div>
+                    <div>
+                        <span class="itty textContent">{{ mensaje.contenido}}</span>
+                    </div>                   
                 </div>
             </div>
         </div>
-        <div>
-            <!-- Formulario para escribir un mensaje -->
-            <form @submit.prevent="añadirMensaje">
-                <textarea v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                <button type="submit">Enviar</button>
-            </form>
-        </div>
     </div>
+
 </template>
 
 <script setup>
@@ -71,11 +77,77 @@
 </script>
 
 <style>
+    .mainPrincipal {
+        margin-left: 10%;
+        margin-right: 10%;
+        margin-bottom: 93px;
+    }
     .usuarioActual {
-        text-align: left;
+        justify-content: left;
     }
     
     .otroUsuario {
-        text-align: right;
+        justify-content: right;
+        text-align: right;   
     }
+    
+    .bg-v1 {
+        background-image: url(/public/images/papel-comment.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .bg-v2 {
+        background-image: url(/public/images/papel-comment-2.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    
+
+    .container-msg {
+        padding: 24px;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        min-width: 250px;
+    }
+    .div-form-msg {
+        padding: 14px;
+        width: 100%;
+        background-color: #fff;
+        position: fixed;
+        top: 89%;
+    }
+
+    .imgPerfil {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin: auto;
+    }
+
+    .textName {
+        font-size: 20px;
+    }  
+
+    .textContent {
+        font-size: 18px;
+    }
+
+    .div-form-msg {
+    width: 100%;
+    }
+
+    .form-msg {
+        display: flex;
+        flex: row;
+    }
+
+    .textarea {
+        width: 60%;
+        resize: none; /* Para evitar que el usuario redimensione el textarea */
+    }
+
+    .enviar {
+        width: 20%;
+    }
+    
 </style>
