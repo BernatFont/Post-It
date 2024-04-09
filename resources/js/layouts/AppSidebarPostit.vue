@@ -1,6 +1,6 @@
 <template>
     <div class="menu d-flex flex-column justify-content-between">
-        <div v-if="userLogin">
+        <div>
             <div class="top-sidebar d-flex justify-content-center align-items-center">
                 <h1><div class="bg-logo"><img src="/images/logo_principal.svg" alt="logo de la red social"></div></h1>
             </div>
@@ -160,9 +160,7 @@ const router = useRouter();
 
 
 function Logout() {
-  // Realizar acciones adicionales antes del cierre de sesión si es necesario
-  logout();
-  // Redireccionar al usuario a la página de inicio o donde prefieras
-  router.push('/');
+    router.push({name: 'welcome'});
+    logout();
 }
 </script>

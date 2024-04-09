@@ -50,7 +50,11 @@ function guest(to, from, next) {
 
 
 export default [
-
+    {
+        path: '/',
+        name: 'welcome',
+        component: Home
+    },
     {
         path: '/inicio',
         name: "inicio",

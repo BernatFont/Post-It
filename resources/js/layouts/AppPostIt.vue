@@ -1,7 +1,10 @@
 <template>
     <div class="general">
-        <div class="menu-sidebar">
+        <div class="menu_sidebar">
             <AppSidebar/>
+        </div>
+        <div class="sidebar_responsive">
+            <AppSidebarResponsive/>
         </div>
         <div class="contenido-view ">
             <router-view></router-view>
@@ -12,6 +15,8 @@
 <script setup>
     // import AppSidebar from './AppSidebar.vue';
     import AppSidebar from './AppSidebarPostit.vue';
+    
+    import AppSidebarResponsive from './AppSidebarPostitResponsive.vue';
 
 </script>
 
@@ -26,12 +31,19 @@
 
  .contenido-view{
     padding-left: 20vw;
-
  }
 
+.sidebar_responsive{
+    display: none;
+}
+
  @media (max-width: 1200px){
-    .menu-sidebar{
+    .menu_sidebar{
         display: none;
+    }
+
+    .sidebar_responsive{
+        display: block;
     }
     
     .contenido-view{
