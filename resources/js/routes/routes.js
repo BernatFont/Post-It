@@ -145,6 +145,7 @@ export default [
         children: [
             {
                 path: '',
+                name: 'chats',
                 component: Chats,
                 meta: { breadCrumb: 'Chats Index' }
             },
@@ -164,6 +165,7 @@ export default [
         children: [
             {
                 path: '',
+                name: 'notificaciones',
                 component: Notificaciones,
                 meta: { breadCrumb: 'Notificaciones Index' }
             },
