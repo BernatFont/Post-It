@@ -10,32 +10,36 @@
             <div v-else>
                 <!--Devuelve unicamente los valores del usuario con el que no estamos logeados-->
                 <div class="chatMain" v-if="chat.user_id_1 !== userLogin.id">
-                    <router-link :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
-                        <div class="d-flex flex-row justify-content-between m-auto chatContainer">
-                            <div class="d-flex flex-row">
+                    <div class="d-flex flex-row justify-content-between m-auto chatContainer">
+                        <div class="d-flex flex-row">
+                            <router-link :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
                                 <img class="imgPerfil" src="/images/user-default.png" alt="foto de perfil">
-                                <div class="d-flex flex-column ml-3">
-                                    <span class="itty">{{chat.user1.name + " " + chat.user1.surname }}</span>
-                                    <span class="itty">@{{ chat.user1.username }}</span>
-                                </div>
+                            </router-link>
+                            <div class="d-flex flex-column ml-3">
+                                <span class="itty textName">{{chat.user1.name + " " + chat.user1.surname }}</span>
+                                <span class="textContent">@{{ chat.user1.username }}</span>
                             </div>
-                            <button class="d-flex justify-content-right align-items-center pl-3 pr-3 itty">Mostrar Chat</button>
                         </div>
-                    </router-link>
+                        <router-link class="d-flex justify-content-right align-items-center pl-3 pr-3" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
+                            <button  class="itty textName">Mostrar Chat</button>
+                        </router-link>
+                    </div>
                 </div>
-                <div class="chatMain" v-if="chat.user_id_2 !== userLogin.id">
-                    <router-link :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
-                        <div class="d-flex flex-row justify-content-between m-auto chatContainer">
-                            <div class="d-flex flex-row">
+                <div class="chatMain" v-if="chat.user_id_2 !== userLogin.id">    
+                    <div class="d-flex flex-row justify-content-between m-auto chatContainer">
+                        <div class="d-flex flex-row">
+                            <router-link :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
                                 <img class="imgPerfil" src="/images/user-default.png" alt="foto de perfil">
-                                <div class="d-flex flex-column ml-3">
-                                    <span class="itty">{{chat.user2.name + " " + chat.user2.surname }}</span>
-                                    <span class="itty">@{{ chat.user2.username }}</span>
-                                </div>
+                            </router-link>
+                            <div class="d-flex flex-column ml-3">
+                                <span class="itty textName">{{chat.user2.name + " " + chat.user2.surname }}</span>
+                                <span class="textContent">@{{ chat.user2.username }}</span>
                             </div>
-                            <button class="d-flex justify-content-right align-items-center pl-3 pr-3 itty">Mostrar Chat</button>
                         </div>
-                    </router-link>
+                        <router-link class="d-flex justify-content-right align-items-center pl-3 pr-3" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
+                            <button  class="itty textName">Mostrar Chat</button>
+                        </router-link>
+                    </div>          
                 </div>
             </div>
         </div>
@@ -67,24 +71,29 @@
 </script>
 
 <style>
-.mainPrincipal {
-    margin-left: 20%;
-    margin-right: 20%;
-}
-.chatMain {
-    margin-top: 10px;
-}
-.chatContainer {
-    background-image: url(/public/images/papel-comment.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 35px;
-}
 
-.imgPerfil {
-        width: 55px;
-        height: 55px;
-        border-radius: 50%;
-        margin: auto;
+    .textName {
+        font-size: 1.5rem;
+    }  
+
+    .mainPrincipal {
+        margin-left: 20%;
+        margin-right: 20%;
     }
+    .chatMain {
+        margin-top: 10px;
+    }
+    .chatContainer {
+        background-image: url(/public/images/papel-comment.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+        padding: 35px;
+    }
+
+    .imgPerfil {
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            margin: auto;
+        }
 </style>

@@ -43,5 +43,6 @@
     "user": "Profile",
     "settings": "Settings",
     "logout": "Logout",
-    "username": "Username"
+    "username": "Username",
+    "back": "Back"
 }

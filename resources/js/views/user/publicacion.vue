@@ -1,17 +1,12 @@
 <template>
     <div class="contenedor-publicacion">
-        <!-- <div class="d-flex justify-content-center ">
-            <div class="top-content-view d-flex justify-content-start">
-                <div class="title_page d-flex justify-content-center align-items-center">
-                    <h2 class="pt-3 itty">Inicio</h2>
-                </div>
-            </div>
-        </div> -->
         <div v-if="publicacion">
             <div class="card-post m-auto pt-3 px-2">
                 <div class="card-post-top d-flex justify-content-between align-items-center">
                     <div class="d-flex">
-                        <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                        <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
+                            <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                        </router-link>
                         <div class="ms-3 d-flex flex-column justify-content-center">
                             <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                             <span>@{{ publicacion.user.username }}</span>
@@ -59,13 +54,15 @@
                         <!--Seccion donde mostrar los comentarios -->
                         <div v-for="comentario in publicacion.comentarios" class="comments mb-3 p-5"> 
                             <div class="d-flex justify-content-between align-items-center mb-2">
-                                <div class="d-flex align-items-center">
-                                    <img src="/images/placeholder.jpg" alt="" class="img-perfil">
-                                    <div class="ms-3 d-flex flex-column">
-                                        <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
-                                        <span>@{{ comentario.user.username }}</span>
+                                    <div class="d-flex align-items-center">
+                                        <router-link :to="{ name: 'usuario.mostrar', params: { username: comentario.user.username } }">
+                                            <img src="/images/placeholder.jpg" alt="" class="img-perfil">
+                                        </router-link>
+                                        <div class="ms-3 d-flex flex-column">
+                                            <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
+                                            <span>@{{ comentario.user.username }}</span>
+                                        </div>
                                     </div>
-                                </div>
                                 <span>{{ formatearFecha(comentario.created_at) }}</span>
                             </div>
                             <div class="mb-2">{{ comentario.contenido }}</div>

@@ -38,5 +38,6 @@
     "user": "Perfil",
     "settings": "Configuracion",
     "logout": "Cerrar Sesión",
-    "username": "Nombre de usuario"
+    "username": "Nombre de usuario",
+    "back": "Volver"
 }
