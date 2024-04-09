@@ -1,25 +1,45 @@
 <template>
-    {{ chats }}
-    <div v-for="chat in chats" :key="chat.id">
-        <!--Devuelve unicamente los valores del usuario con el que no estamos logeados-->
-        <div v-if="chat.user_id_1 !== userLogin.id">
-            <span>Chat con {{ chat.user1.name, chat.user1.surname }}</span>
-            <router-link :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
-                <div>
-                    <button>Mostrar</button>
-                </div>
-            </router-link>
+    <div class="mainPrincipal">
+        <div class="title_page d-flex justify-content-center align-items-center mb-10">
+            <h2 class="pt-3 itty">Chat</h2>
         </div>
-        <div v-if="chat.user_id_2 !== userLogin.id">
-            <span>Chat con {{ chat.user2.name, chat.user2.surname }}</span>
-            <router-link :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
-                <div>
-                    <button>Mostrar</button>
+        <div v-for="chat in chats" :key="chat.id">
+            <div v-if="chats.length === 0">
+                <p>No hay chats que mostrar</p>
+            </div>
+            <div v-else>
+                <!--Devuelve unicamente los valores del usuario con el que no estamos logeados-->
+                <div class="chatMain" v-if="chat.user_id_1 !== userLogin.id">
+                    <router-link :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
+                        <div class="d-flex flex-row justify-content-between m-auto chatContainer">
+                            <div class="d-flex flex-row">
+                                <img class="imgPerfil" src="/images/user-default.png" alt="foto de perfil">
+                                <div class="d-flex flex-column ml-3">
+                                    <span class="itty">{{chat.user1.name + " " + chat.user1.surname }}</span>
+                                    <span class="itty">@{{ chat.user1.username }}</span>
+                                </div>
+                            </div>
+                            <button class="d-flex justify-content-right align-items-center pl-3 pr-3 itty">Mostrar Chat</button>
+                        </div>
+                    </router-link>
                 </div>
-            </router-link>
+                <div class="chatMain" v-if="chat.user_id_2 !== userLogin.id">
+                    <router-link :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
+                        <div class="d-flex flex-row justify-content-between m-auto chatContainer">
+                            <div class="d-flex flex-row">
+                                <img class="imgPerfil" src="/images/user-default.png" alt="foto de perfil">
+                                <div class="d-flex flex-column ml-3">
+                                    <span class="itty">{{chat.user2.name + " " + chat.user2.surname }}</span>
+                                    <span class="itty">@{{ chat.user2.username }}</span>
+                                </div>
+                            </div>
+                            <button class="d-flex justify-content-right align-items-center pl-3 pr-3 itty">Mostrar Chat</button>
+                        </div>
+                    </router-link>
+                </div>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script setup>
@@ -47,5 +67,24 @@
 </script>
 
 <style>
-   
+.mainPrincipal {
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.chatMain {
+    margin-top: 10px;
+}
+.chatContainer {
+    background-image: url(/public/images/papel-comment.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    padding: 35px;
+}
+
+.imgPerfil {
+        width: 55px;
+        height: 55px;
+        border-radius: 50%;
+        margin: auto;
+    }
 </style>
