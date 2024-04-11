@@ -31,7 +31,6 @@
     </div>
     <div class="px-5">
         <div class="top-content-view w-100">
-            <!-- Contenido adicional -->
             {{ usuario }}
         </div>    
     </div>

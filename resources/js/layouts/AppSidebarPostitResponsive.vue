@@ -17,9 +17,8 @@
                 <router-link :to="{ name: 'usuario.mostrar', params: { username: userLogin.username } }">
                     <li class="respo-1"><div class="logo_respo logo-sidebar-5"></div></li>
                 </router-link>
-                <router-link :to="{ name: 'feed'}">
-                    <li class="respo-3"><div class="logo_respo logo-sidebar-6"></div></li>
-                </router-link>
+
+                <li id="configuracion" class="respo-3"><div class="logo_respo logo-sidebar-6"></div></li>
 
                 <li class="respo-2" @click="Logout"><div class="logo_respo logo-sidebar-7"></div></li>
             </ul>
@@ -28,33 +27,30 @@
 </template>
 
 <style>
-    .menu_sidebar_responsive{
-        position: fixed;
-        top: 90%;
-        z-index: 9999;
-        width: 100%;
-        height: 10%;
-        background: url(images/fondo_sidebar_responsive.svg);
-        background-repeat: no-repeat;
-        background-size: cover;
-        border-top: solid 2px #AC5708;
-        box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.5);
-    }
+.menu_sidebar_responsive{
+    position: fixed;
+    top: 90%;
+    z-index: 9999;
+    width: 100%;
+    height: 10%;
+    background: url(images/fondo_sidebar_responsive.svg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-top: solid 2px #AC5708;
+    box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.5);
+}
 
-    .ul_responsive{
-        margin: 0;
-        padding: 0;
-    }
+.ul_responsive{
+    margin: 0;
+    padding: 0;
+}
 
-    .ul_responsive li{
-        padding: 14px 12px 12px 10px;
-        margin: 0;
-        background-repeat: no-repeat;
-        display: flex;
-        align-items: center;
-    }
-
-.ul_responsive li:hover{
+.ul_responsive li{
+    padding: 14px 12px 12px 10px;
+    margin: 0;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: center;
 }
 
 .respo-1{
@@ -139,7 +135,7 @@ const store = useStore() // gancho que permite acceder al store de Vuex dentro d
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const { logout } = useAuth();
 const router = useRouter();
-
+const config = document.getElementById('configuracion');
 
 function Logout() {
   // Realizar acciones adicionales antes del cierre de sesión si es necesario
@@ -147,4 +143,8 @@ function Logout() {
   // Redireccionar al usuario a la página de inicio o donde prefieras
   router.push('/');
 }
+
+// config.addEventListener('click', () =>{
+
+// })
 </script>

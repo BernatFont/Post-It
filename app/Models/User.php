@@ -79,5 +79,11 @@ class User extends Authenticatable
         );
     }
 
+    public function publicaciones()
+    {
+        return $this->hasMany(Publicacion::class, 'id_usuario');
+    }
+
+
 }
 
