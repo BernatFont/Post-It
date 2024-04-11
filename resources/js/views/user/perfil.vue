@@ -1,38 +1,40 @@
 <template>
-    <div v-if="usuario" class="py-2 px-5">
-        <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
-            <div>
-                <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
-                <img :src="usuario.imagen ? usuario.imagen : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
-                <div class="ms-3 mt-5 d-flex flex-column">
-                    <!-- Mostramos el nombre y apellido del usuario -->
-                    <span>{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
+    <div class="mainPrincipal">
+        <div v-if="usuario" class="py-2 px-5">
+            <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
+                <div>
+                    <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
+                    <img :src="usuario.imagen ? usuario.imagen : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
+                    <div class="ms-3 mt-5 d-flex flex-column">
+                        <!-- Mostramos el nombre y apellido del usuario -->
+                        <span>{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
 
-                    <!-- Mostramos el nombre de usuario -->
-                    <span class="mt-3">@{{usuario.username}}</span>
+                        <!-- Mostramos el nombre de usuario -->
+                        <span class="mt-3">@{{usuario.username}}</span>
+                    </div>
+                </div>
+                <div class="d-flex flex-column">
+                    <!-- Enlaces a las vistas de seguidores y seguidos -->
+                    <router-link :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
+                    <router-link :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
+                </div>
+                <div>
+                    <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
+                    <button v-if="usuario.id !== userLogin.id" @click="chat" class="btn btn-postit">Mensaje</button>
+                    
+
+                    <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
+                    <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
+                    <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
+                    <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
                 </div>
             </div>
-            <div class="d-flex flex-column">
-                <!-- Enlaces a las vistas de seguidores y seguidos -->
-                <router-link :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
-                <router-link :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
-            </div>
-            <div>
-                <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
-                <button v-if="usuario.id !== userLogin.id" @click="chat" class="btn btn-postit">Mensaje</button>
-                
-
-                <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
-                <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
-                <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
-                <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
-            </div>
         </div>
-    </div>
-    <div class="px-5">
-        <div class="top-content-view w-100">
-            {{ usuario }}
-        </div>    
+        <div class="px-5">
+            <div class="top-content-view w-100">
+                {{ usuario }}
+            </div>    
+        </div>
     </div>
 </template>
 

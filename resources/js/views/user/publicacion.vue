@@ -84,6 +84,7 @@
 </template>
 
 <style>
+
 .contenedor-publicacion{
     padding-top: 50px;
 }

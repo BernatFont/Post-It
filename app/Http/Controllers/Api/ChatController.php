@@ -18,7 +18,6 @@ class ChatController extends Controller
         return $chats;
     }
 
-
     public function store($id, Request $request)
     {
         $userLogeado = auth()->id();
@@ -37,4 +36,19 @@ class ChatController extends Controller
             return response()->json(['chat' => false]);
         }
     }
+
+    public function obtenerChat($id, Request $request) {
+        $userLogeado = auth()->id();
+        $chat = Chat::find($id);
+    
+        // Verifica si el chat existe
+        if (!$chat) {
+            return response()->json(['error' => 'Chat no encontrado'], 404);
+        } else {
+            $chat = Chat::with(['user1', 'user2'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
+        }
+        // Devuelve solo el chat encontrado por su ID
+        return response()->json($chat);
+    }
+
 }

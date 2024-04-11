@@ -39,6 +39,7 @@ Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']
 
 Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
 Route::get('/chats', [ChatController::class, 'index']);
+Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']);
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
 Route::post('/chat/{id}', [ChatController::class, 'store']); // Crear chat
 Route::get('/chat/mensajes/{id}', [MensajeController::class, 'index']); // Obtener mensajes de un chat

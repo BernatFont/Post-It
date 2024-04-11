@@ -6,23 +6,30 @@
         </form>
     </div>
     <div class="content-view mainPrincipal">
-        <div class="title_page d-flex justify-content-center align-items-center mb-10">
-                <h2 class="pt-3 itty">Chat</h2>
+        <div class="" v-if="chat">
+            <div class="d-flex flex-row" v-if="userLogin.id === chat.user_id_2">
+                <img class="imgPerfil" src="/images/user-default.png" alt="">
+                <div class="d-flex flex-column">
+                    <span class="itty textContent">{{ chat.user1.name + " " + chat.user1.surname }}</span>
+                    <span class="itty textUsername">@{{ chat.user1.username }}</span>
+                </div>
             </div>
-        <div v-if="mensajes.length === 0">
+            <div class="d-flex flex-row" v-else-if="userLogin.id === chat.user_id_1">
+                <img class="imgPerfil" src="/images/user-default.png" alt="">
+                <div class="d-flex flex-column">
+                    <span class="itty textContent">{{ chat.user2.name + " " + chat.user2.surname }}</span>
+                    <span class="itty textUsername">@{{ chat.user2.username }}</span>
+                </div>
+                
+            </div>
+        </div>
+    <div v-if="mensajes.length === 0">
             <p>No se ha enviado ningun mensaje</p>
         </div>
         <div v-else>
             <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
-
-                <div class="container-msg d-flex flex-column" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
-                    <div>
-                        <span class="itty textName" v-if="mensaje.user.id === userLogin.id"><img class="imgPerfil" src="/images/user-default.png" alt="">{{ mensaje.user.name }} </span>
-                        <span class="itty textName" v-else>{{ mensaje.user.name }}<img class="imgPerfil" src="/images/user-default.png" alt=""> </span>
-                    </div>
-                    <div>
-                        <span class="itty textContent">{{ mensaje.contenido}}</span>
-                    </div>                   
+                <div class="container-msg" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
+                    <span class="itty textContent">{{ mensaje.contenido}}</span>
                 </div>
             </div>
         </div>
@@ -41,22 +48,33 @@
     const nuevoMensaje = ref('');
     const userLogin = computed(() => store.state.auth.user);
     const chatId = route.params.id;
+    const chat = ref();
 
     onMounted(() => {
         cargarMensajes();
+        obtenerChat();
     });
-
     // Devuelve un array con todos los mensajes del chat
     const cargarMensajes = () => {
         axios.get(`/api/chat/mensajes/${chatId}`)
             .then(response => {
                 mensajes.value = response.data;
-                console.log(mensajes.value)
             })
             .catch(error => {
                 console.error('Error al cargar los mensajes del chat:', error);
             });
     }
+
+    const obtenerChat = () => {
+        axios.get('/api/chats/' + chatId)
+            .then(response => {
+                chat.value = response.data[0];
+            }).catch(error => {
+                console.error('Error al cargar chat:', error);
+            });
+    }
+
+    
 
     const añadirMensaje = () => {
         const chatId = route.params.id;
@@ -74,21 +92,16 @@
             console.error('Error al añadir el mensaje:', error);
         });
     }
+    
 </script>
 
 <style>
-    /* .mainPrincipal {
-        margin-left: 10%;
-        margin-right: 10%;
-        margin-bottom: 93px;
-    } */
     .usuarioActual {
         justify-content: left;
     }
     
     .otroUsuario {
         justify-content: right;
-        text-align: right;   
     }
     
     .bg-v1 {
@@ -118,18 +131,18 @@
     }
 
     .imgPerfil {
-        width: 40px;
-        height: 40px;
+        width: 50px;
+        height: 50px;
         border-radius: 50%;
-        margin: auto;
+        margin: auto 0 auto 0;
     }
 
-    .textName {
-        font-size: 20px;
+    .textContent {
+        font-size: 1.5rem
     }  
 
-    .textContent {
-        font-size: 18px;
+    .textUsername {
+        font-size: 1.3rem
     }
 
     .div-form-msg {

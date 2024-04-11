@@ -16,7 +16,7 @@
                                 <img class="imgPerfil" src="/images/user-default.png" alt="foto de perfil">
                             </router-link>
                             <div class="d-flex flex-column ml-3">
-                                <span class="itty textName">{{chat.user1.name + " " + chat.user1.surname }}</span>
+                                <span class="itty textName">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
                                 <span class="textContent">@{{ chat.user1.username }}</span>
                             </div>
                         </div>
@@ -32,7 +32,7 @@
                                 <img class="imgPerfil" src="/images/user-default.png" alt="foto de perfil">
                             </router-link>
                             <div class="d-flex flex-column ml-3">
-                                <span class="itty textName">{{chat.user2.name + " " + chat.user2.surname }}</span>
+                                <span class="itty textName">{{chat.user2.name + (chat.user2.surname ? " " + chat.user1.surname : "")}}</span>
                                 <span class="textContent">@{{ chat.user2.username }}</span>
                             </div>
                         </div>
@@ -76,10 +76,6 @@
         font-size: 1.5rem;
     }  
 
-    /* .mainPrincipal {
-        margin-left: 20%;
-        margin-right: 20%;
-    } */
     .chatMain {
         margin-top: 10px;
     }
