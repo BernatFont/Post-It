@@ -28,14 +28,12 @@
             </div>
             <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
             <div class="px-3 py-2 card-post-text">
-                <span>{{ publicacion.texto }}</span>
+                <span>{{ formatText(publicacion.texto) }}</span>
             </div>
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
-            <div v-if="publicacion.media.length > 0" class="d-flex justify-content-center" style="position: relative; z-index: 1;">
+            <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
                 <img src="/images/celo.png" alt="" class="celo">
-            </div>
-            <div class="card-post-img d-flex justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
-                <img :src="publicacion.media[0].original_url" alt="" :style="{ transform: publicacion.liked ? 'rotate(0deg)' : 'rotate(' + obtenerRotacionAleatoria() + 'deg)' }">
+                <img class="img_post" :src="publicacion.media[0].original_url" alt="" :style="{ transform: publicacion.liked ? 'rotate(0deg)' : 'rotate(' + obtenerRotacionAleatoria() + 'deg)' }">
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">
@@ -143,6 +141,19 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
+// Esta función formatea el texto para hacer saltos de línea cuando es demasiado largo
+const formatText = (texto) => {
+    if (typeof texto === 'undefined') {
+        return ''; // Devuelve una cadena vacía si texto es undefined
+    }
+    // Definir la longitud máxima antes de hacer un salto de línea
+    const maxLength = 30;
+    if (texto.length > maxLength) {
+        return texto.match(new RegExp('.{1,' + maxLength + '}', 'g')).join('\n');
+    }
+    return texto;
+};
+
 const obtenerRotacionAleatoria = () => {
     // Genera un ángulo aleatorio entre -5 y 5 grados
     return Math.floor(Math.random() * 11) - 5;
@@ -153,10 +164,14 @@ const obtenerRotacionAleatoria = () => {
 </script>
 <style>
 .celo{
-    transform: rotate(-35deg);
+    transform: rotate(105deg);
     height: 50px;
-    margin-bottom: -64px;
+    position: absolute;
+    box-shadow: none;
+    z-index: 5;
+    top: 2%;
 }
+
 .corazon-img{
     height: 20px;
 }

@@ -26,9 +26,7 @@
         </div>
         <div class="bot-sidebar">
             <ul>
-                <router-link :to="{ name: 'feed'}">
-                    <li class="side-them-3"><div class="logo logo-sidebar-6"></div><span class="itty">Configuración</span></li>
-                </router-link>
+                <li id="configuracion" class="side-them-3"><div class="logo logo-sidebar-6"></div><span class="itty">Configuración</span></li>
 
                 <li class="side-them-2" @click="Logout"><div class="logo logo-sidebar-7"></div><span class="itty">Cerrar Sesión</span></li>
             </ul>
@@ -93,62 +91,13 @@ li:hover{
     background-position: center;
 }
 
-.logo-sidebar-1{
-    background-image: url(/images/casa.svg);    
-}
-li:hover .logo-sidebar-1{
-    background-image: url(/images/casa_hover.svg);    
-}
-
-.logo-sidebar-2{
-    background-image: url(/images/lupa.svg);    
-}
-li:hover .logo-sidebar-2{
-    background-image: url(/images/lupa_hover.svg);    
-}
-
-.logo-sidebar-3{
-    background-image: url(/images/campana.svg);    
-}
-li:hover .logo-sidebar-3{
-    background-image: url(/images/campana_hover.svg);    
-}
-
-.logo-sidebar-4{
-    background-image: url(/images/mensajes.svg);    
-}
-li:hover .logo-sidebar-4{
-    background-image: url(/images/mensajes_hover.svg);    
-}
-
-.logo-sidebar-5{
-    background-image: url(/images/perfil.svg);    
-}
-li:hover .logo-sidebar-5{
-    background-image: url(/images/perfil_hover.svg);    
-}
-
-.logo-sidebar-6{
-    background-image: url(/images/configuracion.svg);    
-}
-li:hover .logo-sidebar-6{
-    background-image: url(/images/configuracion_hover.svg);    
-}
-
-.logo-sidebar-7{
-    background-image: url(/images/cerrarSesion.svg);    
-}
-li:hover .logo-sidebar-7{
-    background-image: url(/images/cerrarSesion_hover.svg);    
-}
-
 li span{
     font-size: 24px;
 }
 </style>
 
 <script setup>
-import { inject, ref, computed } from 'vue';
+import { onMounted, inject, ref, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { useStore } from 'vuex'; // siempre hay que usarlo dentro de un script 'setup', sino no va
 import useAuth from "@/composables/auth";
@@ -163,4 +112,35 @@ function Logout() {
     router.push({name: 'welcome'});
     logout();
 }
+
+onMounted(()=>{
+
+    const config = document.getElementById('configuracion');
+    config.addEventListener('click', () =>{
+        swal({
+            title: 'Selecciona tu idioma',
+                    input: 'radio',
+                    inputOptions: {
+                        'espanol': 'Español',
+                        'ingles': 'Inglés'
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Debes seleccionar un idioma';
+                        }
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: false
+        }).then((result) => {
+            // Si se selecciona un idioma y se hace clic en "Aceptar"
+            if (result.isConfirmed) {
+                const selectedLanguage = result.value;
+                // Aquí puedes agregar la lógica para cambiar al idioma seleccionado
+                console.log('Seleccionaste ' + selectedLanguage);
+            }
+        });
+    })
+})
 </script>

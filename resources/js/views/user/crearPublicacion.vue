@@ -15,18 +15,13 @@
                     </div>
                     <div class="d-flex justify-content-between">
                         <div class="pt-4">
-                            <div>
-                                <!-- Agregamos un input de tipo file -->
-                                <label for="file-upload" class="btn btn-primary">Subir imagen</label>
-                                <input type="file" id="file-upload" @change="onFileChange">
-                            </div>
-                            <!-- <div v-if="!imageSelected">
+                            <div v-if="!imageSelected">
                                 <label for="file-upload" class="btn btn-primary">Subir imagen</label>
                                 <input type="file" id="file-upload" @change="onFileChange">
                             </div>
                             <div v-if="imageSelected">
                                 <button @click="discardImage" class="btn btn-discard">Descartar imagen</button>
-                            </div> -->
+                            </div>
                         </div>
                         <div class="pt-4">
                             <div>

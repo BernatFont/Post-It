@@ -74,6 +74,56 @@
     font-weight: normal
 }*/
 
+/* ICONOS MENU */
+.logo-sidebar-1{
+    background-image: url(/images/casa.svg);    
+}
+li:hover .logo-sidebar-1{
+    background-image: url(/images/casa_hover.svg);    
+}
+
+.logo-sidebar-2{
+    background-image: url(/images/lupa.svg);    
+}
+li:hover .logo-sidebar-2{
+    background-image: url(/images/lupa_hover.svg);    
+}
+
+.logo-sidebar-3{
+    background-image: url(/images/campana.svg);    
+}
+li:hover .logo-sidebar-3{
+    background-image: url(/images/campana_hover.svg);    
+}
+
+.logo-sidebar-4{
+    background-image: url(/images/mensajes.svg);    
+}
+li:hover .logo-sidebar-4{
+    background-image: url(/images/mensajes_hover.svg);    
+}
+
+.logo-sidebar-5{
+    background-image: url(/images/perfil.svg);    
+}
+li:hover .logo-sidebar-5{
+    background-image: url(/images/perfil_hover.svg);    
+}
+
+.logo-sidebar-6{
+    background-image: url(/images/configuracion.svg);    
+}
+li:hover .logo-sidebar-6{
+    background-image: url(/images/configuracion_hover.svg);    
+}
+
+.logo-sidebar-7{
+    background-image: url(/images/cerrarSesion.svg);    
+}
+li:hover .logo-sidebar-7{
+    background-image: url(/images/cerrarSesion_hover.svg);    
+}
+
 /* Contenedor principal con el fondo de corcho */
 .mainPrincipal {
     min-height: 100vh;
@@ -158,6 +208,12 @@ h2{
     width: 55%;
 }
 
+@media (max-width: 1200px){
+    .card-post{
+        width: 80%;
+    }
+}
+
 .soporte{
     width: 4rem;
     height: 4rem;
@@ -176,10 +232,11 @@ h2{
 }
 
 .card-post-img{
+    position: relative;
     aspect-ratio: 16/9;
     overflow: hidden;
 }
-.card-post-img img{
+.card-post-img .img_post{
     height: 80%;
     transform: rotate(5deg);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);

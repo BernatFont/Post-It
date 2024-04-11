@@ -18,7 +18,7 @@
                     <li class="respo-1"><div class="logo_respo logo-sidebar-5"></div></li>
                 </router-link>
 
-                <li id="configuracion" class="respo-3"><div class="logo_respo logo-sidebar-6"></div></li>
+                <li id="configuracion_resp" class="respo-3"><div class="logo_respo logo-sidebar-6"></div></li>
 
                 <li class="respo-2" @click="Logout"><div class="logo_respo logo-sidebar-7"></div></li>
             </ul>
@@ -33,7 +33,7 @@
     z-index: 9999;
     width: 100%;
     height: 10%;
-    background: url(images/fondo_sidebar_responsive.svg);
+    background: url(/images/fondo_sidebar_responsive.svg);
     background-repeat: no-repeat;
     background-size: cover;
     border-top: solid 2px #AC5708;
@@ -54,13 +54,13 @@
 }
 
 .respo-1{
-    background-image: url(images/papel-responsive1.svg);
+    background-image: url(/images/papel-responsive1.svg);
 }
 .respo-2{
-    background-image: url(images/papel-responsive2.svg);
+    background-image: url(/images/papel-responsive2.svg);
 }
 .respo-3{
-    background-image: url(images/papel-responsive3.svg);
+    background-image: url(/images/papel-responsive3.svg);
 }
 
 .logo_respo{
@@ -70,55 +70,6 @@
     background-position: center;
 }
 
-.logo-sidebar-1{
-    background-image: url(images/casa.svg);    
-}
-li:hover .logo-sidebar-1{
-    background-image: url(images/casa_hover.svg);    
-}
-
-.logo-sidebar-2{
-    background-image: url(images/lupa.svg);    
-}
-li:hover .logo-sidebar-2{
-    background-image: url(images/lupa_hover.svg);    
-}
-
-.logo-sidebar-3{
-    background-image: url(images/campana.svg);    
-}
-li:hover .logo-sidebar-3{
-    background-image: url(images/campana_hover.svg);    
-}
-
-.logo-sidebar-4{
-    background-image: url(images/mensajes.svg);    
-}
-li:hover .logo-sidebar-4{
-    background-image: url(images/mensajes_hover.svg);    
-}
-
-.logo-sidebar-5{
-    background-image: url(images/perfil.svg);    
-}
-li:hover .logo-sidebar-5{
-    background-image: url(images/perfil_hover.svg);    
-}
-
-.logo-sidebar-6{
-    background-image: url(images/configuracion.svg);    
-}
-li:hover .logo-sidebar-6{
-    background-image: url(images/configuracion_hover.svg);    
-}
-
-.logo-sidebar-7{
-    background-image: url(images/cerrarSesion.svg);    
-}
-li:hover .logo-sidebar-7{
-    background-image: url(images/cerrarSesion_hover.svg);    
-}
-
 li span{
     font-size: 24px;
 }
@@ -126,7 +77,7 @@ li span{
 </style>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { onMounted, inject, ref, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { useStore } from 'vuex'; // siempre hay que usarlo dentro de un script 'setup', sino no va
 import useAuth from "@/composables/auth";
@@ -135,7 +86,7 @@ const store = useStore() // gancho que permite acceder al store de Vuex dentro d
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const { logout } = useAuth();
 const router = useRouter();
-const config = document.getElementById('configuracion');
+const swal = inject('$swal');
 
 function Logout() {
   // Realizar acciones adicionales antes del cierre de sesión si es necesario
@@ -144,7 +95,35 @@ function Logout() {
   router.push('/');
 }
 
-// config.addEventListener('click', () =>{
+onMounted(()=>{
 
-// })
+    const config = document.getElementById('configuracion_resp');
+    config.addEventListener('click', () =>{
+        swal({
+            title: 'Selecciona tu idioma',
+                    input: 'radio',
+                    inputOptions: {
+                        'espanol': 'Español',
+                        'ingles': 'Inglés'
+                    },
+                    inputValidator: (value) => {
+                        if (!value) {
+                            return 'Debes seleccionar un idioma';
+                        }
+                    },
+                    showCancelButton: true,
+                    cancelButtonText: 'Cancelar',
+                    confirmButtonText: 'Aceptar',
+                    allowOutsideClick: false
+        }).then((result) => {
+            // Si se selecciona un idioma y se hace clic en "Aceptar"
+            if (result.isConfirmed) {
+                const selectedLanguage = result.value;
+                // Aquí puedes agregar la lógica para cambiar al idioma seleccionado
+                console.log('Seleccionaste ' + selectedLanguage);
+            }
+        });
+    })
+})
+
 </script>
