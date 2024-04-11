@@ -1,5 +1,5 @@
 <template>
-    <div class="contenedor-publicacion">
+    <div class="contenedor-publicacion mainPrincipal">
         <div v-if="publicacion">
             <div class="card-post m-auto pt-3 px-2">
                 <div class="card-post-top d-flex justify-content-between align-items-center">
@@ -90,6 +90,9 @@
 
 .card-post{
     background-color: var(--cuarto);
+}
+.card-post-img img {
+    transform: rotate(0deg);
 }
 .comments{
     background-image: url(/public/images/papel-comment.svg);

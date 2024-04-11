@@ -1,5 +1,5 @@
 <template>
-    <div v-if="publicacion" class="card-post mb-5 content-view ">
+    <div v-if="publicacion" class="card-post mb-5 content-view mainPrincipal ">
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between pb-2 mb-2">
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-    <div v-else>
+    <div v-else class="mainPrincipal">
         <p>Cargando...</p>
     </div>
     

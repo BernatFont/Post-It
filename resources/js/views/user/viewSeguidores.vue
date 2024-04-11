@@ -1,5 +1,5 @@
 <template>
-    <div v-if="usuario" class="px-5">
+    <div v-if="usuario" class="px-5 mainPrincipal">
         <div class="top-content-view w-100">
             <div v-for="usuario in usuario.seguidores">
                 <p>Le sigue: {{ usuario.username }}</p>

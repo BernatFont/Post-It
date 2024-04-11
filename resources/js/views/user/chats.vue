@@ -1,5 +1,5 @@
 <template>
-    <div class="mainPrincipal">
+    <div class="mainPrincipal content-view">
         <div class="title_page d-flex justify-content-center align-items-center mb-10">
             <h2 class="pt-3 itty">Chat</h2>
         </div>
@@ -76,10 +76,10 @@
         font-size: 1.5rem;
     }  
 
-    .mainPrincipal {
+    /* .mainPrincipal {
         margin-left: 20%;
         margin-right: 20%;
-    }
+    } */
     .chatMain {
         margin-top: 10px;
     }

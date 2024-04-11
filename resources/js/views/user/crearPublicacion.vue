@@ -1,68 +1,71 @@
 <template>
-    <div class="py-2 px-5 d-flex justify-content-center">
-        <div class="top-content-view w-100 d-flex justify-content-between">
-            <h2>Publicar un post</h2>
+    <div class="mainPrincipal">
+        <div class="py-2 px-5 d-flex justify-content-center">
+            <div class="top-content-view w-100 d-flex justify-content-between">
+                <h2>Publicar un post</h2>
+            </div>
         </div>
+        <div class="d-md-flex justify-content-between p-5 h-100">
+            <div class="w-100 w-md-50">
+                <h3 class="text-center">Crea tu post</h3>
+                <form @submit.prevent="addPublicacion" class="create-post-form me-4">
+                    <div class="form-group mb-2">
+                        <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
+                        <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
+                    </div>
+                    <div class="d-flex justify-content-between">
+                        <div class="pt-4">
+                            <div>
+                                <!-- Agregamos un input de tipo file -->
+                                <label for="file-upload" class="btn btn-primary">Subir imagen</label>
+                                <input type="file" id="file-upload" @change="onFileChange">
+                            </div>
+                            <!-- <div v-if="!imageSelected">
+                                <label for="file-upload" class="btn btn-primary">Subir imagen</label>
+                                <input type="file" id="file-upload" @change="onFileChange">
+                            </div>
+                            <div v-if="imageSelected">
+                                <button @click="discardImage" class="btn btn-discard">Descartar imagen</button>
+                            </div> -->
+                        </div>
+                        <div class="pt-4">
+                            <div>
+                                <button type="submit" class="btn btn-postit">Subir publicación</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="w-100 w-md-50">
+                <h3 class="text-center">Vista previa</h3>
+                <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                    <div class="d-flex">
+                        <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                        <div class="ms-3 d-flex flex-column justify-content-center">
+                            <span>{{ user.name }} {{ user.surname }}</span>
+                            <span>@{{ user.username}}</span>
+                        </div>
+                    </div>
+                    <span class="pe-3">Fecha</span>
+                </div>
+                <div class="px-3 py-2 card-post-text w-100">
+                    <p class="post-text">{{ formatText(publicacion.texto) }}</p>
+                </div>
+                <div class="card-post-img d-flex justify-content-center" v-if="imageSelected">
+                    <img :src="imageUrl" alt="">
+                </div>
+                <div class="card-post-bottom d-flex">
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-heart p-3"></i><span>0</span>
+                    </div>
+                    <div class="d-flex align-items-center">
+                        <i class="pi pi-comment p-3"></i><span>0</span>
+                    </div>  
+                </div>
+            </div>
+        </div>    
     </div>
-    <div class="d-md-flex justify-content-between p-5 h-100">
-        <div class="w-100 w-md-50">
-            <h3 class="text-center">Crea tu post</h3>
-            <form @submit.prevent="addPublicacion" class="create-post-form me-4">
-                <div class="form-group mb-2">
-                    <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
-                    <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
-                </div>
-                <div class="d-flex justify-content-between">
-                    <div class="pt-4">
-                        <div>
-                            <!-- Agregamos un input de tipo file -->
-                            <label for="file-upload" class="btn btn-primary">Subir imagen</label>
-                            <input type="file" id="file-upload" @change="onFileChange">
-                        </div>
-                        <!-- <div v-if="!imageSelected">
-                            <label for="file-upload" class="btn btn-primary">Subir imagen</label>
-                            <input type="file" id="file-upload" @change="onFileChange">
-                        </div>
-                        <div v-if="imageSelected">
-                            <button @click="discardImage" class="btn btn-discard">Descartar imagen</button>
-                        </div> -->
-                    </div>
-                    <div class="pt-4">
-                        <div>
-                            <button type="submit" class="btn btn-postit">Subir publicación</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-        <div class="w-100 w-md-50">
-            <h3 class="text-center">Vista previa</h3>
-            <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                <div class="d-flex">
-                    <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
-                    <div class="ms-3 d-flex flex-column justify-content-center">
-                        <span>{{ user.name }} {{ user.surname }}</span>
-                        <span>@{{ user.username}}</span>
-                    </div>
-                </div>
-                <span class="pe-3">Fecha</span>
-            </div>
-            <div class="px-3 py-2 card-post-text w-100">
-                <p class="post-text">{{ formatText(publicacion.texto) }}</p>
-            </div>
-            <div class="card-post-img d-flex justify-content-center" v-if="imageSelected">
-                <img :src="imageUrl" alt="">
-            </div>
-            <div class="card-post-bottom d-flex">
-                <div class="d-flex align-items-center">
-                    <i class="pi pi-heart p-3"></i><span>0</span>
-                </div>
-                <div class="d-flex align-items-center">
-                    <i class="pi pi-comment p-3"></i><span>0</span>
-                </div>  
-            </div>
-        </div>
-    </div>    
+    
 </template>
 
 

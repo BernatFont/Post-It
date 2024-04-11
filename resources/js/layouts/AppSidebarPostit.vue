@@ -44,7 +44,7 @@
     height: 100vh;
     z-index: 999;
     user-select: none;
-    background-image: url(images/fondo_sidebar.jpg);
+    background-image: url(/images/fondo_sidebar.jpg);
     background-repeat: no-repeat;
     background-size: cover;
     border-right: solid 2px #AC5708;
@@ -54,7 +54,7 @@
 .top-sidebar{
     height: 20%;
     min-height: 150px;
-    background-image: url(images/bg-logo.svg);
+    background-image: url(/images/bg-logo.svg);
     background-repeat: no-repeat;
     background-size: cover;
 }
@@ -76,13 +76,13 @@ li:hover{
 }
 
 .side-them-1{
-    background-image: url(images/papel1.svg);
+    background-image: url(/images/papel1.svg);
 }
 .side-them-2{
-    background-image: url(images/papel2.svg);
+    background-image: url(/images/papel2.svg);
 }
 .side-them-3{
-    background-image: url(images/papel3.svg);
+    background-image: url(/images/papel3.svg);
 }
 
 .logo{
@@ -94,52 +94,52 @@ li:hover{
 }
 
 .logo-sidebar-1{
-    background-image: url(images/casa.svg);    
+    background-image: url(/images/casa.svg);    
 }
 li:hover .logo-sidebar-1{
-    background-image: url(images/casa_hover.svg);    
+    background-image: url(/images/casa_hover.svg);    
 }
 
 .logo-sidebar-2{
-    background-image: url(images/lupa.svg);    
+    background-image: url(/images/lupa.svg);    
 }
 li:hover .logo-sidebar-2{
-    background-image: url(images/lupa_hover.svg);    
+    background-image: url(/images/lupa_hover.svg);    
 }
 
 .logo-sidebar-3{
-    background-image: url(images/campana.svg);    
+    background-image: url(/images/campana.svg);    
 }
 li:hover .logo-sidebar-3{
-    background-image: url(images/campana_hover.svg);    
+    background-image: url(/images/campana_hover.svg);    
 }
 
 .logo-sidebar-4{
-    background-image: url(images/mensajes.svg);    
+    background-image: url(/images/mensajes.svg);    
 }
 li:hover .logo-sidebar-4{
-    background-image: url(images/mensajes_hover.svg);    
+    background-image: url(/images/mensajes_hover.svg);    
 }
 
 .logo-sidebar-5{
-    background-image: url(images/perfil.svg);    
+    background-image: url(/images/perfil.svg);    
 }
 li:hover .logo-sidebar-5{
-    background-image: url(images/perfil_hover.svg);    
+    background-image: url(/images/perfil_hover.svg);    
 }
 
 .logo-sidebar-6{
-    background-image: url(images/configuracion.svg);    
+    background-image: url(/images/configuracion.svg);    
 }
 li:hover .logo-sidebar-6{
-    background-image: url(images/configuracion_hover.svg);    
+    background-image: url(/images/configuracion_hover.svg);    
 }
 
 .logo-sidebar-7{
-    background-image: url(images/cerrarSesion.svg);    
+    background-image: url(/images/cerrarSesion.svg);    
 }
 li:hover .logo-sidebar-7{
-    background-image: url(images/cerrarSesion_hover.svg);    
+    background-image: url(/images/cerrarSesion_hover.svg);    
 }
 
 li span{
@@ -148,7 +148,7 @@ li span{
 </style>
 
 <script setup>
-import { ref, computed } from 'vue';
+import { inject, ref, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { useStore } from 'vuex'; // siempre hay que usarlo dentro de un script 'setup', sino no va
 import useAuth from "@/composables/auth";
@@ -157,7 +157,7 @@ const store = useStore() // gancho que permite acceder al store de Vuex dentro d
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const { logout } = useAuth();
 const router = useRouter();
-
+const swal = inject('$swal');
 
 function Logout() {
     router.push({name: 'welcome'});

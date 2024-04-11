@@ -11,7 +11,6 @@ const Usuario = () => import('../views/user/perfil.vue');
 // const Buscar = () => import('');
 const Chats= () => import('../views/user/chats.vue');
 const Chat= () => import('../views/user/chat.vue');
-const Mensajes= () => import('../views/user/mensajes.vue');
 const Notificaciones= () => import('../views/user/notificaciones.vue');
 const CrearPublicacion= () => import('../views/user/crearPublicacion.vue');
 const EditarPublicacion  = ()  => import('../views/user/actualizarPublicacion.vue');

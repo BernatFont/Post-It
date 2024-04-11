@@ -5,7 +5,7 @@
             <button class="enviar" type="submit">Enviar</button>
         </form>
     </div>
-    <div class="mainPrincipal">
+    <div class="content-view mainPrincipal">
         <div class="title_page d-flex justify-content-center align-items-center mb-10">
                 <h2 class="pt-3 itty">Chat</h2>
             </div>
@@ -77,11 +77,11 @@
 </script>
 
 <style>
-    .mainPrincipal {
+    /* .mainPrincipal {
         margin-left: 10%;
         margin-right: 10%;
         margin-bottom: 93px;
-    }
+    } */
     .usuarioActual {
         justify-content: left;
     }
