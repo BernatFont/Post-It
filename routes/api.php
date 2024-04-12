@@ -38,6 +38,8 @@ Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']);
 Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']); // Eliminar
 
 Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
+Route::get('/usuarios', [UserController::class, 'obtenerTodosUsuarios']);
+
 Route::get('/chats', [ChatController::class, 'index']);
 Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']);
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario

@@ -5,7 +5,7 @@
                 <router-link :to="{ name: 'feed'}">
                     <li class="respo-1"><div class="logo_respo logo-sidebar-1"></div></li>
                 </router-link>
-                <router-link :to="{ name: 'feed'}">
+                <router-link :to="{ name: 'buscar'}">
                     <li class="respo-2"><div class="logo_respo logo-sidebar-2"></div></li>
                 </router-link>
                 <router-link :to="{ name: 'notificaciones'}">

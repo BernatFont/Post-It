@@ -9,7 +9,7 @@
                     <router-link :to="{ name: 'feed'}">
                         <li class="side-them-1"><div class="logo logo-sidebar-1"></div><span class="itty">Inicio</span></li>
                     </router-link>
-                    <router-link :to="{ name: 'feed'}">
+                    <router-link :to="{ name: 'buscar'}">
                         <li class="side-them-2"><div class="logo logo-sidebar-2"></div><span class="itty">Buscar</span></li>
                     </router-link>
                     <router-link :to="{ name: 'notificaciones'}">

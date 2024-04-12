@@ -165,7 +165,6 @@ p,span,a,label,button,h1,h2,h3{
 
 /*Contenido de la parte superior de las vistas*/
 .top-content-view{
-    margin-top: 24px;
     padding: 24px 24px 12px 24px;
     width: 90%;
 }

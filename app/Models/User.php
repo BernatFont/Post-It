@@ -84,6 +84,5 @@ class User extends Authenticatable
         return $this->hasMany(Publicacion::class, 'id_usuario');
     }
 
-
 }
 

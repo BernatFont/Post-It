@@ -158,4 +158,8 @@ class UserController extends Controller
         }
     }
 
+    public function obtenerTodosUsuarios(){
+        return $usuarios = User::all();
+    }
+
 }

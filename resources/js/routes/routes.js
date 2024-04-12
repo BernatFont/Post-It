@@ -8,7 +8,7 @@ const UserLayout = () => import('../layouts/AppPostIt.vue')
 const Home = () => import('../views/home/index.vue')
 const Feed = () => import('../views/user/feed.vue');
 const Usuario = () => import('../views/user/perfil.vue');
-// const Buscar = () => import('');
+const Buscar = () => import('../views/user/buscador.vue');
 const Chats= () => import('../views/user/chats.vue');
 const Chat= () => import('../views/user/chat.vue');
 const Notificaciones= () => import('../views/user/notificaciones.vue');
@@ -127,19 +127,20 @@ export default [
 
         ]
     },
-    // {
-    //     path: '/buscar',
-    //     component: UserLayout,
-    //     beforeEnter: requireLogin,
-    //     meta: { breadCrumb: 'Buscar' },
-    //     children: [
-    //         {
-    //             path: '',
-    //             component: Buscar,
-    //             meta: { breadCrumb: 'Buscador de Post y personas' }
-    //         },
-    //     ]
-    // },
+    {
+        path: '/buscar',
+        component: UserLayout,
+        beforeEnter: requireLogin,
+        meta: { breadCrumb: 'Buscar' },
+        children: [
+            {
+                path: '',
+                name: 'buscar',
+                component: Buscar,
+                meta: { breadCrumb: 'Buscador de Post y personas' }
+            },
+        ]
+    },
     {
         path: '/chats',
         component: UserLayout,
