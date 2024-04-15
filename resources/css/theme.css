@@ -127,7 +127,6 @@ li:hover .logo-sidebar-7{
 /* Contenedor principal con el fondo de corcho */
 .mainPrincipal {
     min-height: 100vh;
-    background-image: url(/images/Corcho.jpg);
 }
 
 /* buttons */
@@ -256,7 +255,12 @@ h2{
     padding-bottom: 20px;
 }
 @media (max-width: 700px){
-    .content-view, .top-content-view{
+    .content-view{
+        width: 90%;
+    }
+}
+@media (max-width: 450px){
+    .content-view{
         width: 100%;
     }
 }
