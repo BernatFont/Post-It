@@ -6,7 +6,7 @@
                     <div></div>
                     <img class="imgLogo" src="/images/logo_principal.svg" alt="">
                 </div>
-                <div class="card border-0 shadow-sm inclinacion2">
+                <div class="card border-0 shadow-sm">
                     <div class="card-body itty">
                         <form @submit.prevent="submitLogin">
                             <div class="containerForm">
@@ -48,14 +48,12 @@
                                     <router-link class="btn-href" :to="{name: 'auth.forgot-password'}">{{ $t('forgot_password')}}</router-link>
                                 </div>
                                 
-                                <!-- Buttons -->
-                                <div class="mt-3 text-type-2">
-                                    <button class="sticky-btn" :class="{ 'opacity-25': processing }" :disabled="processing">
-                                        <span class="font-type-1">{{ $t('login') }}</span>
-                                    </button>
+                                <!-- Boton iniciar sesion -->
+                                <div class="container-boton">
+                                    <div class="sticky-btn-sticker"></div>
+                                    <button class="btnSticky sticky-btn-1 itty" :class="{ 'opacity-25': processing }" :disabled="processing">{{ $t('login') }}</button>
                                 </div>
                             </div>
-                            
                         </form>
                     </div>
                 </div>
@@ -74,86 +72,90 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
 
 <style>
 
-.btnContainer-volver {
-    margin-bottom: 50px;
-}
+    .container-boton {
+        margin-top: 35px;
+    }
+    .btnContainer-volver {
+        margin-bottom: 50px;
+    }
 
-.btnContainer-bottom {
-    margin-top: 35px;
-}
-.imgLogo {
-    max-width: 300px;
-    margin: auto;
-}
+    .btnContainer-bottom {
+        margin-top: 35px;
+    }
+    .imgLogo {
+        max-width: 300px;
+        margin: auto;
+    }
 
-.card {
-    border-radius: 0px;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-    background-color: #fff;
-}
+    .sticky-btn-1 {
+        box-shadow: 12px 2px 10px rgba(0, 0, 0, 0.1);
+    }
 
-.card-body {
-    padding: 0px;
-}
+    .sticky-btn-1:hover {
+        box-shadow: 12px 2px 10px rgba(0, 0, 0, 0.2);
+    }
 
-.containerLogin {
-    background-image: url(images/Corcho.jpg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    height: 100vh;
-}
-.no-margin-row {
-    margin: 0px;
-}
-.inclinacion1 {
-    transform: rotate(1deg);
-}
+    .card {
+        border-radius: 0px;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+    }
 
-.inclinacion2 {
-    transform: rotate(-2deg);
-}
+    .card-body {
+        padding: 0px;
+    }
 
-.text-type-1 {
-    font-size: 1.4rem;
-}
+    .containerLogin {
+        background-image: url(images/Corcho.jpg);
+        background-repeat: no-repeat;
+        background-size: cover;
+        height: 100vh;
+    }
+    .no-margin-row {
+        margin: 0px;
+    }
 
-.div-input-width {
-    display: flex;
-    flex-direction: row;
-    width: 100%;
-}
+    .text-type-1 {
+        font-size: 1.4rem;
+    }
 
-.label-width {
-    width: 25%
-}
+    .div-input-width {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+    }
 
-.input-width {
-    width: 75%;
-}
+    .label-width {
+        width: 25%
+    }
 
-.text-type-2 {
-    font-size: 1.2rem;
-}
+    .input-width {
+        width: 75%;
+    }
 
-@media (max-width: 500px){
+    .text-type-2 {
+        font-size: 1.2rem;
+    }
+
+    @media (max-width: 500px){
     .inclinacion1 {
     transform: rotate(0deg);
-}
+    }
 
-.inclinacion2 {
-    transform: rotate(0deg);
-}
+    .inclinacion2 {
+        transform: rotate(0deg);
+    }
 
-.div-input-width {
-    flex-direction: column;
-}
-.label-width {
-    width: 100%
-}
+    .div-input-width {
+        flex-direction: column;
+    }
+    .label-width {
+        width: 100%
+    }
 
-.input-width {
-    width: 100%
-}
+    .input-width {
+        width: 100%
+    }
 }
 
 </style>

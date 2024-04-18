@@ -20,9 +20,10 @@
                                 <span class="textContent">@{{ chat.user1.username }}</span>
                             </div>
                         </div>
-                        <router-link class="d-flex justify-content-right align-items-center pl-3 pr-3" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
-                            <button  class="itty textName">Mostrar Chat</button>
-                        </router-link>
+                        <div class="container-boton">
+                            <div class="sticky-btn-sticker"></div>
+                            <router-link class="sticky-btn-1 itty" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
+                        </div>
                     </div>
                 </div>
                 <div class="chatMain" v-if="chat.user_id_2 !== userLogin.id">    
@@ -36,9 +37,10 @@
                                 <span class="textContent">@{{ chat.user2.username }}</span>
                             </div>
                         </div>
-                        <router-link class="d-flex justify-content-right align-items-center pl-3 pr-3" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">
-                            <button  class="itty textName">Mostrar Chat</button>
-                        </router-link>
+                        <div class="container-boton">
+                            <div class="sticky-btn-sticker"></div>
+                            <router-link class="sticky-btn-1 itty" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
+                        </div>
                     </div>          
                 </div>
             </div>

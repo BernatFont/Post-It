@@ -18,31 +18,10 @@
     src: url('/public/fonts/IttyBittyNotebook-2X7K.ttf') format('truetype');
   }
 
+  /*Font itty*/
   .itty{
     font-family: 'Itty';
   }
-
-.btn-href {
-    font-size: 1.2rem;
-    color: var(--gray-800);
-}
-.btn-href:hover {
-    text-decoration: underline !important;
-}
-
-.sticky-btn {
-    background-color: var(--tercero);
-    border: none;
-    padding: 10px 20px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.sticky-btn:hover {
-    box-shadow: 16px 4px 5px rgba(0, 0, 0, 0.1);
-
-}
 
 /* ICONOS MENU */
 .logo-sidebar-1{
@@ -100,7 +79,54 @@ li:hover .logo-sidebar-7{
 }
 
 /* buttons */
+    .btn-href {
+        font-size: 1.2rem;
+        color: var(--gray-800);
+    }
+    .btn-href:hover {
+        text-decoration: underline !important;
+    }
 
+    /*Sticky Btn*/
+    .container-boton {
+        display: flex;
+        flex-direction: row;
+        width: 35%;
+        background-color: #b2db82;
+    }
+    .sticky-btn-1 {
+        width: 90%;
+        text-align: center;
+        font-size: 1.35rem;
+        box-shadow: 12px 3px 10px rgba(0, 0, 0, 0.2);
+        padding: 12px;
+        transition: box-shadow 0.25s ease-in-out;
+    }
+
+    .sticky-btn-1:hover {
+        box-shadow: 12px 3px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    .sticky-btn-sticker {
+        width: 10%;
+        background-color: #a1c775;
+    }
+
+    /*En caso de ser un button*/
+    .btnSticky {
+        background-color: #b2db82;
+        border: 0;
+    }
+
+    .inclinacion1 {
+        transform: rotate(2deg);
+    }
+
+    .inclinacion2 {
+        transform: rotate(-2deg);
+    }
+
+/*Fin del Sticky Btn*/
 .delete-btn{
     background-color: rgb(255, 255, 255);
     cursor: pointer;
@@ -150,24 +176,24 @@ h2{
 /* ESTRUCTURAMOS EL POST */
 .bg-1 {
     background-color: var(--primero);
-    transform: rotate(-5deg);
     align-self: center;
 }
 
 .bg-2 {
     background-color: var(--segundo);
+    transform: rotate(1deg);
     align-self: flex-start;
 }
 
 .bg-3 {
     background-color: var(--tercero);
-    transform: rotate(2deg);
+    transform: rotate(-2deg);
     align-self: flex-end;
 }
 
 .bg-4 {
     background-color: var(--cuarto);
-    transform: rotate(-3deg);
+    transform: rotate(-1deg);
     align-self: center;
 }
 
