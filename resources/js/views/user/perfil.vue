@@ -24,7 +24,9 @@
                     
 
                     <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
-                    <button v-if="usuario.id === userLogin.id" class="btn btn-postit">Editar perfil</button>
+                    <router-link v-if="usuario.id === userLogin.id" class="btn btn-postit" :to="{ name: 'perfil.modificar'}">
+                        <span>Editar perfil</span>
+                    </router-link>
                     <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
                     <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
                 </div>

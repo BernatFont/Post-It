@@ -8,6 +8,7 @@ const UserLayout = () => import('../layouts/AppPostIt.vue')
 const Home = () => import('../views/home/index.vue')
 const Feed = () => import('../views/user/feed.vue');
 const Usuario = () => import('../views/user/perfil.vue');
+const PerfilModificar = () => import('../views/user/modificarPerfil.vue');
 const Buscar = () => import('../views/user/buscador.vue');
 const Chats= () => import('../views/user/chats.vue');
 const Chat= () => import('../views/user/chat.vue');
@@ -104,12 +105,12 @@ export default [
                         component: Usuario,
                         meta: { breadCrumb: 'Perfil usuario'},
                     },
-                    // {
-                    // name: 'usuario.editar',
-                    //path: 'editar',
-                    //component: Usuario,
-                    //meta: { breadCrumb: 'Editar usuario'},
-                    // },
+                    {
+                    name: 'perfil.modificar',
+                    path: 'editarPerfil',
+                    component: PerfilModificar,
+                    meta: { breadCrumb: 'Editar perfil usuario'},
+                    },
                     {
                         name: 'usuario.seguidores',
                         path: 'seguidores',

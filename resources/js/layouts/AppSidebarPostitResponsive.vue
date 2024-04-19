@@ -33,10 +33,10 @@
     z-index: 9999;
     width: 100%;
     height: 10%;
-    background: url(/images/fondo_sidebar_responsive.svg);
+    background: url(/images/bg-menu-responsive.svg);
     background-repeat: no-repeat;
     background-size: cover;
-    border-top: solid 2px #AC5708;
+    border-top: solid 2px #E1BC83;
     box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.5);
 }
 
@@ -98,32 +98,34 @@ function Logout() {
 onMounted(()=>{
 
     const config = document.getElementById('configuracion_resp');
-    config.addEventListener('click', () =>{
-        swal({
-            title: 'Selecciona tu idioma',
-                    input: 'radio',
-                    inputOptions: {
-                        'espanol': 'Español',
-                        'ingles': 'Inglés'
-                    },
-                    inputValidator: (value) => {
-                        if (!value) {
-                            return 'Debes seleccionar un idioma';
-                        }
-                    },
-                    showCancelButton: true,
-                    cancelButtonText: 'Cancelar',
-                    confirmButtonText: 'Aceptar',
-                    allowOutsideClick: false
-        }).then((result) => {
-            // Si se selecciona un idioma y se hace clic en "Aceptar"
-            if (result.isConfirmed) {
-                const selectedLanguage = result.value;
-                // Aquí puedes agregar la lógica para cambiar al idioma seleccionado
-                console.log('Seleccionaste ' + selectedLanguage);
-            }
-        });
-    })
+    if (config){
+        config.addEventListener('click', () =>{
+            swal({
+                title: 'Selecciona tu idioma',
+                        input: 'radio',
+                        inputOptions: {
+                            'espanol': 'Español',
+                            'ingles': 'Inglés'
+                        },
+                        inputValidator: (value) => {
+                            if (!value) {
+                                return 'Debes seleccionar un idioma';
+                            }
+                        },
+                        showCancelButton: true,
+                        cancelButtonText: 'Cancelar',
+                        confirmButtonText: 'Aceptar',
+                        allowOutsideClick: false
+            }).then((result) => {
+                // Si se selecciona un idioma y se hace clic en "Aceptar"
+                if (result.isConfirmed) {
+                    const selectedLanguage = result.value;
+                    // Aquí puedes agregar la lógica para cambiar al idioma seleccionado
+                    console.log('Seleccionaste ' + selectedLanguage);
+                }
+            });
+        })
+    }
 })
 
 </script>

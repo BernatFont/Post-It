@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
@@ -160,6 +161,46 @@ class UserController extends Controller
 
     public function obtenerTodosUsuarios(){
         return $usuarios = User::all();
+    }
+
+    public function modificarUsuario(Request $request){
+
+        // Valida los datos de entrada
+        $validatedData = $request->validate([
+            'id' => 'required|exists:users,id',
+            'name' => 'required|string',
+            'surname' => 'nullable|string',
+            'birth_date' => 'nullable|date|date_format:Y-m-d', // La fecha puede ser nula o debe ser una fecha válida
+            'biography' => 'nullable|string',
+        ]);
+
+        // Encuentra al usuario
+        $user = User::findOrFail($validatedData['id']);
+    
+            // Actualiza los datos del usuario
+            $user->name = $validatedData['name'];
+            $user->surname = $validatedData['surname'];
+            $user->birth_date = $validatedData['birth_date'];
+            $user->biography = $validatedData['biography'];
+    
+            // // Verifica si se envió una imagen
+            // if ($request->hasFile('imagen')) {
+            //     // Obtiene la imagen del formulario
+            //     $imagen = $request->file('imagen');
+                
+            //     // Almacena la imagen utilizando Laravel Media Library
+            //     $user->addMedia($imagen)
+            //         ->toMediaCollection('user_images'); // Nombre de la colección de medios
+    
+            //     // Actualiza el campo de imagen en el modelo de usuario con la URL de la imagen
+            //     $user->image = $user->getFirstMediaUrl('user_images');
+            // }
+    
+            // Guarda los cambios en el usuario
+            $user->save();
+    
+            return new UserResource($user);
+        
     }
 
 }
