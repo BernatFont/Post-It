@@ -40,6 +40,7 @@ Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']
 Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
 Route::get('/usuarios', [UserController::class, 'obtenerTodosUsuarios']);
 Route::post('/usuarios/modificar', [UserController::class, 'modificarUsuario']);
+Route::post('/usuarios/modificarImagen', [UserController::class, 'modificarImagenUsuario']);
 
 
 Route::get('/chats', [ChatController::class, 'index']);

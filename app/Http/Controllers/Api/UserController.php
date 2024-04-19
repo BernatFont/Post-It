@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUserRequest;
 use App\Http\Requests\UpdateUserRequest;
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use App\Models\Media;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\Support\Facades\Hash;
@@ -183,19 +184,6 @@ class UserController extends Controller
             $user->birth_date = $validatedData['birth_date'];
             $user->biography = $validatedData['biography'];
     
-            // // Verifica si se envió una imagen
-            // if ($request->hasFile('imagen')) {
-            //     // Obtiene la imagen del formulario
-            //     $imagen = $request->file('imagen');
-                
-            //     // Almacena la imagen utilizando Laravel Media Library
-            //     $user->addMedia($imagen)
-            //         ->toMediaCollection('user_images'); // Nombre de la colección de medios
-    
-            //     // Actualiza el campo de imagen en el modelo de usuario con la URL de la imagen
-            //     $user->image = $user->getFirstMediaUrl('user_images');
-            // }
-    
             // Guarda los cambios en el usuario
             $user->save();
     
@@ -203,4 +191,19 @@ class UserController extends Controller
         
     }
 
+    public function modificarImagenUsuario(Request $request){
+        // Encuentra al usuario autenticado
+        $user = auth()->user();
+
+        if ($request->hasFile('imagen')) {
+            $user->addMediaFromRequest('imagen')
+                ->preservingOriginal()
+                ->toMediaCollection('images-user');
+                return response()->json(['message' => 'Imagen del usuario almacenada correctamente'], 200);
+        }else {
+            // Si no se proporciona una imagen, devuelve un mensaje de error
+            return response()->json(['error' => 'No se ha proporcionado una imagen'], 400);
+        }
+    
+    }
 }

@@ -98,11 +98,32 @@ const seleccionarImagen = (event) => {
     if (file) {
         const reader = new FileReader();
         reader.onload = (e) => {
+            // Actualiza la imagen seleccionada en tu componente Vue
             imagenSeleccionada.value = e.target.result;
+
+            // Crea un FormData para enviar la imagen al servidor
+            const formData = new FormData();
+            formData.append('imagen', file.value);
+            console.log(file);
+
+            // Envía la imagen al servidor usando Axios
+            axios.post('/api/usuarios/modificarImagen', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            }).then(response => {
+                // Maneja la respuesta del servidor si es necesario
+                console.log(response.data);
+                console.log('Imagen enviada');
+            }).catch(error => {
+                // Maneja cualquier error
+                console.error(error);
+            });
         };
         reader.readAsDataURL(file);
     }
 };
+
 
 const guardarCambios = () => {
     console.log(usuario.value)

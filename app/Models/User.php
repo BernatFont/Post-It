@@ -9,10 +9,15 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Spatie\Permission\Traits\HasRoles;
+use Illuminate\Database\Eloquent\Model;
+use Spatie\Image\Manipulations;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class User extends Authenticatable
+class User extends Authenticatable implements HasMedia
 {
-    use HasApiTokens, HasFactory, Notifiable, HasRoles;
+    use HasApiTokens, HasFactory, Notifiable, HasRoles, InteractsWithMedia;
 
     /**
      * The attributes that are mass assignable.
@@ -84,5 +89,17 @@ class User extends Authenticatable
         return $this->hasMany(Publicacion::class, 'id_usuario');
     }
 
+    /**
+     * Define las colecciones de medios para el modelo.
+     */
+    public function registerMediaCollections(): void
+    {
+        // Registra una colección de medios para imágenes relacionadas con publicaciones
+        $this->addMediaCollection('images/publicacion')
+            // Establece una URL de respaldo para la colección en caso de que no haya ningún medio disponible
+            ->useFallbackUrl('/images/placeholder.jpg')
+            // Establece una ruta de respaldo para la colección en caso de que no haya ningún medio disponible
+            ->useFallbackPath(public_path('/images/placeholder.jpg'));
+    }
 }
 
