@@ -7,15 +7,15 @@
     </div>
     <div class="content-view mainPrincipal">
         <div class="" v-if="chat">
-            <div class="d-flex flex-row" v-if="userLogin.id === chat.user_id_2">
-                <img class="imgPerfil" src="/images/user-default.png" alt="">
+            <div class="d-flex flex-row top-chat bg-v2" v-if="userLogin.id === chat.user_id_2">
+                <img class="imgPerfil ml-3" src="/images/user-default.png" alt="">
                 <div class="d-flex flex-column">
                     <span class="itty textContent">{{ chat.user1.name + " " + chat.user1.surname }}</span>
                     <span class="itty textUsername">@{{ chat.user1.username }}</span>
                 </div>
             </div>
-            <div class="d-flex flex-row" v-else-if="userLogin.id === chat.user_id_1">
-                <img class="imgPerfil" src="/images/user-default.png" alt="">
+            <div class="d-flex flex-row top-chat bg-v2" v-else-if="userLogin.id === chat.user_id_1">
+                <img class="imgPerfil ml-3" src="/images/user-default.png" alt="">
                 <div class="d-flex flex-column">
                     <span class="itty textContent">{{ chat.user2.name + " " + chat.user2.surname }}</span>
                     <span class="itty textUsername">@{{ chat.user2.username }}</span>
@@ -96,6 +96,13 @@
 </script>
 
 <style>
+    .top-chat {
+        /* background-color: var(--color-contraste2); */
+        padding: 10px 20px 20px 20px;
+        background-position: bottom;
+        margin-bottom: 20px;
+    }
+
     .usuarioActual {
         justify-content: left;
     }

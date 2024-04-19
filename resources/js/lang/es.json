@@ -39,5 +39,6 @@
     "settings": "Configuracion",
     "logout": "Cerrar Sesión",
     "username": "Nombre de usuario",
-    "back": "Volver"
+    "back": "Volver",
+    "show_chat": "Mostrar chat"
 }

@@ -44,5 +44,6 @@
     "settings": "Settings",
     "logout": "Logout",
     "username": "Username",
-    "back": "Back"
+    "back": "Back",
+    "show_chat": "Show chat"
 }

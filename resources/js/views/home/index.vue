@@ -26,6 +26,7 @@
 </template>
 
 <style>
+
 .mainPrincipal {
     background-image: url(/images/Corcho.jpg); 
     display: flex;
@@ -69,29 +70,6 @@
 
 .font-descripcion {
     font-size: 1.5rem;
-}
-
-.container-boton {
-    display: flex;
-    flex-direction: row;
-    width: 35%;
-    background-color: #b2db82;
-}
-.sticky-btn-1 {
-    width: 90%;
-    text-align: center;
-    font-size: 17px;
-    box-shadow: 12px 3px 10px rgba(0, 0, 0, 0.2);
-    padding: 12px;
-}
-
-.sticky-btn-1:hover {
-    box-shadow: 12px 3px 10px rgba(0, 0, 0, 0.5);
-}
-
-.sticky-btn-sticker {
-    width: 10%;
-    background-color: #a1c775;
 }
 
 .inclinacion1 {
