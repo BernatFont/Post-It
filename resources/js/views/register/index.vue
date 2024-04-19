@@ -147,11 +147,13 @@ const { registerForm, validationErrors, processing, submitRegister } = useAuth()
     }
 
     .label-width {
-        width: 25%
+        width: 25%;
+        margin-right: 10px;
     }
 
     .input-width {
-        width: 75%;
+        width: 70%;
+        margin-left: 10px;
     }
 
     .text-type-2 {
@@ -171,11 +173,11 @@ const { registerForm, validationErrors, processing, submitRegister } = useAuth()
         flex-direction: column;
     }
     .label-width {
-        width: 100%
+        width: 100%;
     }
 
     .input-width {
-        width: 100%
+        width: 100%;
     }
 }
 </style>

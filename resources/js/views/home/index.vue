@@ -3,7 +3,6 @@
         <div class="contenedor">
             <div class="imagen-container">
                 <img class="imagen" src="/images/logo_principal.svg" alt="Post-It logo">
-                <!--<h1 class="titulo itty"><b>{{ $t('welcome_starter_title') }}</b></h1> -->
             </div>
             <div class="d-flex flex-column">
                 <div class="descripcion">

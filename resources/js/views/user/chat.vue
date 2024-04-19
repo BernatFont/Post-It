@@ -97,7 +97,6 @@
 
 <style>
     .top-chat {
-        /* background-color: var(--color-contraste2); */
         padding: 10px 20px 20px 20px;
         background-position: bottom;
         margin-bottom: 20px;
@@ -153,7 +152,7 @@
     }
 
     .div-form-msg {
-    width: 100%;
+        width: 100%;
     }
 
     .form-msg {
