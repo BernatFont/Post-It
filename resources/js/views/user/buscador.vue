@@ -1,22 +1,29 @@
 <template>
-  <div class="py-2 d-flex justify-content-center">
-    <div class="top-content-view d-flex justify-content-between">
-      <div class="title_page d-flex justify-content-center align-items-center">
-        <h2 class="pt-3 itty">Buscar</h2>
+  <div class="mainPrincipal">
+    <div class="top-chat bg-v2 ">
+      <div class="d-flex justify-content-between searchContainer row">
+          <h2 class="pt-3 itty col-3">Buscar usuario</h2>
+            <!-- Input para buscar -->
+          <input class="inputSearch searchBar col-6" type="text" v-model="busqueda" placeholder="Buscar por nombre">
+          <div class="col-3"></div>
+      </div>
+    </div>
+  <div>
+    <!-- Mostrar usuarios filtrados -->
+    <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuariosFiltrados" :key="usuario.id">
+      <div class="d-flex flex-row">
+        <img class="imgPerfil" src="/images/user-default.png" alt="">
+        <div class="d-flex flex-column">
+            <span class="itty textContent">{{ usuario.name + " " + usuario.surname }}</span>
+            <span class="itty textUsername">@{{ usuario.username }}</span>
+        </div> 
+      </div>
+      <div>
+          <router-link class="btnIr" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">Mostrar</router-link>
       </div>
     </div>
   </div>
-  <div>
-    <!-- Input para buscar -->
-    <input type="text" v-model="busqueda" placeholder="Buscar por nombre">
-    <!-- Mostrar usuarios filtrados -->
-    <div v-for="usuario in usuariosFiltrados" :key="usuario.id">
-      <p>Nombre: {{ usuario.name }}</p>
-      <p>Username: {{ usuario.username }}</p>
-      <p>Email: {{ usuario.email }}</p>
-      <p>---------------------------------------------</p>
-    </div>
-  </div>
+</div>
 </template>
 
 <script>
@@ -61,5 +68,61 @@ export default {
 </script>
 
 <style>
-/* Estilos aquí */
+
+  .searchContainer {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .userContainer {
+    background-image: url(/images/papel-comment.svg);
+    background-size: cover;
+    background-position: center;
+    padding: 35px;
+    margin: auto;
+    width: 50%;
+    margin-bottom: 15px;
+  }
+.searchBar {
+  background-image: url(/images/search-bar-4.svg);
+  background-size: cover;
+  background-position: center;
+  width: 300px;
+  height: 60px;
+  padding-left: 15px;
+  display: flex;
+  justify-content: center;
+  color: #3a3a3a;
+}
+
+.searchBar:hover .searchBar:focus {
+  box-shadow: 20px 20px 20px 20px;
+}
+.inputSearch {
+    text-decoration: none;
+    border: 0;
+    background-color: #00000000;
+    margin: auto;
+    outline: none;
+  }
+
+
+  h2 {
+    margin-right: 25px;
+  }
+
+  .imgPerfil {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        margin: auto 15px auto 0;
+    }
+
+    .textContent {
+        font-size: 1.5rem
+    }  
+
+    .textUsername {
+        font-size: 1.2rem
+    }
 </style>

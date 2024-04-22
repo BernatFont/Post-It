@@ -4,7 +4,7 @@
             <div class="title_page d-flex justify-content-center align-items-center">
                 <h2 class="pt-3 itty">Inicio</h2>
             </div>
-                <router-link :to="{name: 'publicacion.create'}" class="btn btn-postit btn-crear-post px-5"><div class="btnAñadir"></div></router-link>
+                <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
         </div>
     </div>
     <div class="content-view">
@@ -174,6 +174,10 @@ const obtenerRotacionAleatoria = () => {
     filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
     /* transition: all 0.25s ease-in-out;
     transform: rotate(-3deg); */
+}
+
+.btnAñadir:target {
+    outline: none;
 }
 .celo{
     transform: rotate(105deg);

@@ -1,5 +1,5 @@
 <template>
-    <div class="mainPrincipal ">
+    <div class="mainPrincipal landing-container ">
         <div class="contenedor">
             <div class="imagen-container">
                 <img class="imagen" src="/images/logo_principal.svg" alt="Post-It logo">
@@ -26,7 +26,7 @@
 
 <style>
 
-.mainPrincipal {
+.landing-container {
     background-image: url(/images/Corcho.jpg); 
     display: flex;
     justify-content: space-evenly;
