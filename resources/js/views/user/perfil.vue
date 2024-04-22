@@ -32,6 +32,14 @@
                 </div>
             </div>
         </div>
+        <div>
+            <select v-model="selectedStyle" @change="logSelectedStyle">
+                <option style="background-color: var(--primero);" value="1">Estilo 1</option>
+                <option style="background-color: var(--segundo);" value="2">Estilo 2</option>
+                <option style="background-color: var(--tercero);" value="3">Estilo 3</option>
+                <option style="background-color: var(--cuarto);" value="4">Estilo 4</option>
+            </select>
+        </div>
         <div class="px-5">
             <div class="top-content-view w-100">
                 {{ usuario }}
@@ -53,6 +61,7 @@ const userLogin = computed(() => store.state.auth.user); // Usuario que tiene in
 const username = route.params.username; // Obtiene el usuario por la ruta
 const usuario = ref(null);
 const seguidorUsuarioActual = ref(false);
+const selectedStyle = ref(1);
 
 onMounted(() => {
 obtenerUsuario();
@@ -64,6 +73,7 @@ const obtenerUsuario = () => {
     .then(response => {
             // Actualizamos los datos del usuario
             usuario.value = response.data;
+            selectedStyle.value = usuario.value.style;
             console.log(usuario.value);
             comprobarSeguido();
     })
@@ -103,6 +113,20 @@ const chat = () => {
     });
 }
 
+function logSelectedStyle() {
+    console.log("Estilo seleccionado:", selectedStyle.value);
+
+    // Verificar si ya existe un chat entre el usuario actualmente logueado y el usuario visitado
+    axios.post('/api/usuarios/colorPost/' + selectedStyle.value)
+    .then(response => {
+        console.log(response.value);
+
+    })
+    .catch(error => {
+        console.error('Error al canviar color del post:', error);
+    });
+}
+
 </script>
 
 <style>
@@ -112,5 +136,11 @@ const chat = () => {
 }
 .container-datos-usuario div span {
     font-size: 20px;
+}
+.color-indicator {
+  width: 15px;
+  height: 15px;
+  margin-right: 5px;
+  border: 1px solid #000; /* Opcional: para hacerlo más visible */
 }
 </style>

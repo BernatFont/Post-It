@@ -41,6 +41,7 @@ Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
 Route::get('/usuarios', [UserController::class, 'obtenerTodosUsuarios']);
 Route::post('/usuarios/modificar', [UserController::class, 'modificarUsuario']);
 Route::post('/usuarios/modificarImagen', [UserController::class, 'modificarImagenUsuario']);
+Route::post('/usuarios/colorPost/{color}', [UserController::class, 'colorPost']);
 
 
 Route::get('/chats', [ChatController::class, 'index']);

@@ -206,4 +206,13 @@ class UserController extends Controller
         }
     
     }
+
+    public function colorPost($color){
+        $user = auth()->user();
+        // Encuentra al usuario
+        $user->style = $color;
+        $user->save();
+    
+        return new UserResource($user);
+    }
 }

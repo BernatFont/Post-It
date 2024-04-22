@@ -10,7 +10,7 @@
         </div>
     </div>
     <div class="content-view">
-        <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post" :class="publicacion.backgroundColorClass">
+        <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post" :class="bgClass(publicacion.user.style)">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
@@ -33,7 +33,7 @@
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
             <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
                 <img src="/images/celo.png" alt="" class="celo">
-                <img class="img_post" :src="publicacion.media[0].original_url" alt="" :style="{ transform: publicacion.liked ? 'rotate(0deg)' : 'rotate(' + obtenerRotacionAleatoria() + 'deg)' }">
+                <img class="img_post" :src="publicacion.media[0].original_url" alt="">
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">
@@ -73,26 +73,15 @@ const obtenerPublicaciones = () => {
     axios.get('/api/publicacions')
     .then(response => {
         const publicacionesConLiked = response.data.map(publicacion => {
-            const backgroundColorClass = coloresAsignados[publicacion.id] || obtenerClaseFondo(); // Usa la clase de fondo asignada o asigna una nueva
-            coloresAsignados[publicacion.id] = backgroundColorClass; // Almacena la clase de fondo asignada
             return {
                 ...publicacion,
                 liked: publicacion.liked_by_current_user === true,
-                backgroundColorClass: backgroundColorClass,
             };
         });
         publicaciones.value = publicacionesConLiked;
         console.log(publicaciones.value);
     })
 }
-
-
-// Función para obtener la clase de fondo de forma aleatoria
-const obtenerClaseFondo = () => {
-    const clasesFondo = ['bg-1', 'bg-2', 'bg-3', 'bg-4']; // Lista de clases de fondo disponibles
-    const indiceAleatorio = Math.floor(Math.random() * clasesFondo.length); // Generar un índice aleatorio
-    return clasesFondo[indiceAleatorio]; // Devolver la clase de fondo correspondiente al índice aleatorio generado
-};
 
 const like = (id) => {
     axios.post('/api/like/add/' + id)
@@ -154,10 +143,20 @@ const formatText = (texto) => {
     return texto;
 };
 
-const obtenerRotacionAleatoria = () => {
-    // Genera un ángulo aleatorio entre -5 y 5 grados
-    return Math.floor(Math.random() * 11) - 5;
-};
+function bgClass(color) {
+      switch(color) {
+        case 1:
+          return 'bg-1';
+        case 2:
+          return 'bg-2';
+        case 3:
+          return 'bg-3';
+        case 4:
+          return 'bg-4';
+        default:
+          return ''; // Ninguna clase aplicada si no coincide con los casos anteriores
+      }
+    }
 
 
 

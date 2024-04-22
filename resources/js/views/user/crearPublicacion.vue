@@ -31,8 +31,7 @@
                     </div>
                 </form>
             </div>
-            <div class="w-100 w-md-50">
-                <h3 class="text-center">Vista previa</h3>
+            <div class="mt-6 w-100 w-md-50" :class="bgClass()">
                 <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
                         <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
@@ -47,7 +46,7 @@
                     <p class="post-text">{{ formatText(publicacion.texto) }}</p>
                 </div>
                 <div class="card-post-img d-flex justify-content-center" v-if="imageSelected">
-                    <img :src="imageUrl" alt="">
+                    <img class="p-5" :src="imageUrl" alt="">
                 </div>
                 <div class="card-post-bottom d-flex">
                     <div class="d-flex align-items-center">
@@ -73,8 +72,20 @@
 
     /* Obtenemos datos del usuario */
     const store = useStore();
-    const user = computed(() => store.state.auth.user)
+    let user = computed(() => store.state.auth.user)
 
+    // // Verifica si ya hemos recargado una vez
+    // if (!localStorage.getItem('reloaded')) {
+    //     // Establece la bandera de recargado
+    //     localStorage.setItem('reloaded', 'true');
+        
+    //     // Recarga la página
+    //     window.location.reload();
+    // } else {
+    //     // Limpia la bandera después de la recarga
+    //     localStorage.removeItem('reloaded');
+    // }
+     
 
     const publicacion = ref({});
     const strError = ref();
@@ -175,6 +186,21 @@
                 strSuccess.value = '';
             });
     };
+
+    function bgClass() {
+      switch(user.value.style) {
+        case 1:
+          return 'bg-1';
+        case 2:
+          return 'bg-2';
+        case 3:
+          return 'bg-3';
+        case 4:
+          return 'bg-4';
+        default:
+          return ''; // Ninguna clase aplicada si no coincide con los casos anteriores
+      }
+    }
     
 </script>
 
