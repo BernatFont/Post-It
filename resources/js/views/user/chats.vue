@@ -20,10 +20,7 @@
                                 <span class="textContent">@{{ chat.user1.username }}</span>
                             </div>
                         </div>
-                        <div class="container-boton">
-                            <div class="sticky-btn-sticker"></div>
-                            <router-link class="sticky-btn-1 itty" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
-                        </div>
+                        <router-link class="d-flex justify-content-right align-items-center pl-3 pr-3" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
                     </div>
                 </div>
                 <div class="chatMain" v-if="chat.user_id_2 !== userLogin.id">    
@@ -37,10 +34,7 @@
                                 <span class="textContent">@{{ chat.user2.username }}</span>
                             </div>
                         </div>
-                        <div class="container-boton">
-                            <div class="sticky-btn-sticker"></div>
-                            <router-link class="sticky-btn-1 itty" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
-                        </div>
+                        <router-link class="d-flex justify-content-right align-items-center pl-3 pr-3" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
                     </div>          
                 </div>
             </div>
@@ -82,9 +76,9 @@
         margin-top: 10px;
     }
     .chatContainer {
-        background-image: url(/public/images/papel-comment.svg);
+        background-image: url(/images/papel-comment.svg);
         background-size: cover;
-        background-repeat: no-repeat;
+        background-position: center;
         padding: 35px;
     }
 

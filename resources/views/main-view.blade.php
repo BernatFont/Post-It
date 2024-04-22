@@ -14,10 +14,11 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Laravel Vue 3 Stater</title>
+    <title>Post-It</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
+    <link rel="icon" href="/images/favicon4.svg" type="image/x-icon">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
     <script>
         window.config = @json($config);

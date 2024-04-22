@@ -17,24 +17,21 @@
                                 <div class="mb-3 text-type-1 div-input-width">
                                     <label for="email" class="label-width">{{ $t('email') }}</label>
                                     <input v-model="loginForm.email" id="email" type="email" class="input-width" required autofocus autocomplete="username">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger mt-1">
-                                        <div v-for="message in validationErrors?.email">
-                                            {{ message }}
-                                        </div>
-                                    </div>
                                 </div>
                                 <!-- Password -->
                                 <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="password" class="label-width">
-                                        {{ $t('password') }}
-                                    </label>
+                                    <label for="password" class="label-width">{{ $t('password') }}</label>
                                     <input v-model="loginForm.password" id="password" type="password" class="input-width" required autocomplete="current-password">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger-600 mt-1">
-                                        <div v-for="message in validationErrors?.password">
-                                            {{ message }}
-                                        </div>
+                                </div>
+                                <!-- Validation Errors -->
+                                <div class="text-danger mt-1 error-width">
+                                    <div v-for="message in validationErrors?.email">
+                                        {{ message }}
+                                    </div>
+                                </div>
+                                <div class="text-danger-600 mt-1 error-width">
+                                    <div v-for="message in validationErrors?.password">
+                                        {{ message }}
                                     </div>
                                 </div>
                                 <div class="d-flex justify-content-between itty btnContainer-bottom">
@@ -131,6 +128,13 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
 
     .input-width {
         width: 75%;
+    }
+
+    .error-width {
+        width: 100%;
+        display: flex;
+        justify-content: end;
+        font-size: 1.2rem;
     }
 
     .text-type-2 {

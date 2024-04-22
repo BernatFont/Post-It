@@ -4,9 +4,7 @@
             <div class="title_page d-flex justify-content-center align-items-center">
                 <h2 class="pt-3 itty">Inicio</h2>
             </div>
-            <div>
-                <router-link :to="{name: 'publicacion.create'}" class="btn btn-postit btn-crear-post px-5">Publicar post</router-link>
-            </div>
+                <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
         </div>
     </div>
     <div class="content-view">
@@ -162,6 +160,24 @@ function bgClass(color) {
 
 </script>
 <style>
+
+.btnAñadir {
+    background-image: url(/images/btn-añadir.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+}
+
+.btnAñadir:hover {
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
+    /* transition: all 0.25s ease-in-out;
+    transform: rotate(-3deg); */
+}
+
+.btnAñadir:target {
+    outline: none;
+}
 .celo{
     transform: rotate(105deg);
     height: 50px;

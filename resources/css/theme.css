@@ -118,6 +118,23 @@ li:hover .logo-sidebar-7{
         border: 0;
     }
 
+    /*Boton para pulsar */
+    .btnIr {
+        height: 50px;
+        width: 100px;
+        background-image: url(/public/images/btnIr-normal.svg);
+        background-repeat: no-repeat;
+        background-position: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .btnIr:hover {
+        background-image: url(/public/images/btnIr-hover.svg);
+    }
+
+
     .inclinacion1 {
         transform: rotate(2deg);
     }
@@ -197,6 +214,21 @@ h2{
     align-self: center;
 }
 
+.bg-v1 {
+    background-image: url(/public/images/papel-comment.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.bg-v2 {
+    background-image: url(/public/images/papel-comment-2.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+.top-chat {
+    padding: 10px 20px 20px 20px;
+    background-position: bottom;
+    margin-bottom: 20px;
+}
 .card-post{
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
     width: 55%;
@@ -232,7 +264,6 @@ h2{
 }
 .card-post-img .img_post{
     height: 80%;
-    transform: rotate(5deg);
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
     object-fit: cover;
 }
