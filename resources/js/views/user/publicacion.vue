@@ -32,7 +32,7 @@
             </div>
             <div class="w-75 m-auto">
                 <div class="d-flex py-5">
-                    <router-link :to="{name: 'publicacion.update'}" class="postit-btn px-5">Modificar</router-link>
+                    <router-link :to="{name: 'publicacion.update'}" class="postit-btn px-5">{{$t('modify')}}</router-link>
                     <button @click="eliminarPublicacion()" class="delete-btn ms-3">
                         <div class="img-btn"></div>
                     </button>

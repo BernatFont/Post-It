@@ -30,7 +30,7 @@
  }
 
  .contenido-view{
-    padding-left: 20vw;
+    padding-left: 300px;
  }
 
 .sidebar_responsive{
@@ -47,7 +47,7 @@
     }
     
     .contenido-view{
-        padding: 12px;
+        padding: 0px;
     }    
 }
 

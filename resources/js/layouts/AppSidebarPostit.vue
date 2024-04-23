@@ -7,28 +7,28 @@
             <div class="mid-sidebar mt-3">
                 <ul>
                     <router-link :to="{ name: 'feed'}">
-                        <li class="side-them-1"><div class="logo logo-sidebar-1"></div><span class="itty">Inicio</span></li>
+                        <li class="side-them-1"><div class="logo logo-sidebar-1"></div><span class="itty">{{ $t('home_name') }}</span></li>
                     </router-link>
                     <router-link :to="{ name: 'buscar'}">
-                        <li class="side-them-2"><div class="logo logo-sidebar-2"></div><span class="itty">Buscar</span></li>
+                        <li class="side-them-2"><div class="logo logo-sidebar-2"></div><span class="itty">{{$t('search')}}</span></li>
                     </router-link>
                     <router-link :to="{ name: 'notificaciones'}">
-                        <li class="side-them-3"><div class="logo logo-sidebar-3"></div><span class="itty">Notificaciones</span></li>
+                        <li class="side-them-3"><div class="logo logo-sidebar-3"></div><span class="itty">{{$t('notifications')}}</span></li>
                     </router-link>
                     <router-link :to="{ name: 'chats'}">
-                        <li class="side-them-2"><div class="logo logo-sidebar-4"></div><span class="itty">Mensajes</span></li>
+                        <li class="side-them-2"><div class="logo logo-sidebar-4"></div><span class="itty">{{$t('messages')}}</span></li>
                     </router-link>
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: userLogin.username } }">
-                        <li class="side-them-1"><div class="logo logo-sidebar-5"></div><span class="itty">Perfil</span></li>
+                        <li class="side-them-1"><div class="logo logo-sidebar-5"></div><span class="itty">{{$t('user')}}</span></li>
                     </router-link>
                 </ul>
             </div>
         </div>
         <div class="bot-sidebar">
             <ul>
-                <li id="configuracion" class="side-them-3"><div class="logo logo-sidebar-6"></div><span class="itty">Configuración</span></li>
+                <li id="configuracion" class="side-them-3"><div class="logo logo-sidebar-6"></div><span class="itty">{{$t('settings')}}</span></li>
 
-                <li class="side-them-2" @click="Logout"><div class="logo logo-sidebar-7"></div><span class="itty">Cerrar Sesión</span></li>
+                <li class="side-them-2" @click="Logout"><div class="logo logo-sidebar-7"></div><span class="itty">{{$t('logout')}}</span></li>
             </ul>
         </div>
     </div>
@@ -38,7 +38,7 @@
 <style>
 .menu{
     position: fixed;
-    width: 20vw;
+    width: 300px;
     height: 100vh;
     z-index: 999;
     user-select: none;

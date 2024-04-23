@@ -2,7 +2,7 @@
     <div class="py-2 d-flex justify-content-center ">
         <div class="top-content-view d-flex justify-content-between ">
             <div class="title_page d-flex justify-content-center align-items-center">
-                <h2 class="pt-3 itty">Inicio</h2>
+                <span class="pt-2 title-target itty">{{$t('home_name')}}</span>
             </div>
                 <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
         </div>

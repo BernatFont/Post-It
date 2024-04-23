@@ -78,6 +78,9 @@ li:hover .logo-sidebar-7{
     min-height: 100vh;
 }
 
+.title-target {
+    font-size: 2.50rem;
+}
 /* buttons */
     .btn-href {
         font-size: 1.2rem;
@@ -128,6 +131,7 @@ li:hover .logo-sidebar-7{
         display: flex;
         align-items: center;
         justify-content: center;
+        font-size: 1.35rem;
     }
 
     .btnIr:hover {
@@ -182,10 +186,21 @@ p,span,a,label,button,h1,h2,h3{
 }
 
 .title_page{
-    width: 160px;
+    width: 138px;
     background-image: url(/public/images/papel_title.svg);
     background-repeat: no-repeat;
 }
+
+.userContainer {
+    background-image: url(/images/papel-comment.svg);
+    background-size: cover;
+    background-position: center;
+    padding: 35px;
+    margin: auto;
+    width: 50%;
+    max-width: 800px;
+    margin-bottom: 15px;
+  }
 
 h2{
     font-size: 40px;
@@ -237,6 +252,10 @@ h2{
 @media (max-width: 1200px){
     .card-post{
         width: 80%;
+    }
+
+    .userContainer {
+        width: 75%;
     }
 }
 

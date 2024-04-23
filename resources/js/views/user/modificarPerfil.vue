@@ -13,30 +13,30 @@
             </div>
              <!-- Campos para editar los datos del usuario -->
             <div class="form-group">
-                <label for="username">Nombre de usuario:</label>
+                <label for="username">{{$t('username')}}: Nombre de usuario:</label>
                 <input type="text" id="username" v-model="usuario.username" readonly>
             </div>
             <div class="form-group">
-                <label for="email">Correo electronico:</label>
+                <label for="email">{{$t('email')}}:</label>
                 <input type="text" id="email" v-model="usuario.email" readonly>
             </div>
             <div class="form-group">
-                <label for="name">Nombre:</label>
+                <label for="name">{{$t('name')}}:</label>
                 <input type="text" id="name" v-model="usuario.name">
             </div>
             <div class="form-group">
-                <label for="surname">Apellido:</label>
+                <label for="surname">{{$t('surname')}}:</label>
                 <input type="text" id="surname" v-model="usuario.surname">
             </div>
             <div class="form-group">
-                <label for="biography">Descripción:</label>
+                <label for="biography">{{$t('biography')}}:</label>
                 <input type="text" id="biography" v-model="usuario.biography">
             </div>
             <div class="form-group">
-                <label for="birth">Cumple:</label>
+                <label for="birth">{{$t('birth_date')}}:</label>
                 <input type="date" id="birth" v-model="usuario.birth_date">
             </div>
-            <button class="btn-guardar" @click="guardarCambios">Guardar Cambios</button>
+            <button class="btn-guardar" @click="guardarCambios">{{$t('save_changes')}}</button>
         </div>
     </div>
 </template>

@@ -2,7 +2,7 @@
   <div class="mainPrincipal">
     <div class="top-chat bg-v2 ">
       <div class="d-flex justify-content-between searchContainer row">
-          <h2 class="pt-3 itty col-3">Buscar usuario</h2>
+          <span class="pt-2 itty col-3 pl-5 title-target">{{$t('search')}}</span>
             <!-- Input para buscar -->
           <input class="inputSearch searchBar col-6" type="text" v-model="busqueda" placeholder="Buscar por nombre">
           <div class="col-3"></div>
@@ -14,12 +14,12 @@
       <div class="d-flex flex-row">
         <img class="imgPerfil" src="/images/user-default.png" alt="">
         <div class="d-flex flex-column">
-            <span class="itty textContent">{{ usuario.name + " " + usuario.surname }}</span>
+            <span class="itty textContent">{{ usuario.name + " " + (usuario.surname ? " " + usuario.surname : "") }}</span>
             <span class="itty textUsername">@{{ usuario.username }}</span>
         </div> 
       </div>
       <div>
-          <router-link class="btnIr" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">Mostrar</router-link>
+          <router-link class="btnIr itty" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">{{$t('show') + " " +  $t('user')}}</router-link>
       </div>
     </div>
   </div>
@@ -74,15 +74,6 @@ export default {
     margin-right: 20px;
   }
 
-  .userContainer {
-    background-image: url(/images/papel-comment.svg);
-    background-size: cover;
-    background-position: center;
-    padding: 35px;
-    margin: auto;
-    width: 50%;
-    margin-bottom: 15px;
-  }
 .searchBar {
   background-image: url(/images/search-bar-4.svg);
   background-size: cover;

@@ -44,6 +44,19 @@
     "settings": "Settings",
     "logout": "Logout",
     "username": "Username",
+    "surname": "Surname",
+    "biography": "Biography:",
+    "birth_date": "Birth date",
     "back": "Back",
-    "show_chat": "Show chat"
+    "show_chat": "Show chat",
+    "send": "Send",
+    "show": "Show",
+    "chat": "Chat",
+    "save_changes": "Save Changes",
+    "seguidores": "Followers",
+    "seguidos": "Following",
+    "seguir": "Follow",
+    "dejar_seguir": "Unfollow",
+    "modify": "Modify",
+    "no_show_chats": "There are no chats to show"
 }

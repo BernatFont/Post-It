@@ -1,10 +1,4 @@
 <template>
-        <div class="div-form-msg">
-            <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                <button class="enviar" type="submit">Enviar</button>
-            </form>
-        </div>
         <div class="content-view mainPrincipal">
             <div class="" v-if="chat">
                 <div class="d-flex flex-row top-chat bg-v2" v-if="userLogin.id === chat.user_id_2">
@@ -23,8 +17,8 @@
                     
                 </div>
             </div>
-        <div v-if="mensajes.length === 0">
-                <p>No se ha enviado ningun mensaje</p>
+            <div class="container-msg textContent itty chatContainer d-flex justify-content-center" v-if="mensajes.length === 0">
+                <p class="itty textContent">No se ha enviado ningun mensaje</p>
             </div>
             <div v-else>
                 <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
@@ -32,6 +26,12 @@
                         <span class="itty textContent">{{ mensaje.contenido}}</span>
                     </div>
                 </div>
+            </div>
+            <div class="div-form-msg">
+                <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
+                    <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
+                    <button class="enviar" type="submit">{{ $t('send') }}</button>
+                </form>    
             </div>
         </div>
     
@@ -114,11 +114,14 @@
         min-width: 250px;
     }
     .div-form-msg {
-        padding: 14px;
         width: 100%;
+        height: auto;
         background-color: #fff;
-        position: fixed;
-        top: 89%;
+    }
+
+    .form-msg {
+        display: flex;
+        flex: row;
     }
 
     .imgPerfil {
@@ -136,15 +139,6 @@
         font-size: 1.3rem
     }
 
-    .div-form-msg {
-        width: 100%;
-    }
-
-    .form-msg {
-        display: flex;
-        flex: row;
-    }
-
     .textarea {
         width: 60%;
         resize: none; /* Para evitar que el usuario redimensione el textarea */
@@ -153,5 +147,16 @@
     .enviar {
         width: 20%;
     }
-    
+
+    .chatContainer {
+        background-image: url(/images/papel-comment.svg);
+        background-size: cover;
+        background-position: center;
+        padding: 35px;
+        width: 50%;
+        margin: auto;
+    }
+
+     @media (max-width: 1200px){
+    } 
 </style>

@@ -39,6 +39,19 @@
     "settings": "Configuracion",
     "logout": "Cerrar Sesión",
     "username": "Nombre de usuario",
+    "surname": "Apellido",
+    "biography": "Biografía",
+    "birth_date": "Fecha de nacimiento",
     "back": "Volver",
-    "show_chat": "Mostrar chat"
-}
+    "show_chat": "Mostrar chat",
+    "send": "Enviar",
+    "show": "Mostrar",
+    "chat": "Chat",
+    "save_changes": "Guardar cambios",
+    "seguidores": "Seguidores",
+    "seguidos": "Siguiendo",
+    "seguir": "Seguir",
+    "dejar_seguir": "Dejar de seguir",
+    "modify": "Modificar",
+    "no_show_chats": "No hay chats que mostrar"
+}   
