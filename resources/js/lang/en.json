@@ -58,5 +58,6 @@
     "seguir": "Follow",
     "dejar_seguir": "Unfollow",
     "modify": "Modify",
-    "no_show_chats": "There are no chats to show"
+    "no_show_chats": "There are no chats to show",
+    "error_chat": "Error: The chat does not exist or has not loaded correctly"
 }

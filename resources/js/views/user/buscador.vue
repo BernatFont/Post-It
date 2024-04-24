@@ -1,26 +1,24 @@
 <template>
-  <div class="mainPrincipal">
-    <div class="top-chat bg-v2 ">
-      <div class="d-flex justify-content-between searchContainer row">
-          <span class="pt-2 itty col-3 pl-5 title-target">{{$t('search')}}</span>
-            <!-- Input para buscar -->
-          <input class="inputSearch searchBar col-6" type="text" v-model="busqueda" placeholder="Buscar por nombre">
-          <div class="col-3"></div>
-      </div>
+  <div class="topbar-container bg-v2 ">
+    <div class="d-flex justify-content-between searchContainer row topbar-title">
+        <span class="pt-2 itty col-3 pl-5 title-target">{{$t('search')}}</span>
+          <!-- Input para buscar -->
+        <input class="inputSearch searchBar col-6" type="text" v-model="busqueda" placeholder="Buscar por nombre">
+        <div class="col-3"></div>
     </div>
-  <div>
-    <!-- Mostrar usuarios filtrados -->
-    <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuariosFiltrados" :key="usuario.id">
-      <div class="d-flex flex-row">
-        <img class="imgPerfil" src="/images/user-default.png" alt="">
-        <div class="d-flex flex-column">
-            <span class="itty textContent">{{ usuario.name + " " + (usuario.surname ? " " + usuario.surname : "") }}</span>
-            <span class="itty textUsername">@{{ usuario.username }}</span>
-        </div> 
-      </div>
-      <div>
-          <router-link class="btnIr itty" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">{{$t('show') + " " +  $t('user')}}</router-link>
-      </div>
+  </div>
+<div class="mainPrincipal">
+  <!-- Mostrar usuarios filtrados -->
+  <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuariosFiltrados" :key="usuario.id">
+    <div class="d-flex flex-row">
+      <img class="imgPerfil" src="/images/user-default.png" alt="">
+      <div class="d-flex flex-column">
+          <span class="itty textContent">{{ usuario.name + " " + (usuario.surname ? " " + usuario.surname : "") }}</span>
+          <span class="itty textUsername">@{{ usuario.username }}</span>
+      </div> 
+    </div>
+    <div>
+        <router-link class="btnIr itty" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">{{$t('show') + " " +  $t('user')}}</router-link>
     </div>
   </div>
 </div>

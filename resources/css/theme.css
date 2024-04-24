@@ -197,7 +197,7 @@ p,span,a,label,button,h1,h2,h3{
     background-position: center;
     padding: 35px;
     margin: auto;
-    width: 50%;
+    width: 60%;
     max-width: 800px;
     margin-bottom: 15px;
   }
@@ -239,11 +239,18 @@ h2{
     background-size: cover;
     background-repeat: no-repeat;
 }
-.top-chat {
+.topbar-container {
     padding: 10px 20px 20px 20px;
     background-position: bottom;
     margin-bottom: 20px;
+    position: relative;
+    top: -10px;
 }
+
+.topbar-title {
+    margin-top: 10px;
+}
+
 .card-post{
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
     width: 55%;
@@ -255,7 +262,7 @@ h2{
     }
 
     .userContainer {
-        width: 75%;
+        width: 90%;
     }
 }
 

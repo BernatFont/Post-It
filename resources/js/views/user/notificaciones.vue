@@ -1,22 +1,22 @@
 <template>
-    <div class="mainPrincipal">
-        <div class="top-chat bg-v2 ">
-            <div class="d-flex justify-content-between searchContainer">
-                <span class="pt-2 itty col-8 pl-5 title-target">{{$t('notifications')}}</span>
-                <div class="notification-alert">
-                    <span class="itty">2</span>
-                </div>
-                
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between topbar-title">
+            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('notifications')}}</span>
+            <div class="notification-alert">
+                <span class="itty">2</span>
             </div>
+            
         </div>
+    </div>
+    <div class="mainPrincipal">
         <div>
             <!-- Notificacion Like-->
             <div class="userContainer d-flex flex-column">
                 <div class="type-notification">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-row">
-                            <img class="notification-icon" src="/images/comentarios.svg">
-                            <span class="ml-2 mb-1 font1 itty">@username ha comentado en tu publicación</span>
+                            <img class="notification-icon" src="/images/like.svg">
+                            <span class="ml-2 mb-1 font1 itty">@username le gusta tu publicación</span>
                         </div>
                         <button class="btn btn-href pr-0 itty font1">Marcar como Leido</button>
                     </div>
@@ -100,7 +100,7 @@
                 <div class="type-notification">
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-row">
-                            <img class="notification-icon" src="/images/comentarios.svg">
+                            <img class="notification-icon" src="/images/perfil.svg">
                             <span class="ml-2 mb-1 font1 itty">@username te ha seguido</span>
                         </div>
                         <span class="itty font1">Visto</span>
@@ -165,7 +165,6 @@
     .font2 {
         font-size: 1.1rem;
     }
-
     @media (max-width: 600px){
         .font1 {
         font-size: 1.1rem;

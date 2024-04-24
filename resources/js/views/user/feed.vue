@@ -1,10 +1,11 @@
 <template>
-    <div class="py-2 d-flex justify-content-center ">
-        <div class="top-content-view d-flex justify-content-between ">
-            <div class="title_page d-flex justify-content-center align-items-center">
-                <span class="pt-2 title-target itty">{{$t('home_name')}}</span>
-            </div>
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between topbar-title">
+            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('home_name')}}</span>
+            <div class="notification-alert">
                 <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
+            </div>
+            
         </div>
     </div>
     <div class="content-view">
@@ -159,7 +160,7 @@ function bgClass(color) {
 
 
 </script>
-<style>
+<style scoped>
 
 .btnAñadir {
     background-image: url(/images/btn-añadir.svg);
