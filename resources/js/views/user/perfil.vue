@@ -8,9 +8,10 @@
                     <div class="ms-3 mt-5 d-flex flex-column">
                         <!-- Mostramos el nombre y apellido del usuario -->
                         <span>{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
-
                         <!-- Mostramos el nombre de usuario -->
                         <span class="mt-3">@{{usuario.username}}</span>
+                        <!-- Mostramos descripción del usuario -->
+                        <span class="mt-3">{{usuario.biography}}</span>
                     </div>
                 </div>
                 <div class="d-flex flex-column">
@@ -40,10 +41,20 @@
                 <option style="background-color: var(--cuarto);" value="4">Estilo 4</option>
             </select>
         </div>
-        <div class="px-5">
-            <div class="top-content-view w-100">
-                {{ usuario }}
-            </div>    
+{}
+        <div v-if="usuario" class="px-5">
+            <p>{{ usuario.publicaciones }}</p>
+            <div>
+                <h2>Publicaciones de {{ usuario.name }} {{ usuario.surname }}</h2>
+                <div v-for="publicacion in usuario.publicaciones" :key="publicacion.id" class="publicacion">
+                    <p><strong>Texto:</strong> {{ publicacion.texto }}</p>
+                    <p><strong>Fecha de creación:</strong> {{ new Date(publicacion.created_at).toLocaleDateString() }}</p>
+                    <p><strong>Última actualización:</strong> {{ new Date(publicacion.updated_at).toLocaleDateString() }}</p>
+                    <p><strong>N. likes:</strong> {{ publicacion.likes.length }}</p>
+                    <p><strong>N. coments:</strong> {{ publicacion.comentarios.length }}</p>
+                    <img :src="publicacion.media[0]?.original_url" alt="">
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -64,7 +75,7 @@ const seguidorUsuarioActual = ref(false);
 const selectedStyle = ref(1);
 
 onMounted(() => {
-obtenerUsuario();
+    obtenerUsuario();
 });
 
 // Realizamos la solicitud para obtener los datos del usuario

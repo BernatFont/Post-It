@@ -1,4 +1,5 @@
 <template>
+    {{ publicaciones }}
     <div class="py-2 d-flex justify-content-center ">
         <div class="top-content-view d-flex justify-content-between ">
             <div class="title_page d-flex justify-content-center align-items-center">

@@ -1,47 +1,60 @@
 <template>
-    <div v-if="usuario" class="mainPrincipal">
+    <div v-if="usuario" class="modificar_perfil m-auto">
         <div class="content-view">
-            <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
-                <img 
-                    style="min-height: 120px; max-width: 150px; transform: rotate(5deg)" 
-                    :src="(imagenSeleccionada || (usuario && usuario.image)) ? (imagenSeleccionada || usuario.image) : '/images/user-default.png'"
-                    alt="User Image">
-                <label class="custum-file-upload mt-3" for="file">
-                    <i class="pi pi-plus"></i>
-                    <input type="file" id="file" @change="seleccionarImagen">
-                </label>
+            <div class="w-100 d-flex justify-content-center">
+                <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
+                    <img 
+                        style="min-height: 120px; max-width: 150px; transform: rotate(5deg)" 
+                        :src="(imagenSeleccionada || (usuario && usuario.image)) ? (imagenSeleccionada || usuario.image) : '/images/user-default.png'"
+                        alt="User Image">
+                    <label class="custum-file-upload mt-3" for="file">
+                        <i class="pi pi-plus"></i>
+                        <input type="file" id="file" @change="seleccionarImagen">
+                    </label>
+                </div>
             </div>
              <!-- Campos para editar los datos del usuario -->
             <div class="form-group">
-                <label for="username">{{$t('username')}}: Nombre de usuario:</label>
+                <label for="username">{{$t('username')}}</label>
                 <input type="text" id="username" v-model="usuario.username" readonly>
             </div>
             <div class="form-group">
-                <label for="email">{{$t('email')}}:</label>
+                <label for="email">{{$t('email')}}</label>
                 <input type="text" id="email" v-model="usuario.email" readonly>
             </div>
             <div class="form-group">
-                <label for="name">{{$t('name')}}:</label>
+                <label for="name">{{$t('name')}}</label>
                 <input type="text" id="name" v-model="usuario.name">
             </div>
             <div class="form-group">
-                <label for="surname">{{$t('surname')}}:</label>
+                <label for="surname">{{$t('surname')}}</label>
                 <input type="text" id="surname" v-model="usuario.surname">
             </div>
             <div class="form-group">
-                <label for="biography">{{$t('biography')}}:</label>
-                <input type="text" id="biography" v-model="usuario.biography">
+                <label for="biography">{{$t('biography')}}</label>
+                <input type="text" id="biography" maxlength="200" v-model="usuario.biography">
             </div>
             <div class="form-group">
-                <label for="birth">{{$t('birth_date')}}:</label>
+                <label for="birth">{{$t('birth_date')}}</label>
                 <input type="date" id="birth" v-model="usuario.birth_date">
             </div>
-            <button class="btn-guardar" @click="guardarCambios">{{$t('save_changes')}}</button>
+            <div class="container-boton mt-3 w-100">
+                <div class="sticky-btn-sticker"></div>
+                <button class="btnSticky sticky-btn-1" @click="guardarCambios">{{$t('save_changes')}}</button>
+            </div>
         </div>
     </div>
 </template>
 
 <style>
+.modificar_perfil{
+    width: 600px;
+}
+@media (max-width: 600px){
+    .modificar_perfil{
+        width: 100%;
+    }   
+}
 .custum-file-upload {
     height: 20px;
     width: 20px;
@@ -64,6 +77,15 @@
 
 .custum-file-upload input {
   display: none;
+}
+
+.form-group{
+    display: flex;
+    flex-direction: column;
+    margin-top: 12px;
+}
+.form-group input{
+    padding: 8px;
 }
 </style>
 
