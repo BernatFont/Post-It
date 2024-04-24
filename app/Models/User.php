@@ -101,5 +101,15 @@ class User extends Authenticatable implements HasMedia
             // Establece una ruta de respaldo para la colección en caso de que no haya ningún medio disponible
             ->useFallbackPath(public_path('/images/placeholder.jpg'));
     }
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        if (env('RESIZE_IMAGE') === true) {
+
+            $this->addMediaConversion('resized-image')
+                ->width(env('IMAGE_WIDTH', 300))
+                ->height(env('IMAGE_HEIGHT', 300));
+        }
+    }
 }
 

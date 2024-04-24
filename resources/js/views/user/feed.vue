@@ -5,7 +5,6 @@
             <div class="notification-alert">
                 <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
             </div>
-            
         </div>
     </div>
     <div class="content-view">
