@@ -59,5 +59,6 @@
     "dejar_seguir": "Unfollow",
     "modify": "Modify",
     "no_show_chats": "There are no chats to show",
-    "error_chat": "Error: The chat does not exist or has not loaded correctly"
+    "error_chat": "Error: The chat does not exist or has not loaded correctly",
+    "create_post": "Create Post"
 }

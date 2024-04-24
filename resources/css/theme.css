@@ -208,25 +208,25 @@ h2{
 /* ESTRUCTURAMOS EL POST */
 .bg-1 {
     background-color: var(--primero);
-    align-self: center;
+    /* align-self: center; */
 }
 
 .bg-2 {
     background-color: var(--segundo);
-    transform: rotate(1deg);
-    align-self: flex-start;
+    /* transform: rotate(1deg);
+    align-self: flex-start; */
 }
 
 .bg-3 {
     background-color: var(--tercero);
-    transform: rotate(-2deg);
-    align-self: flex-end;
+    /* transform: rotate(-2deg);
+    align-self: flex-end; */
 }
 
 .bg-4 {
     background-color: var(--cuarto);
-    transform: rotate(-1deg);
-    align-self: center;
+    /* transform: rotate(-1deg);
+    align-self: center; */
 }
 
 .bg-v1 {

@@ -54,5 +54,6 @@
     "dejar_seguir": "Dejar de seguir",
     "modify": "Modificar",
     "no_show_chats": "No hay chats que mostrar",
-    "error_chat": "Error: El chat no existe o no se ha cargado correctamente"
+    "error_chat": "Error: El chat no existe o no se ha cargado correctamente",
+    "create_post": "Crear publicación"
 }   

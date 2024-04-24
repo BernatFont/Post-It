@@ -1,12 +1,12 @@
 <template>
-    <div class="mainPrincipal">
-        <div class="py-2 px-5 d-flex justify-content-center">
-            <div class="top-content-view w-100 d-flex justify-content-between">
-                <h2>Publicar un post</h2>
-            </div>
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between searchContainer row topbar-title">
+            <span class="pt-2 itty col-3 pl-5 title-target">{{$t('create_post')}}</span>
         </div>
-        <div class="d-md-flex justify-content-between p-5 h-100">
-            <div class="w-100 w-md-50">
+    </div>
+    <div class="mainPrincipal">
+        <div class="content-view">
+            <!-- <div class="w-100 w-md-50">
                 <h3 class="text-center">Crea tu post</h3>
                 <form @submit.prevent="addPublicacion" class="create-post-form me-4">
                     <div class="form-group mb-2">
@@ -30,38 +30,88 @@
                         </div>
                     </div>
                 </form>
-            </div>
-            <div class="mt-6 w-100 w-md-50" :class="bgClass()">
-                <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                    <div class="d-flex">
-                        <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
-                        <div class="ms-3 d-flex flex-column justify-content-center">
-                            <span>{{ user.name }} {{ user.surname }}</span>
-                            <span>@{{ user.username}}</span>
+            </div> -->
+            <form @submit.prevent="addPublicacion">
+                <div class="container-createpost" :class="bgClass()">
+                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                                <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                                <div class="ms-3 d-flex flex-column justify-content-center">
+                                    <span>{{ user.name }} {{ user.surname }}</span>
+                                    <span>@{{ user.username}}</span>
+                                </div>
+                            </div>
+                            <div class="btn-container">
+                                <div class="sticky-btn-sticker"></div>
+                                <button type="submit" class="btnSticky sticky-btn-1 itty">Publicar</button>
+                            </div>
+                        </div>
+                        <div class="px-3 py-2 card-post-text w-100">
+                            <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
+                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
+                        </div>
+                        <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
+                            <img class="p-3" :src="imageUrl" alt="">
+                        </div>
+                        <div class="card-post-bottom d-flex">
+                            <div class="d-flex align-items-center">
+                                <i class="pi pi-heart p-3"></i><span>0</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="pi pi-comment p-3"></i><span>0</span>
+                            </div>  
+                        </div>
+                </div>
+                <div class="card mt-3">
+                    
+                    <div v-if="!imageSelected">
+                        <label for="file-upload" class="btn btn-primary">Subir imagen</label>
+                        <input type="file" id="file-upload" @change="onFileChange">
+                    </div>
+                    <div v-if="imageSelected">
+                        <div>
+                            <button @click="discardImage" class="btn">Descartar imagen</button>
                         </div>
                     </div>
-                    <span class="pe-3">Fecha</span>
                 </div>
-                <div class="px-3 py-2 card-post-text w-100">
-                    <p class="post-text">{{ formatText(publicacion.texto) }}</p>
-                </div>
-                <div class="card-post-img d-flex justify-content-center" v-if="imageSelected">
-                    <img class="p-5" :src="imageUrl" alt="">
-                </div>
-                <div class="card-post-bottom d-flex">
-                    <div class="d-flex align-items-center">
-                        <i class="pi pi-heart p-3"></i><span>0</span>
-                    </div>
-                    <div class="d-flex align-items-center">
-                        <i class="pi pi-comment p-3"></i><span>0</span>
-                    </div>  
-                </div>
-            </div>
+            </form>
         </div>    
     </div>
     
 </template>
 
+<style scoped>
+
+    .container-createpost {
+        width: 100%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .post-text {
+        max-width: 100%;
+        word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
+    }
+    .textarea{
+        resize: none;
+        height: 90px;
+        background-color: none;
+        border: 0 none;
+        background: transparent;
+        outline: none;
+    }
+
+
+    input[type="file"] {
+        display: none;
+    }
+
+.btn-container {
+    width: 125px;
+    display: flex;
+}
+</style>
 
 <script setup>
     import axios from "axios";
@@ -203,32 +253,6 @@
     }
     
 </script>
-
-<style>
-    .post-text {
-        max-width: 100%;
-        word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
-    }
-
-
-    .textarea{
-        resize: none;
-        height: 100px;
-    }
-
-
-    input[type="file"] {
-        display: none;
-    }
-
-
-    .create-post-form{
-        background-color: #fff;
-        padding: 24px;
-        border-radius: 8px;
-    }
-
-</style>
 
 
 
