@@ -39,6 +39,8 @@
                         <option style="background-color: var(--segundo);" value="2">Estilo 2</option>
                         <option style="background-color: var(--tercero);" value="3">Estilo 3</option>
                         <option style="background-color: var(--cuarto);" value="4">Estilo 4</option>
+                        <option style="background-color: var(--quinto);" value="5">Estilo 5</option>
+                        <option style="background-color: var(--sexto);" value="6">Estilo 6</option>
                     </select>
                 </div>
             </div>

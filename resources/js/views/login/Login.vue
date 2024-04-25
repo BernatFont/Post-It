@@ -48,7 +48,7 @@
                                 <!-- Boton iniciar sesion -->
                                 <div class="container-boton">
                                     <div class="sticky-btn-sticker"></div>
-                                    <button class="btnSticky sticky-btn-1 itty" :class="{ 'opacity-25': processing }" :disabled="processing">{{ $t('login') }}</button>
+                                    <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('login') }}</button>
                                 </div>
                             </div>
                         </form>

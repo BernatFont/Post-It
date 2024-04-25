@@ -8,11 +8,12 @@
         </div>
     </div>
     <div class="content-view">
-        <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post" :class="bgClass(publicacion.user.style)">
+        <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post" :class="bgClass(publicacion.user.style), randomRotate(), randomPosition()">
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
                         <img :src="publicacion.user.image ? publicacion.user.image : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                        <!-- <img :src="publicacion.user.media[0].original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil"> -->
                     </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span class="itty username">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
@@ -26,7 +27,8 @@
             </div>
             <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
             <div class="px-3 py-2 card-post-text">
-                <span>{{ formatText(publicacion.texto) }}</span>
+                <!-- <span>{{ formatText(publicacion.texto) }}</span> -->
+                <span>{{ publicacion.texto }}</span>
             </div>
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
             <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
@@ -129,34 +131,71 @@ const formatearFecha = (fechaPublicacion) => {
 };
 
 // Esta función formatea el texto para hacer saltos de línea cuando es demasiado largo
-const formatText = (texto) => {
-    if (typeof texto === 'undefined') {
-        return ''; // Devuelve una cadena vacía si texto es undefined
-    }
-    // Definir la longitud máxima antes de hacer un salto de línea
-    const maxLength = 30;
-    if (texto.length > maxLength) {
-        return texto.match(new RegExp('.{1,' + maxLength + '}', 'g')).join('\n');
-    }
-    return texto;
-};
+// const formatText = (texto) => {
+//     if (typeof texto === 'undefined') {
+//         return ''; // Devuelve una cadena vacía si texto es undefined
+//     }
+//     // Definir la longitud máxima antes de hacer un salto de línea
+//     const maxLength = 60;
+//     if (texto.length > maxLength) {
+//         return texto.match(new RegExp('.{1,' + maxLength + '}', 'g')).join('\n');
+//     }
+//     return texto;
+// };
 
 function bgClass(color) {
       switch(color) {
         case 1:
-          return 'bg-1';
+            return 'bg-1';
         case 2:
-          return 'bg-2';
+            return 'bg-2';
         case 3:
-          return 'bg-3';
+            return 'bg-3';
         case 4:
-          return 'bg-4';
+            return 'bg-4';
+        case 5:
+            return 'bg-5';
+        case 6:
+            return 'bg-6';
         default:
-          return ''; // Ninguna clase aplicada si no coincide con los casos anteriores
+            return 'bg-1'; // Clase por defecto
       }
     }
 
+function randomRotate() {
+    let random = Math.floor(Math.random() * 8) + 1;
+    switch(random) {
+        case 1:
+          return 'inc-1';
+        case 2:
+          return 'inc-2';
+        case 3:
+          return 'inc-3';
+        case 4:
+          return 'inc-4';
+        case 5:
+          return 'inc-5';
+        case 6:
+          return 'inc-6';
+        
+        default:
+          return ''; // Clase por defecto
+      }
+}
 
+function randomPosition() {
+    let random = Math.floor(Math.random() * 3) + 1;
+    switch(random) {
+        case 1:
+          return 'align-1';
+        case 2:
+          return 'align-2';
+        case 3:
+          return 'align-3';
+        default:
+          return ''; // Clase por defecto
+    }
+}
 
 </script>
 <style scoped>

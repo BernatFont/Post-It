@@ -1,11 +1,27 @@
 <template>
-    <div v-if="usuario" class="px-5 mainPrincipal">
-        <div class="top-content-view w-100">
-            <div v-for="usuario in usuario.seguidores">
-                <p>Le sigue: {{ usuario.username }}</p>
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between topbar-title">
+            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('seguidores')}}</span>
+            <div class="notification-alert target-value">
+                <span class="itty">0</span>
             </div>
-            {{ usuario }}
-        </div>    
+        </div>
+    </div>
+    <div class="mainPrincipal" v-if="usuario">
+        <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuario.seguidores">
+            <div class="d-flex flex-row">
+                <router-link :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">
+                    <img class="img-perfil" src="/images/user-default.png" alt="foto de perfil">
+                </router-link>
+                <div class="d-flex flex-column">
+                    <span class="itty font1">{{usuario.name + (usuario.surname ? " " + usuario.surname : "")}}</span>
+                    <span class="itty font2">@{{ usuario.username }}</span>
+                </div> 
+            </div>
+            <div>
+                <router-link class="btnIr itty" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">{{ $t('show') }}</router-link>
+            </div>
+        </div>
     </div>
 </template>
 
@@ -32,5 +48,16 @@
 </script>
 
 <style>
-   
+   .textName {
+        font-size: 1.5rem;
+    }  
+
+    .chatContainer {
+        background-image: url(/images/papel-comment.svg);
+        background-size: cover;
+        background-position: center;
+        padding: 35px;
+        width: 50%;
+    }
+
 </style>

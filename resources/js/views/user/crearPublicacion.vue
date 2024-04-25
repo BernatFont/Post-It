@@ -1,37 +1,12 @@
 <template>
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between searchContainer row topbar-title">
-            <span class="pt-2 itty col-3 pl-5 title-target">{{$t('create_post')}}</span>
+            <span class="pt-2 itty col-12 pl-5 title-target">{{$t('create_post')}}</span>
         </div>
     </div>
     <div class="mainPrincipal">
         <div class="content-view">
-            <!-- <div class="w-100 w-md-50">
-                <h3 class="text-center">Crea tu post</h3>
-                <form @submit.prevent="addPublicacion" class="create-post-form me-4">
-                    <div class="form-group mb-2">
-                        <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
-                        <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
-                    </div>
-                    <div class="d-flex justify-content-between">
-                        <div class="pt-4">
-                            <div v-if="!imageSelected">
-                                <label for="file-upload" class="btn btn-primary">Subir imagen</label>
-                                <input type="file" id="file-upload" @change="onFileChange">
-                            </div>
-                            <div v-if="imageSelected">
-                                <button @click="discardImage" class="btn btn-discard">Descartar imagen</button>
-                            </div>
-                        </div>
-                        <div class="pt-4">
-                            <div>
-                                <button type="submit" class="btn btn-postit">Subir publicación</button>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div> -->
-            <form @submit.prevent="addPublicacion">
+            <form class="container-width-createpost" @submit.prevent="addPublicacion">
                 <div class="container-createpost" :class="bgClass()">
                         <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                             <div class="d-flex">
@@ -41,17 +16,14 @@
                                     <span>@{{ user.username}}</span>
                                 </div>
                             </div>
-                            <div class="btn-container">
-                                <div class="sticky-btn-sticker"></div>
-                                <button type="submit" class="btnSticky sticky-btn-1 itty">Publicar</button>
-                            </div>
+                            <span class="mr-4">No publicado</span>
                         </div>
                         <div class="px-3 py-2 card-post-text w-100">
                             <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
                             <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
                         </div>
                         <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
-                            <img class="p-3" :src="imageUrl" alt="">
+                            <img class="pl-5 pr-5" :src="imageUrl" alt="">
                         </div>
                         <div class="card-post-bottom d-flex">
                             <div class="d-flex align-items-center">
@@ -62,32 +34,49 @@
                             </div>  
                         </div>
                 </div>
-                <div class="card mt-3">
+                <div class="section-options-createpost">
                     
-                    <div v-if="!imageSelected">
-                        <label for="file-upload" class="btn btn-primary">Subir imagen</label>
-                        <input type="file" id="file-upload" @change="onFileChange">
-                    </div>
-                    <div v-if="imageSelected">
-                        <div>
-                            <button @click="discardImage" class="btn">Descartar imagen</button>
+                    <div class="container-boton" v-if="!imageSelected">
+                        <div class="sticky-btn-sticker bg-2c"></div>
+                        <div class="btnSticky sticky-btn-1 bg-2 itty cursor-pointer">
+                            <label for="file-upload">Subir imagen</label>
+                            <input type="file" id="file-upload" @change="onFileChange">
                         </div>
+                        
+                    </div>
+                    <div class="container-boton" v-if="imageSelected">
+                        <div class="sticky-btn-sticker bg-2c"></div>
+                        <button @click="discardImage" class="btnSticky sticky-btn-1 bg-2 itty">Descartar imagen</button>
+                    </div>
+                    <div class="container-boton mt-3">
+                        <div class="sticky-btn-sticker bg-3c"></div>
+                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">Publicar</button>
                     </div>
                 </div>
             </form>
         </div>    
     </div>
-    
 </template>
 
 <style scoped>
 
+    .container-width-createpost {
+        width: 65%;
+        margin: auto;
+    }
     .container-createpost {
-        width: 100%;
         margin: auto;
         display: flex;
         flex-direction: column;
         justify-content: center;
+    }
+
+    .section-options-createpost {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
     }
     .post-text {
         max-width: 100%;
@@ -107,9 +96,22 @@
         display: none;
     }
 
-.btn-container {
-    width: 125px;
-    display: flex;
+@media (max-width: 1200px){
+    .container-width-createpost {
+        width: 80%;
+        margin: auto;
+    }
+    .section-options-createpost {
+        flex-direction: column;
+    }
+}
+
+
+@media (max-width: 600px){
+    .container-width-createpost {
+        width: 100%;
+        margin: auto;
+    }
 }
 </style>
 
@@ -247,8 +249,13 @@
           return 'bg-3';
         case 4:
           return 'bg-4';
+        case 5:
+          return 'bg-5';
+        case 6:
+          return 'bg-6';
+        
         default:
-          return ''; // Ninguna clase aplicada si no coincide con los casos anteriores
+          return 'bg-1'; // Por defecto se aplicara la clase bg-1 si no esta definida
       }
     }
     

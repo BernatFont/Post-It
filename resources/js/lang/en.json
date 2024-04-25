@@ -58,7 +58,10 @@
     "seguir": "Follow",
     "dejar_seguir": "Unfollow",
     "modify": "Modify",
+    "modify_profile": "Modify Profile",
+    "modify_post": "Modify Post",
     "no_show_chats": "There are no chats to show",
     "error_chat": "Error: The chat does not exist or has not loaded correctly",
-    "create_post": "Create Post"
+    "create_post": "Create Post",
+    "search_by_name": "Search by Name"
 }

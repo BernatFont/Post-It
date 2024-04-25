@@ -11,10 +11,10 @@
   <!-- Mostrar usuarios filtrados -->
   <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuariosFiltrados" :key="usuario.id">
     <div class="d-flex flex-row">
-      <img class="imgPerfil" src="/images/user-default.png" alt="">
+      <img class="img-perfil" src="/images/user-default.png" alt="">
       <div class="d-flex flex-column">
-          <span class="itty textContent">{{ usuario.name + " " + (usuario.surname ? " " + usuario.surname : "") }}</span>
-          <span class="itty textUsername">@{{ usuario.username }}</span>
+          <span class="itty font1">{{ usuario.name + " " + (usuario.surname ? " " + usuario.surname : "") }}</span>
+          <span class="itty font2">@{{ usuario.username }}</span>
       </div> 
     </div>
     <div>
@@ -99,13 +99,6 @@ export default {
   h2 {
     margin-right: 25px;
   }
-
-  .imgPerfil {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin: auto 15px auto 0;
-    }
 
     .textContent {
         font-size: 1.5rem

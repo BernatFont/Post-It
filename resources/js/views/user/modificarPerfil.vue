@@ -1,7 +1,12 @@
 <template>
-    <div v-if="usuario" class="modificar_perfil m-auto">
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between topbar-title">
+            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('modify_profile')}}</span>
+        </div>
+    </div>
+    <div class="mainPrincipal" v-if="usuario">
         <div class="content-view">
-            <div class="w-100 d-flex justify-content-center">
+            <div class="d-flex justify-content-center align-items-center card">
                 <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
                     <img 
                         style="min-height: 120px; max-width: 150px; transform: rotate(5deg)" 
@@ -14,58 +19,54 @@
                 </div>
             </div>
              <!-- Campos para editar los datos del usuario -->
-            <div class="form-group">
-                <label for="username">{{$t('username')}}</label>
-                <input type="text" id="username" v-model="usuario.username" readonly>
-            </div>
-            <div class="form-group">
-                <label for="email">{{$t('email')}}</label>
-                <input type="text" id="email" v-model="usuario.email" readonly>
-            </div>
-            <div class="form-group">
-                <label for="name">{{$t('name')}}</label>
-                <input type="text" id="name" v-model="usuario.name">
-            </div>
-            <div class="form-group">
-                <label for="surname">{{$t('surname')}}</label>
-                <input type="text" id="surname" v-model="usuario.surname">
-            </div>
-            <div class="form-group">
-                <label for="biography">{{$t('biography')}}</label>
-                <input type="text" id="biography" maxlength="200" v-model="usuario.biography">
-            </div>
-            <div class="form-group">
-                <label for="birth">{{$t('birth_date')}}</label>
-                <input type="date" id="birth" v-model="usuario.birth_date">
-            </div>
-            <div class="container-boton mt-3 w-100">
-                <div class="sticky-btn-sticker"></div>
-                <button class="btnSticky sticky-btn-1" @click="guardarCambios">{{$t('save_changes')}}</button>
-            </div>
+             <div class="formContainer card border-0 shadow-sm">
+                 <div class="form-group">
+                     <label for="username">{{$t('username')}}</label>
+                     <input type="text" id="username" v-model="usuario.username" readonly>
+                 </div>
+                 <div class="form-group">
+                     <label for="email">{{$t('email')}}</label>
+                     <input type="text" id="email" v-model="usuario.email" readonly>
+                 </div>
+                 <div class="form-group">
+                     <label for="name">{{$t('name')}}</label>
+                     <input type="text" id="name" v-model="usuario.name">
+                 </div>
+                 <div class="form-group">
+                     <label for="surname">{{$t('surname')}}</label>
+                     <input type="text" id="surname" v-model="usuario.surname">
+                 </div>
+                 <div class="form-group">
+                     <label for="biography">{{$t('biography')}}</label>
+                     <input type="text" id="biography" maxlength="200" v-model="usuario.biography">
+                 </div>
+                 <div class="form-group">
+                     <label for="birth">{{$t('birth_date')}}</label>
+                     <input type="date" id="birth" v-model="usuario.birth_date">
+                 </div>
+                 <div class="container-boton mt-5">
+                     <div class="sticky-btn-sticker bg-3c"></div>
+                     <button class="btnSticky sticky-btn-1 bg-3" @click="guardarCambios">{{$t('save_changes')}}</button>
+                 </div>
+             </div>
         </div>
+    </div>
+    <div v-if="usuario" class="modificar_perfil m-auto">
+        
     </div>
 </template>
 
 <style>
-.modificar_perfil{
-    width: 600px;
-}
-@media (max-width: 600px){
+
+    .card {
+        border-radius: 0px;
+        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+        background-color: #fff;
+    }
+
     .modificar_perfil{
-        width: 100%;
-    }   
-}
-.custum-file-upload {
-    height: 20px;
-    width: 20px;
-    background-color: var(--primero);
-    display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
-    padding: 1.2rem;
-    border-radius: 50%;
-}
+        width: 600px;
+    }
 
 .bg-img-perfil{
     height: 200px;
@@ -86,6 +87,12 @@
 }
 .form-group input{
     padding: 8px;
+}
+
+@media (max-width: 600px){
+    .modificar_perfil{
+        width: 100%;
+    }   
 }
 </style>
 

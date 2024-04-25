@@ -2,14 +2,14 @@
     <div v-if="chat">
         <div class="topbar-container bg-v2">
             <div class="topbar-title d-flex" v-if="userLogin.id === chat.user_id_2">
-                <img class="imgPerfil ml-3" src="/images/user-default.png" alt="">
+                <img class="img-perfil ml-3" src="/images/user-default.png" alt="">
                 <div class="chat-topbar-user">
                     <span class="itty textContent">{{ chat.user1.name + " " + chat.user1.surname }}</span>
                     <span class="itty textUsername">@{{ chat.user1.username }}</span>
                 </div>
             </div>
             <div class="topbar-title topbar-flex" v-else-if="userLogin.id === chat.user_id_1">
-                <img class="imgPerfil ml-3" src="/images/user-default.png" alt="">
+                <img class="img-perfil ml-3" src="/images/user-default.png" alt="">
                 <div class="chat-topbar-user">
                     <span class="itty textContent">{{ chat.user2.name + " " + chat.user2.surname }}</span>
                     <span class="itty textUsername">@{{ chat.user2.username }}</span>
@@ -177,13 +177,6 @@
         flex: row;
     }
 
-    .imgPerfil {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        margin: auto 0 auto 0;
-    }
-
     .textContent {
         font-size: 1.5rem
     }  
@@ -209,7 +202,4 @@
         width: 50%;
         margin: auto;
     }
-
-     @media (max-width: 1200px){
-    } 
 </style>

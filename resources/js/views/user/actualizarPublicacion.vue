@@ -1,6 +1,14 @@
 <template>
-    <div v-if="publicacion" class="card-post mb-5 content-view mainPrincipal ">
-        <div class="card">
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between topbar-title">
+            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('modify_post')}}</span>
+            <div class="notification-alert target-value">
+                <span class="itty">0</span>
+            </div>
+        </div>
+    </div>
+    <div class="mainPrincipal" v-if="publicacion">
+        <div class="content-view card">
             <div class="card-body">
                 <div class="d-flex justify-content-between pb-2 mb-2">
                     <h5 class="card-title">Actualizar publicacion</h5>
@@ -28,7 +36,9 @@
         </div>
     </div>
     <div v-else class="mainPrincipal">
-        <p>Cargando...</p>
+        <div class="content-view card">
+            <p>Cargando...</p>
+        </div>
     </div>
     
 </template>
@@ -67,4 +77,6 @@ function actualizar() {
 }
 </script>
 
-<style></style>
+<style>
+
+</style>

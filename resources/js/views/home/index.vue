@@ -10,13 +10,13 @@
                 </div>
                 <div class="boton-contenedor d-flex justify-content-around"> 
                     <div class="container-boton inclinacion1">
-                        <div class="sticky-btn-sticker"></div>
-                        <router-link class="sticky-btn-1 itty " to="/login">{{ $t('login') }}</router-link>
+                        <div class="sticky-btn-sticker bg-3c"></div>
+                        <router-link class="sticky-btn-1 itty bg-3 " to="/login">{{ $t('login') }}</router-link>
                     </div>
                     
                     <div class="container-boton inclinacion2">
-                        <div class="sticky-btn-sticker"></div>
-                        <router-link class="sticky-btn-1 itty" to="/register">{{ $t('register') }}</router-link>
+                        <div class="sticky-btn-sticker bg-2c"></div>
+                        <router-link class="sticky-btn-1 itty bg-2" to="/register">{{ $t('register') }}</router-link>
                     </div>
                 </div>
             </div>
