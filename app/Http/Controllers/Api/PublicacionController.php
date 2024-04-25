@@ -16,7 +16,7 @@ class PublicacionController extends Controller
     //OBTENEMOS LOS DATOS DE LA BD
     public function index(){
         // 'With' de 'user' para importar sus datos y 'orderby' para mostrar los post por fecha de mas reciente a mas antiguo
-        $publicaciones = Publicacion::with('user','media','likes')->withCount('likes','comentarios')->orderBy('created_at', 'desc')->get()->toArray();
+        $publicaciones = Publicacion::with('user', 'user.media', 'media', 'likes')->withCount('likes','comentarios')->orderBy('created_at', 'desc')->get()->toArray();
         return $publicaciones;
     }
 

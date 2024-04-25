@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Chat;
 use App\Models\User;
+use App\Models\Media;
 
 
 class ChatController extends Controller
@@ -13,7 +14,7 @@ class ChatController extends Controller
     public function index()
     {
         $userLogeado = auth()->id();
-        $chats = Chat::with(['user1', 'user2'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
+        $chats = Chat::with(['user1', 'user2', 'user1.media', 'user2.media'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
     
         return $chats;
     }
@@ -45,7 +46,7 @@ class ChatController extends Controller
         if (!$chat) {
             return response()->json(['error' => 'Chat no encontrado'], 404);
         } else {
-            $chat = Chat::with(['user1', 'user2'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
+            $chat = Chat::with(['user1', 'user2', 'user1.media', 'user2.media'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
         }
         // Devuelve solo el chat encontrado por su ID
         return response()->json($chat);

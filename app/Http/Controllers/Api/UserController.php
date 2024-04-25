@@ -154,7 +154,7 @@ class UserController extends Controller
     public function obtenerUsuario($username) {
         try {
             return $user = User::where('username', $username)
-            ->with('seguidores', 'seguidos', 'publicaciones', 'publicaciones.likes', 'publicaciones.comentarios', 'publicaciones.media')
+            ->with('seguidores', 'media', 'seguidos', 'publicaciones', 'publicaciones.likes', 'publicaciones.comentarios', 'publicaciones.media')
             ->withCount('seguidores', 'seguidos')
             ->firstOrFail();
 
@@ -198,6 +198,10 @@ class UserController extends Controller
     public function modificarImagenUsuario(Request $request){
         // Encuentra al usuario autenticado
         $user = auth()->user();
+
+        if ($request->hasFile('imagen')){
+            $user->media()->delete();
+        }
 
         if ($request->hasFile('imagen')) {
             $user->addMediaFromRequest('imagen')

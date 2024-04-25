@@ -5,7 +5,7 @@
                 <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
                     <img 
                         style="min-height: 120px; max-width: 150px; transform: rotate(5deg)" 
-                        :src="(imagenSeleccionada || (usuario && usuario.image)) ? (imagenSeleccionada || usuario.image) : '/images/user-default.png'"
+                        :src="imagenSeleccionada || (usuario && usuario.image) || (usuario && usuario.media && usuario.media[0] && usuario.media[0].original_url) || '/images/user-default.png'"
                         alt="User Image">
                     <label class="custum-file-upload mt-3" for="file">
                         <i class="pi pi-plus"></i>
@@ -125,7 +125,7 @@ const seleccionarImagen = (event) => {
 
             // Crea un FormData para enviar la imagen al servidor
             const formData = new FormData();
-            formData.append('imagen', file.value);
+            formData.append('imagen', file);
             console.log(file);
 
             // Envía la imagen al servidor usando Axios
