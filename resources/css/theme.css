@@ -383,10 +383,19 @@ align-self: flex-end;
     margin-top: -60px;
 }
 
+.contenedor-img-perfil{
+    overflow: hidden;
+    margin-right: 8px;
+    height: 55px;
+    width: 55px;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
 .img-perfil{
     border: solid 3px var(--color-primario);
     height: 55px;
-    width: 55px;
     /* border-radius: 50%; */
 }
 
@@ -419,6 +428,11 @@ align-self: flex-end;
     padding-bottom: 20px;
 }
 
+@media (max-width: 1200px){
+    .content-view{
+        padding-bottom: 60px;
+    }
+}
 @media (max-width: 700px){
     .content-view{
         width: 90%;

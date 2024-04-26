@@ -12,8 +12,10 @@
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
-                        <img :src="publicacion.user.image ? publicacion.user.image : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
-                        <!-- <img :src="publicacion.user.media[0].original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil"> -->
+                        <!-- <img :src="publicacion.user.image ? publicacion.user.image : '/images/user-default.png'" alt="" class="ms-2 img-perfil"> -->
+                        <div class="contenedor-img-perfil">
+                            <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                        </div>
                     </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
                         <span class="itty username">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>

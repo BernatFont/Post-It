@@ -13,13 +13,15 @@
             <div v-else>
                 <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-if="chat.user_id_1 !== userLogin.id">
                     <div class="d-flex flex-row">
-                        <router-link :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
-                            <img class="img-perfil" src="/images/user-default.png" alt="foto de perfil">
+                        <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
+                            <div class="contenedor-img-perfil">
+                                <img class="img-perfil" :src="chat.user1.media[0]?.original_url ? chat.user1.media[0].original_url : '/images/user-default.png'" alt="foto de perfil">
+                            </div>    
+                            <div class="d-flex flex-column">
+                                <span class="itty font1">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
+                                <span class="itty font2">@{{ chat.user1.username }}</span>
+                            </div> 
                         </router-link>
-                        <div class="d-flex flex-column">
-                            <span class="itty font1">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
-                            <span class="itty font2">@{{ chat.user1.username }}</span>
-                        </div> 
                     </div>
                     <div>
                         <router-link class="btnIr itty" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>
@@ -27,13 +29,15 @@
                 </div>
                 <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-if="chat.user_id_2 !== userLogin.id">
                     <div class="d-flex flex-row">
-                        <router-link :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
-                            <img class="img-perfil" src="/images/user-default.png" alt="foto de perfil">
+                        <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
+                            <div class="contenedor-img-perfil">
+                                <img class="img-perfil" :src="chat.user2.media[0]?.original_url ? chat.user2.media[0].original_url : '/images/user-default.png'" alt="foto de perfil">
+                            </div>        
+                            <div class="d-flex flex-column">
+                                <span class="itty font1">{{chat.user2.name + (chat.user2.surname ? " " + chat.user2.surname : "")}}</span>
+                                <span class="itty font2">@{{ chat.user2.username }}</span>
+                            </div> 
                         </router-link>
-                        <div class="d-flex flex-column">
-                            <span class="itty font1">{{chat.user2.name + (chat.user2.surname ? " " + chat.user2.surname : "")}}</span>
-                            <span class="itty font2">@{{ chat.user2.username }}</span>
-                        </div> 
                     </div>
                     <div>
                         <router-link class="btnIr itty" :to="{ name: 'mostrar.chat', params: { id: chat.id } }">{{ $t('show_chat') }}</router-link>

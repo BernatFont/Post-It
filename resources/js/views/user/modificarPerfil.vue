@@ -29,12 +29,13 @@
                      <input type="text" id="email" v-model="usuario.email" readonly>
                  </div>
                  <div class="form-group">
-                     <label for="name">{{$t('name')}}</label>
-                     <input type="text" id="name" v-model="usuario.name">
+                     <label for="name">{{$t('name')}}*</label>
+                     <input type="text" id="name" maxlength="20" v-model="usuario.name" :class="{'error-border': errorMessageName}">
+                     <small v-if="errorMessageName" class="form-text text-danger">{{$t('not_empty')}}</small>
                  </div>
                  <div class="form-group">
                      <label for="surname">{{$t('surname')}}</label>
-                     <input type="text" id="surname" v-model="usuario.surname">
+                     <input type="text" id="surname" maxlength="20" v-model="usuario.surname">
                  </div>
                  <div class="form-group">
                      <label for="biography">{{$t('biography')}}</label>
@@ -50,9 +51,6 @@
                  </div>
              </div>
         </div>
-    </div>
-    <div v-if="usuario" class="modificar_perfil m-auto">
-        
     </div>
 </template>
 
@@ -94,6 +92,11 @@
         width: 100%;
     }   
 }
+
+.error-border {
+    border: 1px solid red;
+}
+
 </style>
 
 <script setup>
@@ -107,6 +110,7 @@ const usuario = ref(null);
 const imagenSeleccionada = ref(null);
 const strSuccess = ref(null);
 const strError = ref(null);
+const errorMessageName = ref(null);
 
 onMounted(() => {
     obtenerUsuario();
@@ -155,6 +159,7 @@ const seleccionarImagen = (event) => {
 
 
 const guardarCambios = () => {
+    const name = document.getElementById('name')
     console.log(usuario.value)
     console.log(usuario.value.birth_date)
 
@@ -167,10 +172,13 @@ const guardarCambios = () => {
         console.log('dentro then');
         strError.value = "";
         strSuccess.value = response.data.success;
+        errorMessageName.value = false;
     })
     .catch(error => {
+        console.log('Nombre obligatorio');
         strSuccess.value = "";
         strError.value = error.response.data.message;
+        errorMessageName.value = true;
     });
 }
 </script>
