@@ -9,9 +9,11 @@
             <form class="container-width-createpost" @submit.prevent="addPublicacion">
                 <div class="container-createpost" :class="bgClass()">
                         <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                            <div class="d-flex">
-                                <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
-                                <div class="ms-3 d-flex flex-column justify-content-center">
+                            <div v-if="usuario" class="d-flex">
+                                <div class="contenedor-img-perfil">
+                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                                </div>                         
+                                <div class="d-flex flex-column justify-content-center">
                                     <span>{{ user.name }} {{ user.surname }}</span>
                                     <span>@{{ user.username}}</span>
                                 </div>
@@ -121,10 +123,27 @@
     import router from "../../routes";
     import { useStore } from 'vuex';
 
-
+    const usuario = ref(null);
     /* Obtenemos datos del usuario */
     const store = useStore();
     let user = computed(() => store.state.auth.user)
+
+    onMounted(() => {
+        obtenerUsuario();
+    });
+
+    // Realizamos la solicitud para obtener los datos del usuario
+    const obtenerUsuario = () => {
+        axios.get('/api/usuario/' + user.value.username)
+        .then(response => {
+                // Actualizamos los datos del usuario
+                usuario.value = response.data;
+                console.log(usuario.value);
+        })
+        .catch(error => {
+                console.error('Error al cargar los datos del usuario:', error);
+        }); 
+    };
 
     // // Verifica si ya hemos recargado una vez
     // if (!localStorage.getItem('reloaded')) {

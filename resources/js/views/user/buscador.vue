@@ -11,7 +11,9 @@
   <!-- Mostrar usuarios filtrados -->
   <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuariosFiltrados" :key="usuario.id">
     <div class="d-flex flex-row">
-      <img class="img-perfil" src="/images/user-default.png" alt="">
+      <div class="contenedor-img-perfil">
+        <img class="img-perfil" :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="">
+      </div>
       <div class="d-flex flex-column">
           <span class="itty font1">{{ usuario.name + " " + (usuario.surname ? " " + usuario.surname : "") }}</span>
           <span class="itty font2">@{{ usuario.username }}</span>
@@ -41,6 +43,7 @@ export default {
       axios.get('/api/usuarios')
         .then(response => {
           usuarios.value = response.data;
+          console.log(usuarios.value);
         })
         .catch(error => {
           console.error('Error al obtener usuarios:', error);

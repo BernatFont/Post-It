@@ -165,7 +165,7 @@ class UserController extends Controller
     }
 
     public function obtenerTodosUsuarios(){
-        return $usuarios = User::all();
+        return $usuarios = User::with('media')->get();;
     }
 
     public function modificarUsuario(Request $request){
@@ -184,9 +184,9 @@ class UserController extends Controller
     
             // Actualiza los datos del usuario
             $user->name = $validatedData['name'];
-            $user->surname = $validatedData['surname'];
-            $user->birth_date = $validatedData['birth_date'];
-            $user->biography = $validatedData['biography'];
+            $user->surname = $request->get('surname');
+            $user->birth_date = $request->get('birth_date');
+            $user->biography = $request->get('biography');
     
             // Guarda los cambios en el usuario
             $user->save();
