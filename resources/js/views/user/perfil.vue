@@ -4,7 +4,7 @@
             <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
                 <div>
                     <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
-                    <img :src="usuario.media[0].original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
+                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
                 </div>
                 <div class="d-flex flex-column">
                     <!-- Enlaces a las vistas de seguidores y seguidos -->
@@ -52,7 +52,7 @@
                 <div v-for="publicacion in usuario.publicaciones" :key="publicacion.id" class="card-post mb-5" :class="bgClass(usuario.style)">
                     <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                         <div class="d-flex">
-                            <img :src="usuario.media[0].original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                            <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
                             <div class="ms-3 d-flex flex-column justify-content-center">
                                 <span>@{{ usuario.username }}</span>
                             </div>
