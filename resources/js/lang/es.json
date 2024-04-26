@@ -1,7 +1,7 @@
 {
     "welcome_starter_title": "Post-It",
     "welcome_starter_description": "Conéctate con el mundo a través de experiencias auténticas, donde cada conexión es una oportunidad, cada historia es única y cada momento se convierte en un recuerdo compartido. Únete a nuestra red social y haz que cada conexión cuente.",
-    "ok": "De Acuerdo",
+    "ok": "Aceptar",
     "cancel": "Cancelar",
     "error_alert_title": "Ha ocurrido un problema",
     "error_alert_text": "¡Algo salió mal! Inténtalo de nuevo.",
@@ -21,7 +21,7 @@
     "home": "Inicio",
     "you_are_logged_in": "¡Has iniciado sesión!",
     "reset_password": "Restablecer la contraseña",
-    "send_password_reset_link": "Enviar Enlace de Restablecimiento de Contraseña",
+    "send_password_reset_link": "Restablecer contraseña",
     "profile": "Perfil",
     "your_info": "Tu Información",
     "info_updated": "¡Tu información ha sido actualizada!",
@@ -58,5 +58,17 @@
     "no_show_chats": "No hay chats que mostrar",
     "error_chat": "Error: El chat no existe o no se ha cargado correctamente",
     "create_post": "Crear publicación",
-    "search_by_name": "Buscar por Nombre"
+    "search_by_name": "Buscar por Nombre",
+    "post": "Publicación",
+    "not_empty": "Este campo no puede estar vacio",
+    "select_language": "Selecciona un idioma",
+    "spanish": "Español",
+    "english": "Inglés",
+    "error_select_language": "Debes seleccionar un idioma",
+    "change": "Cambiar",
+    "upload_image": "Subir imagen",
+    "discard_image": "Descartar imagen",
+    "publish": "Publicar",
+    "mark_read": "Mark as read",
+    "seen": "Seen"
 }   

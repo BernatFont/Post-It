@@ -97,52 +97,63 @@ li span{
 </style>
 
 <script setup>
-import { onMounted, inject, ref, computed } from 'vue';
+import { onMounted, inject, computed } from 'vue';
 import { useRouter } from "vue-router";
-import { useStore } from 'vuex'; // siempre hay que usarlo dentro de un script 'setup', sino no va
+import { useStore } from 'vuex';
 import useAuth from "@/composables/auth";
+import { useI18n } from 'vue-i18n';
+import { loadMessages } from '@/plugins/i18n'
 
-const store = useStore() // gancho que permite acceder al store de Vuex dentro de los componentes de Vue sin necesidad de importarlo manualmente en cada componente.
-const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
+const store = useStore();
+const userLogin = computed(() => store.state.auth.user);
 const { logout } = useAuth();
 const router = useRouter();
 const swal = inject('$swal');
+const i18n = useI18n(); // Asegúrate de inicializar i18n correctamente
+const locale = computed(() => store.getters["lang/locale"]);
+const locales = computed(() => store.getters["lang/locales"]);
+
+function setLocale(locale) {
+    if (i18n.locale.value !== locale) {
+        loadMessages(locale)
+        store.dispatch('lang/setLocale', { locale })
+    }
+}
 
 function Logout() {
-    router.push({name: 'welcome'});
+    router.push({ name: 'welcome' });
     logout();
 }
 
-onMounted(()=>{
-
+onMounted(() => {
     const config = document.getElementById('configuracion');
-    if (config){
-        config.addEventListener('click', () =>{
+    if (config) {
+        config.addEventListener('click', () => {
             swal({
-                title: 'Selecciona tu idioma',
-                        input: 'radio',
-                        inputOptions: {
-                            'espanol': 'Español',
-                            'ingles': 'Inglés'
-                        },
-                        inputValidator: (value) => {
-                            if (!value) {
-                                return 'Debes seleccionar un idioma';
-                            }
-                        },
-                        showCancelButton: true,
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonText: 'Aceptar',
-                        allowOutsideClick: false
+                title: i18n.t('select_language'), // Usa i18n.t sin especificar alcance
+                input: 'radio',
+                inputOptions: {
+                    'es': i18n.t('spanish'), // Usa i18n.t sin especificar alcance
+                    'en': i18n.t('english') // Usa i18n.t sin especificar alcance
+                },
+                inputValidator: (value) => {
+                    if (!value) {
+                        return i18n.t('error_select_language'); // Usa i18n.t sin especificar alcance
+                    }
+                },
+                showCancelButton: true,
+                cancelButtonText: i18n.t('cancel'), // Usa i18n.t sin especificar alcance
+                confirmButtonText: i18n.t('ok'), // Usa i18n.t sin especificar alcance
+                allowOutsideClick: false
             }).then((result) => {
-                // Si se selecciona un idioma y se hace clic en "Aceptar"
                 if (result.isConfirmed) {
                     const selectedLanguage = result.value;
-                    // Aquí puedes agregar la lógica para cambiar al idioma seleccionado
                     console.log('Seleccionaste ' + selectedLanguage);
+                    setLocale(selectedLanguage);
                 }
             });
         })
     }
 })
 </script>
+

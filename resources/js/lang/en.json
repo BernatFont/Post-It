@@ -63,5 +63,17 @@
     "no_show_chats": "There are no chats to show",
     "error_chat": "Error: The chat does not exist or has not loaded correctly",
     "create_post": "Create Post",
-    "search_by_name": "Search by Name"
+    "search_by_name": "Search by Name",
+    "post": "Publication",
+    "not_empty": "this value cannot be empty",
+    "select_language": "Select language",
+    "spanish": "Spanish",
+    "english": "English",
+    "error_select_language": "You must select a language",
+    "change": "Change",
+    "upload_image": "Upload Image",
+    "discard_image": "Discard Image",
+    "publish": "Publish",
+    "mark_read": "Mark as read",
+    "seen": "Seen"
 }

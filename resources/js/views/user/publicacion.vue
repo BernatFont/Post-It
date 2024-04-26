@@ -1,6 +1,11 @@
 <template>
-    <div class="contenedor-publicacion mainPrincipal">
-        <div v-if="publicacion">
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between searchContainer row topbar-title">
+            <span class="pt-2 itty col-12 pl-5 title-target">{{$t('post')}}</span>
+        </div>
+    </div>
+    <div class="mainPrincipal">
+        <div class="content-view" v-if="publicacion">
             <div class="card-post m-auto pt-3 px-2">
                 <div class="card-post-top d-flex justify-content-between align-items-center">
                     <div class="d-flex">

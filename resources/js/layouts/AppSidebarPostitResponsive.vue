@@ -21,6 +21,7 @@
                 <li id="configuracion_resp" class="respo-3"><div class="logo_respo logo-sidebar-6"></div></li>
 
                 <li class="respo-2" @click="Logout"><div class="logo_respo logo-sidebar-7"></div></li>
+
             </ul>
         </div>
     </div>
@@ -81,12 +82,26 @@ import { onMounted, inject, ref, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { useStore } from 'vuex'; // siempre hay que usarlo dentro de un script 'setup', sino no va
 import useAuth from "@/composables/auth";
+// Multidioma
+import { useI18n } from 'vue-i18n'
+import { loadMessages } from '@/plugins/i18n'
 
 const store = useStore() // gancho que permite acceder al store de Vuex dentro de los componentes de Vue sin necesidad de importarlo manualmente en cada componente.
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const { logout } = useAuth();
 const router = useRouter();
 const swal = inject('$swal');
+// Multidioma
+const i18n = useI18n({useScope: "global"});
+const locale = computed(() => store.getters["lang/locale"])
+const locales = computed(() => store.getters["lang/locales"])
+
+function setLocale(locale) {
+    if (i18n.locale !== locale) {
+        loadMessages(locale)
+        store.dispatch('lang/setLocale', { locale })
+    }
+}
 
 function Logout() {
   // Realizar acciones adicionales antes del cierre de sesión si es necesario
@@ -95,33 +110,31 @@ function Logout() {
   router.push('/');
 }
 
-onMounted(()=>{
-
+onMounted(() => {
     const config = document.getElementById('configuracion_resp');
-    if (config){
-        config.addEventListener('click', () =>{
+    if (config) {
+        config.addEventListener('click', () => {
             swal({
-                title: 'Selecciona tu idioma',
-                        input: 'radio',
-                        inputOptions: {
-                            'espanol': 'Español',
-                            'ingles': 'Inglés'
-                        },
-                        inputValidator: (value) => {
-                            if (!value) {
-                                return 'Debes seleccionar un idioma';
-                            }
-                        },
-                        showCancelButton: true,
-                        cancelButtonText: 'Cancelar',
-                        confirmButtonText: 'Aceptar',
-                        allowOutsideClick: false
+                title: i18n.t('select_language'), // Usa i18n.t sin especificar alcance
+                input: 'radio',
+                inputOptions: {
+                    'es': i18n.t('spanish'), // Usa i18n.t sin especificar alcance
+                    'en': i18n.t('english') // Usa i18n.t sin especificar alcance
+                },
+                inputValidator: (value) => {
+                    if (!value) {
+                        return i18n.t('error_select_language'); // Usa i18n.t sin especificar alcance
+                    }
+                },
+                showCancelButton: true,
+                cancelButtonText: i18n.t('cancel'), // Usa i18n.t sin especificar alcance
+                confirmButtonText: i18n.t('ok'), // Usa i18n.t sin especificar alcance
+                allowOutsideClick: false
             }).then((result) => {
-                // Si se selecciona un idioma y se hace clic en "Aceptar"
                 if (result.isConfirmed) {
                     const selectedLanguage = result.value;
-                    // Aquí puedes agregar la lógica para cambiar al idioma seleccionado
                     console.log('Seleccionaste ' + selectedLanguage);
+                    setLocale(selectedLanguage);
                 }
             });
         })
