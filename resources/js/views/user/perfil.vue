@@ -84,12 +84,13 @@
 <script setup>
 import { onMounted, ref, computed } from "vue";
 import { useStore } from 'vuex';
-import { useRoute } from 'vue-router';
+import { useRoute, useRouter } from 'vue-router';
 import axios from 'axios';
 
 /* Obtenemos datos del usuario */
 const store = useStore();
 const route = useRoute(); 
+const router = useRouter()
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const username = route.params.username; // Obtiene el usuario por la ruta
 const usuario = ref(null);
@@ -139,7 +140,12 @@ const chat = () => {
     // Verificar si ya existe un chat entre el usuario actualmente logueado y el usuario visitado
     axios.post('/api/chat/' + usuario.value.id)
     .then(response => {
-        console.log("Chat");
+        const chatId = response.data.chat_id; // Obtiene el id del chat
+        if (chatId) {
+            router.push({ name: 'mostrar.chat', params: { id: chatId } }); // Redirige al chat
+        } else {
+            console.log('El chat no existe'); // En caso de error al encontrar el chat
+        }
     })
     .catch(error => {
         console.error('Error al mostrar chat:', error);

@@ -26,15 +26,17 @@ class ChatController extends Controller
         $chat2 = Chat::where('user_id_1', $id)->where('user_id_2', $userLogeado)->first();
     
         // Si el chat ya existe en alguna dirección, devuelve false
-        if ($chat1 || $chat2) {
-            return response()->json(['chat' => false]);
+        if ($chat1) {
+            return response()->json(['chat_id' => $chat1->id]);
+        } elseif ($chat2) {
+            return response()->json(['chat_id' => $chat2->id]);
         } else {
-            // Si el chat no existe, crea el chat y devuelve true
-            Chat::create([
+            // Si el chat no existe, crea el chat, guarda los valores en la variable newChat y envia en el return el id
+            $newChat = Chat::create([
                 'user_id_1' => $userLogeado,
                 'user_id_2' => $id
             ]);
-            return response()->json(['chat' => false]);
+            return response()->json(['chat_id' => $newChat->id]);
         }
     }
 

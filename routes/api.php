@@ -44,12 +44,15 @@ Route::post('/usuarios/modificarImagen', [UserController::class, 'modificarImage
 Route::post('/usuarios/colorPost/{color}', [UserController::class, 'colorPost']);
 
 
-Route::get('/chats', [ChatController::class, 'index']);
-Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']);
+Route::get('/chats', [ChatController::class, 'index']); // Obtener todos los chat
+Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']); // Obtener conversacion deu n chat
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
 Route::post('/chat/{id}', [ChatController::class, 'store']); // Crear chat
 Route::get('/chat/mensajes/{id}', [MensajeController::class, 'index']); // Obtener mensajes de un chat
-Route::post('/chat/mensajes/{id}', [MensajeController::class, 'store']); // Obtener mensajes de un chat
+Route::post('/chat/mensajes/{id}', [MensajeController::class, 'store']); // Añadir mensaje al chat
+
+Route::get('/notificaciones', [NotificacionController::class, 'index']); // Obtener notificaciones
+Route::post('/notificacion', [NotificacionController::class, 'store']); // Crear notificacion
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);

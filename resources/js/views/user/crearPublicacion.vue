@@ -11,7 +11,7 @@
                         <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                             <div v-if="usuario" class="d-flex">
                                 <div class="contenedor-img-perfil">
-                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                                 </div>                         
                                 <div class="d-flex flex-column justify-content-center">
                                     <span>{{ user.name }} {{ user.surname }}</span>

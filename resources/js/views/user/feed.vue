@@ -12,9 +12,8 @@
             <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
-                        <!-- <img :src="publicacion.user.image ? publicacion.user.image : '/images/user-default.png'" alt="" class="ms-2 img-perfil"> -->
                         <div class="contenedor-img-perfil">
-                            <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                            <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class=" img-perfil">
                         </div>
                     </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
@@ -23,7 +22,7 @@
                     </div>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="">
+                    <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="Chincheta que sujeta el post">
                 </div>
                 <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
             </div>
@@ -34,8 +33,8 @@
             </div>
             <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
             <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
-                <img src="/images/celo.png" alt="" class="celo">
-                <img class="img_post" :src="publicacion.media[0].original_url" alt="">
+                <img src="/images/celo.png" alt="Celo que sujeta la imagen al post" class="celo">
+                <img class="img_post" :src="publicacion.media[0].original_url" alt="Imagen del post">
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">
@@ -91,6 +90,14 @@ const like = (id) => {
             console.log("Like");
             comprobarLike(id);
             obtenerPublicaciones();
+
+            // Obtener id de la publicacion creada y llamar a notificacion
+            // const publicacionId = response.data.publicacion.id
+            // axios.post('/api/notificacion', publicacionId, {
+            // }).then(response => {
+            
+            // }) 
+                
         })
         .catch(error => {
             console.error("Error al dar like:", error);
