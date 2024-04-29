@@ -13,6 +13,7 @@ use App\Http\Controllers\Api\ComentarioController;
 use App\Http\Controllers\Api\SeguidoController;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\MensajeController;
+use App\Http\Controllers\Api\NotificacionController;
 
 use App\Http\Controllers\Auth\ResetPasswordController;
 

@@ -38,8 +38,8 @@
             </div>
             </router-link>
             <div class="card-post-bottom d-flex">
-                <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion.id)">
-                    <div class="pi p-3" @click="toggleLike(publicacion.id)">
+                <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)">
+                    <div class="pi p-3">
                         <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
                         <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
                     </div>
@@ -84,20 +84,16 @@ const obtenerPublicaciones = () => {
     })
 }
 
-const like = (id) => {
-    axios.post('/api/like/add/' + id)
+const like = (publicacion) => {
+    axios.post('/api/like/add/' + publicacion.id)
         .then(response => {
             console.log("Like");
-            comprobarLike(id);
+            const like = comprobarLike(publicacion.id);
             obtenerPublicaciones();
-
-            // Obtener id de la publicacion creada y llamar a notificacion
-            // const publicacionId = response.data.publicacion.id
-            // axios.post('/api/notificacion', publicacionId, {
-            // }).then(response => {
+            if(like == false) {
+                enviarNotificacion(publicacion, 0);
+            }
             
-            // }) 
-                
         })
         .catch(error => {
             console.error("Error al dar like:", error);
@@ -139,18 +135,25 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
-// Esta función formatea el texto para hacer saltos de línea cuando es demasiado largo
-// const formatText = (texto) => {
-//     if (typeof texto === 'undefined') {
-//         return ''; // Devuelve una cadena vacía si texto es undefined
-//     }
-//     // Definir la longitud máxima antes de hacer un salto de línea
-//     const maxLength = 60;
-//     if (texto.length > maxLength) {
-//         return texto.match(new RegExp('.{1,' + maxLength + '}', 'g')).join('\n');
-//     }
-//     return texto;
-// };
+const enviarNotificacion = (publicacion, tipo) => {
+    const remitente = usuarioActual.value.id;
+    const destinatario = publicacion.id_usuario; 
+    const id = publicacion.id;
+    const interaccion = tipo;
+
+
+    axios.post(`/api/notificacion`, {
+        remitente: remitente,
+        destinatario: destinatario,
+        id: id,
+        interaccion: interaccion,
+    }).then(response => {
+            console.log("Notificación enviada correctamente");
+        })
+        .catch(error => {
+            console.error("Error al enviar la notificación:", error);
+        });
+}
 
 function bgClass(color) {
       switch(color) {
@@ -207,6 +210,7 @@ function randomPosition() {
 }
 
 </script>
+
 <style scoped>
 
 .btnAñadir {

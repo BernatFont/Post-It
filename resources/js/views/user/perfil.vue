@@ -1,4 +1,5 @@
 <template>
+    {{ usuario }}
     <div class="mainPrincipal">
         <div v-if="usuario" class="py-2 px-5">
             <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
@@ -121,8 +122,16 @@ const seguir = () => {
     
     .then(response => {
         console.log("Seguir");
-        comprobarSeguido();
+        const seguido = comprobarSeguido();
         obtenerUsuario();
+        if (usuario.value) {
+            console.log(seguido);
+            if(seguido == false) {
+                enviarNotificacion(usuario.value, 2); // Asegúrate de pasar usuario.value en lugar de usuario
+            }
+        } else {
+            console.error("El usuario no está definido");
+        }
     })
     .catch(error => {
         console.error('Error al seguir al usuario:', error);
@@ -132,7 +141,9 @@ const seguir = () => {
 const comprobarSeguido = () => {
     if (usuario.value && userLogin.value) {
         const seguidores = usuario.value.seguidores.map(seguidor => seguidor.id);
-        seguidorUsuarioActual.value = seguidores.includes(userLogin.value.id);
+        return seguidorUsuarioActual.value = seguidores.includes(userLogin.value.id);
+    } else {
+        return false;
     }
 };
 
@@ -220,6 +231,24 @@ function bgClass(color) {
       }
     }
 
+const enviarNotificacion = (usuario, tipo) => {
+    const remitente = userLogin.value.id;
+    const destinatario = usuario.id; 
+    const id = usuario.id;
+    const interaccion = tipo;
+
+    axios.post(`/api/notificacion`, {
+        remitente: remitente,
+        destinatario: destinatario,
+        id: id,
+        interaccion: interaccion,
+    }).then(response => {
+            console.log("Notificación enviada correctamente");
+        })
+        .catch(error => {
+            console.error("Error al enviar la notificación:", error);
+        });
+}
 </script>
 
 <style>

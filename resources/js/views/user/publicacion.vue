@@ -4,7 +4,7 @@
             <span class="pt-2 itty col-12 pl-5 title-target">{{$t('post')}}</span>
         </div>
     </div>
-    <div class="mainPrincipal">
+    <div class="mainPrincipal itty">
         <div class="content-view" v-if="publicacion">
             <div class="card-post m-auto pt-3 px-2">
                 <div class="card-post-top d-flex justify-content-between align-items-center">
@@ -47,7 +47,7 @@
                     <div class="px-3 pb-2">
                         <div class=""> <!--Seccion donde escribir un comentario -->
                             <!-- <span>Comentario:</span> -->
-                            <form @submit.prevent="addComentario(comentario.contenido)" class="create-post-form">
+                            <form @submit.prevent="addComentario(comentario.contenido, publicacion)" class="create-post-form">
                                 <div class="form-group mb-1">
                                     <textarea v-model="comentario.contenido" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Publica un comentario..."></textarea>
                                 </div>
@@ -149,14 +149,16 @@ const obtenerPublicacion = (contenido) => {
 };
 
 // Funcion que publica un comentario en una publicacion, si el contenido del comentario esta vacio muestra mensaje de error
-const addComentario = (contenido) => {
+const addComentario = (contenido, publicacion) => {
     if(contenido == undefined) { 
        alert("Error: Debes escribir el comentario antes de publicarlo")
     } else {
         axios.post('/api/comentario/add/' + id, { contenido: contenido })
         .then(response => {
             console.log("Comentario añadido correctamente");
+            const comentarioId = response.data.data.id;
             obtenerPublicacion();
+            enviarNotificacion(publicacion, comentarioId, 1); // Envia la publicacion, el id del comentario recien creado y el tipo de interaccion.
         }).catch(error => {
             console.error("Error al publicar el comentario:", error);
         });
@@ -193,8 +195,11 @@ const like = (publicacion) => {
     axios.post('/api/like/add/' + publicacion.id)
         .then(response => {
             console.log("Like");
-            comprobarLike(publicacion);
+            const like = comprobarLike(publicacion);
             obtenerPublicacion();
+            if(like == false) {
+                enviarNotificacion(publicacion, publicacion.id, 0);
+            }
         })
         .catch(error => {
             console.error("Error al dar like:", error);
@@ -250,4 +255,23 @@ function obtenerFecha(fecha) {
     return `${horas}:${minutos} ${dia}/${mes}/${año}`;
 }
 
+const enviarNotificacion = (publicacion, contenido, tipo) => {
+    const remitente = usuarioActual.value.id;
+    const destinatario = publicacion.id_usuario; 
+    const id = contenido;
+    const interaccion = tipo;
+
+
+    axios.post(`/api/notificacion`, {
+        remitente: remitente,
+        destinatario: destinatario,
+        id: id,
+        interaccion: interaccion,
+    }).then(response => {
+            console.log("Notificación enviada correctamente");
+        })
+        .catch(error => {
+            console.error("Error al enviar la notificación:", error);
+        });
+}
 </script>

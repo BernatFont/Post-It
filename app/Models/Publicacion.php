@@ -38,7 +38,7 @@ class Publicacion extends Model implements HasMedia
     {
         return $this->hasMany(Comentario::class, 'id_publicacion');
     }
-
+    
     /**
      * Define las colecciones de medios para el modelo.
      */

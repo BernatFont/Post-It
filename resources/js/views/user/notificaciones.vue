@@ -8,6 +8,7 @@
             
         </div>
     </div>
+    {{ notificaciones }}
     <div class="mainPrincipal">
         <div>
             <!-- Notificacion Like-->
@@ -123,6 +124,36 @@
     </div>
 
 </template>
+
+<script setup>
+import axios from "axios";
+import { ref, onMounted, computed } from "vue";
+import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
+
+const notificaciones = ref({});
+const router = useRouter();
+const store = useStore(); // Obtenemos la instancia del store de Vuex
+const usuarioActual = computed(() => store.state.auth.user);
+
+const publicacion = ref(null);
+
+onMounted(() => {
+    obtenerPublicacion();
+});
+
+const obtenerPublicacion = () => {
+    axios.get('/api/notificaciones/')
+        .then(response => {
+            notificaciones.value = response.data;
+            console.log(notificaciones.value);
+        })
+        .catch(error => {
+            console.error('Error al obtener las notificaciones:', error);
+        })
+};
+</script>
+
 <style>
     .type-notification {
         margin-bottom: 5px;
