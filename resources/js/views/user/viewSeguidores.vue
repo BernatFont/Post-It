@@ -1,9 +1,9 @@
 <template>
-    <div class="topbar-container bg-v2 ">
+    <div v-if="usuario" class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between topbar-title">
             <span class="pt-2 itty col-8 pl-5 title-target">{{$t('seguidores')}}</span>
             <div class="notification-alert target-value">
-                <span class="itty">0</span>
+                <span class="itty">{{ usuario.seguidores_count }}</span>
             </div>
         </div>
     </div>
@@ -11,7 +11,9 @@
         <div class="userContainer d-flex flex-row align-items-center justify-content-between" v-for="usuario in usuario.seguidores">
             <div class="d-flex flex-row">
                 <router-link :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">
-                    <img class="img-perfil" src="/images/user-default.png" alt="foto de perfil">
+                    <div class="contenedor-img-perfil">
+                        <img class="img-perfil" :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del perfil del usuario">
+                    </div>
                 </router-link>
                 <div class="d-flex flex-column">
                     <span class="itty font1">{{usuario.name + (usuario.surname ? " " + usuario.surname : "")}}</span>

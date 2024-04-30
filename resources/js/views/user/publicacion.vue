@@ -6,20 +6,22 @@
     </div>
     <div class="mainPrincipal itty">
         <div class="content-view" v-if="publicacion">
-            <div class="card-post m-auto pt-3 px-2">
-                <div class="card-post-top d-flex justify-content-between align-items-center">
+            <div class="pt-2 card-post m-auto" :class="bgClass(publicacion.user.style)">
+                <div class="px-2 card-post-top d-flex justify-content-between align-items-center">
                     <div class="d-flex">
                         <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
-                            <img src="/images/placeholder.jpg" alt="" class="ms-2 img-perfil">
+                            <div class="contenedor-img-perfil">
+                                <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                            </div>
                         </router-link>
                         <div class="ms-3 d-flex flex-column justify-content-center">
                             <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
                             <span>@{{ publicacion.user.username }}</span>
                         </div>
                     </div>
-                    <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
+                    <span>{{ formatearFecha(publicacion.created_at) }}</span>
                 </div>
-                <div class="px-3 py-2 card-post-text">
+                <div class="px-2 py-2 card-post-text">
                     <span>{{ publicacion.texto }}</span>
                 </div>
                 <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
@@ -61,7 +63,9 @@
                             <div class="d-flex justify-content-between align-items-center mb-2">
                                     <div class="d-flex align-items-center">
                                         <router-link :to="{ name: 'usuario.mostrar', params: { username: comentario.user.username } }">
-                                            <img src="/images/placeholder.jpg" alt="" class="img-perfil">
+                                            <div class="contenedor-img-perfil">
+                                                <img :src="comentario.user.media[0]?.original_url ? comentario.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                                            </div>
                                         </router-link>
                                         <div class="ms-3 d-flex flex-column">
                                             <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
@@ -94,9 +98,6 @@
     padding-top: 50px;
 }
 
-.card-post{
-    background-color: var(--cuarto);
-}
 .card-post-img img {
     transform: rotate(0deg);
 }
@@ -273,5 +274,22 @@ const enviarNotificacion = (publicacion, contenido, tipo) => {
         .catch(error => {
             console.error("Error al enviar la notificación:", error);
         });
+}
+
+function bgClass(color) {
+    switch(color) {
+    case 2:
+        return 'bg-2';
+    case 3:
+        return 'bg-3';
+    case 4:
+        return 'bg-4';
+    case 5:
+        return 'bg-5';
+    case 6:
+        return 'bg-6';
+    default:
+        return 'bg-1'; // Clase por defecto
+    }
 }
 </script>

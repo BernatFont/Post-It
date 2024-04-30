@@ -3,8 +3,8 @@
     --segundo: #8BFAFE;
     --tercero: #B2DB82;
     --cuarto: #FFFEBB;
-    --quinto: #ff8800;
-    --sexto: #fff;
+    --quinto: #fcbb72;
+    --sexto: #e3a8ff;
     --primero-contraste: #d891a8;
     --segundo-contraste: #7ddde0;
     --tercero-contraste: #9cc271;
@@ -392,10 +392,22 @@ align-self: flex-end;
     justify-content: center;
     background-color: #fff;
 }
+.contenedor-img-perfil-grande{
+    overflow: hidden;
+    height: 100px;
+    width: 100px;
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+}
+
+.contenedor-img-perfil-grande{
+    border: 1px solid #000;
+}
 
 .img-perfil{
     border: solid 3px var(--color-primario);
-    height: 55px;
+    height: 100%;
     /* border-radius: 50%; */
 }
 

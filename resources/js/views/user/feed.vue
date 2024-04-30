@@ -13,7 +13,7 @@
                 <div class="d-flex">
                     <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
                         <div class="contenedor-img-perfil">
-                            <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class=" img-perfil">
+                            <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                         </div>
                     </router-link>
                     <div class="ms-3 d-flex flex-column justify-content-center">
@@ -156,23 +156,21 @@ const enviarNotificacion = (publicacion, tipo) => {
 }
 
 function bgClass(color) {
-      switch(color) {
-        case 1:
-            return 'bg-1';
-        case 2:
-            return 'bg-2';
-        case 3:
-            return 'bg-3';
-        case 4:
-            return 'bg-4';
-        case 5:
-            return 'bg-5';
-        case 6:
-            return 'bg-6';
-        default:
-            return 'bg-1'; // Clase por defecto
-      }
+    switch(color) {
+    case 2:
+        return 'bg-2';
+    case 3:
+        return 'bg-3';
+    case 4:
+        return 'bg-4';
+    case 5:
+        return 'bg-5';
+    case 6:
+        return 'bg-6';
+    default:
+        return 'bg-1'; // Clase por defecto
     }
+}
 
 function randomRotate() {
     let random = Math.floor(Math.random() * 8) + 1;

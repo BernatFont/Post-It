@@ -1,16 +1,16 @@
 <template>
-    {{ usuario }}
-    <div class="mainPrincipal">
-        <div v-if="usuario" class="py-2 px-5">
-            <div class="top-content-view w-100 d-flex justify-content-between container-datos-usuario">
-                <div>
+    <!-- {{ usuario }} -->
+    <div class="mainPrincipal p-5">
+        <div v-if="usuario" class="py-4 px-4 datos-perfil">
+            <div class="top-content-view w-100 d-flex justify-content-between align-items-center container-datos-usuario">
+                <div class="contenedor-img-perfil-grande">
                     <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
                     <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
                 </div>
                 <div class="d-flex flex-column">
                     <!-- Enlaces a las vistas de seguidores y seguidos -->
-                    <router-link :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
-                    <router-link :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
+                    <router-link class="mb-3 itty font-standard" :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
+                    <router-link class="itty font-standard" :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
                 </div>
                 <div>
                     <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
@@ -18,30 +18,34 @@
                     
 
                     <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
-                    <router-link v-if="usuario.id === userLogin.id" class="btn btn-postit" :to="{ name: 'perfil.modificar'}">
-                        <span>Editar perfil</span>
+                    <router-link v-if="usuario.id === userLogin.id" :to="{ name: 'perfil.modificar'}">
+                        <div class="container-boton w-100">
+                            <div class="sticky-btn-sticker"></div>
+                            <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('login') }}</button>
+                        </div>
+                        <!-- <span>Editar perfil</span> -->
                     </router-link>
                     <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
                     <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
                 </div>
             </div>
-            <div class="ms-3 mt-5 w-100 d-flex justify-content-between">
+            <div class="px-5 pb-4 pt-3 w-100 d-flex justify-content-between">
                 <div class="d-flex flex-column" >
                     <!-- Mostramos el nombre y apellido del usuario -->
-                    <span>{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
+                    <span class="itty font-standard">{{ usuario.name + (usuario.surname ? ' ' + usuario.surname : '')}}</span>
                     <!-- Mostramos el nombre de usuario -->
-                    <span class="mt-3">@{{usuario.username}}</span>
+                    <span class="mt-3 itty font-standard">@{{usuario.username}}</span>
                     <!-- Mostramos descripción del usuario -->
-                    <span class="mt-3">{{usuario.biography}}</span>
+                    <span class="mt-3 itty font-low">{{usuario.biography}}</span>
                 </div>
                 <div>
-                    <select v-model="selectedStyle" @change="logSelectedStyle">
-                        <option style="background-color: var(--primero);" value="1">Estilo 1</option>
-                        <option style="background-color: var(--segundo);" value="2">Estilo 2</option>
-                        <option style="background-color: var(--tercero);" value="3">Estilo 3</option>
-                        <option style="background-color: var(--cuarto);" value="4">Estilo 4</option>
-                        <option style="background-color: var(--quinto);" value="5">Estilo 5</option>
-                        <option style="background-color: var(--sexto);" value="6">Estilo 6</option>
+                    <select class="itty px-4 py-2" v-model="selectedStyle" @change="logSelectedStyle">
+                        <option style="background-color: var(--primero);" value="1"><span>Estilo 1</span></option>
+                        <option style="background-color: var(--segundo);" value="2"><span>Estilo 2</span></option>
+                        <option style="background-color: var(--tercero);" value="3"><span>Estilo 3</span></option>
+                        <option style="background-color: var(--cuarto);" value="4"><span>Estilo 4</span></option>
+                        <option style="background-color: var(--quinto);" value="5"><span>Estilo 5</span></option>
+                        <option style="background-color: var(--sexto);" value="6"><span>Estilo 6</span></option>
                     </select>
                 </div>
             </div>
@@ -53,7 +57,9 @@
                 <div v-for="publicacion in usuario.publicaciones" :key="publicacion.id" class="card-post mb-5" :class="bgClass(usuario.style)">
                     <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                         <div class="d-flex">
-                            <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="ms-2 img-perfil">
+                            <div class="contenedor-img-perfil">
+                                <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="img-perfil">
+                            </div>
                             <div class="ms-3 d-flex flex-column justify-content-center">
                                 <span>@{{ usuario.username }}</span>
                             </div>
@@ -215,21 +221,22 @@ const formatText = (texto) => {
     return texto;
 };
 
-// Funcion para el bg de los posts
 function bgClass(color) {
-      switch(color) {
-        case 1:
-          return 'bg-1';
-        case 2:
-          return 'bg-2';
-        case 3:
-          return 'bg-3';
-        case 4:
-          return 'bg-4';
-        default:
-          return ''; // Ninguna clase aplicada si no coincide con los casos anteriores
-      }
+    switch(color) {
+    case 2:
+        return 'bg-2';
+    case 3:
+        return 'bg-3';
+    case 4:
+        return 'bg-4';
+    case 5:
+        return 'bg-5';
+    case 6:
+        return 'bg-6';
+    default:
+        return 'bg-1'; // Clase por defecto
     }
+}
 
 const enviarNotificacion = (usuario, tipo) => {
     const remitente = userLogin.value.id;
@@ -252,10 +259,11 @@ const enviarNotificacion = (usuario, tipo) => {
 </script>
 
 <style>
-.container-datos-usuario img {
-    width: 100px;
-    height: 100px;
+.datos-perfil{
+    background-color: #fff;
+    margin-bottom: 48px;
 }
+
 .container-datos-usuario div span {
     font-size: 20px;
 }
@@ -272,5 +280,16 @@ const enviarNotificacion = (usuario, tipo) => {
     box-shadow: none;
     z-index: 5;
     top: 2%;
+}
+
+.font-standard{
+    font-size: 20px;
+}
+.font-low{
+    font-size: 18px;
+}
+
+.option span{
+    padding: 8px 0;
 }
 </style>
