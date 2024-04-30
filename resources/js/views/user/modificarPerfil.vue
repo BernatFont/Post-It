@@ -6,20 +6,25 @@
     </div>
     <div class="mainPrincipal" v-if="usuario">
         <div class="content-view">
-            <div class="d-flex justify-content-center align-items-center card">
-                <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
-                    <img 
-                        style="min-height: 120px; max-width: 150px; transform: rotate(5deg)" 
-                        :src="imagenSeleccionada || (usuario && usuario.image) || (usuario && usuario.media && usuario.media[0] && usuario.media[0].original_url) || '/images/user-default.png'"
-                        alt="User Image">
-                    <label class="custum-file-upload mt-3" for="file">
-                        <i class="pi pi-plus"></i>
-                        <input type="file" id="file" @change="seleccionarImagen">
-                    </label>
+            <div class="card">
+                <h1 class="itty">{{ $t('modify_image') }}</h1>
+                <div class="d-flex justify-content-center align-items-center">
+                    
+                    <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
+                        <img 
+                            style="min-height: 120px; max-width: 150px; transform: rotate(4deg)" 
+                            :src="imagenSeleccionada || (usuario && usuario.image) || (usuario && usuario.media && usuario.media[0] && usuario.media[0].original_url) || '/images/user-default.png'"
+                            alt="User Image">
+                        <label class="custum-file-upload mt-3" for="file">
+                            <i class="pi pi-plus btnSubir"></i>
+                            <input type="file" id="file" @change="seleccionarImagen">
+                        </label>
+                    </div>
                 </div>
             </div>
              <!-- Campos para editar los datos del usuario -->
              <div class="formContainer card border-0 shadow-sm">
+                <h1 class="itty">{{ $t('modify_user') }}</h1>
                  <div class="form-group">
                      <label for="username">{{$t('username')}}</label>
                      <input type="text" id="username" v-model="usuario.username" readonly>
@@ -56,20 +61,28 @@
 
 <style>
 
-    .card {
-        border-radius: 0px;
-        box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
-        background-color: #fff;
-    }
+.btnSubir {
+    background-color: #fff;
+    border-radius: 50%;
+    border: #000 2px solid;
+    padding: 10px;
+}
 
-    .modificar_perfil{
-        width: 600px;
-    }
+.card {
+    border-radius: 0px;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    background-color: #fff;
+}
+
+.modificar_perfil{
+    width: 600px;
+}
 
 .bg-img-perfil{
     height: 200px;
     width: 200px;
-    background-image: url(/images/papel-responsive1.svg);
+    background-image: url(/images/papel_200x200.svg);
+    /* transform: rotate(5deg); */
     background-position: center;
     background-repeat: no-repeat;
 }

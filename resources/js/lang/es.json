@@ -70,5 +70,10 @@
     "discard_image": "Descartar imagen",
     "publish": "Publicar",
     "mark_read": "Mark as read",
-    "seen": "Seen"
+    "seen": "Seen",
+    "comment_notification": "ha comentado en tu publicación",
+    "like_notification": "le gusta tu publicación",
+    "follow_notification": "te ha seguido",
+    "modify_user": "Modificar datos de usuario",
+    "modify_image": "Modificar imagen de perfil"
 }   

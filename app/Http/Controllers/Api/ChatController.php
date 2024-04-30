@@ -41,14 +41,13 @@ class ChatController extends Controller
     }
 
     public function obtenerChat($id, Request $request) {
-        $userLogeado = auth()->id();
         $chat = Chat::find($id);
     
         // Verifica si el chat existe
         if (!$chat) {
             return response()->json(['error' => 'Chat no encontrado'], 404);
         } else {
-            $chat = Chat::with(['user1', 'user2', 'user1.media', 'user2.media'])->where('user_id_1', $userLogeado)->orWhere('user_id_2', $userLogeado)->get();
+            $chat = Chat::with(['user1', 'user2', 'user1.media', 'user2.media'])->where('id', $id)->get();
         }
         // Devuelve solo el chat encontrado por su ID
         return response()->json($chat);

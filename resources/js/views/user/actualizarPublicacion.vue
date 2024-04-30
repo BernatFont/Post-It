@@ -2,9 +2,6 @@
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between topbar-title">
             <span class="pt-2 itty col-8 pl-5 title-target">{{$t('modify_post')}}</span>
-            <div class="notification-alert target-value">
-                <span class="itty">0</span>
-            </div>
         </div>
     </div>
     <div class="mainPrincipal" v-if="publicacion">

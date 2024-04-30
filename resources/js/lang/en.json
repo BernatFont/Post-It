@@ -75,5 +75,10 @@
     "discard_image": "Discard Image",
     "publish": "Publish",
     "mark_read": "Mark as read",
-    "seen": "Seen"
+    "seen": "Seen",
+    "comment_notification": "has commented on your post",
+    "like_notification": "you like your post",
+    "follow_notification": "has followed you",
+    "modify_user": "Modify user data",
+    "modify_image": "Modify profile image"
 }

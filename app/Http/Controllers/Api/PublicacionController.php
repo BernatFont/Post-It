@@ -10,6 +10,7 @@ use App\Models\User;
 use App\Models\Like;
 use App\Models\Comentario;
 use App\Models\Media;
+use App\Models\Notificacion;
 
 class PublicacionController extends Controller
 {
@@ -76,19 +77,50 @@ class PublicacionController extends Controller
     }
 
     // Funcion que elimina una publicacion
-    public function destroy($id) 
-    {
-        $publicacion = Publicacion::find($id);
-        // Verifica si la publicación existe
-        if (!$publicacion) {
-            return response()->json(['error' => 'Publicación no encontrada'], 404);
-        } else {
-            $publicacion->delete();
-        }
+    // public function destroy($id) 
+    // {
+    //     $publicacion = Publicacion::find($id);
+    //     
+    //     if (!$publicacion) { // Verifica si la publicación existe
+    //         return response()->json(['error' => 'Publicación no encontrada'], 404);
+    //     } else {
+    //         $publicacion->delete();
+    //     }
         
-        return response()->noContent();
-    }
+    //     return response()->noContent();
+    // }
 
+// Funcion que elimina una publicacion y las notificaciones asociadas
+public function destroy($id) 
+{
+    // Encuentra la publicación por su ID
+    $publicacion = Publicacion::find($id);
+    
+    // Verifica si la publicación existe
+    if (!$publicacion) {
+        return response()->json(['error' => 'Publicación no encontrada'], 404);
+    } else {
+        // Guarda los IDs de los comentarios asociados a la publicación
+        $comentarios = Comentario::where('id_publicacion', $id)->pluck('id')->toArray();
+        
+        // Elimina la publicación
+        $publicacion->delete();
+        
+        // Elimina las notificaciones asociadas a la publicación eliminada
+        Notificacion::where('id_contenido', $id)->delete();
+        
+        // Elimina los comentarios asociados a la publicación eliminada
+        Comentario::where('id_publicacion', $id)->delete();
+        
+        // Elimina las notificaciones asociadas a los comentarios eliminados
+        Notificacion::whereIn('id_contenido', $comentarios)->delete();
+        
+        // Elimina los likes asociados a la publicación eliminada
+        Like::where('id_publicacion', $id)->delete();
+    }
+    
+    return response()->noContent();
+}
     
 }
 

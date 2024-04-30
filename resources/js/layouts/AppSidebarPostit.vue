@@ -13,7 +13,7 @@
                         <li class="side-them-2"><div class="logo logo-sidebar-2"></div><span class="itty">{{$t('search')}}</span></li>
                     </router-link>
                     <router-link :to="{ name: 'notificaciones'}">
-                        <li class="side-them-3"><div class="logo logo-sidebar-3"></div><span class="itty">{{$t('notifications')}}</span></li>
+                        <li class="side-them-3"><div class="logo logo-sidebar-3"></div><span class="itty" v-if="notificaciones.numNotificaciones > 0">{{$t('notifications')}} ({{ notificaciones.numNotificaciones }})</span><span class="itty" v-else>{{$t('notifications')}}</span></li>
                     </router-link>
                     <router-link :to="{ name: 'chats'}">
                         <li class="side-them-2"><div class="logo logo-sidebar-4"></div><span class="itty">{{$t('messages')}}</span></li>
@@ -97,7 +97,7 @@ li span{
 </style>
 
 <script setup>
-import { onMounted, inject, computed } from 'vue';
+import { ref, onMounted, inject, computed } from 'vue';
 import { useRouter } from "vue-router";
 import { useStore } from 'vuex';
 import useAuth from "@/composables/auth";
@@ -112,6 +112,7 @@ const swal = inject('$swal');
 const i18n = useI18n(); // Asegúrate de inicializar i18n correctamente
 const locale = computed(() => store.getters["lang/locale"]);
 const locales = computed(() => store.getters["lang/locales"]);
+const notificaciones = ref({});
 
 function setLocale(locale) {
     if (i18n.locale.value !== locale) {
@@ -154,6 +155,18 @@ onMounted(() => {
             });
         })
     }
+    obtenerNotificaciones();
 })
+
+const obtenerNotificaciones = () => {
+    axios.get('/api/notificaciones/contador/')
+        .then(response => {
+            notificaciones.value = response.data;
+            console.log(notificaciones.value.numNotificaciones);
+        })
+        .catch(error => {
+            console.error('Error al obtener las notificaciones:', error);
+        })
+};
 </script>
 

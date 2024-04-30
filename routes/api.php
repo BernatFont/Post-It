@@ -25,24 +25,23 @@ use App\Http\Controllers\Auth\ForgotPasswordController;
 Route::post('forget-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forget.password.post');
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
-Route::get('publicacions', [PublicacionController::class, 'index']); // Listar
-Route::post('publicacions/',[PublicacionController::class,'store']); // Guardar
-Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']); // Mostrar una publicacion
-Route::post('get-publicacions',[PublicacionController::class,'getPosts']);
-Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar
-Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar
+Route::get('publicacions', [PublicacionController::class, 'index']); // Devuelve todas las publicaciones
+Route::post('publicacions/',[PublicacionController::class,'store']); // Crea una publicacion
+Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']); // Muestra una publicacion por id
+Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar publicacion
+Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar publicacion
 
-Route::post('/like/add/{id}', [LikeController::class, 'store']);
+Route::post('/like/add/{id}', [LikeController::class, 'store']); // Ejecuta la funcion de like
 
-Route::get('comentarios', [ComentarioController::class, 'index']);
-Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']);
-Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']); // Eliminar
+Route::get('comentarios', [ComentarioController::class, 'index']); // Obtener comentarios
+Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']); // Añadir comentario
+Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']); // Eliminar comentario
 
-Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']);
-Route::get('/usuarios', [UserController::class, 'obtenerTodosUsuarios']);
-Route::post('/usuarios/modificar', [UserController::class, 'modificarUsuario']);
-Route::post('/usuarios/modificarImagen', [UserController::class, 'modificarImagenUsuario']);
-Route::post('/usuarios/colorPost/{color}', [UserController::class, 'colorPost']);
+Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']); // Obtiene un usuario por username
+Route::get('/usuarios', [UserController::class, 'obtenerTodosUsuarios']); // Obtiene todos los usuarios
+Route::post('/usuarios/modificar', [UserController::class, 'modificarUsuario']); // Modifica un usuario
+Route::post('/usuarios/modificarImagen', [UserController::class, 'modificarImagenUsuario']); // Modifica la imagen de un usuario
+Route::post('/usuarios/colorPost/{color}', [UserController::class, 'colorPost']); // Modifica el color de los post de el usuario logeado
 
 
 Route::get('/chats', [ChatController::class, 'index']); // Obtener todos los chat
@@ -53,7 +52,9 @@ Route::get('/chat/mensajes/{id}', [MensajeController::class, 'index']); // Obten
 Route::post('/chat/mensajes/{id}', [MensajeController::class, 'store']); // Añadir mensaje al chat
 
 Route::get('/notificaciones', [NotificacionController::class, 'index']); // Obtener notificaciones
+Route::get('/notificaciones/contador',[NotificacionController::class, 'numNotificaciones']); // Obtener numero de notificaciones
 Route::post('/notificacion', [NotificacionController::class, 'store']); // Crear notificacion
+Route::delete('/notificacion/delete/{id}', [NotificacionController::class, 'destroy']); // Eliminar notificacion
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);

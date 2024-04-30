@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Comentario;
+use App\Models\Notificacion;
 
 class ComentarioController extends Controller
 {
@@ -44,6 +45,7 @@ class ComentarioController extends Controller
             return response()->json(['error' => 'Comentario no encontrado'], 404);
         } else {
             $comentario->delete();
+            Notificacion::where('id_contenido', $id)->delete(); // Elimina las notificaciones asociadas
         }
         
         return response()->noContent();

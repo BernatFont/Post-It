@@ -25,26 +25,21 @@ class Notificacion extends Model
 
     public function user1()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_remitente'); 
+        return $this->belongsTo(User::class, 'id_remitente', 'id'); 
         
     }
     public function user2()
     {
-        return $this->belongsTo(User::class, 'user_id', 'id_destinatario'); 
+        return $this->belongsTo(User::class, 'id_destinatario', 'id'); 
     }
 
-    public function comentarios()
+    public function comentario()
     {
-        return $this->hasMany(Comentario::class, 'id_contenido');
-    }
-
-    public function publicaciones()
-    {
-        return $this->hasMany(Publicacion::class, 'id_contenido');
+        return $this->belongsTo(Comentario::class, 'id_contenido', 'id');
     }
 
     public function publicacion()
     {
-        return $this->belongsTo(Publicacion::class);
+        return $this->belongsTo(Publicacion::class, 'id_contenido', 'id');
     }
 }

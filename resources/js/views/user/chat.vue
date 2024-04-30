@@ -78,12 +78,13 @@
     const chat = ref();
 
     onMounted(() => {
+        console.log(chatId);
         cargarMensajes();
         obtenerChat();
     });
     // Devuelve un array con todos los mensajes del chat
     const cargarMensajes = () => {
-        axios.get(`/api/chat/mensajes/${chatId}`)
+        axios.get(`/api/chat/mensajes/` + chatId)
             .then(response => {
                 mensajes.value = response.data;
             })
