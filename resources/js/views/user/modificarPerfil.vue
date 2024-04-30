@@ -113,7 +113,7 @@
 </style>
 
 <script setup>
-import { onMounted, ref } from "vue";
+import { onMounted, ref, inject, shallowReadonly } from "vue";
 import axios from "axios";
 import { useRoute } from 'vue-router';
 
@@ -124,6 +124,8 @@ const imagenSeleccionada = ref(null);
 const strSuccess = ref(null);
 const strError = ref(null);
 const errorMessageName = ref(null);
+const swal = inject('$swal');
+
 
 onMounted(() => {
     obtenerUsuario();
@@ -186,6 +188,12 @@ const guardarCambios = () => {
         strError.value = "";
         strSuccess.value = response.data.success;
         errorMessageName.value = false;
+        swal({
+            icon: 'success',
+            title: 'Datos modificados',
+            showConfirmButton: false,
+            timer: 1500
+        });
     })
     .catch(error => {
         console.log('Nombre obligatorio');
