@@ -42,22 +42,31 @@
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useRouter } from 'vue-router';
+import { useStore } from 'vuex';
 
 const router = useRouter();
+const store = useStore();
 const id = router.currentRoute.value.params.id;
 const publicacion = ref(null);
 const strSuccess = ref(null);
 const strError = ref(null);
+const userLogin = computed(() => store.state.auth.user);
 
 onMounted(() => {
     axios.get('/api/publicacions/' + id)
         .then(response => {
             publicacion.value = response.data;
+            console.log(publicacion.value.id_usuario);
+            console.log(userLogin.value.id);
+            if(publicacion.value.id_usuario != userLogin.value.id) {
+                router.push('/inicio');
+            }
         })
         .catch(error => {
             console.error('Error al obtener la publicación:', error);
+            router.push('/inicio');
         });
 });
 

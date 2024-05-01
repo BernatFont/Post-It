@@ -27,7 +27,9 @@
                     <div class="d-flex flex-row justify-content-between">
                         <div class="d-flex flex-row">
                             <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
-                                <img src="/images/user-default.png" alt="Imagen de perfil del usuario" class="img-perfil">
+                                <div class="contenedor-img-perfil">
+                                    <img class="img-perfil" :src="notificacion.user1.media[0]?.original_url ? notificacion.user1.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil usuario 1">
+                                </div>
                             </router-link>
                             <div class="d-flex flex-column">
                                 <span class="pl-1 itty font1">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
@@ -44,7 +46,9 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row">
                                 <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
-                                    <img src="/images/user-default.png" alt="Imagen de perfil del usuario" class="img-perfil">
+                                    <div class="contenedor-img-perfil">
+                                        <img class="img-perfil" :src="notificacion.user2.media[0]?.original_url ? notificacion.user2.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil usuario 2">
+                                    </div>
                                 </router-link>
                                 <div class="d-flex flex-column">
                                     <span class="pl-1 itty font1">{{ notificacion.user2.name }} {{ notificacion.user2.surname }}</span>
@@ -76,7 +80,9 @@
                     <div class="d-flex flex-row justify-content-between">
                         <div class="d-flex flex-row">
                             <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
-                                <img src="/images/user-default.png" alt="Imagen de perfil del usuario" class="img-perfil">
+                                <div class="contenedor-img-perfil">
+                                    <img class="img-perfil" :src="notificacion.user1.media[0]?.original_url ? notificacion.user1.media[0].original_url : '/images/user-default.png'" alt="">
+                                </div>
                             </router-link>
                             <div class="d-flex flex-column">
                                 <span class="pl-1 itty font1">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
@@ -94,7 +100,9 @@
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row">
                                 <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
-                                    <img src="/images/user-default.png" alt="Imagen de perfil del usuario" class="img-perfil">
+                                    <div class="contenedor-img-perfil">
+                                        <img class="img-perfil" :src="notificacion.user2.media[0]?.original_url ? notificacion.user2.media[0].original_url : '/images/user-default.png'" alt="">
+                                    </div>
                                 </router-link>
                                 <div class="d-flex flex-column">
                                     <span class="pl-2 itty font1">{{ notificacion.user2.name }} {{ notificacion.user2.surname }}</span>
@@ -126,7 +134,9 @@
                     <div class="d-flex flex-row justify-content-between">
                         <div class="d-flex flex-row">
                             <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
-                                <img src="/images/user-default.png" alt="Imagen de perfil del usuario" class="img-perfil">
+                                <div class="contenedor-img-perfil">
+                                    <img class="img-perfil" :src="notificacion.user1.media[0]?.original_url ? notificacion.user1.media[0].original_url : '/images/user-default.png'" alt="">
+                                </div>
                             </router-link>
                             <div class="d-flex flex-column">
                                 <span class="pl-1 itty font1">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>

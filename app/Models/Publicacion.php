@@ -15,7 +15,9 @@ class Publicacion extends Model implements HasMedia
 
     protected $fillable = [
         'id_usuario',
-        'texto'
+        'texto',
+        'rotation',
+        'position'
     ];
 
     //Obtenemos todos los datos del usuario pasandole su id, para mostrarlo en el post

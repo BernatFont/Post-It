@@ -24,10 +24,13 @@ class PublicacionController extends Controller
     //CREA Y GUARDA EN LA BD
     public function store(Request $request){
         $request->validate([
-            'texto' => 'required'
+            'texto' => 'nullable|max:300', // Texto puede ser nulo y el tamaño maximo es de 300px
         ]);
+        
         $publicacion = $request->all();
         $publicacion['id_usuario'] = auth()->id();
+        $publicacion['position'] = rand(1, 3); // Valor aleatorio entre 1 y 3 para position
+        $publicacion['rotation'] = rand(1, 8); // Valor aleatorio entre 1 y 8 para rotate
         $post = Publicacion::create($publicacion);
 
        // Verifica si la solicitud HTTP contiene un archivo con el nombre 'imagen'
@@ -76,51 +79,36 @@ class PublicacionController extends Controller
 
     }
 
-    // Funcion que elimina una publicacion
-    // public function destroy($id) 
-    // {
-    //     $publicacion = Publicacion::find($id);
-    //     
-    //     if (!$publicacion) { // Verifica si la publicación existe
-    //         return response()->json(['error' => 'Publicación no encontrada'], 404);
-    //     } else {
-    //         $publicacion->delete();
-    //     }
+    // Funcion que elimina una publicacion y las notificaciones asociadas
+    public function destroy($id) {
+        // Encuentra la publicación por su ID
+        $publicacion = Publicacion::find($id);
         
-    //     return response()->noContent();
-    // }
-
-// Funcion que elimina una publicacion y las notificaciones asociadas
-public function destroy($id) 
-{
-    // Encuentra la publicación por su ID
-    $publicacion = Publicacion::find($id);
-    
-    // Verifica si la publicación existe
-    if (!$publicacion) {
-        return response()->json(['error' => 'Publicación no encontrada'], 404);
-    } else {
-        // Guarda los IDs de los comentarios asociados a la publicación
-        $comentarios = Comentario::where('id_publicacion', $id)->pluck('id')->toArray();
+        // Verifica si la publicación existe
+        if (!$publicacion) {
+            return response()->json(['error' => 'Publicación no encontrada'], 404);
+        } else {
+            // Guarda los IDs de los comentarios asociados a la publicación
+            $comentarios = Comentario::where('id_publicacion', $id)->pluck('id')->toArray();
+            
+            // Elimina la publicación
+            $publicacion->delete();
+            
+            // Elimina las notificaciones asociadas a la publicación eliminada
+            Notificacion::where('id_contenido', $id)->delete();
+            
+            // Elimina los comentarios asociados a la publicación eliminada
+            Comentario::where('id_publicacion', $id)->delete();
+            
+            // Elimina las notificaciones asociadas a los comentarios eliminados
+            Notificacion::whereIn('id_contenido', $comentarios)->delete();
+            
+            // Elimina los likes asociados a la publicación eliminada
+            Like::where('id_publicacion', $id)->delete();
+        }
         
-        // Elimina la publicación
-        $publicacion->delete();
-        
-        // Elimina las notificaciones asociadas a la publicación eliminada
-        Notificacion::where('id_contenido', $id)->delete();
-        
-        // Elimina los comentarios asociados a la publicación eliminada
-        Comentario::where('id_publicacion', $id)->delete();
-        
-        // Elimina las notificaciones asociadas a los comentarios eliminados
-        Notificacion::whereIn('id_contenido', $comentarios)->delete();
-        
-        // Elimina los likes asociados a la publicación eliminada
-        Like::where('id_publicacion', $id)->delete();
+        return response()->noContent();
     }
-    
-    return response()->noContent();
-}
     
 }
 

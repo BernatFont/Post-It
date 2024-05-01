@@ -17,56 +17,60 @@
                                 <div class="mb-3 text-type-1 div-input-width">
                                     <label for="name" class="label-width">{{ $t('name') }}</label>
                                     <input v-model="registerForm.name" id="name" type="text" class="input-width" autofocus>
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger mt-1">
-                                        <div v-for="message in validationErrors?.name">
-                                            {{ message }}
-                                        </div>
+                                </div>
+                                <!-- Validation Errors -->
+                                <div class="text-danger mt-1">
+                                    <div v-for="message in validationErrors?.name">
+                                        {{ message }}
                                     </div>
                                 </div>
+
                                 <div class="mb-3 text-type-1 div-input-width">
                                     <label for="email" class="label-width">{{ $t('email') }}</label>
                                     <input v-model="registerForm.email" id="email" type="email" class="input-width" autocomplete="username">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger mt-1">
-                                        <div v-for="message in validationErrors?.email">
-                                            {{ message }}
-                                        </div>
+                                </div>
+                                <!-- Validation Errors -->
+                                <div class="text-danger mt-1">
+                                    <div v-for="message in validationErrors?.email">
+                                        {{ message }}
                                     </div>
                                 </div>
+
                                 <div class="mb-3 text-type-1 div-input-width">
                                     <label for="username" class="label-width">{{ $t('username') }}</label>
                                     <input v-model="registerForm.username" id="username" type="text" class="input-width">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger mt-1">
-                                        <div v-for="message in validationErrors?.username">
-                                            {{ message }}
-                                        </div>
+                                </div>
+                                <!-- Validation Errors -->
+                                <div class="text-danger mt-1">
+                                    <div v-for="message in validationErrors?.username">
+                                        {{ message }}
                                     </div>
                                 </div>
+
                                 <!-- Password -->
                                 <div class="mb-3 text-type-1 div-input-width">
                                     <label for="password" class="label-width">
                                         {{ $t('password') }}
                                     </label>
                                     <input v-model="registerForm.password" id="password" type="password" class="input-width" autocomplete="current-password">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger-600 mt-1">
-                                        <div v-for="message in validationErrors?.password">
-                                            {{ message }}
-                                        </div>
+                                </div>
+                                <!-- Validation Errors -->
+                                <div class="text-danger-600 mt-1">
+                                    <div v-for="message in validationErrors?.password">
+                                        {{ message }}
                                     </div>
                                 </div>
+                                
                                 <div class="mb-3 text-type-1 div-input-width">
                                     <label for="password_confirmation" class="label-width">
                                         {{ $t('confirm_password') }}
                                     </label>
                                     <input v-model="registerForm.password_confirmation" id="password_confirmation" type="password" class="input-width" autocomplete="current-password">
-                                    <!-- Validation Errors -->
-                                    <div class="text-danger-600 mt-1">
-                                        <div v-for="message in validationErrors?.password_confirmation">
-                                            {{ message }}
-                                        </div>
+                                </div>
+                                <!-- Validation Errors -->
+                                <div class="text-danger-600 mt-1">
+                                    <div v-for="message in validationErrors?.password_confirmation">
+                                        {{ message }}
                                     </div>
                                 </div>
     

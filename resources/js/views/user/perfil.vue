@@ -9,24 +9,24 @@
                 </div>
                 <div class="d-flex flex-column">
                     <!-- Enlaces a las vistas de seguidores y seguidos -->
-                    <router-link class="mb-3 itty font-standard" :to="{name: 'usuario.seguidores'}">Seguidores: {{usuario.seguidores_count}} </router-link>
-                    <router-link class="itty font-standard" :to="{name: 'usuario.seguidos'}">Seguidos: {{usuario.seguidos_count}}</router-link>
+                    <router-link class="mb-3 itty font-standard" :to="{name: 'usuario.seguidores'}">{{ $t('seguidores')}}: {{usuario.seguidores_count}} </router-link>
+                    <router-link class="itty font-standard" :to="{name: 'usuario.seguidos'}">{{ $t('seguidos')}}: {{usuario.seguidos_count}}</router-link>
                 </div>
                 <div>
                     <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
-                    <button v-if="usuario.id !== userLogin.id" @click="chat" class="btn btn-postit">Mensaje</button>
+                    <button v-if="usuario.id !== userLogin.id" @click="chat" class="btn btn-postit">{{ $t('messages') }}</button>
                     
 
                     <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
                     <router-link v-if="usuario.id === userLogin.id" :to="{ name: 'perfil.modificar'}">
                         <div class="container-boton w-100">
                             <div class="sticky-btn-sticker"></div>
-                            <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('login') }}</button>
+                            <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('modify_profile') }}</button>
                         </div>
                         <!-- <span>Editar perfil</span> -->
                     </router-link>
-                    <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Seguir</button>
-                    <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">Dejar de seguir</button>
+                    <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">{{ $t('seguir') }}</button>
+                    <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">{{ $t('dejar_seguir') }}</button>
                 </div>
             </div>
             <div class="px-5 pb-4 pt-3 w-100 d-flex justify-content-between">
@@ -38,14 +38,15 @@
                     <!-- Mostramos descripción del usuario -->
                     <span class="mt-3 itty font-low">{{usuario.biography}}</span>
                 </div>
-                <div>
+                <div v-if="usuario.id === userLogin.id">
+                    <label for="">{{ $t('color_post')}}: </label>
                     <select class="itty px-4 py-2" v-model="selectedStyle" @change="logSelectedStyle">
-                        <option style="background-color: var(--primero);" value="1"><span>Estilo 1</span></option>
-                        <option style="background-color: var(--segundo);" value="2"><span>Estilo 2</span></option>
-                        <option style="background-color: var(--tercero);" value="3"><span>Estilo 3</span></option>
-                        <option style="background-color: var(--cuarto);" value="4"><span>Estilo 4</span></option>
-                        <option style="background-color: var(--quinto);" value="5"><span>Estilo 5</span></option>
-                        <option style="background-color: var(--sexto);" value="6"><span>Estilo 6</span></option>
+                        <option style="background-color: var(--primero);" value="1"><span>1</span></option>
+                        <option style="background-color: var(--segundo);" value="2"><span>2</span></option>
+                        <option style="background-color: var(--tercero);" value="3"><span>3</span></option>
+                        <option style="background-color: var(--cuarto);" value="4"><span>4</span></option>
+                        <option style="background-color: var(--quinto);" value="5"><span>5</span></option>
+                        <option style="background-color: var(--sexto);" value="6"><span>6</span></option>
                     </select>
                 </div>
             </div>

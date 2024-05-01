@@ -80,5 +80,10 @@
     "like_notification": "you like your post",
     "follow_notification": "has followed you",
     "modify_user": "Modify user data",
-    "modify_image": "Modify profile image"
+    "modify_image": "Modify profile image",
+    "chat_no_message": "Not message has been sent",
+    "limit_characters": "Limit of Characters. Max: 300",
+    "no_published": "Not published",
+    "write": "Write here...",
+    "post_color": "Post Color"
 }

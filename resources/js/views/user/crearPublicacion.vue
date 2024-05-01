@@ -18,11 +18,11 @@
                                     <span>@{{ user.username}}</span>
                                 </div>
                             </div>
-                            <span class="mr-4">No publicado</span>
+                            <span class="mr-4">{{ $t('no_published')}}</span>
                         </div>
                         <div class="px-3 py-2 card-post-text w-100">
-                            <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Escribe aquí..."></textarea>
-                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">Limite de caracteres</div>
+                            <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
+                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
                         </div>
                         <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
                             <img class="pl-5 pr-5" :src="imageUrl" alt="">
@@ -41,18 +41,18 @@
                     <div class="container-boton" v-if="!imageSelected">
                         <div class="sticky-btn-sticker bg-2c"></div>
                         <div class="btnSticky sticky-btn-1 bg-2 itty cursor-pointer">
-                            <label for="file-upload">Subir imagen</label>
+                            <label for="file-upload">{{ $t('upload_image')}}</label>
                             <input type="file" id="file-upload" @change="onFileChange">
                         </div>
                         
                     </div>
                     <div class="container-boton" v-if="imageSelected">
                         <div class="sticky-btn-sticker bg-2c"></div>
-                        <button @click="discardImage" class="btnSticky sticky-btn-1 bg-2 itty">Descartar imagen</button>
+                        <button @click="discardImage" class="btnSticky sticky-btn-1 bg-2 itty">{{ $t('discard_image')}}</button>
                     </div>
                     <div class="container-boton mt-3">
                         <div class="sticky-btn-sticker bg-3c"></div>
-                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">Publicar</button>
+                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('publish')}}</button>
                     </div>
                 </div>
             </form>
@@ -91,6 +91,7 @@
         border: 0 none;
         background: transparent;
         outline: none;
+        box-shadow: none;
     }
 
 
@@ -221,17 +222,27 @@
 
 
     const addPublicacion = async () => {
+
+        // Verifica si hay al menos un campo presente (texto o imagen)
+        if (!publicacion.value.texto && !publicacion.value.imagen) {
+        // Muestra un mensaje de error o realiza alguna acción apropiada
+        console.error('Debes ingresar al menos texto o una imagen para publicar.');
+        swal({
+            icon: 'error',
+            title: 'Debes ingresar al menos texto o una imagen para publicar.',
+            showConfirmButton: false,
+            timer: 2000
+        });
+        return;
+    }
         // Agrega la lógica para enviar la imagen junto con el texto
         let PublicacionFormateada = new FormData()
-        console.log(publicacion.value);
-        for (let item in publicacion.value) {
-            console.log(item);
-            console.log(publicacion.value.hasOwnProperty(item));
-            if (publicacion.value.hasOwnProperty(item)) {
+        PublicacionFormateada.append('texto', publicacion.value.texto || '‎'); // Si hay texto lo envia en caso contrario se envia texto con un caracter vacio
 
-                PublicacionFormateada.append(item, publicacion.value[item])
-            }
-        }   
+        if (publicacion.value.imagen) {
+            PublicacionFormateada.append('imagen', publicacion.value.imagen);
+        }
+  
         console.log(PublicacionFormateada);
         axios.post('/api/publicacions', PublicacionFormateada, {
             headers: {

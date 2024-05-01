@@ -14,7 +14,7 @@ class NotificacionController extends Controller
     public function index(){
         // Obtener las notificaciones para el usuario autenticado
         $userId = auth()->id();
-        $notificaciones = Notificacion::with('publicacion', 'user1', 'user2', 'comentario', 'comentario.publicacion')->where('id_destinatario', $userId)->orderBy('created_at', 'desc')->get();
+        $notificaciones = Notificacion::with('publicacion', 'user1', 'user2', 'user1.media','user2.media', 'comentario', 'comentario.publicacion')->where('id_destinatario', $userId)->orderBy('created_at', 'desc')->get();
 
         return response()->json($notificaciones);
     }

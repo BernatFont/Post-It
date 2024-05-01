@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="mainPrincipal" v-if="usuario">
-        <div class="content-view">
+        <div class="content-view" v-if="usuario.id === userLogin.id">
             <div class="card">
                 <h1 class="itty">{{ $t('modify_image') }}</h1>
                 <div class="d-flex justify-content-center align-items-center">
@@ -113,11 +113,15 @@
 </style>
 
 <script setup>
-import { onMounted, ref, inject, shallowReadonly } from "vue";
+import { onMounted, ref, computed, inject, shallowReadonly } from "vue";
 import axios from "axios";
-import { useRoute } from 'vue-router';
+import { useRouter, useRoute } from 'vue-router';
+import { useStore } from 'vuex';
 
+const store = useStore();
 const route = useRoute(); 
+const router = useRouter(); 
+const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const username = route.params.username;
 const usuario = ref(null);
 const imagenSeleccionada = ref(null);
@@ -135,6 +139,9 @@ const obtenerUsuario = () => {
     axios.get('/api/usuario/' + username)
     .then(response => {
             usuario.value = response.data;
+            if(usuario.value.id != userLogin.value.id) {
+                router.push({ path: '/' });
+            }
     })
     .catch(error => {
             console.error('Error al cargar los datos del usuario:', error);

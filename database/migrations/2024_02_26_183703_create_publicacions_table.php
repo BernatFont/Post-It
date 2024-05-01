@@ -16,6 +16,8 @@ return new class extends Migration
             $table->unsignedBigInteger('id_usuario');
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
             $table->longText('texto');
+            $table->unsignedInteger('rotation')->default(0);
+            $table->unsignedInteger('position')->default(0);
             $table->timestamps();
         });
     }

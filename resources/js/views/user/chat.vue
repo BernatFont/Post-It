@@ -1,46 +1,48 @@
 <template>
     <div v-if="chat">
-        <div class="topbar-container bg-v2">
-            <div class="topbar-title d-flex" v-if="userLogin.id === chat.user_id_2">
-                <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
-                    <div class="contenedor-img-perfil">
-                        <img class="img-perfil" :src="chat.user1.media[0]?.original_url ? chat.user1.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
-                    </div>    
-                    <div class="chat-topbar-user">
-                        <span class="itty textContent">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
-                        <span class="itty textUsername">@{{ chat.user1.username }}</span>
-                    </div>
-                </router-link>
-            </div>
-            <div class="topbar-title d-flex" v-else-if="userLogin.id === chat.user_id_1">
-                <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
-                    <div class="contenedor-img-perfil">
-                        <img class="img-perfil" :src="chat.user2.media[0]?.original_url ? chat.user2.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
-                    </div>             
-                    <div class="chat-topbar-user">
-                        <span class="itty textContent">{{chat.user2.name + (chat.user2.surname ? " " + chat.user2.surname : "")}}</span>
-                        <span class="itty textUsername">@{{ chat.user2.username }}</span>
-                    </div>
-                </router-link>
-            </div>
-        </div>
-        <div class="mainPrincipal content-view">
-            <div class="container-msg textContent itty chatContainer d-flex justify-content-center" v-if="mensajes.length === 0">
-                <p class="itty textContent">No se ha enviado ningun mensaje</p>
-            </div>
-            <div v-else>
-                <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
-                    <div class="container-msg d-flex justify-content-between" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
-                        <span class="itty textContent">{{ mensaje.contenido}}</span>
-                        <span class="itty fecha">{{ formatearFecha(mensaje.created_at) }}</span>
-                    </div>
+        <div v-if="userLogin.id === chat.user_id_2 || userLogin.id === chat.user_id_1">
+            <div class="topbar-container bg-v2">
+                <div class="topbar-title d-flex" v-if="userLogin.id === chat.user_id_2">
+                    <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
+                        <div class="contenedor-img-perfil">
+                            <img class="img-perfil" :src="chat.user1.media[0]?.original_url ? chat.user1.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
+                        </div>    
+                        <div class="chat-topbar-user">
+                            <span class="itty textContent">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
+                            <span class="itty textUsername">@{{ chat.user1.username }}</span>
+                        </div>
+                    </router-link>
+                </div>
+                <div class="topbar-title d-flex" v-else-if="userLogin.id === chat.user_id_1">
+                    <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
+                        <div class="contenedor-img-perfil">
+                            <img class="img-perfil" :src="chat.user2.media[0]?.original_url ? chat.user2.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
+                        </div>             
+                        <div class="chat-topbar-user">
+                            <span class="itty textContent">{{chat.user2.name + (chat.user2.surname ? " " + chat.user2.surname : "")}}</span>
+                            <span class="itty textUsername">@{{ chat.user2.username }}</span>
+                        </div>
+                    </router-link>
                 </div>
             </div>
-            <div class="div-form-msg">
-                <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                    <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                    <button class="enviar" type="submit">{{ $t('send') }}</button>
-                </form>    
+            <div class="mainPrincipal content-view">
+                <div class="container-msg textContent itty chatContainer d-flex justify-content-center" v-if="mensajes.length === 0">
+                    <p class="itty textContent">{{ $t('chat_no_message') }}</p>
+                </div>
+                <div v-else>
+                    <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
+                        <div class="container-msg d-flex justify-content-between" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
+                            <span class="itty textContent">{{ mensaje.contenido}}</span>
+                            <span class="itty fecha">{{ formatearFecha(mensaje.created_at) }}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="div-form-msg">
+                    <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
+                        <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
+                        <button class="enviar" type="submit">{{ $t('send') }}</button>
+                    </form>    
+                </div>
             </div>
         </div>
     </div>
@@ -67,10 +69,12 @@
 <script setup>
     import { onMounted, ref, computed } from "vue";
     import { useStore } from 'vuex';
-    import { useRoute } from 'vue-router';
+    import { useRouter, useRoute } from 'vue-router';
+    import router from "../../routes";
     
     const store = useStore();
     const route = useRoute();
+    const router2 = useRouter();
     const mensajes = ref([]);
     const nuevoMensaje = ref('');
     const userLogin = computed(() => store.state.auth.user);
@@ -97,8 +101,13 @@
         axios.get('/api/chats/' + chatId)
             .then(response => {
                 chat.value = response.data[0];
+                console.log(userLogin.value.id);
+                if(chat.value.user_id_1 != userLogin.value.id && chat.value.user_id_2 != userLogin.value.id) {
+                    router2.push({ path: '/chats' });
+                }
             }).catch(error => {
                 console.error('Error al cargar chat:', error);
+                router2.push({ path: '/chats' });
             });
     }
 
