@@ -78,7 +78,9 @@
     "modify_image": "Modificar imagen de perfil",
     "chat_no_message": "No se ha enviado ningun mensaje",
     "limit_characters": "Limite de caracteres. Max: 300",
+    "limit_characters_255": "Limite de caracteres. Max: 255",
     "no_published": "No publicado",
     "write": "Escribe aquí...",
-    "post_color": "Color de los Post"
+    "color_post": "Color de los Post",
+    "apply_changes": "Aplicar cambios"
 }   

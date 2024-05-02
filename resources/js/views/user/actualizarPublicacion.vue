@@ -5,31 +5,44 @@
         </div>
     </div>
     <div class="mainPrincipal" v-if="publicacion">
-        <div class="content-view card">
-            <div class="card-body">
-                <div class="d-flex justify-content-between pb-2 mb-2">
-                    <h5 class="card-title">Actualizar publicacion</h5>
+        <div class="content-view">
+            <form class="container-width-createpost" @submit.prevent="actualizar">
+                <div class="container-createpost" :class="bgClass()">
+                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                            <div v-if="usuario" class="d-flex">
+                                <div class="contenedor-img-perfil">
+                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                                </div>                         
+                                <div class="d-flex flex-column justify-content-center">
+                                    <span>{{ user.name }} {{ user.surname }}</span>
+                                    <span>@{{ user.username}}</span>
+                                </div>
+                            </div>
+                            <span class="mr-4">{{ $t('no_published')}}</span>
+                        </div>
+                        <div class="px-3 py-2 card-post-text w-100">
+                            <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
+                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
+                        </div>
+                        <div class="card-post-img d-flex flex-column justify-content-center" v-if="publicacion.media.length > 0" >
+                            <img :src="publicacion.media[0]?.original_url ? publicacion.media[0].original_url : ''" alt="Imagen de la publicacion" class="pl-5 pr-5">
+                        </div>
+                        <div class="card-post-bottom d-flex">
+                            <div class="d-flex align-items-center">
+                                <i class="pi pi-heart p-3"></i><span>0</span>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <i class="pi pi-comment p-3"></i><span>0</span>
+                            </div>  
+                        </div>
                 </div>
-
-                <div v-if="strSuccess" class="alert alert-success alert-dismissible fade show" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <strong>{{ strSuccess }}</strong>
-                </div>
-
-                <div v-if="strError" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    <strong>{{ strError }}</strong>
-                </div>
-
-                <form @submit.prevent="actualizar">
-                    <div class="form-group mb-2">
-                        <label>Texto</label><span class="text-danger"> *</span>
-                        <textarea class="form-control" rows="3" v-model="publicacion.texto" placeholder="Texto"></textarea>
+                <div class="section-options-createpost">
+                    <div class="container-boton mt-3">
+                        <div class="sticky-btn-sticker bg-3c"></div>
+                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('apply_changes')}}</button>
                     </div>
-                    
-                    <button type="submit" class="btn btn-primary mt-4 mb-4">Aplicar cambios</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
     <div v-else class="mainPrincipal">
@@ -42,25 +55,33 @@
 
 <script setup>
 import axios from "axios";
-import { ref, computed, onMounted } from "vue";
-import { useRouter } from 'vue-router';
+import { inject, ref, computed, onMounted } from "vue";
+
+import router from "../../routes";
 import { useStore } from 'vuex';
 
-const router = useRouter();
+
 const store = useStore();
 const id = router.currentRoute.value.params.id;
 const publicacion = ref(null);
 const strSuccess = ref(null);
 const strError = ref(null);
-const userLogin = computed(() => store.state.auth.user);
+const usuario = ref(null);
+let user = computed(() => store.state.auth.user)
+const swal = inject('$swal');
 
 onMounted(() => {
-    axios.get('/api/publicacions/' + id)
+        obtenerUsuario();
+        obtenerPublicacion();
+    });
+
+    const obtenerPublicacion = () => {
+        axios.get('/api/publicacions/' + id)
         .then(response => {
             publicacion.value = response.data;
             console.log(publicacion.value.id_usuario);
-            console.log(userLogin.value.id);
-            if(publicacion.value.id_usuario != userLogin.value.id) {
+            console.log(user.value.id);
+            if(publicacion.value.id_usuario != user.value.id) {
                 router.push('/inicio');
             }
         })
@@ -68,9 +89,22 @@ onMounted(() => {
             console.error('Error al obtener la publicación:', error);
             router.push('/inicio');
         });
-});
+    }
 
-function actualizar() {
+    // Realizamos la solicitud para obtener los datos del usuario
+    const obtenerUsuario = () => {
+        axios.get('/api/usuario/' + user.value.username)
+        .then(response => {
+                // Actualizamos los datos del usuario
+                usuario.value = response.data;
+                console.log(usuario.value);
+        })
+        .catch(error => {
+                console.error('Error al cargar los datos del usuario:', error);
+        }); 
+    };
+
+    function actualizar() {
     axios.put('/api/publicacions/update/' + id, { texto: publicacion.value.texto })
         .then(response => {
             strError.value = "";
@@ -80,9 +114,103 @@ function actualizar() {
             strSuccess.value = "";
             strError.value = error.response.data.message;
         });
-}
+    }
+
+    const maxLenghtTexto = (texto) => {
+        const maxLength = 300;
+
+        if ((typeof texto === 'undefined') || (texto.length != maxLength)) {
+            return false; // Devuelve una cadena vacía si texto es undefined
+        }
+        if (texto.length >= maxLength) {
+            return true;
+        }
+    }
+
+    function bgClass() {
+      switch(user.value.style) {
+        case 1:
+          return 'bg-1';
+        case 2:
+          return 'bg-2';
+        case 3:
+          return 'bg-3';
+        case 4:
+          return 'bg-4';
+        case 5:
+          return 'bg-5';
+        case 6:
+          return 'bg-6';
+        
+        default:
+          return 'bg-1'; // Por defecto se aplicara la clase bg-1 si no esta definida
+      }
+    }
+
 </script>
 
 <style>
 
+.container-width-createpost {
+        width: 65%;
+        margin: auto;
+    }
+    .container-createpost {
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .section-options-createpost {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px;
+    }
+    .post-text {
+        max-width: 100%;
+        word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
+    }
+    .textarea-2{
+        resize: none;
+        height: 90px;
+        width: 100%;
+        background-color: none;
+        border: 0 none;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        font-size: 1.5rem;
+    }
+
+    .textarea-2:focus{
+        border: 0 none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+
+    input[type="file"] {
+        display: none;
+    }
+
+@media (max-width: 1200px){
+    .container-width-createpost {
+        width: 80%;
+        margin: auto;
+    }
+    .section-options-createpost {
+        flex-direction: column;
+    }
+}
+
+
+@media (max-width: 600px){
+    .container-width-createpost {
+        width: 100%;
+        margin: auto;
+    }
+}
 </style>

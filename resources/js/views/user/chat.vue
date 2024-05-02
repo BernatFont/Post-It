@@ -37,12 +37,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="div-form-msg">
-                    <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                        <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                        <button class="enviar" type="submit">{{ $t('send') }}</button>
-                    </form>    
-                </div>
+                <form class="formularioMensaje d-flex justify-content-center align-items-center"  @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
+                    <div class="contenedor-sendmsg d-flex justify-content-center align-items-center">
+                        <div class="px-3 py-2 card-post-text w-100">
+                            <textarea v-model="nuevoMensaje"  class="form-control itty textarea" @input="checkMaxLength" maxlength="255" :placeholder="$t('write')"></textarea>
+                            <div v-if="maxLenghtTexto(nuevoMensaje)" class="ml-3">{{ $t('limit_characters_255') }}</div>
+                        </div>
+                    </div>
+                    <div class="botonEnviar-contenedor">
+                        <div class="sticky-btn-sticker bg-3c"></div>
+                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('send') }}</button>
+                    </div>
+                </form>    
+                
             </div>
         </div>
     </div>
@@ -153,9 +160,31 @@
     }
     };
     
+    const maxLenghtTexto = (texto) => {
+        const maxLength = 255;
+
+
+        if ((typeof texto === 'undefined') || (texto.length != maxLength)) {
+            return false; // Devuelve una cadena vacía si texto es undefined
+        }
+        if (texto.length >= maxLength) {
+            return true;
+        }
+    }
 </script>
 
 <style>
+
+    .contenedor-sendmsg {
+        background-image: url(/images/papel-comment.svg);
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        width: 65%;
+        margin-top: 20px;
+        height: 200px;
+
+    }
 
     .chat-topbar-user {
         display: flex;
@@ -176,7 +205,24 @@
     .otroUsuario {
         justify-content: right;
     }
-    
+
+    .textarea{
+        resize: none;
+        height: 115px;
+        width: 100%;
+        background-color: none;
+        border: 0 none;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        font-size: 1.5rem;
+    }
+
+    .textarea:focus{
+        border: 0 none;
+        background: transparent;
+        box-shadow: none;
+    }
 
     .container-msg {
         padding: 12px;
@@ -190,22 +236,12 @@
         background-color: #fff;
     }
 
-    .form-msg {
-        display: flex;
-        flex: row;
-    }
-
     .textContent {
         font-size: 1.5rem
     }  
 
     .textUsername {
         font-size: 1.3rem
-    }
-
-    .textarea {
-        width: 60%;
-        resize: none; /* Para evitar que el usuario redimensione el textarea */
     }
 
     .enviar {
@@ -220,4 +256,48 @@
         width: 50%;
         margin: auto;
     }
+
+    .botonEnviar-contenedor {
+        display: flex;
+        margin-top: 20px;
+        width: 25%;
+        height: 70px;
+    }
+
+    .formularioMensaje {
+        display: flex;
+        flex-direction: column;
+    }
+
+    @media (max-width: 1200px){
+
+        .contenedor-sendmsg {
+            background-image: url(/images/papel-comment.svg);
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+            width: 100%;
+            margin-top: 20px;
+            height: 200px;
+
+        }
+        .textarea {
+            
+        }
+
+        .formularioMensaje {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .botonEnviar-contenedor {
+            display: flex;
+            margin-top: 20px;
+            width: 50%;
+            height: auto;
+            margin-bottom: 20px;
+        }
+    }
+    
+
 </style>
