@@ -40,9 +40,9 @@ Route::delete('comentario/delete/{id}', [ComentarioController::class, 'destroy']
 Route::get('/usuario/{username}', [UserController::class, 'obtenerUsuario']); // Obtiene un usuario por username
 Route::get('/usuarios', [UserController::class, 'obtenerTodosUsuarios']); // Obtiene todos los usuarios
 Route::post('/usuarios/modificar', [UserController::class, 'modificarUsuario']); // Modifica un usuario
-Route::post('/usuarios/modificarImagen', [UserController::class, 'modificarImagenUsuario']); // Modifica la imagen de un usuario
+Route::post('/usuarios/{username}/modificarImagen', [UserController::class, 'modificarImagenUsuario']); // Modifica la imagen de un usuario
 Route::post('/usuarios/colorPost/{color}', [UserController::class, 'colorPost']); // Modifica el color de los post de el usuario logeado
-
+Route::delete('usuarios/{user}', [UserController::class, 'destroy']);// Elimina a un usuario con todas las dependencias
 
 Route::get('/chats', [ChatController::class, 'index']); // Obtener todos los chat
 Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']); // Obtener conversacion deu n chat

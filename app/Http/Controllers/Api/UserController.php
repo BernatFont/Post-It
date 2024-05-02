@@ -195,25 +195,29 @@ class UserController extends Controller
         
     }
 
-    public function modificarImagenUsuario(Request $request){
-        // Encuentra al usuario autenticado
-        $user = auth()->user();
-
-        if ($request->hasFile('imagen')){
-            $user->media()->delete();
-        }
-
-        if ($request->hasFile('imagen')) {
-            $user->addMediaFromRequest('imagen')
-                ->preservingOriginal()
-                ->toMediaCollection('images-user');
-                return response()->json(['message' => 'Imagen del usuario almacenada correctamente'], 200);
-        }else {
-            // Si no se proporciona una imagen, devuelve un mensaje de error
-            return response()->json(['error' => 'No se ha proporcionado una imagen'], 400);
-        }
+    public function modificarImagenUsuario(Request $request, $username){
+        try {
+            $user = User::where('username', $username)->firstOrFail();
     
+            // Elimina la imagen anterior del usuario, si existe
+            $user->media()->delete();
+    
+            if ($request->hasFile('imagen')) {
+                $user->addMediaFromRequest('imagen')
+                    ->preservingOriginal()
+                    ->toMediaCollection('images-user');
+    
+                return response()->json(['message' => 'Imagen del usuario almacenada correctamente'], 200);
+            } else {
+                // Si no se proporciona una imagen, devuelve un mensaje de error
+                return response()->json(['error' => 'No se ha proporcionado una imagen'], 400);
+            }
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Error al modificar la imagen: ' . $e->getMessage()], 500);
+        }
     }
+    
+    
 
     public function colorPost($color){
         $user = auth()->user();

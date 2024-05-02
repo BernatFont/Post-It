@@ -8,7 +8,7 @@
     --primero-contraste: #d891a8;
     --segundo-contraste: #7ddde0;
     --tercero-contraste: #9cc271;
-    --cuarto-contraste: #c7c401;
+    --cuarto-contraste: #fffd72;
     --quinto-contraste: #b35f00;
     --sexto-contraste: #fff;
     
@@ -398,8 +398,8 @@ align-self: flex-end;
 }
 .contenedor-img-perfil-grande{
     overflow: hidden;
-    height: 100px;
-    width: 100px;
+    height: 120px;
+    width: 120px;
     display: flex;
     justify-content: center;
     background-color: #fff;

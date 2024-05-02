@@ -18,6 +18,7 @@ const EditarPublicacion  = ()  => import('../views/user/actualizarPublicacion.vu
 const ViewSeguidores= () => import('../views/user/viewSeguidores.vue');
 const ViewSeguidos= () => import('../views/user/viewSeguidos.vue');
 const MostrarPublicacion= () => import('../views/user/publicacion.vue');
+const PanelControl= () => import('../views/user/panelControl.vue');
 
 const PostsIndex  = ()  => import('../views/admin/posts/Index.vue');
 const PostsCreate  = ()  => import('../views/admin/posts/Create.vue');
@@ -122,6 +123,12 @@ export default [
                         path: 'seguidos',
                         component: ViewSeguidos,
                         meta: { breadCrumb: 'Vista de seguidos' }
+                    },
+                    {
+                        name: 'panelControl',
+                        path: 'panelControl',
+                        component: PanelControl,
+                        meta: { breadCrumb: 'Vista panel de control del admin' }
                     },
                 ]
             },
