@@ -7,27 +7,37 @@
                     <!-- Utilizamos el src dinámico para cargar la imagen del perfil del usuario -->
                     <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del perfil del usuario" class="img-perfil">
                 </div>
+                
                 <div class="d-flex flex-column">
                     <!-- Enlaces a las vistas de seguidores y seguidos -->
                     <router-link class="mb-3 itty font-standard" :to="{name: 'usuario.seguidores'}">{{ $t('seguidores')}}: {{usuario.seguidores_count}} </router-link>
                     <router-link class="itty font-standard" :to="{name: 'usuario.seguidos'}">{{ $t('seguidos')}}: {{usuario.seguidos_count}}</router-link>
                 </div>
-                <div>
-                    <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
-                    <button v-if="usuario.id !== userLogin.id" @click="chat" class="btn btn-postit">{{ $t('messages') }}</button>
-                    
+                <div class="w-25">
+                    <div v-if="usuario.id !== userLogin.id" @click="chat" class="container-boton w-100 mb-3">
+                        <div class="sticky-btn-sticker bg-2c"></div>
+                        <!--Boton para crear/mostrar chat con la persona logeada y la seleccionada-->
+                        <button class="btnSticky sticky-btn-1 itty bg-2" :disabled="processing">{{ $t('messages') }}</button>
+                    </div>
 
                     <!-- Botón para editar el perfil o seguir segun el usuario logeado -->
                     <router-link v-if="usuario.id === userLogin.id" :to="{ name: 'perfil.modificar'}">
                         <div class="container-boton w-100">
-                            <div class="sticky-btn-sticker"></div>
-                            <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('modify_profile') }}</button>
+                            <div class="sticky-btn-sticker bg-2c"></div>
+                            <button class="btnSticky sticky-btn-1 itty bg-2" :disabled="processing">{{ $t('modify_profile') }}</button>
                         </div>
                         <!-- <span>Editar perfil</span> -->
                     </router-link>
-                    <button v-else-if="!seguidorUsuarioActual" @click="seguir" class="btn btn-postit">{{ $t('seguir') }}</button>
-                    <button v-else-if="seguidorUsuarioActual" @click="seguir" class="btn btn-postit">{{ $t('dejar_seguir') }}</button>
+                    <div v-else-if="!seguidorUsuarioActual" @click="seguir" class="container-boton w-100">
+                        <div class="sticky-btn-sticker"></div>
+                        <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('seguir') }}</button>
+                    </div>
+                    <div v-else-if="seguidorUsuarioActual" @click="seguir" class="container-boton w-100">
+                        <div class="sticky-btn-sticker bg-1c"></div>
+                        <button class="btnSticky sticky-btn-1 itty bg-1" :disabled="processing">{{ $t('dejar_seguir') }}</button>
+                    </div>
                 </div>
+               
             </div>
             <div class="px-5 pb-4 pt-3 w-100 d-flex justify-content-between">
                 <div class="d-flex flex-column" >
@@ -38,8 +48,8 @@
                     <!-- Mostramos descripción del usuario -->
                     <span class="mt-3 itty font-low">{{usuario.biography}}</span>
                 </div>
-                <div v-if="usuario.id === userLogin.id">
-                    <label for="">{{ $t('color_post')}}: </label>
+                <div v-if="usuario.id === userLogin.id" class="d-flex align-items-center">
+                    <p class="mt-3 me-3 px-3 py-2 itty px20" :class="bgClass(usuario.style)">{{ $t('color_post')}}</p>
                     <select class="itty px-4 py-2" v-model="selectedStyle" @change="logSelectedStyle">
                         <option style="background-color: var(--primero);" value="1"><span>1</span></option>
                         <option style="background-color: var(--segundo);" value="2"><span>2</span></option>
@@ -170,13 +180,20 @@ const chat = () => {
     });
 }
 
+//Funcion para canviar color de los posts reactivamente
 function logSelectedStyle() {
     console.log("Estilo seleccionado:", selectedStyle.value);
 
     // Verificar si ya existe un chat entre el usuario actualmente logueado y el usuario visitado
     axios.post('/api/usuarios/colorPost/' + selectedStyle.value)
     .then(response => {
-        console.log(response.value);
+        const styleNumber = Number(selectedStyle.value);
+        let classColor = bgClass(styleNumber);
+        usuario.value.style = styleNumber;
+
+        console.log(selectedStyle.value);
+        console.log(format(classColor));
+        console.log(usuario.value.style);
 
     })
     .catch(error => {

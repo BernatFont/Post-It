@@ -14,27 +14,32 @@
                                 <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                             </div>
                         </router-link>
-                        <div class="ms-3 d-flex flex-column justify-content-center">
-                            <span>{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
-                            <span>@{{ publicacion.user.username }}</span>
+                        <div class="d-flex flex-column justify-content-center">
+                            <span class="px20">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
+                            <span class="px20">@{{ publicacion.user.username }}</span>
                         </div>
                     </div>
                     <span>{{ formatearFecha(publicacion.created_at) }}</span>
                 </div>
                 <div class="px-2 py-2 card-post-text">
-                    <span>{{ publicacion.texto }}</span>
+                    <span class="px20">{{ publicacion.texto }}</span>
                 </div>
                 <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
                     <img :src="publicacion.media[0].original_url" alt="">
                 </div>
-                <div class=" d-flex justify-content-between">
-                    <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)" >
-                        <i class="pi p-3" :class="comprobarLike(publicacion) ? 'pi-heart-fill' : 'pi-heart'"></i><span>{{ publicacion.likes_count }}</span>
-                        <i class="pi pi-comment p-3"></i><span>{{publicacion.comentarios_count}}</span>
+                <div class="card-post-bottom d-flex">
+                    <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)">
+                        <div class="pi p-3">
+                            <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                            <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                        </div>
+                        <span class="itty number-of">{{ publicacion.likes_count }}</span>
                     </div>
-                    <div class="d-flex align-items-center mr-4">
-                        <span>{{ obtenerFecha(publicacion.created_at) }}</span>
-                    </div>
+                    <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="d-flex align-items-center textColor">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
+                        </div>   
+                    </router-link>
                 </div>
             </div>
             <div class="w-75 m-auto">
@@ -53,8 +58,11 @@
                                 <div class="form-group mb-1">
                                     <textarea v-model="comentario.contenido" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Publica un comentario..."></textarea>
                                 </div>
-                                <div class="d-flex justify-content-end">
-                                    <button type="submit" class="my-3 postit-btn">Publicar comentario</button>
+                                <div class="d-flex justify-content-end my-3 ">
+                                    <div class="container-boton">
+                                        <div class="sticky-btn-sticker"></div>
+                                        <button class="btnSticky sticky-btn-1 itty" :disabled="processing">Publicar post</button>
+                                    </div>
                                 </div>
                             </form>
                         </div>
@@ -114,6 +122,13 @@
 .textarea{
     resize: none;
     height: 100px;
+}
+
+.corazon-img{
+    height: 20px;
+}
+.comment-icon{
+    height: 22px;
 }
 
 </style>

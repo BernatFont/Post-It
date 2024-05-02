@@ -31,6 +31,10 @@
     font-family: 'Itty';
   }
 
+  .px20{
+    font-size: 20px;
+  }
+
 /* ICONOS MENU */
 .logo-sidebar-1{
     background-image: url(/images/casa.svg);    
