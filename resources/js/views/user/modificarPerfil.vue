@@ -5,17 +5,21 @@
         </div>
     </div>
     <div class="mainPrincipal" v-if="usuario">
-        <div class="content-view" v-if="usuario.id === userLogin.id">
+        <div class="content-view" v-if="usuario.id === userLogin.id || userLogin.username == 'admin'">
             <div class="card">
                 <h1 class="itty">{{ $t('modify_image') }}</h1>
                 <div class="d-flex justify-content-center align-items-center">
                     
-                    <div class="bg-img-perfil d-flex flex-column align-items-center pt-6">
-                        <img 
-                            style="min-height: 120px; max-width: 150px; transform: rotate(4deg)" 
-                            :src="imagenSeleccionada || (usuario && usuario.image) || (usuario && usuario.media && usuario.media[0] && usuario.media[0].original_url) || '/images/user-default.png'"
-                            alt="User Image">
-                        <label class="custum-file-upload mt-3" for="file">
+                    <div class="bg-img-perfil d-flex flex-column align-items-center pt-5">
+                        <div class="mb-4">
+                            <div class="contenedor-img-perfil-grande inc-5 border-none">
+                                <img 
+                                    :src="imagenSeleccionada || (usuario && usuario.image) || (usuario && usuario.media && usuario.media[0] && usuario.media[0].original_url) || '/images/user-default.png'"
+                                    class="img-perfil"
+                                    alt="User Image">
+                            </div>
+                        </div>
+                        <label class="custum-file-upload" for="file">
                             <i class="pi pi-plus btnSubir"></i>
                             <input type="file" id="file" @change="seleccionarImagen">
                         </label>
@@ -91,6 +95,13 @@
   display: none;
 }
 
+.custum-file-upload:hover .btnSubir{
+    background: #000;
+}
+.custum-file-upload:hover i{
+    color: #fff;
+}
+
 .form-group{
     display: flex;
     flex-direction: column;
@@ -139,8 +150,14 @@ const obtenerUsuario = () => {
     axios.get('/api/usuario/' + username)
     .then(response => {
             usuario.value = response.data;
-            if(usuario.value.id != userLogin.value.id) {
-                router.push({ path: '/' });
+            if(usuario.value.id != userLogin.value.id && userLogin.value.username != 'admin') {
+                swal({
+                    icon: 'error',
+                    title: 'Acceso denegado',
+                    text: 'No tiene permiso para modificar este perfil.',
+                }).then(() => {
+                    router.push({ path: '/' });
+                });
             }
     })
     .catch(error => {
@@ -159,20 +176,23 @@ const seleccionarImagen = (event) => {
             // Crea un FormData para enviar la imagen al servidor
             const formData = new FormData();
             formData.append('imagen', file);
-            console.log(file);
+            console.log(formData);
 
             // Envía la imagen al servidor usando Axios
-            axios.post('/api/usuarios/modificarImagen', formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
+            axios.post('/api/usuarios/'+username+'/modificarImagen', formData, {
             }).then(response => {
                 // Maneja la respuesta del servidor si es necesario
                 console.log(response.data);
                 console.log('Imagen enviada');
+                swal({
+                    icon: 'success',
+                    title: 'Imagen modificada',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             }).catch(error => {
                 // Maneja cualquier error
-                console.error(error);
+                console.error('ERROR:'+error);
             });
         };
         reader.readAsDataURL(file);

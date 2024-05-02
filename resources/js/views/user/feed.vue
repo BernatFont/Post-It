@@ -28,7 +28,7 @@
                     <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
                 </div>
                 <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
-                <div class="px-3 py-2 card-post-text">
+                <div v-if="publicacion.texto.length > 1" class="px-3 py-2 card-post-text">
                     <span>{{ publicacion.texto }}</span>
                 </div>
                 <!-- Contenedor para mostrar imagen. Nota: Solo aplica si contiene mas de una imagen-->
