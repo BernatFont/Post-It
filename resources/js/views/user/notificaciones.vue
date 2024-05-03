@@ -59,7 +59,7 @@
                                 <span class="itty font1 fecha">{{obtenerFecha(notificacion.publicacion.created_at)}}</span>
                             </div>
                         </div>
-                        <span class="pt-1 pl-1 itty font1">{{ notificacion.publicacion.texto }}</span>
+                        <span v-if="notificacion.publicacion.texto != '‎'" class="pt-1 pl-1 itty font1">{{ notificacion.publicacion.texto }}</span>
                     </div> 
                 </div>
             </div>
@@ -156,9 +156,10 @@
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, inject, computed } from "vue";
 
 const notificaciones = ref({});
+const swal = inject('$swal');
 
 
 onMounted(() => {
@@ -217,16 +218,30 @@ function obtenerFecha(fecha) {
 }
 
 const eliminarNotificacion = (idNotificacion) => {
-    if (confirm("¿Estás seguro de que quieres eliminar esta notificacion?")) {
-        axios.delete('/api/notificacion/delete/' + idNotificacion)
+    swal({
+        title: '¿Estás seguro?',
+        icon: 'warning',
+        showCancelButton: true
+    }).then((result)=>{
+        if (result.isConfirmed) {
+            axios.delete('/api/notificacion/delete/' + idNotificacion)
             .then(response => {
                 console.log("Notificacion eliminada con exito");
                 obtenerNotificaciones();
             })
             .catch(error => {
                 console.error("Error al eliminar la notificacion:", error);
-            });
-    }
+            }); 
+            swal({
+                title: 'Eliminado correctamente',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    })
+    
+        
 }
 
 </script>

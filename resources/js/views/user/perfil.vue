@@ -60,7 +60,7 @@
                             <option style="background-color: var(--sexto);" value="6"><span>6</span></option>
                         </select>
                     </div>
-                    <div>
+                    <div v-if="usuario.roles[0]?.name == 'admin' && usuario.username == userLogin.username">
                         <router-link :to="{ name: 'panelControl'}">
                             <div class="container-boton w-100">
                                 <div class="sticky-btn-sticker bg-4c"></div>

@@ -56,7 +56,7 @@
                  </div>
                  <div class="container-boton mt-5">
                      <div class="sticky-btn-sticker bg-3c"></div>
-                     <button class="btnSticky sticky-btn-1 bg-3" @click="guardarCambios">{{$t('save_changes')}}</button>
+                     <button class="btnSticky sticky-btn-1 bg-3 itty px20" @click="guardarCambios">{{$t('save_changes')}}</button>
                  </div>
              </div>
         </div>
