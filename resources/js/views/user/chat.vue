@@ -39,8 +39,8 @@
                 </div>
                 <div class="div-form-msg">
                     <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                        <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                        <button class="enviar" type="submit">{{ $t('send') }}</button>
+                        <textarea class="textarea itty px20" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
+                        <button class="enviar itty px20" type="submit">{{ $t('send') }}</button>
                     </form>    
                 </div>
             </div>
@@ -56,8 +56,8 @@
             <div class="userContainer d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-row">
                     <div class="d-flex flex-column">
-                        <router-link :to="{ name: 'chats'}"><span class="itty">< {{$t('back')}}</span></router-link>
-                        <span class="">{{ $t('error_chat')}}</span>
+                        <router-link :to="{ name: 'chats'}"><span class="itty px20">< {{$t('back')}}</span></router-link>
+                        <span class="itty px20">{{ $t('error_chat')}}</span>
                     </div> 
                 </div>
             </div>
@@ -243,7 +243,7 @@
     }
 
     .textarea {
-        width: 60%;
+        width: 80%;
         resize: none; /* Para evitar que el usuario redimensione el textarea */
     }
 
