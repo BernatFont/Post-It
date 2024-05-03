@@ -176,11 +176,11 @@ li:hover .logo-sidebar-7{
 
 /*Fin del Sticky Btn*/
 .delete-btn{
-    background-color: rgb(255, 255, 255);
+    background-color: none;
     cursor: pointer;
     color: black;
     border: none;
-    box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
+    box-shadow: none;
     border-radius: 50%;
     
 }

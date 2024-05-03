@@ -27,67 +27,68 @@
                 <div class="card-post-img d-flex justify-content-center" v-if="publicacion.media.length > 0">
                     <img :src="publicacion.media[0].original_url" alt="">
                 </div>
-                <div class="card-post-bottom d-flex">
-                    <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)">
-                        <div class="pi p-3">
-                            <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
-                            <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                <div class="d-flex justify-content-between">
+                    <div class="card-post-bottom d-flex">
+                        <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)">
+                            <div class="pi p-3">
+                                <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                                <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                            </div>
+                            <span class="itty number-of">{{ publicacion.likes_count }}</span>
                         </div>
-                        <span class="itty number-of">{{ publicacion.likes_count }}</span>
+                        <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="d-flex align-items-center textColor">
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
+                            </div>   
+                        </router-link>
                     </div>
-                    <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="d-flex align-items-center textColor">
+                    <div class="card-post-bottom d-flex" v-if="usuarioActual.id == publicacion.user.id">
                         <div class="d-flex align-items-center justify-content-center">
-                            <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
-                        </div>   
-                    </router-link>
+                            <router-link :to="{name: 'publicacion.update'}" class="postit-btn px-5">{{$t('modify')}}</router-link>
+                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <div @click="eliminarPublicacion()" class="mx-3" >
+                                <div class="img-btn"></div>
+                            </div>
+                        </div>              
+                    </div>
                 </div>
             </div>
-            <div class="w-75 m-auto">
-                <div class="d-flex py-5">
-                    <router-link :to="{name: 'publicacion.update'}" class="postit-btn px-5">{{$t('modify')}}</router-link>
-                    <button @click="eliminarPublicacion()" class="delete-btn ms-3">
-                        <div class="img-btn"></div>
-                    </button>
-                </div>
-                
-                <div>
-                    <div class="px-3 pb-2">
-                        <div class=""> <!--Seccion donde escribir un comentario -->
-                            <!-- <span>Comentario:</span> -->
-                            <form @submit.prevent="addComentario(comentario.contenido, publicacion)" class="create-post-form">
-                                <div class="form-group mb-1">
-                                    <textarea v-model="comentario.contenido" class="form-control textarea" @input="checkMaxLength" maxlength="300" placeholder="Publica un comentario..."></textarea>
-                                </div>
-                                <div class="d-flex justify-content-end my-3 ">
-                                    <div class="container-boton">
-                                        <div class="sticky-btn-sticker"></div>
-                                        <button class="btnSticky sticky-btn-1 itty" :disabled="processing">Publicar post</button>
-                                    </div>
-                                </div>
-                            </form>
+            <div class="">
+                <div class=""> <!--Seccion donde escribir un comentario -->
+                    <form class="formularioMensaje d-flex justify-content-center align-items-center"  @submit.prevent="addComentario(comentario.contenido, publicacion)"> <!-- Formulario para escribir un nuevo mensaje -->
+                        <div class="contenedor-sendmsg d-flex justify-content-center align-items-center">
+                            <div class="px-3 py-2 card-post-text w-100">
+                                <textarea v-model="comentario.contenido"  class="form-control itty textarea" @input="checkMaxLength" maxlength="255" :placeholder="$t('write')"></textarea>
+                                <div v-if="maxLenghtTexto(comentario.contenido)" class="ml-3">{{ $t('limit_characters_255') }}</div>
+                            </div>
                         </div>
-                        <!--Seccion donde mostrar los comentarios -->
-                        <div v-for="comentario in publicacion.comentarios" class="comments mb-3 p-5"> 
-                            <div class="d-flex justify-content-between align-items-center mb-2">
-                                    <div class="d-flex align-items-center">
-                                        <router-link :to="{ name: 'usuario.mostrar', params: { username: comentario.user.username } }">
-                                            <div class="contenedor-img-perfil">
-                                                <img :src="comentario.user.media[0]?.original_url ? comentario.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
-                                            </div>
-                                        </router-link>
-                                        <div class="ms-3 d-flex flex-column">
-                                            <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
-                                            <span>@{{ comentario.user.username }}</span>
-                                        </div>
+                        <div class="botonEnviar-contenedor">
+                            <div class="sticky-btn-sticker bg-3c"></div>
+                            <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('publish') }}</button>
+                        </div>
+                    </form>    
+                </div>
+                <!--Seccion donde mostrar los comentarios -->
+                <div v-for="comentario in publicacion.comentarios" class="comments mb-3 p-5"> 
+                    <div class="d-flex justify-content-between align-items-center mb-2">
+                            <div class="d-flex align-items-center">
+                                <router-link :to="{ name: 'usuario.mostrar', params: { username: comentario.user.username } }">
+                                    <div class="contenedor-img-perfil">
+                                        <img :src="comentario.user.media[0]?.original_url ? comentario.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                                     </div>
-                                <span>{{ formatearFecha(comentario.created_at) }}</span>
+                                </router-link>
+                                <div class="ms-3 d-flex flex-column">
+                                    <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
+                                    <span>@{{ comentario.user.username }}</span>
+                                </div>
                             </div>
-                            <div class="mb-2">{{ comentario.contenido }}</div>
-                            <div class="d-flex justify-content-end">
-                                <button @click="eliminarComentario(comentario.id)" class="delete-btn ms-3">
-                                    <div class="img-btn"></div>
-                                </button>
-                            </div>
+                        <span>{{ formatearFecha(comentario.created_at) }}</span>
+                    </div>
+                    <div class="mb-2">{{ comentario.contenido }}</div>
+                    <div class="d-flex justify-content-end">
+                        <div @click="eliminarComentario(comentario.id)">
+                            <div class="img-btn"></div>
                         </div>
                     </div>
                 </div>
@@ -102,33 +103,110 @@
 
 <style>
 
-.contenedor-publicacion{
-    padding-top: 50px;
-}
+    .btn-eliminar {
+        width: 100%;
+        text-align: center;
+        font-size: 1.35rem;
+        box-shadow: none;
+        background-color: none;
+        padding: 12px;
+        transition: box-shadow 0.25s ease-in-out;
+    }
+    .contenedor-publicacion{
+        padding-top: 50px;
+    }
 
-.card-post-img img {
-    transform: rotate(0deg);
-}
-.comments{
-    background-image: url(/public/images/papel-comment.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-}
-.post-text {
-    max-width: 100%;
-    word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
-}
+    .card-post-img img {
+        transform: rotate(0deg);
+    }
+    .comments{
+        background-image: url(/public/images/papel-comment.svg);
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+    .post-text {
+        max-width: 100%;
+        word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
+    }
 
-.textarea{
-    resize: none;
-    height: 100px;
-}
+    .textarea-1{
+        resize: none;
+        height: 100px;
+    }
 
-.corazon-img{
-    height: 20px;
-}
-.comment-icon{
-    height: 22px;
+    .corazon-img{
+        height: 20px;
+    }
+    .comment-icon{
+        height: 22px;
+    }
+
+    .contenedor-sendmsg {
+        background-image: url(/images/papel-comment.svg);
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        width: 65%;
+        margin-top: 20px;
+        height: 200px;
+
+    }
+
+    .textarea{
+        resize: none;
+        height: 115px;
+        width: 100%;
+        background-color: none;
+        border: 0 none;
+        background: transparent;
+        outline: none;
+        box-shadow: none;
+        font-size: 1.5rem;
+    }
+
+    .textarea:focus{
+        border: 0 none;
+        background: transparent;
+        box-shadow: none;
+    }
+
+    .botonEnviar-contenedor {
+        display: flex;
+        margin-top: 20px;
+        width: 25%;
+        height: 70px;
+    }
+
+    .formularioMensaje {
+        display: flex;
+        flex-direction: column;
+    }
+
+@media (max-width: 1200px){
+
+    .contenedor-sendmsg {
+        background-image: url(/images/papel-comment.svg);
+        background-size: cover;
+        background-position: center;
+        padding: 20px;
+        width: 100%;
+        margin-top: 20px;
+        height: 200px;
+
+    }
+
+    .formularioMensaje {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .botonEnviar-contenedor {
+        display: flex;
+        margin-top: 20px;
+        width: 50%;
+        height: auto;
+        margin-bottom: 20px;
+    }
 }
 
 </style>
@@ -290,6 +368,17 @@ const enviarNotificacion = (publicacion, contenido, tipo) => {
             console.error("Error al enviar la notificación:", error);
         });
 }
+
+    const maxLenghtTexto = (texto) => {
+        const maxLength = 300;
+
+        if ((typeof texto === 'undefined') || (texto.length != maxLength)) {
+            return false; // Devuelve una cadena vacía si texto es undefined
+        }
+        if (texto.length >= maxLength) {
+            return true;
+        }
+    }
 
 function bgClass(color) {
     switch(color) {

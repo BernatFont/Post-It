@@ -21,7 +21,7 @@
                             <span class="mr-4">{{ $t('no_published')}}</span>
                         </div>
                         <div class="px-3 py-2 card-post-text w-100">
-                            <textarea v-model="publicacion.texto" class="form-control textarea" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
+                            <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
                             <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
                         </div>
                         <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
@@ -84,13 +84,21 @@
         max-width: 100%;
         word-wrap: break-word; /* Permite que el texto se divida en varias líneas */
     }
-    .textarea{
+    .textarea-2{
         resize: none;
         height: 90px;
+        width: 100%;
         background-color: none;
         border: 0 none;
         background: transparent;
         outline: none;
+        box-shadow: none;
+        font-size: 1.5rem;
+    }
+
+    .textarea-2:focus{
+        border: 0 none;
+        background: transparent;
         box-shadow: none;
     }
 
