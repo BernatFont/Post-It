@@ -5,7 +5,7 @@
         </div>
     </div>
     <div class="mainPrincipal" v-if="publicacion">
-        <div class="content-view">
+        <div class="content-view itty">
             <form class="container-width-createpost" @submit.prevent="actualizar">
                 <div class="container-createpost" :class="bgClass()">
                         <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
@@ -14,11 +14,11 @@
                                     <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                                 </div>                         
                                 <div class="d-flex flex-column justify-content-center">
-                                    <span>{{ user.name }} {{ user.surname }}</span>
-                                    <span>@{{ user.username}}</span>
+                                    <span class="px20">{{ user.name }} {{ user.surname }}</span>
+                                    <span class="font2">@{{ user.username}}</span>
                                 </div>
                             </div>
-                            <span class="mr-4">{{ $t('no_published')}}</span>
+                            <span class="mr-4 font2">{{ formatearFecha(publicacion.created_at) }}</span>
                         </div>
                         <div class="px-3 py-2 card-post-text w-100">
                             <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
@@ -29,10 +29,10 @@
                         </div>
                         <div class="card-post-bottom d-flex">
                             <div class="d-flex align-items-center">
-                                <i class="pi pi-heart p-3"></i><span>0</span>
+                                <i class="pi pi-heart p-3"></i><span>{{ publicacion.likes_count }}</span>
                             </div>
                             <div class="d-flex align-items-center">
-                                <i class="pi pi-comment p-3"></i><span>0</span>
+                                <i class="pi pi-comment p-3"></i><span>{{ publicacion.comentarios_count }}</span>
                             </div>  
                         </div>
                 </div>
@@ -109,8 +109,20 @@ onMounted(() => {
         .then(response => {
             strError.value = "";
             strSuccess.value = response.data.success;
+            swal({
+                icon: 'success',
+                title: 'Publicacion modificada correctamente.',
+                showConfirmButton: false,
+                timer: 90002000
+            });
         })
         .catch(error => {
+            swal({
+                icon: 'error',
+                title: 'Ha ocurrido un error al modificar la publicación',
+                showConfirmButton: false,
+                timer: 2000
+            });
             strSuccess.value = "";
             strError.value = error.response.data.message;
         });
@@ -147,6 +159,30 @@ onMounted(() => {
       }
     }
 
+    const calcularDiferencia = (fechaPublicacion) => {
+        const fechaPublicacionObjeto = new Date(fechaPublicacion);
+        const fechaActual = new Date();
+        const diferenciaEnMs = fechaActual - fechaPublicacionObjeto;
+        const diferenciaEnMinutos = Math.floor(diferenciaEnMs / (1000 * 60));
+        const diferenciaEnHoras = Math.floor(diferenciaEnMinutos / 60);
+        const diferenciaEnDias = Math.floor(diferenciaEnHoras / 24);
+        return { minutos: diferenciaEnMinutos, horas: diferenciaEnHoras, dias: diferenciaEnDias };
+    };
+
+    // Función para formatear la fecha de publicación
+    const formatearFecha = (fechaPublicacion) => {
+        const { minutos, horas, dias } = calcularDiferencia(fechaPublicacion);
+        if (minutos <= 60) {
+            return `Hace ${minutos} minutos`;
+        } else if (horas < 24) {
+            return `Hace ${horas} horas`;
+        } else if (dias === 1) {
+            return 'Publicado hace 1 día';
+        } else {
+            return `Hace ${dias} días`;
+        }
+    };
+    
 </script>
 
 <style>

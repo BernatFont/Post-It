@@ -246,7 +246,6 @@
         // Agrega la lógica para enviar la imagen junto con el texto
         let PublicacionFormateada = new FormData()
         PublicacionFormateada.append('texto', publicacion.value.texto || '‎'); // Si hay texto lo envia en caso contrario se envia texto con un caracter vacio
-
         if (publicacion.value.imagen) {
             PublicacionFormateada.append('imagen', publicacion.value.imagen);
         }

@@ -37,12 +37,19 @@
                         </div>
                     </div>
                 </div>
-                <div class="div-form-msg">
-                    <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                        <textarea class="textarea itty px20" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                        <button class="enviar itty px20" type="submit">{{ $t('send') }}</button>
-                    </form>    
-                </div>
+                <form class="formularioMensaje d-flex justify-content-center align-items-center"  @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
+                    <div class="contenedor-sendmsg d-flex justify-content-center align-items-center">
+                        <div class="px-3 py-2 card-post-text w-100">
+                            <textarea v-model="nuevoMensaje"  class="form-control itty textarea" @input="checkMaxLength" maxlength="255" :placeholder="$t('write')"></textarea>
+                            <div v-if="maxLenghtTexto(nuevoMensaje)" class="ml-3">{{ $t('limit_characters_255') }}</div>
+                        </div>
+                    </div>
+                    <div class="botonEnviar-contenedor">
+                        <div class="sticky-btn-sticker bg-3c"></div>
+                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('send') }}</button>
+                    </div>
+                </form>    
+                
             </div>
         </div>
     </div>
@@ -56,8 +63,8 @@
             <div class="userContainer d-flex flex-row align-items-center justify-content-between">
                 <div class="d-flex flex-row">
                     <div class="d-flex flex-column">
-                        <router-link :to="{ name: 'chats'}"><span class="itty px20">< {{$t('back')}}</span></router-link>
-                        <span class="itty px20">{{ $t('error_chat')}}</span>
+                        <router-link :to="{ name: 'chats'}"><span class="itty">< {{$t('back')}}</span></router-link>
+                        <span class="">{{ $t('error_chat')}}</span>
                     </div> 
                 </div>
             </div>
@@ -229,22 +236,12 @@
         background-color: #fff;
     }
 
-    .form-msg {
-        display: flex;
-        flex: row;
-    }
-
     .textContent {
         font-size: 1.5rem
     }  
 
     .textUsername {
         font-size: 1.3rem
-    }
-
-    .textarea {
-        width: 80%;
-        resize: none; /* Para evitar que el usuario redimensione el textarea */
     }
 
     .enviar {
