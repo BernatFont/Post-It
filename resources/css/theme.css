@@ -192,10 +192,21 @@ li:hover .logo-sidebar-7{
     background-position: center;
 }
 
+.img-btn-edit{
+    width: 20px;
+    height: 20px;
+    background-image: url(/public/images/edit.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .img-btn:hover, .img-btn:hover delete-btn{
     background-image: url(/public/images/paperbin_hover.svg);
 }
 
+.img-btn-edit:hover{
+    background-image: url(/public/images/edit_hover.svg);
+}
 
 p,span,a,label,button,h1,h2,h3{
     color: var(--color-contraste1);
@@ -231,6 +242,15 @@ p,span,a,label,button,h1,h2,h3{
 
 h2{
     font-size: 40px;
+}
+
+.celo{
+    transform: rotate(105deg);
+    height: 50px;
+    position: absolute;
+    box-shadow: none;
+    z-index: 5;
+    top: 2%;
 }
 
 .target-value {
