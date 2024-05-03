@@ -30,7 +30,7 @@ class PublicacionController extends Controller
         $publicacion = $request->all();
         $publicacion['id_usuario'] = auth()->id();
         $publicacion['position'] = rand(1, 3); // Valor aleatorio entre 1 y 3 para position
-        $publicacion['rotation'] = rand(1, 8); // Valor aleatorio entre 1 y 8 para rotate
+        $publicacion['rotation'] = rand(1, 6); // Valor aleatorio entre 1 y 6 para rotate
         $post = Publicacion::create($publicacion);
 
        // Verifica si la solicitud HTTP contiene un archivo con el nombre 'imagen'

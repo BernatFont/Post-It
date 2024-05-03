@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between searchContainer row topbar-title">
         <span class="pt-2 itty col-3 pl-5 title-target">{{$t('search')}}</span>
           <!-- Input para buscar -->
-        <input class="inputSearch searchBar col-6" type="text" v-model="busqueda" :placeholder="$t('search_by_name')">
+        <input class="inputSearch searchBar col-6 itty px20" type="text" v-model="busqueda" :placeholder="$t('search_by_name')">
         <div class="col-3"></div>
     </div>
   </div>

@@ -74,35 +74,39 @@
 
         <div v-if="usuario" class="px-5">
             <!-- <p>{{ usuario.publicaciones }}</p> -->
-            <div>
-                <div v-for="publicacion in usuario.publicaciones" :key="publicacion.id" class="card-post mb-5" :class="bgClass(usuario.style)">
-                    <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                        <div class="d-flex">
-                            <div class="contenedor-img-perfil">
-                                <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="img-perfil">
+            <div class="mainPrincipal" >
+                <div class="d-flex flex-column">
+                    <div v-for="publicacion in usuario.publicaciones" :key="publicacion.id" class="card-post mb-5" :class="bgClass(usuario.style), rotate(publicacion.rotation), position(publicacion.position)">
+                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                                <div class="contenedor-img-perfil">
+                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="img-perfil">
+                                </div>
+                                <div class="d-flex flex-column justify-content-center">
+                                    <span class="itty px20">@{{ usuario.username }}</span>
+                                </div>
                             </div>
-                            <div class="ms-3 d-flex flex-column justify-content-center">
-                                <span>@{{ usuario.username }}</span>
+                            
+                            <div class="d-flex justify-content-center">
+                                <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="">
                             </div>
+                            <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
                         </div>
-                        
-                        <div class="d-flex justify-content-center">
-                            <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="">
+    
+                        <div v-if="publicacion.texto.length > 1" class="px-3 py-2 card-post-text">
+                            <span class="itty px20">{{ formatText(publicacion.texto) }}</span>
                         </div>
-                        <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
+    
+                        <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
+                            <img src="/images/celo.png" alt="" class="celo">
+                            <!-- El interrogante se usa por si no hay imagen en el post, que no pete -->
+                            <img class="img_post" :src="publicacion.media[0]?.original_url" alt="">
+                        </div>
+                        <div class="p-2">
+                            <span class="itty px20 me-3" >Likes: <b>{{ publicacion.likes.length }}</b></span>
+                            <span class="itty px20" >Comments: <b>{{ publicacion.comentarios.length }}</b></span>
+                        </div>
                     </div>
-
-                    <div class="px-3 py-2 card-post-text">
-                        <span>{{ formatText(publicacion.texto) }}</span>
-                    </div>
-
-                    <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
-                        <img src="/images/celo.png" alt="" class="celo">
-                        <!-- El interrogante se usa por si no hay imagen en el post, que no pete -->
-                        <img class="img_post" :src="publicacion.media[0]?.original_url" alt="">
-                    </div>
-                    <p><strong>N. likes:</strong> {{ publicacion.likes.length }}</p>
-                    <p><strong>N. coments:</strong> {{ publicacion.comentarios.length }}</p>
                 </div>
             </div>
         </div>
@@ -264,6 +268,39 @@ function bgClass(color) {
     default:
         return 'bg-1'; // Clase por defecto
     }
+}
+
+function rotate(rot) {
+    switch(rot) {
+        case 1:
+            return 'inc-1';
+        case 2:
+            return 'inc-2';
+        case 3:
+            return 'inc-3';
+        case 4:
+            return 'inc-4';
+        case 5:
+            return 'inc-5';
+        case 6:
+            return 'inc-6';
+        
+        default:
+            return ''; // Clase por defecto
+        }
+}
+
+function position(pos) {
+    switch(Number(pos)) {
+        case 1:
+        return 'align-1';
+        case 2:
+        return 'align-2';
+        case 3:
+        return 'align-3';
+        default:
+        return 'align-2'; // Clase por defecto
+    }  
 }
 
 const enviarNotificacion = (usuario, tipo) => {

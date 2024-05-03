@@ -31,9 +31,9 @@
                             <td>{{ usuario.birth_date }}</td>
                             <td>
                                 <router-link :to="{ name: 'perfil.modificar', params: { username: usuario.username }}">
-                                    <button>Modificar</button>
+                                    <button class="btn btn-warning me-3">Modificar</button>
                                 </router-link>
-                                <button @click="eliminarUsuario(usuario.id)">Eliminar</button>
+                                <button class="btn btn-danger" @click="eliminarUsuario(usuario.id)">Eliminar</button>
                             </td>
                         </tr>
                     </tbody>
@@ -73,7 +73,8 @@ const eliminarUsuario = (id) => {
         .then(() => {
             // Actualiza la lista de usuarios o notifica al usuario
             console.log('Usuario eliminado correctamente');
-            // Recargar la lista de usuarios o eliminar el usuario de la lista local
+            //Obtenemos los usuarios
+            obtenerUsuarios();
         })
         .catch(error => {
             console.error('Error al eliminar el usuario:', error);

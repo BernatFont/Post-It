@@ -39,8 +39,8 @@
                 </div>
                 <div class="div-form-msg">
                     <form class="form-msg" @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                        <textarea class="textarea" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
-                        <button class="enviar" type="submit">{{ $t('send') }}</button>
+                        <textarea class="textarea itty px20" v-model="nuevoMensaje" placeholder="Escribe tu mensaje"></textarea>
+                        <button class="enviar itty px20" type="submit">{{ $t('send') }}</button>
                     </form>    
                 </div>
             </div>
@@ -193,6 +193,7 @@
     .form-msg {
         display: flex;
         flex: row;
+        width: 100%;
     }
 
     .textContent {
@@ -204,7 +205,7 @@
     }
 
     .textarea {
-        width: 60%;
+        width: 80%;
         resize: none; /* Para evitar que el usuario redimensione el textarea */
     }
 

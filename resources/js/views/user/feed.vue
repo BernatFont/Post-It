@@ -9,7 +9,7 @@
     </div>
     <div class="mainPrincipal">
         <div class="content-view">
-            <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post itty" :class="color(publicacion.user.style), rotate(publicacion.rotate), position(publicacion.position)">
+            <div v-for="(publicacion, index) in publicaciones" class="mb-5 card-post itty" :class="color(publicacion.user.style), rotate(publicacion.rotation), position(publicacion.position)">
                 <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                     <div class="d-flex">
                         <router-link :to="{ name: 'usuario.mostrar', params: { username: publicacion.user.username } }">
