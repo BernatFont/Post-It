@@ -59,10 +59,29 @@
                         <label for="birth">{{$t('birth_date')}}</label>
                         <input type="date" id="birth" v-model="usuario.birth_date">
                     </div>
+                    <div class="py-5 colores d-flex">
+                        <button @click="updateStyle(1)" class="color1"><i v-if="usuario.style == 1" class="pi pi-check"></i></button>
+                        <button @click="updateStyle(2)" class="color2"><i v-if="usuario.style == 2" class="pi pi-check"></i></button>
+                        <button @click="updateStyle(3)" class="color3"><i v-if="usuario.style == 3" class="pi pi-check"></i></button>
+                        <button @click="updateStyle(4)" class="color4"><i v-if="usuario.style == 4" class="pi pi-check"></i></button>
+                        <button @click="updateStyle(5)" class="color5"><i v-if="usuario.style == 5" class="pi pi-check"></i></button>
+                        <button @click="updateStyle(6)" class="color6"><i v-if="usuario.style == 6" class="pi pi-check"></i></button>
+                    </div>
                     <div class="container-boton mt-5">
                         <div class="sticky-btn-sticker bg-3c"></div>
                         <button class="btnSticky sticky-btn-1 bg-3 itty px20" @click="guardarCambios">{{$t('save_changes')}}</button>
                     </div>
+                    <!-- <div v-if="usuario.id === userLogin.id" class="d-flex align-items-center">
+                        <p class="mt-3 me-3 px-3 py-2 itty px20" :class="bgClass(usuario.style)">{{ $t('color_post')}}</p>
+                        <select class="itty px-4 py-2" v-model="selectedStyle" @change="logSelectedStyle">
+                            <option style="background-color: var(--primero);" value="1"><span>1</span></option>
+                            <option style="background-color: var(--segundo);" value="2"><span>2</span></option>
+                            <option style="background-color: var(--tercero);" value="3"><span>3</span></option>
+                            <option style="background-color: var(--cuarto);" value="4"><span>4</span></option>
+                            <option style="background-color: var(--quinto);" value="5"><span>5</span></option>
+                            <option style="background-color: var(--sexto);" value="6"><span>6</span></option>
+                        </select>
+                    </div> -->
                 </div>
              </div>
         </div>
@@ -127,6 +146,38 @@
     border: 1px solid red;
 }
 
+.colores button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    width: 40px;
+    height: 40px;
+}
+
+.color1{
+        background-color: var(--primero);
+}
+
+.color2{
+    background-color: var(--segundo);
+}
+
+.color3{
+    background-color: var(--tercero);
+}
+
+.color4{
+    background-color: var(--cuarto);
+}
+
+.color5{
+    background-color: var(--quinto);
+}
+
+.color6{
+    background-color: var(--sexto);
+}
 </style>
 
 <script setup>
@@ -146,7 +197,6 @@ const strSuccess = ref(null);
 const strError = ref(null);
 const errorMessageName = ref(null);
 const swal = inject('$swal');
-
 
 onMounted(() => {
     obtenerUsuario();
@@ -233,6 +283,23 @@ const guardarCambios = () => {
         strSuccess.value = "";
         strError.value = error.response.data.message;
         errorMessageName.value = true;
+    });
+};
+
+//Funcion que cambia el color del post y llama a la funcion que creara el cambio
+function updateStyle(value) {
+    usuario.value.style = value;
+    logSelectedStyle(); // Llamar a la función que maneja el cambio
+ }
+
+//Funcion para canviar color de los posts reactivamente
+function logSelectedStyle() {
+    axios.post('/api/usuarios/colorPost/' + usuario.value.style)
+    .then(response => {
+        console.log('Color cambiado por el num: ' + usuario.value.style)
+    })
+    .catch(error => {
+        console.error('Error al canviar color del post:', error);
     });
 }
 </script>

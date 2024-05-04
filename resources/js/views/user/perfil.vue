@@ -22,19 +22,6 @@
     </div>
     <div class="mainPrincipal">
         <div class="content-view" v-if="usuario">
-            <div v-if="usuario.id === userLogin.id" class="d-flex align-items-center">
-                <!-- Selector color -->
-                <p class="mt-3 me-3 px-3 py-2 itty px20" :class="bgClass(usuario.style)">{{ $t('color_post')}}</p>
-                <select class="itty px-4 py-2" v-model="selectedStyle" @change="logSelectedStyle">
-                    <option style="background-color: var(--primero);" value="1"><span>1</span></option>
-                    <option style="background-color: var(--segundo);" value="2"><span>2</span></option>
-                    <option style="background-color: var(--tercero);" value="3"><span>3</span></option>
-                    <option style="background-color: var(--cuarto);" value="4"><span>4</span></option>
-                    <option style="background-color: var(--quinto);" value="5"><span>5</span></option>
-                    <option style="background-color: var(--sexto);" value="6"><span>6</span></option>
-                </select>
-            </div>
-
             <!--Panel de usuario-->
             <div class="datos-perfil itty">
                 <div class="contenido-perfil">
@@ -255,27 +242,6 @@ const comprobarLike = (id) => {
     return false;
 };
 
-
-//Funcion para canviar color de los posts reactivamente
-function logSelectedStyle() {
-    console.log("Estilo seleccionado:", selectedStyle.value);
-
-    // Verificar si ya existe un chat entre el usuario actualmente logueado y el usuario visitado
-    axios.post('/api/usuarios/colorPost/' + selectedStyle.value)
-    .then(response => {
-        const styleNumber = Number(selectedStyle.value);
-        let classColor = bgClass(styleNumber);
-        usuario.value.style = styleNumber;
-
-        console.log(selectedStyle.value);
-        console.log(format(classColor));
-        console.log(usuario.value.style);
-
-    })
-    .catch(error => {
-        console.error('Error al canviar color del post:', error);
-    });
-}
 
 // Función para calcular la diferencia en minutos, horas y días
 const calcularDiferencia = (fechaPublicacion) => {
