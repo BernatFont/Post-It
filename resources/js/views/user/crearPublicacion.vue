@@ -1,7 +1,10 @@
 <template>
     <div class="topbar-container bg-v2 ">
-        <div class="d-flex justify-content-between searchContainer row topbar-title">
-            <span class="pt-2 itty col-12 pl-5 title-target">{{$t('create_post')}}</span>
+        <div class="d-flex justify-content-between topbar-title">
+            <div class="itty col-8 pl-5 ">
+                <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
+                <span class="pt-2 title-target">{{$t('create_post')}}</span>
+            </div>
         </div>
     </div>
     <div class="mainPrincipal">

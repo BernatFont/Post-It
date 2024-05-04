@@ -1,7 +1,11 @@
 <template>
     <div class="topbar-container bg-v2 ">
+
         <div class="d-flex justify-content-between topbar-title">
-            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('modify_profile')}}</span>
+            <div class="itty col-8 pl-5 ">
+                <router-link class="pt-2 title-target" :to="{ name: 'usuario.mostrar', params: { username: userLogin.username } }">< </router-link>
+                <span class="pt-2 title-target">{{$t('modify_profile')}}</span>
+            </div>   
         </div>
     </div>
     <div class="mainPrincipal" v-if="usuario">
@@ -29,35 +33,37 @@
              <!-- Campos para editar los datos del usuario -->
              <div class="formContainer card border-0 shadow-sm">
                 <h1 class="itty">{{ $t('modify_user') }}</h1>
-                 <div class="form-group">
-                     <label for="username">{{$t('username')}}</label>
-                     <input type="text" id="username" v-model="usuario.username" readonly>
-                 </div>
-                 <div class="form-group">
-                     <label for="email">{{$t('email')}}</label>
-                     <input type="text" id="email" v-model="usuario.email" readonly>
-                 </div>
-                 <div class="form-group">
-                     <label for="name">{{$t('name')}}*</label>
-                     <input type="text" id="name" maxlength="20" v-model="usuario.name" :class="{'error-border': errorMessageName}">
-                     <small v-if="errorMessageName" class="form-text text-danger">{{$t('not_empty')}}</small>
-                 </div>
-                 <div class="form-group">
-                     <label for="surname">{{$t('surname')}}</label>
-                     <input type="text" id="surname" maxlength="20" v-model="usuario.surname">
-                 </div>
-                 <div class="form-group">
-                     <label for="biography">{{$t('biography')}}</label>
-                     <input type="text" id="biography" maxlength="200" v-model="usuario.biography">
-                 </div>
-                 <div class="form-group">
-                     <label for="birth">{{$t('birth_date')}}</label>
-                     <input type="date" id="birth" v-model="usuario.birth_date">
-                 </div>
-                 <div class="container-boton mt-5">
-                     <div class="sticky-btn-sticker bg-3c"></div>
-                     <button class="btnSticky sticky-btn-1 bg-3 itty px20" @click="guardarCambios">{{$t('save_changes')}}</button>
-                 </div>
+                <div class="px20">
+                    <div class="form-group">
+                        <label for="username">{{$t('username')}}</label>
+                        <input type="text" id="username" v-model="usuario.username" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">{{$t('email')}}</label>
+                        <input type="text" id="email" v-model="usuario.email" readonly>
+                    </div>
+                    <div class="form-group">
+                        <label for="name">{{$t('name')}}*</label>
+                        <input type="text" id="name" maxlength="20" v-model="usuario.name" :class="{'error-border': errorMessageName}">
+                        <small v-if="errorMessageName" class="form-text text-danger">{{$t('not_empty')}}</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="surname">{{$t('surname')}}</label>
+                        <input type="text" id="surname" maxlength="20" v-model="usuario.surname">
+                    </div>
+                    <div class="form-group">
+                        <label for="biography">{{$t('biography')}}</label>
+                        <input type="text" id="biography" maxlength="200" v-model="usuario.biography">
+                    </div>
+                    <div class="form-group">
+                        <label for="birth">{{$t('birth_date')}}</label>
+                        <input type="date" id="birth" v-model="usuario.birth_date">
+                    </div>
+                    <div class="container-boton mt-5">
+                        <div class="sticky-btn-sticker bg-3c"></div>
+                        <button class="btnSticky sticky-btn-1 bg-3 itty px20" @click="guardarCambios">{{$t('save_changes')}}</button>
+                    </div>
+                </div>
              </div>
         </div>
     </div>

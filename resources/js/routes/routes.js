@@ -107,10 +107,10 @@ export default [
                         meta: { breadCrumb: 'Perfil usuario'},
                     },
                     {
-                    name: 'perfil.modificar',
-                    path: 'editarPerfil',
-                    component: PerfilModificar,
-                    meta: { breadCrumb: 'Editar perfil usuario'},
+                        name: 'perfil.modificar',
+                        path: 'editarPerfil',
+                        component: PerfilModificar,
+                        meta: { breadCrumb: 'Editar perfil usuario'},
                     },
                     {
                         name: 'usuario.seguidores',

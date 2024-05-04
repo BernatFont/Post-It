@@ -1,7 +1,10 @@
 <template>
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between topbar-title">
-            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('modify_post')}}</span>
+            <div class="itty col-8 pl-5 ">
+                <router-link class="pt-2 title-target" :to="{ name: 'publicacion.mostrar', params: { id: id }}">< </router-link> 
+                <span class="pt-2 title-target">{{$t('modify_post')}}</span>
+            </div>   
         </div>
     </div>
     <div class="mainPrincipal" v-if="publicacion">
@@ -43,11 +46,6 @@
                     </div>
                 </div>
             </form>
-        </div>
-    </div>
-    <div v-else class="mainPrincipal">
-        <div class="content-view card">
-            <p>Cargando...</p>
         </div>
     </div>
     
@@ -211,7 +209,7 @@ onMounted(() => {
     }
     .textarea-2{
         resize: none;
-        height: 90px;
+        min-height: 120px;
         width: 100%;
         background-color: none;
         border: 0 none;
@@ -230,6 +228,16 @@ onMounted(() => {
 
     input[type="file"] {
         display: none;
+    }
+
+    .alert {
+        --bs-alert-padding-x: 1rem;
+        --bs-alert-padding-y: 1rem;
+        --bs-alert-margin-bottom: 0rem;
+        padding: 0;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        color:
     }
 
 @media (max-width: 1200px){

@@ -1,7 +1,10 @@
 <template>
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between searchContainer row topbar-title">
-            <span class="pt-2 itty col-12 pl-5 title-target">{{$t('post')}}</span>
+            <div class="itty col-8 pl-5 ">
+                <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
+                <span class="pt-2 title-target">{{$t('post')}}</span>
+            </div>
         </div>
     </div>
     <div class="mainPrincipal itty">
@@ -19,7 +22,7 @@
                             <span class="font2">@{{ publicacion.user.username }}</span>
                         </div>
                     </div>
-                    <span class="pe-4">{{ formatearFecha(publicacion.created_at) }}</span>
+                    <span class="pe-4 font2">{{ formatearFecha(publicacion.created_at) }}</span>
                 </div>
                 <div v-if="publicacion.texto != '‎'" class="px-2 py-2 card-post-text">
                     <span class="px20">{{ publicacion.texto }}</span>
@@ -60,7 +63,7 @@
             <div class="">
                 <div class=""> <!--Seccion donde escribir un comentario -->
                     <form class="formularioMensaje d-flex justify-content-center align-items-center"  @submit.prevent="addComentario(comentario.contenido, publicacion)"> <!-- Formulario para escribir un nuevo mensaje -->
-                        <div class="contenedor-sendmsg d-flex justify-content-center align-items-center">
+                        <div class="contenedor-sendmsg-2 d-flex justify-content-center align-items-center">
                             <div class="px-3 py-2 card-post-text w-100">
                                 <textarea v-model="comentario.contenido"  class="form-control itty textarea" @input="checkMaxLength" maxlength="255" :placeholder="$t('write')"></textarea>
                                 <div v-if="maxLenghtTexto(comentario.contenido)" class="ml-3">{{ $t('limit_characters_255') }}</div>
@@ -96,9 +99,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div v-else>
-            <p>Cargando...</p>
         </div>
     </div>
         
@@ -144,15 +144,14 @@
         height: 22px;
     }
 
-    .contenedor-sendmsg {
+    .contenedor-sendmsg-2 {
         background-image: url(/images/papel-comment.svg);
         background-size: cover;
         background-position: center;
         padding: 20px;
-        width: 65%;
+        width: 100%;
         margin-top: 20px;
         height: 200px;
-
     }
 
     .textarea{
@@ -187,7 +186,7 @@
 
 @media (max-width: 1200px){
 
-    .contenedor-sendmsg {
+    .contenedor-sendmsg-2 {
         background-image: url(/images/papel-comment.svg);
         background-size: cover;
         background-position: center;

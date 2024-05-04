@@ -2,7 +2,10 @@
     <!-- {{ usuario }} -->
     <div class="topbar-container bg-v2 ">
         <div class="d-flex flex-row justify-content-between topbar-title">
-            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('profile')}}</span>
+            <div class="itty col-8 pl-5 ">
+                <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
+                <span class="pt-2 title-target">{{$t('profile')}}</span>
+            </div>
             <div v-if="usuario">
                 <div v-if="usuario.roles[0]?.name == 'admin' && usuario.username == userLogin.username">
                     <!-- Botón Panel de admin -->

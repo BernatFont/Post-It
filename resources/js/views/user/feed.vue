@@ -25,7 +25,7 @@
                     <div class="d-flex justify-content-center">
                         <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="Chincheta que sujeta el post">
                     </div>
-                    <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
+                    <span class="pe-3 font2">{{ formatearFecha(publicacion.created_at) }}</span>
                 </div>
                 <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
                 <div v-if="publicacion.texto != '‎'" class="px-3 py-2 card-post-text">

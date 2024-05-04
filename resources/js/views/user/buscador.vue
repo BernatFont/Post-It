@@ -1,7 +1,10 @@
 <template>
   <div class="topbar-container bg-v2 ">
-    <div class="d-flex justify-content-between searchContainer row topbar-title">
-        <span class="pt-2 itty col-3 pl-5 title-target">{{$t('search')}}</span>
+    <div class="d-flex justify-content-between row topbar-title">
+        <div class="itty col-3 pl-5 ">
+            <router-link :to="{ name: 'chats'}" class="pt-2 title-target">< </router-link>    
+            <span class="pt-2 title-target">{{$t('search')}}</span>
+        </div>
           <!-- Input para buscar -->
         <input class="inputSearch searchBar col-6 itty px20" type="text" v-model="busqueda" :placeholder="$t('search_by_name')">
         <div class="col-3"></div>
