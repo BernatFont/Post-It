@@ -28,17 +28,19 @@
 </template>
 
 <style>
-.menu_sidebar_responsive{
+.menu_sidebar_responsive {
     position: fixed;
-    top: 90%;
-    z-index: 9999;
+    bottom: 0; 
+    left: 0; 
     width: 100%;
-    height: 10%;
+    height: 80px; 
+    overflow-y: auto; 
     background: url(/images/bg-menu-responsive.svg);
     background-repeat: no-repeat;
     background-size: cover;
-    border-top: solid 2px #E1BC83;
+
     box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
 }
 
 .ul_responsive{

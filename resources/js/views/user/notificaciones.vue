@@ -18,7 +18,10 @@
                             <img class="notification-icon" src="/images/like.svg">
                             <span class="ml-2 mb-1 font1 itty">
                                 <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
-                            @{{ notificacion.user1.username }}</router-link> {{ $t('like_notification') }}</span>
+                                    <span class="btn-href2">@{{ notificacion.user1.username }}</span>
+                                </router-link>
+                                {{ $t('like_notification') }}
+                            </span>
                         </div>
                         <button @click="eliminarNotificacion(notificacion.id)" class="btn btn-href pr-0 itty font1">
                             <div class="img-btn"></div>
@@ -32,7 +35,9 @@
                                 </div>
                             </router-link>
                             <div class="d-flex flex-column">
-                                <span class="pl-1 itty font1">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
+                                <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
+                                    <span class="pl-1 itty font1 btn-href2">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
+                                </router-link>
                                 <span class="pl-1 itty font2">@{{ notificacion.user1.username }}</span>
                             </div>
                         </div>
@@ -43,6 +48,7 @@
                 </div>
                 <div class="d-flex flex-row">  
                     <div class="notification-post">
+                        <router-link :to="{ name: 'publicacion.mostrar', params: { id: notificacion.publicacion.id } }" class="textColor itty">
                         <div class="d-flex flex-row justify-content-between">
                             <div class="d-flex flex-row">
                                 <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
@@ -51,7 +57,9 @@
                                     </div>
                                 </router-link>
                                 <div class="d-flex flex-column">
-                                    <span class="pl-1 itty font1">{{ notificacion.user2.name }} {{ notificacion.user2.surname }}</span>
+                                    <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
+                                        <span class="pl-1 itty font1 btn-href2">{{ notificacion.user2.name }} {{ notificacion.user2.surname }}</span>
+                                    </router-link>
                                     <span class="pl-1 itty font2">@{{ notificacion.user2.username }}</span>
                                 </div>
                             </div>
@@ -59,7 +67,8 @@
                                 <span class="itty font1 fecha">{{obtenerFecha(notificacion.publicacion.created_at)}}</span>
                             </div>
                         </div>
-                        <span v-if="notificacion.publicacion.texto != '‎'" class="pt-1 pl-1 itty font1">{{ notificacion.publicacion.texto }}</span>
+                            <span v-if="notificacion.publicacion.texto != '‎'" class="pt-1 pl-1 itty font1">{{ notificacion.publicacion.texto }}</span>
+                        </router-link>
                     </div> 
                 </div>
             </div>
@@ -70,8 +79,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-row">
                             <img class="notification-icon" src="/images/comentarios.svg">
-                            <span class="ml-2 mb-1 font1 itty"><router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
-                            @{{ notificacion.user1.username }}</router-link> {{ $t('comment_notification') }}</span>
+                            <span class="ml-2 mb-1 font1 itty">
+                                <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
+                                    <span class="btn-href2">@{{ notificacion.user1.username }}</span>
+                                </router-link>
+                                {{ $t('comment_notification') }}
+                            </span>
                         </div>
                         <button @click="eliminarNotificacion(notificacion.id)" class="btn btn-href pr-0 itty font1">
                             <div class="img-btn"></div>
@@ -85,7 +98,9 @@
                                 </div>
                             </router-link>
                             <div class="d-flex flex-column">
-                                <span class="pl-1 itty font1">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
+                                <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
+                                    <span class="pl-1 itty font1 btn-href2">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
+                                </router-link>
                                 <span class="pl-1 itty font2">@{{ notificacion.user1.username }}</span>
                             </div>
                         </div>
@@ -93,27 +108,33 @@
                             <span class="itty font1">{{formatearFecha(notificacion.created_at)}}</span>
                         </div>
                     </div>
-                    <span class="pt-1 pl-1 itty font1">{{ notificacion.comentario.contenido }}</span>
+                    <router-link :to="{ name: 'publicacion.mostrar', params: { id: notificacion.comentario.publicacion.id } }" class="textColor itty">
+                        <span class="pt-1 pl-1 itty font1">{{ notificacion.comentario.contenido }}</span>
+                    </router-link>
                 </div>
                 <div class="d-flex flex-row">  
                     <div class="notification-post">
-                        <div class="d-flex flex-row justify-content-between">
-                            <div class="d-flex flex-row">
-                                <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
-                                    <div class="contenedor-img-perfil">
-                                        <img class="img-perfil" :src="notificacion.user2.media[0]?.original_url ? notificacion.user2.media[0].original_url : '/images/user-default.png'" alt="">
+                        <router-link :to="{ name: 'publicacion.mostrar', params: { id: notificacion.comentario.publicacion.id } }" class="textColor itty">
+                            <div class="d-flex flex-row justify-content-between">
+                                <div class="d-flex flex-row">
+                                    <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
+                                        <div class="contenedor-img-perfil">
+                                            <img class="img-perfil" :src="notificacion.user2.media[0]?.original_url ? notificacion.user2.media[0].original_url : '/images/user-default.png'" alt="">
+                                        </div>
+                                    </router-link>
+                                    <div class="d-flex flex-column">
+                                        <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user2.username } }">
+                                            <span class="pl-2 itty font1 btn-href2">{{ notificacion.user2.name }} {{ notificacion.user2.surname }}</span>
+                                        </router-link>
+                                        <span class="pl-2 itty font2">@{{ notificacion.user2.username }}</span>
                                     </div>
-                                </router-link>
-                                <div class="d-flex flex-column">
-                                    <span class="pl-2 itty font1">{{ notificacion.user2.name }} {{ notificacion.user2.surname }}</span>
-                                    <span class="pl-2 itty font2">@{{ notificacion.user2.username }}</span>
+                                </div>
+                                <div class="d-flex align-items-center">
+                                    <span class="itty font1 fecha">{{obtenerFecha(notificacion.comentario.publicacion.created_at)}}</span>
                                 </div>
                             </div>
-                            <div class="d-flex align-items-center">
-                                <span class="itty font1 fecha">{{obtenerFecha(notificacion.comentario.publicacion.created_at)}}</span>
-                            </div>
-                        </div>
-                        <span class="pt-1 pl-2 itty font1">{{ notificacion.comentario.publicacion.texto }}</span>
+                            <span class="pt-1 pl-2 itty font1">{{ notificacion.comentario.publicacion.texto }}</span>
+                        </router-link>
                     </div> 
                 </div>
             </div>
@@ -124,8 +145,12 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="d-flex flex-row">
                             <img class="notification-icon" src="/images/perfil.svg">
-                            <span class="ml-2 mb-1 font1 itty"><router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
-                            @{{ notificacion.user1.username }}</router-link> {{ $t('follow_notification') }}</span>
+                            <span class="ml-2 mb-1 font1 itty">
+                                <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
+                                    <span class="btn-href2">@{{ notificacion.user1.username }}</span>
+                                </router-link>
+                                {{ $t('follow_notification') }}
+                            </span>
                         </div>
                         <button @click="eliminarNotificacion(notificacion.id)" class="btn btn-href pr-0 itty font1">
                             <div class="img-btn"></div>
@@ -139,7 +164,9 @@
                                 </div>
                             </router-link>
                             <div class="d-flex flex-column">
-                                <span class="pl-1 itty font1">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
+                                <router-link :to="{ name: 'usuario.mostrar', params: { username: notificacion.user1.username } }">
+                                    <span class="pl-1 itty font1 btn-href2">{{ notificacion.user1.name }} {{ notificacion.user1.surname }}</span>
+                                </router-link>
                                 <span class="pl-1 itty font2">@{{ notificacion.user1.username }}</span>
                             </div>
                         </div>

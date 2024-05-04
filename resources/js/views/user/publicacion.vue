@@ -337,20 +337,6 @@ const formatearFecha = (fechaPublicacion) => {
     return `Hace ${dias} días`;
   }
 };
-function obtenerFecha(fecha) {
-    // Crear un objeto de fecha a partir de la cadena proporcionada
-    const fechaObjeto = new Date(fecha);
-    
-    // Obtener los componentes de la fecha
-    const horas = fechaObjeto.getHours().toString().padStart(2, '0'); // Añadir ceros a la izquierda si es necesario
-    const minutos = fechaObjeto.getMinutes().toString().padStart(2, '0');
-    const dia = fechaObjeto.getDate().toString().padStart(2, '0');
-    const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // El mes es base 0, por lo que se agrega 1
-    const año = fechaObjeto.getFullYear();
-
-    // Devolver la fecha formateada en el formato deseado
-    return `${horas}:${minutos} ${dia}/${mes}/${año}`;
-}
 
 const enviarNotificacion = (publicacion, contenido, tipo) => {
     const remitente = usuarioActual.value.id;

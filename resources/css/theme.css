@@ -92,7 +92,7 @@ li:hover .logo-sidebar-7{
 
 @media (max-width: 1200px){
     .mainPrincipal{
-        margin-bottom: 90px;
+        margin-bottom: 80px;
     }
 }
 .title-target {
@@ -104,6 +104,10 @@ li:hover .logo-sidebar-7{
         color: var(--gray-800);
     }
     .btn-href:hover {
+        text-decoration: underline !important;
+    }
+
+    .btn-href2:hover {
         text-decoration: underline !important;
     }
 
@@ -200,6 +204,65 @@ li:hover .logo-sidebar-7{
     background-position: center;
 }
 
+.img-btn-edit-profile{
+    width: 30px;
+    height: 30px;
+    background-image: url(/public/images/edit.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.img-btn-seguir-profile{
+    width: 30px;
+    height: 30px;
+    background-image: url(/public/images/perfil.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.img-btn-dejarseguir-profile{
+    width: 30px;
+    height: 30px;
+    background-image: url(/public/images/perfil_hover.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.img-btn-chat-profile {
+    width: 30px;
+    height: 30px;
+    background-image: url(/public/images/mensajes.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.img-btn-chat-profile:hover {
+    background-image: url(/public/images/mensajes_hover.svg);
+}
+
+.img-btn-edit-profile:hover{
+    background-image: url(/public/images/edit_hover.svg);
+}
+@media (max-width: 600px){
+    .img-btn-chat-profile {
+        width: 20px;
+        height: 20px;;
+    }
+    .img-btn-seguir-profile{
+        width: 20px;
+        height: 20px;
+    }
+    
+    .img-btn-dejarseguir-profile{
+        width: 20px;
+        height: 20px;
+    }
+    .img-btn-edit-profile{
+        width: 20px;
+        height: 20px;
+    }
+}
+
 .img-btn:hover, .img-btn:hover delete-btn{
     background-image: url(/public/images/paperbin_hover.svg);
 }
@@ -267,6 +330,18 @@ h2{
 }
 
 /*Tamaño font*/
+.font-title {
+    font-size: 2rem;
+}
+
+.font-info {
+    font-size: 1.6rem;
+}
+
+.font-standard{
+    font-size: 1.4rem;
+}
+
 .font1 {
     font-size: 1.5rem;
 }
@@ -389,6 +464,7 @@ align-self: flex-end;
 .card-post{
     box-shadow: 4px 4px 8px rgba(0, 0, 0, 0.2);
     width: 55%;
+    max-width: 800px;
 }
 
 @media (max-width: 1200px){
@@ -418,6 +494,8 @@ align-self: flex-end;
 }
 .contenedor-img-perfil-grande{
     overflow: hidden;
+    min-height: 120px;
+    min-width: 120px;
     height: 120px;
     width: 120px;
     display: flex;

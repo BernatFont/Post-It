@@ -162,7 +162,6 @@ const obtenerNotificaciones = () => {
     axios.get('/api/notificaciones/contador/')
         .then(response => {
             notificaciones.value = response.data;
-            console.log(notificaciones.value.numNotificaciones);
         })
         .catch(error => {
             console.error('Error al obtener las notificaciones:', error);

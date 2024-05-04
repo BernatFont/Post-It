@@ -36,7 +36,7 @@
     "notifications": "Notificaciones",
     "messages": "Mensajes",
     "user": "Perfil",
-    "settings": "Configuracion",
+    "settings": "Configuración",
     "logout": "Cerrar Sesión",
     "username": "Nombre de usuario",
     "surname": "Apellido",
@@ -82,5 +82,6 @@
     "no_published": "No publicado",
     "write": "Escribe aquí...",
     "color_post": "Color de los Post",
-    "apply_changes": "Aplicar cambios"
+    "apply_changes": "Aplicar cambios",
+    "admin_panel": "Panel de Admin"
 }   
