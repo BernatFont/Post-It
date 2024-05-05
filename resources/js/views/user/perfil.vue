@@ -12,7 +12,7 @@
                     <router-link :to="{ name: 'panelControl'}">
                         <div class="container-boton w-100 mr-5">
                             <div class="sticky-btn-sticker bg-3c"></div>
-                            <button class="btnSticky sticky-btn-1 itty bg-3" :disabled="processing">{{ $t('admin_panel') }}</button>
+                            <button class="btnSticky sticky-btn-1 itty bg-3">{{ $t('admin_panel') }}</button>
                         </div>
                     </router-link>
                 </div>
@@ -36,22 +36,22 @@
                                 <span class="font-info">@{{usuario.username}}</span> <!--Username-->
                             </div>
                         </div>
-                        <div class="d-flex flex-row">
+                        <div class="botones-perfil">
                             <div v-if="usuario.id !== userLogin.id" @click="chat">
                                 <!--Contenedor de boton del chat-->
-                                <div class="mx-3" >
+                                <div class="mt-2 mx-3" >
                                     <div class="img-btn-chat-profile"></div>
                                 </div>
                             </div>
                             <div>
                                 <!--Contenedor de modificar perfil de usuario-->
                                 <router-link v-if="usuario.id === userLogin.id" :to="{ name: 'perfil.modificar', params: { username: usuario.username }}">
-                                    <div class="mx-3" >
+                                    <div class="mt-2 mx-3" >
                                         <div class="img-btn-edit-profile"></div>
                                     </div>
                                 </router-link>
                             </div> 
-                            <div v-if="usuario.id !== userLogin.id">
+                            <div class="mt-2" v-if="usuario.id !== userLogin.id">
                                 <!--Contenedor Boton seguir y dejar de seguir-->
                                 <div v-if="!seguidorUsuarioActual" @click="seguir">
                                     <div class="mx-3" >
@@ -64,7 +64,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div v-if="usuario.id !== userLogin.id">
+                            <div class="mt-2" v-if="usuario.id !== userLogin.id">
                                 <!--Contenedor Boton bloquar y desbloquar-->
                                 <div v-if="!bloquearUsuarioActual" @click="bloquear">
                                     <div class="mx-3" >
@@ -79,11 +79,11 @@
                             </div>
                         </div>
                     </div>
-                    <div class="mt-3 d-flex flex-column font-standard">
-                        <span> {{usuario.biography}}</span>
+                    <div class="mt-3 d-flex flex-column font-standard" >
+                        <span v-if="usuario.biography !== null"> {{usuario.biography}}</span>
                         <div class="mt-3 d-flex flex-column">
-                            <span class="opacity-75">Fecha de nacimiento: {{obtenerFecha(usuario.birth_date)}}</span>
-                            <span class="opacity-75">Se unio el {{obtenerFecha(usuario.created_at)}}</span>
+                            <span v-if="usuario.birth_date !== null" class="opacity-75">{{$t('birth_date')}}: {{obtenerFecha(usuario.birth_date)}}</span>
+                            <span class="opacity-75">{{$t('join_date')}} {{obtenerFecha(usuario.created_at)}}</span>
                             <div class="mt-3">
                                 <router-link class="btn-href2" :to="{name: 'usuario.seguidos'}">{{usuario.seguidos_count}} {{ $t('seguidos')}} </router-link> <!--Seguidos-->
                                 <router-link class="btn-href2 ml-3" :to="{name: 'usuario.seguidores'}">{{usuario.seguidores_count}} {{ $t('seguidores')}}  </router-link> <!--Seguidores-->
@@ -92,52 +92,56 @@
                     </div>   
                 </div>
             </div>
-            <!-- Publicaciones del usuario-->
-            <div class="">
-                <div class="" >
-                    <div class="d-flex flex-column">
-                        <!-- Contenedor de una publicacion-->
-                        <div v-for="publicacion in usuario.publicaciones" :key="publicacion.id" class="publicacion-perfil-container mb-5" :class="bgClass(usuario.style), rotate(publicacion.rotation), position(2)">
-                            <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
-                                <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                                    <div class="d-flex">
-                                        <div class="contenedor-img-perfil">
-                                            <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="img-perfil">
-                                        </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <span class="pl-1 itty font1">{{ usuario.name }} {{ usuario.surname }}</span>
-                                            <span class="itty px20">@{{ usuario.username }}</span>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="d-flex justify-content-center">
-                                        <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="">
-                                    </div>
-                                    <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
-                                </div> 
-                                <div v-if="publicacion.texto.length > 1" class="px-3 py-2 card-post-text">
-                                    <span class="itty px20">{{publicacion.texto}}</span>
-                                </div>    
-                                <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
-                                    <img src="/images/celo.png" alt="" class="celo">
-                                    <!-- El interrogante se usa por si no hay imagen en el post, que no pete -->
-                                    <img class="img_post" :src="publicacion.media[0]?.original_url" alt="">
+            <!-- Publicaciones del usuario *Si el usuario esta bloqueado no se muestran*-->
+            <div v-if="usuario.publicaciones && usuario.bloqueado[0]?.id !== userLogin.id" class="d-flex flex-column">
+                <!-- Contenedor de una publicacion-->
+                <div v-for="(publicacion, index) in usuario.publicaciones" :key="publicacion.id" class="publicacion-perfil-container mb-5" :class="[bgClass(usuario.style), rotate(publicacion.rotation), position(2)]">
+                    <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
+                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                            <div class="d-flex">
+                                <div class="contenedor-img-perfil">
+                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="" class="img-perfil">
                                 </div>
-                                <!-- Boton Like y comentario -->
-                                <div class="card-post-bottom d-flex">
-                                    <div class="d-flex align-items-center cursor-pointer" @click.prevent="like(publicacion)">
-                                        <div class="pi p-3">
-                                            <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
-                                            <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
-                                        </div>
-                                        <span class="itty number-of">{{ publicacion.likes.length }}</span>
-                                    </div>
-                                    <div class="d-flex align-items-center justify-content-center">
-                                        <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios.length}}</span>
-                                    </div>   
+                                <div class="d-flex flex-column justify-content-center">
+                                    <span class="pl-1 itty font1">{{ usuario.name }} {{ usuario.surname }}</span>
+                                    <span class="itty px20">@{{ usuario.username }}</span>
                                 </div>
-                            </router-link>
+                            </div>
+                            
+                            <div class="d-flex justify-content-center">
+                                <img class="soporte" :src="index % 2 === 0 ? '/images/xinxeta.png' : '/images/celo.png'" :style="{transform: index % 2 === 0 ? 'rotate(0deg)' : 'rotate(175deg)'}" alt="">
+                            </div>
+                            <span class="pe-3">{{ formatearFecha(publicacion.created_at) }}</span>
+                        </div> 
+                        <div v-if="publicacion.texto.length > 1" class="px-3 py-2 card-post-text">
+                            <span class="itty px20">{{publicacion.texto}}</span>
+                        </div>    
+                        <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
+                            <img src="/images/celo.png" alt="" class="celo">
+                            <!-- El interrogante se usa por si no hay imagen en el post, que no pete -->
+                            <img class="img_post" :src="publicacion.media[0]?.original_url" alt="">
                         </div>
+                        <!-- Boton Like y comentario -->
+                        <div class="card-post-bottom d-flex">
+                            <div class="d-flex align-items-center cursor-pointer" @click.prevent="like(publicacion)">
+                                <div class="pi p-3">
+                                    <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                                    <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                                </div>
+                                <span class="itty number-of">{{ publicacion.likes.length }}</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center">
+                                <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios.length}}</span>
+                            </div>   
+                        </div>
+                    </router-link>
+                </div>
+            </div>
+            <div v-else>
+                <!-- En caso de que el usuario le ha bloqueado -->
+                <div class="d-flex justify-content-center align-items-center">
+                    <div class="textContent chatContainer d-flex justify-content-center">
+                        <span>{{$t('block_message')}}</span>
                     </div>
                 </div>
             </div>
@@ -227,7 +231,6 @@ const bloquear = () => {
 
 const comprobarBloqueado = () => {
     if (usuario.value && userLogin.value) {
-        console.log(userLogin.value)
         const bloqueados = usuario.value.bloqueados.map(bloqueado => bloqueado.id);
         return bloquearUsuarioActual.value = bloqueados.includes(userLogin.value.id);
     } else {
@@ -440,6 +443,11 @@ const enviarNotificacion = (usuario, tipo) => {
     width: 65%;
     max-width: 900px;
 }
+
+.botones-perfil {
+    display: flex;
+    flex-direction: row;
+}
 @media (max-width: 1000px){
     .publicacion-perfil-container{
         width: 80%;
@@ -447,12 +455,17 @@ const enviarNotificacion = (usuario, tipo) => {
     .celo {
         top: 3%;
     }
+    .botones-perfil {
+        display: flex;
+        flex-direction: column;
+    }
 }
 
 @media (max-width: 800px){
     .publicacion-perfil-container{
         width: 100%;
     }
+    
 }
 @media (max-width: 600px){
     .celo {

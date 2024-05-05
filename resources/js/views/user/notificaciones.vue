@@ -1,12 +1,19 @@
 <template>
     <div class="topbar-container bg-v2 ">
-        <div class="d-flex justify-content-between topbar-title">
-            <div class="itty col-8 pl-5 ">
+        <div class="d-flex align-items-center topbar-title">
+            <div class="itty col-7 pl-5">
                 <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
                 <span class="pt-2 title-target">{{$t('notifications')}}</span>
             </div>
-            <div class="target-value">
-                <span class="itty">{{notificaciones.length}}</span>
+            <div class="botones-notificaciones col-5 ">
+                <!-- Boton para eliminar todas las notificacione -->
+                <div @click="eliminarNotificaciones(notificaciones[0]?.id_destinatario)" class="btn btn-href pr-0 itty font1 d-flex flex-row align-items-center mr-3">
+                    <span class="delete-responsive">{{ $t('delete_all') }}</span>
+                    <div class="img-btn"></div>
+                </div>
+                <div class="target-value">
+                    <span class="itty">{{notificaciones.length}}</span>
+                </div>
             </div>
             
         </div>
@@ -247,6 +254,7 @@ function obtenerFecha(fecha) {
     return `${dia}/${mes}/${año}`;
 }
 
+// Elimina una notificacio
 const eliminarNotificacion = (idNotificacion) => {
     swal({
         title: '¿Estás seguro?',
@@ -270,13 +278,44 @@ const eliminarNotificacion = (idNotificacion) => {
             })
         }
     })
-    
-        
+}
+
+// Eliminar todas las notificaciones
+const eliminarNotificaciones = (idDestinatario) => {
+    swal({
+        title: '¿Estás seguro?',
+        icon: 'warning',
+        showCancelButton: true
+    }).then((result)=>{
+        if (result.isConfirmed) {
+            axios.delete('/api/notificacion/deleteAll/' + idDestinatario)
+            .then(response => {
+                console.log("Todas las notificaciones han sido eliminadas con exito");
+                obtenerNotificaciones();
+            })
+            .catch(error => {
+                console.error("Error al eliminar la notificacion:", error);
+            }); 
+            swal({
+                title: 'Notificaciones eliminadas correctamente',
+                icon: 'success',
+                showConfirmButton: false,
+                timer: 1500
+            })
+        }
+    })
 }
 
 </script>
 
 <style>
+    .botones-notificaciones {
+        width: auto;
+        margin-left: auto;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
     .type-notification {
         margin-bottom: 5px;
     }  
@@ -294,4 +333,13 @@ const eliminarNotificacion = (idNotificacion) => {
         margin-bottom: 10px;
     }
 
+    .delete-responsive {
+        display: block;
+    }
+
+    @media(max-width: 600px) {
+        .delete-responsive {
+            display: none;
+        }
+    }
 </style>

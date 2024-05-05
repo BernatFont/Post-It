@@ -57,6 +57,7 @@ Route::get('/notificaciones', [NotificacionController::class, 'index']); // Obte
 Route::get('/notificaciones/contador',[NotificacionController::class, 'numNotificaciones']); // Obtener numero de notificaciones
 Route::post('/notificacion', [NotificacionController::class, 'store']); // Crear notificacion
 Route::delete('/notificacion/delete/{id}', [NotificacionController::class, 'destroy']); // Eliminar notificacion
+Route::delete('/notificacion/deleteAll/{id}', [NotificacionController::class, 'eliminarNotificacionesUsuario']); // Eliminar notificacion
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);

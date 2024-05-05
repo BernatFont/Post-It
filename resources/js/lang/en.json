@@ -85,8 +85,11 @@
     "limit_characters": "Limit of Characters. Max: 300",
     "limit_characters_255": "Limit of Characters. Max: 255",
     "no_published": "Not published",
-    "write": "Write here...",
+    "write": "Write a comment...",
     "color_post": "Post Color",
     "apply_changes": "Apply Changes",
-    "admin_panel": "Admin Panel"
+    "admin_panel": "Admin Panel",
+    "block_message": "You cannot see this user's posts because they have blocked you",
+    "join_date": "Joined on",
+    "delete_all": "Delete All"
 }

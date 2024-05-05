@@ -60,8 +60,8 @@
                     </div>
                 </div>
             </div>
-            <div class="">
-                <div class=""> <!--Seccion donde escribir un comentario -->
+            <div class="d-flex flex-column justify-content-center align-items-center">
+                <div class="contenedor60"> <!--Seccion donde escribir un comentario -->
                     <form class="formularioMensaje d-flex justify-content-center align-items-center"  @submit.prevent="addComentario(comentario.contenido, publicacion)"> <!-- Formulario para escribir un nuevo mensaje -->
                         <div class="contenedor-sendmsg-2 d-flex justify-content-center align-items-center">
                             <div class="px-3 py-2 card-post-text w-100">
@@ -71,32 +71,32 @@
                         </div>
                         <div class="botonEnviar-contenedor">
                             <div class="sticky-btn-sticker bg-3c"></div>
-                            <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('publish') }}</button>
+                            <button type="submit" class="btnSticky sticky-btn-1 font1 bg-3 itty">{{ $t('publish') }}</button>
                         </div>
                     </form>    
                 </div>
                 <!--Seccion donde mostrar los comentarios -->
-                <div v-for="comentario in publicacion.comentarios" class="comments mb-3 p-5"> 
+                <div v-for="comentario in publicacion.comentarios" class="contenedor60 comments my-3 p-5"> 
                     <div class="d-flex justify-content-between align-items-center mb-2">
-                            <div class="d-flex align-items-center">
-                                <router-link :to="{ name: 'usuario.mostrar', params: { username: comentario.user.username } }">
-                                    <div class="contenedor-img-perfil">
-                                        <img :src="comentario.user.media[0]?.original_url ? comentario.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
-                                    </div>
-                                </router-link>
-                                <div class="ms-3 d-flex flex-column">
-                                    <span class="itty">{{ comentario.user.name }}{{ comentario.user.surname }}</span>
-                                    <span>@{{ comentario.user.username }}</span>
+                        <div class="d-flex align-items-center">
+                            <router-link :to="{ name: 'usuario.mostrar', params: { username: comentario.user.username } }">
+                                <div class="contenedor-img-perfil">
+                                    <img :src="comentario.user.media[0]?.original_url ? comentario.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                                 </div>
+                            </router-link>
+                            <div class="ms-3 d-flex flex-column">
+                                <span class="font1">{{ comentario.user.name }} {{ comentario.user.surname }}</span>
+                                <span class="font2">@{{ comentario.user.username }}</span>
                             </div>
-                        <span>{{ formatearFecha(comentario.created_at) }}</span>
-                    </div>
-                    <div class="mb-2">{{ comentario.contenido }}</div>
-                    <div class="d-flex justify-content-end">
-                        <div @click="eliminarComentario(comentario.id)">
-                            <div class="img-btn"></div>
+                        </div>
+                        <div class="d-flex justify-content-center align-items-center">
+                            <span class="font2">{{ formatearFecha(comentario.created_at) }} </span>
+                            <div class="ml-3"  @click="eliminarComentario(comentario.id)">
+                                <div class="img-btn"></div>
+                            </div>
                         </div>
                     </div>
+                    <div class="my-3 font1">{{ comentario.contenido }}</div>
                 </div>
             </div>
         </div>
@@ -105,7 +105,9 @@
 </template>
 
 <style>
-
+    .contenedor60{
+        width: 60%;
+    }
     .btn-eliminar {
         width: 100%;
         text-align: center;
@@ -152,6 +154,7 @@
         width: 100%;
         margin-top: 20px;
         height: 200px;
+        filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.1));
     }
 
     .textarea{
@@ -173,10 +176,13 @@
     }
 
     .botonEnviar-contenedor {
+        margin-left: auto;
         display: flex;
-        margin-top: 20px;
-        width: 25%;
-        height: 70px;
+        margin-top: 0px;
+        width: 30%;
+        height: 55px;
+        margin-bottom: 20px;
+        filter: drop-shadow(1px 4px 4px rgba(0, 0, 0, 0.10));
     }
 
     .formularioMensaje {
@@ -186,6 +192,9 @@
 
 @media (max-width: 1200px){
 
+    .contenedor60{
+        width: 80%;
+    }
     .contenedor-sendmsg-2 {
         background-image: url(/images/papel-comment.svg);
         background-size: cover;
@@ -203,11 +212,8 @@
     }
 
     .botonEnviar-contenedor {
-        display: flex;
-        margin-top: 20px;
-        width: 50%;
-        height: auto;
-        margin-bottom: 20px;
+        width: 100%;
+        margin-top: -30px;
     }
 }
 

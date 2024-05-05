@@ -80,8 +80,11 @@
     "limit_characters": "Limite de caracteres. Max: 300",
     "limit_characters_255": "Limite de caracteres. Max: 255",
     "no_published": "No publicado",
-    "write": "Escribe aquí...",
+    "write": "Escribir un comentario...",
     "color_post": "Color de los Post",
     "apply_changes": "Aplicar cambios",
-    "admin_panel": "Panel de Admin"
+    "admin_panel": "Panel de Admin",
+    "block_message": "No puedes ver las publicaciones de este usuario porque te ha bloqueado",
+    "join_date": "Se unio el",
+    "delete_all": "Eliminar todo"
 }   
