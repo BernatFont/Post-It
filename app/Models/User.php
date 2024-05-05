@@ -84,6 +84,26 @@ class User extends Authenticatable implements HasMedia
         );
     }
 
+    public function bloqueados() {
+        // Relación que obtiene los usuarios que han bloqueado al usuario actual.
+        return $this->hasManyThrough(User::class, Bloqueado::class,
+            'id_usuario_bloqueado', // Clave foránea de la tabla intermedia Blqqueado
+            'id', // Clave primaria de la tabla de usuarios
+            'id', // Clave primaria local en el modelo de usuario
+            'id_usuario' // Clave foránea local en el modelo de usuario
+        );
+    }
+
+    public function bloqueado() {
+        // Relación que obtiene los usuarios bloqueados por el usuario a través de la tabla intermedia Bloqueados.
+        return $this->hasManyThrough(User::class, Bloqueado::class,
+            'id_usuario', // Clave foránea local en la tabla intermedia Bloqueado
+            'id', // Clave primaria de la tabla de usuarios
+            'id', // Clave primaria local en el modelo de usuario
+            'id_usuario_bloqueado' // Clave foránea en la tabla de usuarios Bloqueado
+        );
+    }
+
     public function publicaciones()
     {
         return $this->hasMany(Publicacion::class, 'id_usuario');

@@ -11,6 +11,7 @@ use App\Http\Controllers\Api\PublicacionController;
 use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ComentarioController;
 use App\Http\Controllers\Api\SeguidoController;
+use App\Http\Controllers\Api\BloqueadoController;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\MensajeController;
 use App\Http\Controllers\Api\NotificacionController;
@@ -47,6 +48,7 @@ Route::delete('usuarios/{user}', [UserController::class, 'destroy']);// Elimina 
 Route::get('/chats', [ChatController::class, 'index']); // Obtener todos los chat
 Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']); // Obtener conversacion deu n chat
 Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
+Route::post('/block/{id}', [BloqueadoController::class, 'store']); // Bloquear usuario
 Route::post('/chat/{id}', [ChatController::class, 'store']); // Crear chat
 Route::get('/chat/mensajes/{id}', [MensajeController::class, 'index']); // Obtener mensajes de un chat
 Route::post('/chat/mensajes/{id}', [MensajeController::class, 'store']); // Añadir mensaje al chat

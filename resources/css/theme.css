@@ -228,6 +228,22 @@ li:hover .logo-sidebar-7{
     background-position: center;
 }
 
+.img-btn-block-profile{
+    width: 30px;
+    height: 30px;
+    background-image: url(/public/images/block.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.img-btn-unblock-profile{
+    width: 30px;
+    height: 30px;
+    background-image: url(/public/images/block_hover.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
 .img-btn-chat-profile {
     width: 30px;
     height: 30px;
@@ -258,6 +274,16 @@ li:hover .logo-sidebar-7{
         height: 20px;
     }
     .img-btn-edit-profile{
+        width: 20px;
+        height: 20px;
+    }
+
+    .img-btn-block-profile{
+        width: 20px;
+        height: 20px;
+    }
+    
+    .img-btn-unblock-profile{
         width: 20px;
         height: 20px;
     }

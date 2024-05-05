@@ -64,6 +64,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div v-if="usuario.id !== userLogin.id">
+                                <!--Contenedor Boton bloquar y desbloquar-->
+                                <div v-if="!bloquearUsuarioActual" @click="bloquear">
+                                    <div class="mx-3" >
+                                        <div class="img-btn-seguir-profile"></div>
+                                    </div>     
+                                </div>
+                                <div v-else-if="bloquearUsuarioActual" @click="bloquear">
+                                    <div class="mx-3" >
+                                        <div class="img-btn-dejarseguir-profile"></div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="mt-3 d-flex flex-column font-standard">
@@ -146,6 +159,7 @@ const userLogin = computed(() => store.state.auth.user); // Usuario que tiene in
 const username = route.params.username; // Obtiene el usuario por la ruta
 const usuario = ref(null);
 const seguidorUsuarioActual = ref(false);
+const bloquearUsuarioActual = ref(false);
 const selectedStyle = ref(1);
 
 onMounted(() => {
@@ -161,6 +175,7 @@ const obtenerUsuario = () => {
             selectedStyle.value = usuario.value.style;
             console.log(usuario.value);
             comprobarSeguido();
+            comprobarBloqueado();
     })
     .catch(error => {
             console.error('Error al cargar los datos del usuario:', error);
@@ -192,6 +207,29 @@ const comprobarSeguido = () => {
     if (usuario.value && userLogin.value) {
         const seguidores = usuario.value.seguidores.map(seguidor => seguidor.id);
         return seguidorUsuarioActual.value = seguidores.includes(userLogin.value.id);
+    } else {
+        return false;
+    }
+};
+
+const bloquear = () => {
+    axios.post('/api/block/' + usuario.value.id)
+    
+    .then(response => {
+        console.log("Bloquear");
+        comprobarBloqueado();
+        obtenerUsuario();
+    })
+    .catch(error => {
+        console.error('Error al bloquear al usuario:', error);
+    });
+}
+
+const comprobarBloqueado = () => {
+    if (usuario.value && userLogin.value) {
+        console.log(userLogin.value)
+        const bloqueados = usuario.value.bloqueados.map(bloqueado => bloqueado.id);
+        return bloquearUsuarioActual.value = bloqueados.includes(userLogin.value.id);
     } else {
         return false;
     }

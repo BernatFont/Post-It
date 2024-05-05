@@ -59,13 +59,16 @@
                         <label for="birth">{{$t('birth_date')}}</label>
                         <input type="date" id="birth" v-model="usuario.birth_date">
                     </div>
-                    <div class="py-5 colores d-flex">
-                        <button @click="updateStyle(1)" class="color1"><i v-if="usuario.style == 1" class="pi pi-check"></i></button>
-                        <button @click="updateStyle(2)" class="color2"><i v-if="usuario.style == 2" class="pi pi-check"></i></button>
-                        <button @click="updateStyle(3)" class="color3"><i v-if="usuario.style == 3" class="pi pi-check"></i></button>
-                        <button @click="updateStyle(4)" class="color4"><i v-if="usuario.style == 4" class="pi pi-check"></i></button>
-                        <button @click="updateStyle(5)" class="color5"><i v-if="usuario.style == 5" class="pi pi-check"></i></button>
-                        <button @click="updateStyle(6)" class="color6"><i v-if="usuario.style == 6" class="pi pi-check"></i></button>
+                    <div class="form-group">
+                        <label>{{$t('color_post')}}: </label>
+                        <div class=" colores d-flex">
+                            <button @click="updateStyle(1)" class="color1"><i v-if="usuario.style == 1" class="pi pi-check"></i></button>
+                            <button @click="updateStyle(2)" class="color2"><i v-if="usuario.style == 2" class="pi pi-check"></i></button>
+                            <button @click="updateStyle(3)" class="color3"><i v-if="usuario.style == 3" class="pi pi-check"></i></button>
+                            <button @click="updateStyle(4)" class="color4"><i v-if="usuario.style == 4" class="pi pi-check"></i></button>
+                            <button @click="updateStyle(5)" class="color5"><i v-if="usuario.style == 5" class="pi pi-check"></i></button>
+                            <button @click="updateStyle(6)" class="color6"><i v-if="usuario.style == 6" class="pi pi-check"></i></button>
+                        </div>
                     </div>
                     <div class="container-boton mt-5">
                         <div class="sticky-btn-sticker bg-3c"></div>

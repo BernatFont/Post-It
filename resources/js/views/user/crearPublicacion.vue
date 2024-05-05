@@ -11,43 +11,41 @@
         <div class="content-view">
             <form class="container-width-createpost" @submit.prevent="addPublicacion">
                 <div class="container-createpost" :class="bgClass()">
-                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                            <div v-if="usuario" class="d-flex">
-                                <div class="contenedor-img-perfil">
-                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
-                                </div>                         
-                                <div class="d-flex flex-column justify-content-center">
-                                    <span>{{ user.name }} {{ user.surname }}</span>
-                                    <span>@{{ user.username}}</span>
-                                </div>
+                    <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                        <div v-if="usuario" class="d-flex">
+                            <div class="contenedor-img-perfil">
+                                <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                            </div>                         
+                            <div class="d-flex flex-column justify-content-center">
+                                <span class="font1">{{ user.name }} {{ user.surname }}</span>
+                                <span class="font2">@{{ user.username}}</span>
                             </div>
-                            <span class="mr-4">{{ $t('no_published')}}</span>
                         </div>
-                        <div class="px-3 py-2 card-post-text w-100">
-                            <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
-                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
+                        <span class="mr-4 font2">{{ $t('no_published')}}</span>
+                    </div>
+                    <div class="px-3 py-2 card-post-text w-100">
+                        <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
+                        <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
+                    </div>
+                    <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
+                        <img class="pl-5 pr-5" :src="imageUrl" alt="">
+                    </div>
+                    <div class="card-post-bottom d-flex">
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="/images/like.svg" alt="Boton de Like" class="mx-3 corazon-img"><span class="itty number-of"> 0</span>
                         </div>
-                        <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
-                            <img class="pl-5 pr-5" :src="imageUrl" alt="">
-                        </div>
-                        <div class="card-post-bottom d-flex">
-                            <div class="d-flex align-items-center">
-                                <i class="pi pi-heart p-3"></i><span>0</span>
-                            </div>
-                            <div class="d-flex align-items-center">
-                                <i class="pi pi-comment p-3"></i><span>0</span>
-                            </div>  
-                        </div>
+                        <div class="d-flex align-items-center justify-content-center">
+                            <img src="/images/comentarios.svg" alt="Boton de Comentarios" class="mx-3 comment-icon"><span class="itty number-of"> 0</span>
+                        </div>   
+                    </div>
                 </div>
-                <div class="section-options-createpost">
-                    
+                <div class="section-options-createpost"> 
                     <div class="container-boton" v-if="!imageSelected">
                         <div class="sticky-btn-sticker bg-2c"></div>
                         <div class="btnSticky sticky-btn-1 bg-2 itty cursor-pointer">
                             <label for="file-upload">{{ $t('upload_image')}}</label>
                             <input type="file" id="file-upload" @change="onFileChange">
-                        </div>
-                        
+                        </div> 
                     </div>
                     <div class="container-boton" v-if="imageSelected">
                         <div class="sticky-btn-sticker bg-2c"></div>
@@ -110,6 +108,12 @@
         display: none;
     }
 
+    .corazon-img{
+        height: 20px;
+    }
+    .comment-icon{
+        height: 22px;
+    }
 @media (max-width: 1200px){
     .container-width-createpost {
         width: 80%;

@@ -31,12 +31,12 @@
                             <img :src="publicacion.media[0]?.original_url ? publicacion.media[0].original_url : ''" alt="Imagen de la publicacion" class="pl-5 pr-5">
                         </div>
                         <div class="card-post-bottom d-flex">
-                            <div class="d-flex align-items-center">
-                                <i class="pi pi-heart p-3"></i><span>{{ publicacion.likes_count }}</span>
+                            <div class="pi p-3">
+                                <img src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
                             </div>
-                            <div class="d-flex align-items-center">
-                                <i class="pi pi-comment p-3"></i><span>{{ publicacion.comentarios_count }}</span>
-                            </div>  
+                            <div class="d-flex align-items-center justify-content-center"><span class="itty number-of">{{publicacion.likes_count}}</span>
+                                <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
+                            </div>   
                         </div>
                 </div>
                 <div class="section-options-createpost">
@@ -237,9 +237,14 @@ onMounted(() => {
         padding: 0;
         padding-top: 1rem;
         padding-left: 1rem;
-        color:
     }
 
+    .corazon-img{
+        height: 20px;
+    }
+    .comment-icon{
+        height: 22px;
+    }
 @media (max-width: 1200px){
     .container-width-createpost {
         width: 80%;
