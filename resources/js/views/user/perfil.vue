@@ -68,12 +68,12 @@
                                 <!--Contenedor Boton bloquar y desbloquar-->
                                 <div v-if="!bloquearUsuarioActual" @click="bloquear">
                                     <div class="mx-3" >
-                                        <div class="img-btn-seguir-profile"></div>
+                                        <div class="img-btn-block-profile"></div>
                                     </div>     
                                 </div>
                                 <div v-else-if="bloquearUsuarioActual" @click="bloquear">
                                     <div class="mx-3" >
-                                        <div class="img-btn-dejarseguir-profile"></div>
+                                        <div class="img-btn-unblock-profile"></div>
                                     </div>
                                 </div>
                             </div>
@@ -82,8 +82,8 @@
                     <div class="mt-3 d-flex flex-column font-standard" >
                         <span v-if="usuario.biography !== null"> {{usuario.biography}}</span>
                         <div class="mt-3 d-flex flex-column">
-                            <span v-if="usuario.birth_date !== null" class="opacity-75">{{$t('birth_date')}}: {{obtenerFecha(usuario.birth_date)}}</span>
-                            <span class="opacity-75">{{$t('join_date')}} {{obtenerFecha(usuario.created_at)}}</span>
+                            <span v-if="usuario.birth_date !== null" class="opacity-75 font2">{{$t('birth_date')}}: {{obtenerFecha(usuario.birth_date)}}</span>
+                            <span class="opacity-75 font2">{{$t('join_date')}} {{obtenerFecha(usuario.created_at)}}</span>
                             <div class="mt-3">
                                 <router-link class="btn-href2" :to="{name: 'usuario.seguidos'}">{{usuario.seguidos_count}} {{ $t('seguidos')}} </router-link> <!--Seguidos-->
                                 <router-link class="btn-href2 ml-3" :to="{name: 'usuario.seguidores'}">{{usuario.seguidores_count}} {{ $t('seguidores')}}  </router-link> <!--Seguidores-->

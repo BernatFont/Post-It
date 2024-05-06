@@ -266,16 +266,22 @@ const eliminarNotificacion = (idNotificacion) => {
             .then(response => {
                 console.log("Notificacion eliminada con exito");
                 obtenerNotificaciones();
+                swal({
+                    title: 'Eliminado correctamente',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(error => {
                 console.error("Error al eliminar la notificacion:", error);
+                swal({
+                    title: 'Ha ocurrido un error',
+                    icon: 'error',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             }); 
-            swal({
-                title: 'Eliminado correctamente',
-                icon: 'success',
-                showConfirmButton: false,
-                timer: 1500
-            })
         }
     })
 }

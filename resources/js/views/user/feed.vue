@@ -2,7 +2,7 @@
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between align-items-center topbar-title col-12">
             <span class="pt-2 itty pl-5 title-target">{{$t('home_name')}}</span>
-            <div class="">
+            <div>
                 <!-- Agregar un botón para cambiar el filtro -->
                 <div @click="toggleFiltro" class="font1 btn-filtro">{{ filtroActivo ? 'Mostrar Todas' : 'Mostrar Seguidos' }}</div>
             </div>
@@ -89,7 +89,9 @@ const obtenerPublicaciones = () => {
         // Filtra las publicaciones segun el filtro activo
         if (filtroActivo.value) {
             publicaciones.value = publicacionesConLiked.filter(publicacion => {
-                return publicacion.user.seguidores.some(seguidos => seguidos.id === usuarioActual.value.id || publicacion.user.id === usuarioActual.value.id);
+                const esSeguidoPorUsuario = publicacion.user.seguidores.some(seguido => seguido.id === usuarioActual.value.id);
+                const esUsuarioActual = publicacion.user.id === usuarioActual.value.id;
+                return esSeguidoPorUsuario || esUsuarioActual;
             });
         } else {
             publicaciones.value = publicacionesConLiked;

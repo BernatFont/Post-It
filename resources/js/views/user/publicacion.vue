@@ -35,7 +35,7 @@
                     <div class="card-post-bottom d-flex">
                         <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)">
                             <div class="pi p-3">
-                                <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                                <img v-if="comprobarLike(publicacion)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
                                 <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
                             </div>
                             <span class="itty number-of">{{ publicacion.likes_count }}</span>
@@ -104,7 +104,7 @@
         
 </template>
 
-<style>
+<style setup>
     .contenedor60{
         width: 60%;
     }
@@ -221,7 +221,7 @@
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted, computed } from "vue";
+import { inject, ref, onMounted, computed } from "vue";
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
 
@@ -231,7 +231,7 @@ const router = useRouter();
 const id = router.currentRoute.value.params.id; // Obtener el ID de la URL
 const store = useStore(); // Obtenemos la instancia del store de Vuex
 const usuarioActual = computed(() => store.state.auth.user);
-
+const swal = inject('$swal');
 const publicacion = ref(null);
 
 onMounted(() => {
@@ -261,35 +261,84 @@ const addComentario = (contenido, publicacion) => {
             const comentarioId = response.data.data.id;
             obtenerPublicacion();
             enviarNotificacion(publicacion, comentarioId, 1); // Envia la publicacion, el id del comentario recien creado y el tipo de interaccion.
+            swal({
+                    icon: 'success',
+                    title: 'Comentario publicado',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
         }).catch(error => {
+            swal({
+                    icon: 'error',
+                    title: 'Ha ocurrido un error al publicar el comentario',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             console.error("Error al publicar el comentario:", error);
         });
     }
 };
 
 const eliminarComentario = (idComentario) => {
-    if (confirm("¿Estás seguro de que quieres eliminar este comentario?")) {
-        axios.delete('/api/comentario/delete/' + idComentario)
+    swal({
+        title: '¿Estás seguro?',
+        icon: 'warning',
+        showCancelButton: true
+    }).then((result)=>{
+        if (result.isConfirmed) {
+            axios.delete('/api/comentario/delete/' + idComentario)
             .then(response => {
                 console.log("Comentario eliminado exitosamente");
                 obtenerPublicacion();
+                swal({
+                    title: 'Eliminado correctamente',
+                    icon: 'success',
+                    showConfirmButton: false,
+                    timer: 1500
+                })
             })
             .catch(error => {
+                swal({
+                    icon: 'error',
+                    title: 'Ha ocurrido un error al eliminar el comentario',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 console.error("Error al eliminar el comentario:", error);
             });
-    }
+        }
+    })
 }
 const eliminarPublicacion = () => {
-    if (confirm("¿Estás seguro de que quieres eliminar esta publicación?")) {
+    swal({
+        title: '¿Estás seguro?',
+        icon: 'warning',
+        showCancelButton: true
+    }).then((result)=>{
+        if (result.isConfirmed) {
         axios.delete('/api/publicacions/delete/' + id)
             .then(response => {
+                
                 console.log("Publicación eliminada exitosamente");
                 router.push({ name: 'feed' });
+                swal({
+                    icon: 'success',
+                    title: 'Eliminada correctamente',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
             })
             .catch(error => {
+                swal({
+                    icon: 'error',
+                    title: 'Ha ocurrido un error al eliminar la publicación',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
                 console.error("Error al eliminar la publicación:", error);
             });
-    }
+        }
+    })
 };
 
 
@@ -322,7 +371,7 @@ const comprobarLike = (publicacion) => {
 const calcularDiferencia = (fechaPublicacion) => {
   const fechaPublicacionObjeto = new Date(fechaPublicacion);
   const fechaActual = new Date();
-  const diferenciaEnMs = fechaActual - fechaPublicacionObjeto;
+  const diferenciaEnMs = fechaActual - fechaPublicacionObjeto; 
   const diferenciaEnMinutos = Math.floor(diferenciaEnMs / (1000 * 60));
   const diferenciaEnHoras = Math.floor(diferenciaEnMinutos / 60);
   const diferenciaEnDias = Math.floor(diferenciaEnHoras / 24);
