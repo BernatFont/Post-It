@@ -110,5 +110,16 @@ class PublicacionController extends Controller
         return response()->noContent();
     }
     
+    public function filterPosts(Request $request, $filter){
+        $query = Publicacion::query();
+
+        if($filter){
+            $query->where('texto','like', '%' . $filter . '%')
+                  ->with('media', 'user')
+                  ->withCount('likes', 'comentarios');
+        }
+
+        return $query->get();
+    }
 }
 

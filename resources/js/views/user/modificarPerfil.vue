@@ -74,17 +74,6 @@
                         <div class="sticky-btn-sticker bg-3c"></div>
                         <button class="btnSticky sticky-btn-1 bg-3 itty px20" @click="guardarCambios">{{$t('save_changes')}}</button>
                     </div>
-                    <!-- <div v-if="usuario.id === userLogin.id" class="d-flex align-items-center">
-                        <p class="mt-3 me-3 px-3 py-2 itty px20" :class="bgClass(usuario.style)">{{ $t('color_post')}}</p>
-                        <select class="itty px-4 py-2" v-model="selectedStyle" @change="logSelectedStyle">
-                            <option style="background-color: var(--primero);" value="1"><span>1</span></option>
-                            <option style="background-color: var(--segundo);" value="2"><span>2</span></option>
-                            <option style="background-color: var(--tercero);" value="3"><span>3</span></option>
-                            <option style="background-color: var(--cuarto);" value="4"><span>4</span></option>
-                            <option style="background-color: var(--quinto);" value="5"><span>5</span></option>
-                            <option style="background-color: var(--sexto);" value="6"><span>6</span></option>
-                        </select>
-                    </div> -->
                 </div>
              </div>
         </div>

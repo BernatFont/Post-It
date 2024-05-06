@@ -31,6 +31,7 @@ Route::post('publicacions/',[PublicacionController::class,'store']); // Crea una
 Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']); // Muestra una publicacion por id
 Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar publicacion
 Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar publicacion
+Route::get('publicacions/filter/{filter}', [PublicacionController::class, 'filterPosts']); // Eliminar publicacion
 
 Route::post('/like/add/{id}', [LikeController::class, 'store']); // Ejecuta la funcion de like
 

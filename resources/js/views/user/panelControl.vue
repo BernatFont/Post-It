@@ -1,46 +1,90 @@
 <template>
-    <div v-if="usuario">
-        <div v-if="usuario.roles[0]?.name == 'admin'" class="mainPrincipal">
-            <div class="topbar-container bg-v2 ">
-                <div class="d-flex justify-content-between topbar-title">
-                    <span class="pt-2 itty col-8 pl-5 title-target">Panel de control</span>    
+    <div class="topbar-container bg-v2 ">
+        <div class="d-flex justify-content-between topbar-title">
+            <span class="pt-2 itty col-8 pl-5 title-target">Panel de control</span>    
+        </div>
+        <div>
+            <button @click="pageFilter()">BOTON </button>
+        </div>
+    </div>
+    <div v-if="mostrarUsuarios">
+
+        <div id="lista_usuarios" v-if="usuario">
+            <div v-if="usuario.roles[0]?.name == 'admin'" class="mainPrincipal">
+                <div v-if="usuarios" class="w-100">
+                    <div class="datosUsuarios">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>IMG</th>
+                                    <th>Name</th>
+                                    <th>Username</th>
+                                    <th>Birth date</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for="usuario in usuarios">
+                                    <td>{{ usuario.id }}</td>
+                                    <td class="d-flex justify-content-center">
+                                        <div class="contenedor-img-perfil">
+                                            <img class="img-perfil" :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del usuario">
+                                        </div>
+                                    </td>
+                                    <td>{{ usuario.name }}</td>
+                                    <td>{{ usuario.username }}</td>
+                                    <td>{{ usuario.birth_date }}</td>
+                                    <td>
+                                        <router-link :to="{ name: 'perfil.modificar', params: { username: usuario.username }}">
+                                            <button class="btn btn-warning me-3">Modificar</button>
+                                        </router-link>
+                                        <button class="btn btn-danger" @click="eliminarUsuario(usuario.id)">Eliminar</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
-            <div v-if="usuarios" class="w-100">
-                <div class="datosUsuarios">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>IMG</th>
-                                <th>Name</th>
-                                <th>Username</th>
-                                <th>Birth date</th>
-                                <th>Acctions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr v-for="usuario in usuarios">
-                                <td>{{ usuario.id }}</td>
-                                <td class="d-flex justify-content-center">
-                                    <div class="contenedor-img-perfil">
-                                        <img class="img-perfil" :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="imagen del usuario">
-                                    </div>
-                                </td>
-                                <td>{{ usuario.name }}</td>
-                                <td>{{ usuario.username }}</td>
-                                <td>{{ usuario.birth_date }}</td>
-                                <td>
-                                    <router-link :to="{ name: 'perfil.modificar', params: { username: usuario.username }}">
-                                        <button class="btn btn-warning me-3">Modificar</button>
-                                    </router-link>
-                                    <button class="btn btn-danger" @click="eliminarUsuario(usuario.id)">Eliminar</button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+        </div>
+    </div>
+    <div v-else id="lista_posts">
+        <div class="mainPrincipal">
+            <input v-model="search" type="text" placeholder="Contenido del post...">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>IMG</th>
+                        <th>Username</th>
+                        <th>Content</th>
+                        <th>Likes</th>
+                        <th>Comments</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="publicacion in publicaciones">
+                        <td>{{ publicacion.id }}</td>
+                        <td class="d-flex justify-content-center">
+                            <div class="contenedor-img-perfil">
+                                <img class="img-perfil" :src="publicacion.media[0]?.original_url ? publicacion.media[0].original_url : '/images/user-default.png'" alt="imagen del usuario">
+                            </div>
+                        </td>
+                        <td>{{ publicacion.user.username }}</td>
+                        <td>{{ publicacion.texto }}</td>
+                        <td>{{ publicacion.likes_count }}</td>
+                        <td>{{ publicacion.comentarios_count }}</td>
+                        <td>
+                            <!-- <router-link :to="{ name: '#', params: { username: usuario.username }}"> -->
+                                <button class="btn btn-warning me-3">Modificar</button>
+                            <!-- </router-link> -->
+                            <button class="btn btn-danger" @click="deletePost()">Eliminar</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </template>
@@ -50,18 +94,22 @@ import { ref, onMounted, computed } from "vue";
 import axios from 'axios';
 import { useRouter } from 'vue-router';
 import { useStore } from 'vuex';
+import { watch } from "vue";
 
 const userLogin = computed(() => store.state.auth.user); // Usuario que tiene iniciado sesion
 const usuarios = ref([])
 const usuario = ref(null)
 const router = useRouter()
 const store = useStore();
-
+let mostrarUsuarios = ref(true);
+const publicaciones = ref([]);
+const search = ref('')
 
 // Llamar a la función obtenerUsuarios cuando el componente se monte
 onMounted(() => {
 obtenerUsuarios();
 obtenerUsuario();
+getAllPosts();
 })
 
 
@@ -108,6 +156,39 @@ const eliminarUsuario = (id) => {
     }
 }
 
+function pageFilter(){
+    mostrarUsuarios.value = !mostrarUsuarios.value;
+}
+
+watch(search, (newSearch, oldSearch) => {
+    console.log('New: '+ newSearch);
+    console.log('Old: '+ oldSearch);
+
+    if (newSearch) {
+        getFilteredPosts(newSearch); // Al usar 'search' se aplica el filtro
+    }else{
+        getAllPosts();
+    }
+})
+
+function getFilteredPosts(filter){
+    axios.get('/api/publicacions/filter/' + filter)
+    .then(response => {
+        publicaciones.value = response.data;
+        console.log(publicaciones.value)
+    })
+}
+
+function getAllPosts(){
+    axios.get('/api/publicacions')
+    .then(response => {
+        publicaciones.value = response.data;
+    })
+}
+
+function deletePost(){
+    
+}
 </script>
 
 <style scoped>
