@@ -58,7 +58,7 @@ class PublicacionController extends Controller
         if (!$publicacion) {
             return response()->json(['error' => 'Publicación no encontrada'], 404);
         } else {
-            $publicacion = $publicacion->load('user','user.media','comentarios.user','comentarios.user.media','media','likes')->loadCount('likes','comentarios')->toArray();
+            $publicacion = $publicacion->load(['user','user.media','comentarios'=> function ($query) {$query->orderBy('created_at', 'desc');}, 'comentarios.user.media','media','likes'])->loadCount('likes','comentarios')->toArray();
         }
         // Devuelve solo la publicación encontrada por su ID
         return response()->json($publicacion);

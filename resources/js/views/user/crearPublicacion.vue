@@ -31,10 +31,10 @@
                         <img class="pl-5 pr-5" :src="imageUrl" alt="">
                     </div>
                     <div class="card-post-bottom d-flex">
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center pi pb-3">
                             <img src="/images/like.svg" alt="Boton de Like" class="mx-3 corazon-img"><span class="itty number-of"> 0</span>
                         </div>
-                        <div class="d-flex align-items-center justify-content-center">
+                        <div class="d-flex align-items-center justify-content-center pi pb-3">
                             <img src="/images/comentarios.svg" alt="Boton de Comentarios" class="mx-3 comment-icon"><span class="itty number-of"> 0</span>
                         </div>   
                     </div>
@@ -160,19 +160,6 @@
                 console.error('Error al cargar los datos del usuario:', error);
         }); 
     };
-
-    // // Verifica si ya hemos recargado una vez
-    // if (!localStorage.getItem('reloaded')) {
-    //     // Establece la bandera de recargado
-    //     localStorage.setItem('reloaded', 'true');
-        
-    //     // Recarga la página
-    //     window.location.reload();
-    // } else {
-    //     // Limpia la bandera después de la recarga
-    //     localStorage.removeItem('reloaded');
-    // }
-     
 
     const publicacion = ref({});
     const strError = ref();

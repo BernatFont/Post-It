@@ -183,7 +183,7 @@ onMounted(() => {
     
 </script>
 
-<style>
+<style setup>
 
 .container-width-createpost {
         width: 65%;

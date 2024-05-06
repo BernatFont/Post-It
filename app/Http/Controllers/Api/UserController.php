@@ -154,7 +154,7 @@ class UserController extends Controller
     public function obtenerUsuario($username) {
         try {
             return $user = User::where('username', $username)
-            ->with('seguidores','roles', 'seguidores.media', 'media', 'seguidos','seguidos.media', 'bloqueados', 'bloqueado', 'publicaciones', 'publicaciones.likes', 'publicaciones.comentarios', 'publicaciones.media')
+            ->with(['seguidores','roles', 'seguidores.media', 'media', 'seguidos','seguidos.media', 'bloqueados', 'bloqueado', 'publicaciones'=> function ($query) {$query->orderBy('created_at', 'desc');}, 'publicaciones.likes', 'publicaciones.comentarios', 'publicaciones.media'])
             ->withCount('seguidores', 'seguidos')
             ->firstOrFail();
 

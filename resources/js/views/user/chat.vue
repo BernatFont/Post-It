@@ -184,7 +184,7 @@
     }
 </script>
 
-<style>
+<style setup>
 
     .contenedor-sendmsg {
         background-image: url(/images/papel-comment.svg);
