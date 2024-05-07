@@ -217,10 +217,8 @@ class UserController extends Controller
         }
     }
     
-    
-
-    public function colorPost($color){
-        $user = auth()->user();
+    public function colorPost($color,$username){
+        $user = User::where('username', $username)->firstOrFail();
         // Encuentra al usuario
         $user->style = $color;
         $user->save();

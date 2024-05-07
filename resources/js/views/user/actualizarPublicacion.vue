@@ -10,15 +10,15 @@
     <div class="mainPrincipal" v-if="publicacion">
         <div class="content-view itty">
             <form class="container-width-createpost" @submit.prevent="actualizar">
-                <div class="container-createpost" :class="bgClass()">
+                <div class="container-createpost" :class="bgClass(publicacion.user.style)">
                         <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                             <div v-if="usuario" class="d-flex">
                                 <div class="contenedor-img-perfil">
-                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                                    <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
                                 </div>                         
                                 <div class="d-flex flex-column justify-content-center">
-                                    <span class="px20">{{ user.name }} {{ user.surname }}</span>
-                                    <span class="font2">@{{ user.username}}</span>
+                                    <span class="px20">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
+                                    <span class="font2">@{{ publicacion.user.username}}</span>
                                 </div>
                             </div>
                             <span class="mr-4 font2">{{ formatearFecha(publicacion.created_at) }}</span>
@@ -77,10 +77,15 @@ onMounted(() => {
         axios.get('/api/publicacions/' + id)
         .then(response => {
             publicacion.value = response.data;
-            console.log(publicacion.value.id_usuario);
-            console.log(user.value.id);
-            if(publicacion.value.id_usuario != user.value.id) {
-                router.push('/inicio');
+            console.log(publicacion.value);
+            if((publicacion.value.id_usuario != user.value.id) && (usuario.value.roles[0].name != 'admin')) {
+                swal({
+                    icon: 'error',
+                    title: 'Acceso denegado',
+                    text: 'No tiene permiso para modificar este post.',
+                }).then(() => {
+                    router.push('/inicio');
+                });
             }
         })
         .catch(error => {
@@ -111,7 +116,9 @@ onMounted(() => {
                 icon: 'success',
                 title: 'Publicacion modificada correctamente.',
                 showConfirmButton: false,
-                timer: 90002000
+                timer: 1500
+            }).then(() => {
+                router.push({name: 'publicacion.mostrar', params: { id: publicacion.value.id }});
             });
         })
         .catch(error => {
@@ -137,8 +144,8 @@ onMounted(() => {
         }
     }
 
-    function bgClass() {
-      switch(user.value.style) {
+    function bgClass(color) {
+      switch(color) {
         case 1:
           return 'bg-1';
         case 2:

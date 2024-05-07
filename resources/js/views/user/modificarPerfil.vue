@@ -198,7 +198,7 @@ const obtenerUsuario = () => {
     axios.get('/api/usuario/' + username)
     .then(response => {
             usuario.value = response.data;
-            if(usuario.value.id != userLogin.value.id && userLogin.value.username != 'admin') {
+            if(usuario.value.id != userLogin.value.id && usuario.value.roles[0].name != 'admin') {
                 swal({
                     icon: 'error',
                     title: 'Acceso denegado',
@@ -286,7 +286,7 @@ function updateStyle(value) {
 
 //Funcion para canviar color de los posts reactivamente
 function logSelectedStyle() {
-    axios.post('/api/usuarios/colorPost/' + usuario.value.style)
+    axios.post('/api/usuarios/colorPost/' + usuario.value.style + '/' + usuario.value.username)
     .then(response => {
         console.log('Color cambiado por el num: ' + usuario.value.style)
     })

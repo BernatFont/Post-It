@@ -257,19 +257,6 @@ function position(pos) {
     outline: none;
 }
 
-.btn-filtro {
-    background-image: url(/images/papel-comment.svg);
-    background-size: cover;
-    background-repeat: no-repeat;
-    padding: 10px 20px 10px 20px;
-    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-    cursor:pointer;
-}
-
-.btn-filtro:hover {
-    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
-}
-
 .corazon-img{
     height: 20px;
 }

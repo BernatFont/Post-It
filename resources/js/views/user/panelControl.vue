@@ -1,16 +1,18 @@
 <template>
     <div class="topbar-container bg-v2 ">
-        <div class="d-flex justify-content-between topbar-title">
-            <span class="pt-2 itty col-8 pl-5 title-target">Panel de control</span>    
-        </div>
-        <div>
-            <button @click="pageFilter()">BOTON </button>
+        <div class="d-flex justify-content-between align-items-center topbar-title col-12">
+            <span class="pt-2 itty pl-5 title-target">{{$t('admin_panel')}}</span>
+            <div>
+                <div class="font1 btn-filtro" @click="pageFilter()">{{ filtroActivo ? 'Mostrar Usuarios' : 'Mostrar Posts' }}</div>
+            </div>
+            <div class="notification-alert">
+            </div>
         </div>
     </div>
-    <div v-if="mostrarUsuarios">
+    <div v-if="mostrarUsuarios" class="mainPrincipal">
 
         <div id="lista_usuarios" v-if="usuario">
-            <div v-if="usuario.roles[0]?.name == 'admin'" class="mainPrincipal">
+            <div v-if="usuario.roles[0]?.name == 'admin'">
                 <div v-if="usuarios" class="w-100">
                     <div class="datosUsuarios">
                         <table>
@@ -51,7 +53,9 @@
     </div>
     <div v-else id="lista_posts">
         <div class="mainPrincipal">
-            <input v-model="search" type="text" placeholder="Contenido del post...">
+            <div class="d-flex justify-content-center">
+                <input v-model="search" type="text" placeholder="Contenido del post..." class="p-2 px20">
+            </div>
             <table>
                 <thead>
                     <tr>
@@ -77,10 +81,10 @@
                         <td>{{ publicacion.likes_count }}</td>
                         <td>{{ publicacion.comentarios_count }}</td>
                         <td>
-                            <!-- <router-link :to="{ name: '#', params: { username: usuario.username }}"> -->
+                            <router-link :to="{ name: 'publicacion.update', params: { id: publicacion.id } }">
                                 <button class="btn btn-warning me-3">Modificar</button>
-                            <!-- </router-link> -->
-                            <button class="btn btn-danger" @click="deletePost()">Eliminar</button>
+                            </router-link>
+                            <button class="btn btn-danger" @click="deletePost(publicacion.id)">Eliminar</button>
                         </td>
                     </tr>
                 </tbody>
@@ -104,6 +108,7 @@ const store = useStore();
 let mostrarUsuarios = ref(true);
 const publicaciones = ref([]);
 const search = ref('')
+const filtroActivo = ref(true);
 
 // Llamar a la función obtenerUsuarios cuando el componente se monte
 onMounted(() => {
@@ -158,6 +163,7 @@ const eliminarUsuario = (id) => {
 
 function pageFilter(){
     mostrarUsuarios.value = !mostrarUsuarios.value;
+    filtroActivo.value = !filtroActivo.value;
 }
 
 watch(search, (newSearch, oldSearch) => {
@@ -186,8 +192,19 @@ function getAllPosts(){
     })
 }
 
-function deletePost(){
-    
+function deletePost(id){
+    if (confirm('¿Estás seguro de que deseas eliminar este post?')) {
+        axios.delete(`/api/publicacions/delete/${id}`)
+        .then(() => {
+            // Actualiza la lista de usuarios o notifica al usuario
+            console.log('Post eliminado correctamente');
+            //Obtenemos los usuarios
+            getAllPosts();
+        })
+        .catch(error => {
+            console.error('Error al eliminar el post:', error);
+        });
+    }
 }
 </script>
 
@@ -224,7 +241,7 @@ tbody tr:hover {
 
 /* Mejorando la visualización del texto */
 th, td {
-    font-size: 16px;
+    font-size: 20px;
 }
 
 </style>
