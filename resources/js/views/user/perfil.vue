@@ -7,14 +7,8 @@
                 <span class="pt-2 title-target">{{$t('profile')}}</span>
             </div>
             <div v-if="usuario">
-                <div v-if="usuario.roles[0]?.name == 'admin' && usuario.username == userLogin.username">
-                    <!-- Botón Panel de admin -->
-                    <router-link :to="{ name: 'panelControl'}">
-                        <div class="container-boton w-100 mr-5">
-                            <div class="sticky-btn-sticker bg-3c"></div>
-                            <button class="btnSticky sticky-btn-1 itty bg-3">{{ $t('admin_panel') }}</button>
-                        </div>
-                    </router-link>
+                <div v-if="usuario.roles[0]?.name == 'admin' && usuario.username == userLogin.username" class="notification-alert">
+                    <router-link :to="{name: 'panelControl'}"><div class="btnAdmin"></div></router-link>
                 </div>
             </div>
         </div>
@@ -447,6 +441,24 @@ const enviarNotificacion = (usuario, tipo) => {
 .botones-perfil {
     display: flex;
     flex-direction: row;
+}
+
+.btnAdmin {
+    background-image: url(/images/btn-candado.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 60px;
+    height: 60px;
+    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+}
+
+.btnAdmin:hover {
+    filter: drop-shadow(2px 4px 4px rgba(0, 0, 0, 0.5));
+    background-image: url(/images/btn-candado-hover.svg);
+}
+
+.btnAdmin:target {
+    outline: none;
 }
 @media (max-width: 1000px){
     .publicacion-perfil-container{

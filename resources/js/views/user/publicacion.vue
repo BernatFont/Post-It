@@ -253,7 +253,12 @@ const obtenerPublicacion = (contenido) => {
 // Funcion que publica un comentario en una publicacion, si el contenido del comentario esta vacio muestra mensaje de error
 const addComentario = (contenido, publicacion) => {
     if(contenido == undefined) { 
-       alert("Error: Debes escribir el comentario antes de publicarlo")
+        swal({
+                    icon: 'error',
+                    title: 'No puedes enviar un comentario vacio',
+                    showConfirmButton: false,
+                    timer: 1500
+                });
     } else {
         axios.post('/api/comentario/add/' + id, { contenido: contenido })
         .then(response => {
