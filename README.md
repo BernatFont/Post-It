@@ -1,77 +1,97 @@
-# Características
+# Post-It
+¡Bienvenido a Post-It, la red social donde la diversión y la creatividad se fusionan en un mundo dibujado a mano! Conoce personas y sumérgete en un ambiente donde lo importante es divertirse y dejar a un lado lo serio. Únete a nuestra comunidad y explora un espacio lleno de momentos ligeros y creativos. ¡Te esperamos para que dibujes tu propia experiencia en Post-It!
 
-Ejemplo proyecto Laravel 10 + vue3 PAra DAW
+## Instalación
 
-- ✅ Laravel 10
-- ✅ Vue 3
-- ✅ VueRouter + Vuex
-- ✅ Vue i18n Multi Idioma
-- ✅ Iniciar sesión
-- ✅ Restablecimiento de contraseña
-- ✅ Login
-- ✅ Panel de administración
-- ✅ Gestión de perfiles
-- ✅ Gestión de usuarios
-- ✅ Gestión de roles
-- ✅ Gestión de permisos
-- ✅ Cambio de contraseña
-- ✅ Verificación de correo electrónico
-- ✅ Gestión de Posts
-- ✅ Blog de Frontend
-- ✅ Boostrap 5
+## Explicacion breve
+A continuacion se explicara breve y ordenadamente como instalar y ejecutar Post-It en tu equipo.
+Estos pasos solo deberas hacerlos la primera vez que ejecutes Post-It en tu equipo
 
+### Ejecuta Xampp
+Ejecuta xampp y activa Apache y MySQL
 
-## Como usar
-### Clonar Repositorio 
+### Clonar repositorio de GIT
+Importante clonar el respositorio en la carpeta htdocs de xampp
 
 ```bash
-git clone ....
+git clone https://github.com/BernatFont/Post-It.git
 ```
-
-### Instalar vía Composer
+### Instalar composer
 
 ```bash
 composer install
 ```
 
-### Copiar el fichero .env.example  a .env edita las credenciales y la url
+### Modificar archivo env
+Deberas cambiar el nombre del archivo .env.example a .env en tu directorio donde clonaste el repositorio de Post-It
 
-
-### Generar Application Key
+### Generar la App Key
 
 ```bash
 php artisan key:generate
 ```
 
 ### Migrar base de datos
+Obtiene la base de datos y la crea
 
 ```bash
 php artisan migrate
 ```
 
 ### Lanzar Seeders
-
+Introduce seeders predefinidos en la BBDD
 ```bash
 php artisan db:seed
 ```
 
-### Instalar las dependencias de Node
+### Enlazar storage
+Este paso se ejecuta para poder almacenar y mostrar las imagenes multimedia en el sistema
+```bash
+php artisan storage:link
+```
 
+### Instalar las dependencias de Node
 ```bash
 npm install
+```
 
+### Ejecutar
+Cada vez que quieras ejecutar el proyecto una vez realizados todos los pasos anteriores deberas ejecutar los siguientes comandos en consolas independientes
+```bash
 npm run dev
+
+php artisan serve
 ```
-### Lanzar a producción
+
+### Visualizar
+Para visualizar la pagina web ve a tu navegador y introduce en la url 127.0.0.1, ya puedes disfrutar Post-It!
+
+## Ejecutar 
+
+### Como ejecutar Post-It
+Para ejecutar post-it deberas seguir los siguientes pasos:
+
+Primero deberas entrar a Visual Studio Code con el proyecto Post-It abierto y abrir dos consolas, en cada una de ellas deberas de especificar uno de los siguientes dos comandos.
 
 ```bash
-npm run build or yarn build
+npm run dev
+
+php artisan serve
 ```
-### Crear Modelo
-```bash
-php artisan make:model Modelo -f -m
-```
-### Crear Controlador
-```bash
-php artisan make:controller api/NameController
-```
+
+Una vez ejecutado el proyecto debemos iniciar los servicios de Apache y MySQL en Xampp.
+
+Accede a Post-It desde tu navegador utilizando la url 127.0.0.1
+
+
+## Desarrolladores
+Post-It a sido desarrollado por:
+
+- Bernat Font
+- David Valero
+
+Institut Bernat el Ferrer.
+
+
+
+¡Gracias por usar Post-It!
