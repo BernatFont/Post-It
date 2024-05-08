@@ -8,56 +8,61 @@
         </div>
     </div>
     <div class="mainPrincipal">
-        <div class="content-view">
-            <form class="container-width-createpost" @submit.prevent="addPublicacion">
-                <div class="container-createpost" :class="bgClass()">
-                    <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                        <div v-if="usuario" class="d-flex">
-                            <div class="contenedor-img-perfil">
-                                <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
-                            </div>                         
-                            <div class="d-flex flex-column justify-content-center">
-                                <span class="font1">{{ user.name }} {{ user.surname }}</span>
-                                <span class="font2">@{{ user.username}}</span>
+        <div v-if="usuario">
+            <div class="content-view">
+                <form class="container-width-createpost" @submit.prevent="addPublicacion">
+                    <div class="container-createpost" :class="bgClass(usuario.style)">
+                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                            <div v-if="usuario" class="d-flex">
+                                <div class="contenedor-img-perfil">
+                                    <img :src="usuario.media[0]?.original_url ? usuario.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                                </div>                         
+                                <div class="d-flex flex-column justify-content-center">
+                                    <span class="font1">{{ user.name }} {{ user.surname }}</span>
+                                    <span class="font2">@{{ user.username}}</span>
+                                </div>
                             </div>
+                            <span class="mr-4 font2">{{ $t('no_published')}}</span>
                         </div>
-                        <span class="mr-4 font2">{{ $t('no_published')}}</span>
-                    </div>
-                    <div class="px-3 py-2 card-post-text w-100">
-                        <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
-                        <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
-                    </div>
-                    <div class="card-post-img d-flex flex-column justify-content-center" v-if="imageSelected">
-                        <img class="pl-5 pr-5" :src="imageUrl" alt="">
-                    </div>
-                    <div class="card-post-bottom d-flex">
-                        <div class="d-flex align-items-center justify-content-center pi pb-3">
-                            <img src="/images/like.svg" alt="Boton de Like" class="mx-3 corazon-img"><span class="itty number-of"> 0</span>
+                        <div class="px-3 py-2 card-post-text w-100">
+                            <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
+                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
                         </div>
-                        <div class="d-flex align-items-center justify-content-center pi pb-3">
-                            <img src="/images/comentarios.svg" alt="Boton de Comentarios" class="mx-3 comment-icon"><span class="itty number-of"> 0</span>
-                        </div>   
+                        <div v-if="imageUrl" class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center">
+                            <img src="/images/celo.png" alt="Celo que sujeta la imagen al post" class="celo">
+                            <img :src="imageUrl" alt="imagen de la publicacion" class="img_post">
+                        </div>
+                        <div class="card-post-bottom d-flex">
+                            <div class="d-flex align-items-center justify-content-center pi pb-3">
+                                <img src="/images/like.svg" alt="Boton de Like" class="mx-3 corazon-img"><span class="itty number-of"> 0</span>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-center pi pb-3">
+                                <img src="/images/comentarios.svg" alt="Boton de Comentarios" class="mx-3 comment-icon"><span class="itty number-of"> 0</span>
+                            </div>   
+                        </div>
                     </div>
-                </div>
-                <div class="section-options-createpost"> 
-                    <div class="container-boton" v-if="!imageSelected">
-                        <div class="sticky-btn-sticker bg-2c"></div>
-                        <div class="btnSticky sticky-btn-1 bg-2 itty cursor-pointer">
-                            <label for="file-upload">{{ $t('upload_image')}}</label>
-                            <input type="file" id="file-upload" @change="onFileChange">
-                        </div> 
+                    <div class="section-options-createpost"> 
+                        <div class="container-boton mb-1" v-if="!imageSelected">
+                            <div class="sticky-btn-sticker bg-2c"></div>
+                            <label for="file-upload" class="btnSticky sticky-btn-1 bg-2">
+                                <div class="itty cursor-pointer">
+                                    {{ $t('upload_image')}}
+                                    <input type="file" id="file-upload" @change="onFileChange">
+                                </div> 
+                            </label>
+                        </div>
+                        <div class="container-boton mb-1" v-if="imageSelected">
+                            <div class="sticky-btn-sticker bg-2c"></div>
+                            <button @click="discardImage" class="btnSticky sticky-btn-1 bg-2 itty">{{ $t('discard_image')}}</button>
+                        </div>
+                        <div class="container-boton mt-5">
+                            <div class="sticky-btn-sticker bg-3c"></div>
+                            <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('publish')}}</button>
+                        </div>
                     </div>
-                    <div class="container-boton" v-if="imageSelected">
-                        <div class="sticky-btn-sticker bg-2c"></div>
-                        <button @click="discardImage" class="btnSticky sticky-btn-1 bg-2 itty">{{ $t('discard_image')}}</button>
-                    </div>
-                    <div class="container-boton mt-3">
-                        <div class="sticky-btn-sticker bg-3c"></div>
-                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('publish')}}</button>
-                    </div>
-                </div>
-            </form>
-        </div>    
+                </form>
+            </div>    
+        </div>
     </div>
 </template>
 
@@ -270,8 +275,8 @@
             });
     };
 
-    function bgClass() {
-      switch(user.value.style) {
+    function bgClass(color) {
+      switch(color) {
         case 1:
           return 'bg-1';
         case 2:

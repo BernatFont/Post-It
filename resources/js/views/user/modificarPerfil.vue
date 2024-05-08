@@ -2,7 +2,7 @@
     <div class="topbar-container bg-v2 ">
 
         <div class="d-flex justify-content-between topbar-title">
-            <div class="itty col-8 pl-5 ">
+            <div class="itty col-8">
                 <router-link class="pt-2 title-target" :to="{ name: 'usuario.mostrar', params: { username: userLogin.username } }">< </router-link>
                 <span class="pt-2 title-target">{{$t('modify_profile')}}</span>
             </div>   

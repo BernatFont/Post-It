@@ -3,7 +3,7 @@
         <div class="d-flex justify-content-between align-items-center topbar-title col-12">
             <span class="pt-2 itty pl-5 title-target">{{$t('admin_panel')}}</span>
             <div>
-                <div class="font1 btn-filtro" @click="pageFilter()">{{ filtroActivo ? 'Mostrar Usuarios' : 'Mostrar Posts' }}</div>
+                <div class="font1 btn-filtro" @click="pageFilter()">{{ filtroActivo ? 'Mostrar Posts' : 'Mostrar Usuarios' }}</div>
             </div>
             <div class="notification-alert">
             </div>

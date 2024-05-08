@@ -1,51 +1,54 @@
 <template>
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between topbar-title">
-            <div class="itty col-8 pl-5 ">
+            <div class="itty col-8">
                 <router-link class="pt-2 title-target" :to="{ name: 'publicacion.mostrar', params: { id: id }}">< </router-link> 
                 <span class="pt-2 title-target">{{$t('modify_post')}}</span>
             </div>   
         </div>
     </div>
-    <div class="mainPrincipal" v-if="publicacion">
-        <div class="content-view itty">
-            <form class="container-width-createpost" @submit.prevent="actualizar">
-                <div class="container-createpost" :class="bgClass(publicacion.user.style)">
-                        <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
-                            <div v-if="usuario" class="d-flex">
-                                <div class="contenedor-img-perfil">
-                                    <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
-                                </div>                         
-                                <div class="d-flex flex-column justify-content-center">
-                                    <span class="px20">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
-                                    <span class="font2">@{{ publicacion.user.username}}</span>
+    <div class="mainPrincipal">
+        <div v-if="publicacion">
+            <div class="content-view itty">
+                <form class="container-width-createpost" @submit.prevent="actualizar">
+                    <div class="container-createpost" :class="bgClass(publicacion.user.style)">
+                            <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
+                                <div v-if="usuario" class="d-flex">
+                                    <div class="contenedor-img-perfil">
+                                        <img :src="publicacion.user.media[0]?.original_url ? publicacion.user.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario" class="img-perfil">
+                                    </div>                         
+                                    <div class="d-flex flex-column justify-content-center">
+                                        <span class="px20">{{ publicacion.user.name }} {{ publicacion.user.surname }}</span>
+                                        <span class="font2">@{{ publicacion.user.username}}</span>
+                                    </div>
                                 </div>
+                                <span class="mr-4 font2">{{ formatearFecha(publicacion.created_at) }}</span>
                             </div>
-                            <span class="mr-4 font2">{{ formatearFecha(publicacion.created_at) }}</span>
-                        </div>
-                        <div class="px-3 py-2 card-post-text w-100">
-                            <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
-                            <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
-                        </div>
-                        <div class="card-post-img d-flex flex-column justify-content-center" v-if="publicacion.media.length > 0" >
-                            <img :src="publicacion.media[0]?.original_url ? publicacion.media[0].original_url : ''" alt="Imagen de la publicacion" class="pl-5 pr-5">
-                        </div>
-                        <div class="card-post-bottom d-flex">
-                            <div class="pi p-3">
-                                <img src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                            <div class="px-3 py-2 card-post-text w-100">
+                                <textarea v-model="publicacion.texto" class="form-control textarea-2 itty" @input="checkMaxLength" maxlength="300" :placeholder="$t('write')"></textarea>
+                                <div v-if="maxLenghtTexto(publicacion.texto)" class="alert">{{ $t('limit_characters') }}</div>
                             </div>
-                            <div class="d-flex align-items-center justify-content-center"><span class="itty number-of">{{publicacion.likes_count}}</span>
-                                <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
-                            </div>   
-                        </div>
-                </div>
-                <div class="section-options-createpost">
-                    <div class="container-boton mt-3">
-                        <div class="sticky-btn-sticker bg-3c"></div>
-                        <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('apply_changes')}}</button>
+                            <div class="px-5 card-post-img d-flex flex-column justify-content-center align-items-center" v-if="publicacion.media.length > 0" style="position: relative; z-index: 0;">
+                                <img src="/images/celo.png" alt="Celo que sujeta la imagen al post" class="celo">
+                                <img :src="publicacion.media[0].original_url" alt="imagen de la publicacion" class="img_post">
+                            </div>
+                            <div class="card-post-bottom d-flex">
+                                <div class="pi p-3">
+                                    <img src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                                </div>
+                                <div class="d-flex align-items-center justify-content-center"><span class="itty number-of">{{publicacion.likes_count}}</span>
+                                    <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
+                                </div>   
+                            </div>
                     </div>
-                </div>
-            </form>
+                    <div class="section-options-createpost">
+                        <div class="container-boton mt-3">
+                            <div class="sticky-btn-sticker bg-3c"></div>
+                            <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('apply_changes')}}</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
     

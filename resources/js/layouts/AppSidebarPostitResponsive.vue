@@ -39,7 +39,7 @@
     background-repeat: no-repeat;
     background-size: cover;
 
-    box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px -8px 10px rgba(0, 0, 0, 0.2);
     z-index: 9999;
 }
 

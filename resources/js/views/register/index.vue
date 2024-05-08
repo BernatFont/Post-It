@@ -134,7 +134,7 @@ const { registerForm, validationErrors, processing, submitRegister } = useAuth()
         background-image: url(images/Corcho.jpg);
         background-repeat: no-repeat;
         background-size: cover;
-        height: 100vh;
+        height: 100%;
     }
     .no-margin-row {
         margin: 0px;

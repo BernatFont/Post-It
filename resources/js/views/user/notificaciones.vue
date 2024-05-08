@@ -1,8 +1,8 @@
 <template>
     <div class="topbar-container bg-v2 ">
-        <div class="d-flex align-items-center topbar-title">
-            <div class="itty col-7 pl-5">
-                <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
+        <div class="d-flex flex-wrap align-items-center topbar-title">
+            <div class="itty d-flex col-7">
+                <router-link :to="{ name: 'feed'}" class="pe-2 pt-2 title-target">< </router-link>    
                 <span class="pt-2 title-target">{{$t('notifications')}}</span>
             </div>
             <div class="botones-notificaciones col-5 ">

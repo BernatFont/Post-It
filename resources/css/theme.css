@@ -526,7 +526,7 @@ align-self: flex-end;
 
 @media (max-width: 600px){
     .card-post{
-        width: 100%;
+        width: 90%;
     }
 }
 .soporte{
