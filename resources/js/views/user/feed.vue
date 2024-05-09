@@ -4,7 +4,7 @@
             <span class="pt-2 itty title-target">{{$t('home_name')}}</span>
             <div>
                 <!-- Agregar un botón para cambiar el filtro -->
-                <div @click="toggleFiltro" class="font1 btn-filtro">{{ filtroActivo ? 'Mostrar Todas' : 'Mostrar Seguidos' }}</div>
+                <div @click="toggleFiltro" class="font1 btn-filtro">{{ filtroActivo ? i18n.t('show_all') : i18n.t('show_followed') }}</div>
             </div>
             <div class="notification-alert">
                 <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
@@ -67,7 +67,9 @@
 import axios from "axios";
 import { ref, onMounted, computed, onUnmounted } from "vue";
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 
+const i18n = useI18n(); // Asegúrate de inicializar i18n correctamente
 const publicaciones = ref();
 const store = useStore(); // Obtenemos la instancia del store de Vuex
 const usuarioActual = computed(() => store.state.auth.user);

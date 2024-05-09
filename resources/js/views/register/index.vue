@@ -1,86 +1,88 @@
 <template>
-    <div class="containerLogin">
-        <div class="row no-margin-row justify-content-center pt-5">
-            <div class="col-sm-9 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
-                <div class="title-logo card inclinacion2">
-                    <div></div>
-                    <img class="imgLogo" src="/images/logo_principal.svg" alt="">
-                </div>
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body itty">
-                        <form @submit.prevent="submitRegister">
-                            <div class="containerForm">
-                                <div class="btnContainer-volver">
-                                    <router-link class="btn-href" :to="{name: 'inicio'}">< {{ $t('back')}}</router-link>
-                                </div>
-                                <!-- Email -->
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="name" class="label-width">{{ $t('name') }}</label>
-                                    <input v-model="registerForm.name" id="name" type="text" class="input-width" autofocus>
-                                </div>
-                                <!-- Validation Errors -->
-                                <div class="text-danger mt-1">
-                                    <div v-for="message in validationErrors?.name">
-                                        {{ message }}
+    <div class="contenedorGeneral">
+        <div class="containerLogin">
+            <div class="row no-margin-row justify-content-center pt-5">
+                <div class="col-sm-9 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
+                    <div class="title-logo card inclinacion2">
+                        <div></div>
+                        <img class="imgLogo" src="/images/logo_principal.svg" alt="">
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body itty">
+                            <form @submit.prevent="submitRegister">
+                                <div class="containerForm">
+                                    <div class="btnContainer-volver">
+                                        <router-link class="btn-href" :to="{name: 'inicio'}">< {{ $t('back')}}</router-link>
                                     </div>
-                                </div>
-
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="email" class="label-width">{{ $t('email') }}</label>
-                                    <input v-model="registerForm.email" id="email" type="email" class="input-width" autocomplete="username">
-                                </div>
-                                <!-- Validation Errors -->
-                                <div class="text-danger mt-1">
-                                    <div v-for="message in validationErrors?.email">
-                                        {{ message }}
+                                    <!-- Email -->
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="name" class="label-width">{{ $t('name') }}</label>
+                                        <input v-model="registerForm.name" id="name" type="text" class="input-width" autofocus>
                                     </div>
-                                </div>
-
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="username" class="label-width">{{ $t('username') }}</label>
-                                    <input v-model="registerForm.username" id="username" type="text" class="input-width">
-                                </div>
-                                <!-- Validation Errors -->
-                                <div class="text-danger mt-1">
-                                    <div v-for="message in validationErrors?.username">
-                                        {{ message }}
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger mt-1">
+                                        <div v-for="message in validationErrors?.name">
+                                            {{ message }}
+                                        </div>
                                     </div>
-                                </div>
-
-                                <!-- Password -->
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="password" class="label-width">
-                                        {{ $t('password') }}
-                                    </label>
-                                    <input v-model="registerForm.password" id="password" type="password" class="input-width" autocomplete="current-password">
-                                </div>
-                                <!-- Validation Errors -->
-                                <div class="text-danger-600 mt-1">
-                                    <div v-for="message in validationErrors?.password">
-                                        {{ message }}
-                                    </div>
-                                </div>
-                                
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="password_confirmation" class="label-width">
-                                        {{ $t('confirm_password') }}
-                                    </label>
-                                    <input v-model="registerForm.password_confirmation" id="password_confirmation" type="password" class="input-width" autocomplete="current-password">
-                                </div>
-                                <!-- Validation Errors -->
-                                <div class="text-danger-600 mt-1">
-                                    <div v-for="message in validationErrors?.password_confirmation">
-                                        {{ message }}
-                                    </div>
-                                </div>
     
-                                <!-- Buttons -->
-                                <div class="container-boton">
-                                    <div class="sticky-btn-sticker"></div>
-                                    <button class="btnSticky sticky-btn-1 itty" :class="{ 'opacity-25': processing }" :disabled="processing">{{ $t('register') }}</button>
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="email" class="label-width">{{ $t('email') }}</label>
+                                        <input v-model="registerForm.email" id="email" type="email" class="input-width" autocomplete="username">
+                                    </div>
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger mt-1">
+                                        <div v-for="message in validationErrors?.email">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+    
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="username" class="label-width">{{ $t('username') }}</label>
+                                        <input v-model="registerForm.username" id="username" type="text" class="input-width">
+                                    </div>
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger mt-1">
+                                        <div v-for="message in validationErrors?.username">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+    
+                                    <!-- Password -->
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="password" class="label-width">
+                                            {{ $t('password') }}
+                                        </label>
+                                        <input v-model="registerForm.password" id="password" type="password" class="input-width" autocomplete="current-password">
+                                    </div>
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger-600 mt-1">
+                                        <div v-for="message in validationErrors?.password">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="password_confirmation" class="label-width">
+                                            {{ $t('confirm_password') }}
+                                        </label>
+                                        <input v-model="registerForm.password_confirmation" id="password_confirmation" type="password" class="input-width" autocomplete="current-password">
+                                    </div>
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger-600 mt-1">
+                                        <div v-for="message in validationErrors?.password_confirmation">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+        
+                                    <!-- Buttons -->
+                                    <div class="container-boton">
+                                        <div class="sticky-btn-sticker"></div>
+                                        <button class="btnSticky sticky-btn-1 itty" :class="{ 'opacity-25': processing }" :disabled="processing">{{ $t('register') }}</button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>

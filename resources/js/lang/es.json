@@ -86,5 +86,7 @@
     "admin_panel": "Panel de Admin",
     "block_message": "No puedes ver las publicaciones de este usuario porque te ha bloqueado",
     "join_date": "Se unio el",
-    "delete_all": "Eliminar todo"
+    "delete_all": "Eliminar todo",
+    "show_followed": "Mostrar seguidos",
+    "show_all": "Mostrar todas"
 }   

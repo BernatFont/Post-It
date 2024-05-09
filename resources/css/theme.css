@@ -90,6 +90,10 @@ li:hover .logo-sidebar-7{
     min-height: 100vh;
 }
 
+.contenedorGeneral{
+    height: 100vh;
+}
+
 @media (max-width: 1200px){
     .mainPrincipal{
         margin-bottom: 80px;
