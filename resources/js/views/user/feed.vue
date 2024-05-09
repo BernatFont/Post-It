@@ -1,10 +1,10 @@
 <template>
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between align-items-center topbar-title col-12">
-            <span class="pt-2 itty pl-5 title-target">{{$t('home_name')}}</span>
+            <span class="pt-2 itty title-target">{{$t('home_name')}}</span>
             <div>
                 <!-- Agregar un botón para cambiar el filtro -->
-                <div @click="toggleFiltro" class="font1 btn-filtro">{{ filtroActivo ? 'Mostrar Todas' : 'Mostrar Seguidos' }}</div>
+                <div @click="toggleFiltro" class="font1 btn-filtro">{{ filtroActivo ? i18n.t('show_all') : i18n.t('show_followed') }}</div>
             </div>
             <div class="notification-alert">
                 <router-link :to="{name: 'publicacion.create'}" class="btn-crear-post"><div class="btnAñadir"></div></router-link>
@@ -13,7 +13,7 @@
     </div>
     <div class="mainPrincipal">
         <div class="content-view">
-            <div v-for="(publicacion, index) in publicaciones"  class="mb-5 card-post itty" :class="color(publicacion.user.style), rotate(publicacion.rotation), position(publicacion.position)">
+            <div v-for="(publicacion, index) in publicaciones"  class="mb-5 card-post itty" :class="color(publicacion.user.style), rotate(publicacion.rotation), position(windowWidth > 600 ? publicacion.position : 2)">
                 <div v-if="!usuarioBloqueado(publicacion.user)">       
                     <div class="card-post-top p-2 d-flex justify-content-between align-items-center">
                         <div class="d-flex">
@@ -65,13 +65,15 @@
 
 <script setup>
 import axios from "axios";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, onUnmounted } from "vue";
 import { useStore } from 'vuex';
+import { useI18n } from 'vue-i18n';
 
+const i18n = useI18n(); // Asegúrate de inicializar i18n correctamente
 const publicaciones = ref();
 const store = useStore(); // Obtenemos la instancia del store de Vuex
 const usuarioActual = computed(() => store.state.auth.user);
-const filtroActivo = ref(false)
+const filtroActivo = ref(false);
 
 onMounted(() => {
     obtenerPublicaciones();
@@ -221,6 +223,10 @@ function rotate(rot) {
     }
 }
 
+if (window.innerWidth <= 600){
+    const posCent = 2;
+}
+   
 function position(pos) {
     switch(pos) {
         case 1:
@@ -234,6 +240,20 @@ function position(pos) {
     }
 }
 
+const windowWidth = ref(window.innerWidth);  // Propiedad reactiva para almacenar el ancho de la ventana
+
+// Función para actualizar el ancho de la ventana
+const updateWindowWidth = () => {
+    windowWidth.value = window.innerWidth;
+};
+
+onMounted(() => {
+    window.addEventListener('resize', updateWindowWidth);  // Agrega el listener al montar
+});
+
+onUnmounted(() => {
+    window.removeEventListener('resize', updateWindowWidth);  // Elimina el listener al desmontar
+});
 </script>
 
 <style scoped>

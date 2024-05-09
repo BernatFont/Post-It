@@ -1,67 +1,64 @@
 <template>
     <div v-if="chat">
         <div v-if="userLogin.id === chat.user_id_2 || userLogin.id === chat.user_id_1">
-            <div class="topbar-container bg-v2 ">
+            <div class="topbar-container d-flex align-items-center bg-v2 ">
                 <div class="d-flex justify-content-between topbar-title">
-                    <div class="itty col-8 pl-5 ">
-                        <router-link :to="{ name: 'chats'}" class="pt-2 title-target">< </router-link>    
-                        <span class="pt-2 title-target">{{$t('chat')}}</span>
+                    <div class="itty d-flex col-8">
+                        <router-link :to="{ name: 'chats'}" class="me-2 pt-2 title-target">< </router-link>    
+                    </div>
+                </div>
+                <div>
+                    <div class="topbar-title d-flex" v-if="userLogin.id === chat.user_id_2">
+                        <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
+                            <div class="contenedor-img-perfil">
+                                <img class="img-perfil" :src="chat.user1.media[0]?.original_url ? chat.user1.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
+                            </div>    
+                            <div class="chat-topbar-user">
+                                <span class="itty textContent">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
+                                <span class="itty textUsername">@{{ chat.user1.username }}</span>
+                            </div>
+                        </router-link>
+                    </div>
+                    <div class="topbar-title d-flex" v-else-if="userLogin.id === chat.user_id_1">
+                        <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
+                            <div class="contenedor-img-perfil">
+                                <img class="img-perfil" :src="chat.user2.media[0]?.original_url ? chat.user2.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
+                            </div>             
+                            <div class="chat-topbar-user">
+                                <span class="itty textContent">{{chat.user2.name + (chat.user2.surname ? " " + chat.user2.surname : "")}}</span>
+                                <span class="itty textUsername">@{{ chat.user2.username }}</span>
+                            </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
             <div class="mainPrincipal">
-                <div class="content-view pb-0">
-                    <div class="topbar-container bg-v2 col-lg-6 ">
-                        <div class="topbar-title d-flex" v-if="userLogin.id === chat.user_id_2">
-                            <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user1.username } }">
-                                <div class="contenedor-img-perfil">
-                                    <img class="img-perfil" :src="chat.user1.media[0]?.original_url ? chat.user1.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
-                                </div>    
-                                <div class="chat-topbar-user">
-                                    <span class="itty textContent">{{chat.user1.name + (chat.user1.surname ? " " + chat.user1.surname : "")}}</span>
-                                    <span class="itty textUsername">@{{ chat.user1.username }}</span>
-                                </div>
-                            </router-link>
+                <div class="contenedorChat">
+                    <div class="content-view">
+                        <div class="container-msg textContent itty chatContainer d-flex justify-content-center" v-if="mensajes.length === 0">
+                            <p class="itty textContent">{{ $t('chat_no_message') }}</p>
                         </div>
-                        <div class="topbar-title d-flex" v-else-if="userLogin.id === chat.user_id_1">
-                            <router-link class="d-flex" :to="{ name: 'usuario.mostrar', params: { username: chat.user2.username } }">
-                                <div class="contenedor-img-perfil">
-                                    <img class="img-perfil" :src="chat.user2.media[0]?.original_url ? chat.user2.media[0].original_url : '/images/user-default.png'" alt="Foto de perfil del usuario">
-                                </div>             
-                                <div class="chat-topbar-user">
-                                    <span class="itty textContent">{{chat.user2.name + (chat.user2.surname ? " " + chat.user2.surname : "")}}</span>
-                                    <span class="itty textUsername">@{{ chat.user2.username }}</span>
+                        <div v-else>
+                            <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
+                                <div class="container-msg d-flex justify-content-between" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
+                                    <span class="itty textContent">{{ mensaje.contenido}}</span>
+                                    <span class="itty fecha">{{ formatearFecha(mensaje.created_at) }}</span>
                                 </div>
-                            </router-link>
-                        </div>
-                    </div>
-                </div>
-                <div class="content-view">
-                    <div class="container-msg textContent itty chatContainer d-flex justify-content-center" v-if="mensajes.length === 0">
-                        <p class="itty textContent">{{ $t('chat_no_message') }}</p>
-                    </div>
-                    <div v-else>
-                        <div class="d-flex" v-for="mensaje in mensajes" :key="mensaje.id" :class="{'usuarioActual': mensaje.user.id === userLogin.id, 'otroUsuario': mensaje.user.id !== userLogin.id}">
-                            <div class="container-msg d-flex justify-content-between" :class="{'bg-v1': mensaje.user.id === userLogin.id, 'bg-v2': mensaje.user.id !== userLogin.id}">
-                                <span class="itty textContent">{{ mensaje.contenido}}</span>
-                                <span class="itty fecha">{{ formatearFecha(mensaje.created_at) }}</span>
                             </div>
                         </div>
                     </div>
-                    <form class="formularioMensaje"  @submit.prevent="añadirMensaje"> <!-- Formulario para escribir un nuevo mensaje -->
-                        <div class="contenedor-sendmsg d-flex justify-content-center align-items-center">
-                            <div class="px-3 py-2 card-post-text w-100">
-                                <textarea v-model="nuevoMensaje"  class="form-control itty textarea" @input="checkMaxLength" maxlength="255" :placeholder="$t('write')"></textarea>
-                                <div v-if="maxLenghtTexto(nuevoMensaje)" class="ml-3">{{ $t('limit_characters_255') }}</div>
-                            </div>
-                        </div>
-                        <div class="botonEnviar-contenedor ml-5">
-                            <div class="sticky-btn-sticker bg-3c"></div>
-                            <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('send') }}</button>
-                        </div>
-                    </form>      
                 </div>
             </div>
+            <div class="contenedorFormulario">
+                <form class="formularioMensaje" @submit.prevent="añadirMensaje">
+                    <div class="d-flex w-100">
+                        <textarea v-model="nuevoMensaje" class="form-control itty textarea" @input="checkMaxLength" maxlength="255" :placeholder="$t('write')"></textarea>
+                        <button type="submit" class="btnEnviar itty pi pi-send"></button>
+                    </div>
+                    <div v-if="maxLenghtTexto(nuevoMensaje)" class="ml-3">{{ $t('limit_characters_255') }}</div>
+                </form>      
+            </div>
+
         </div>
     </div>
     <div v-else>
@@ -186,15 +183,38 @@
 
 <style setup>
 
-    .contenedor-sendmsg {
-        background-image: url(/images/papel-comment.svg);
-        background-size: cover;
-        background-position: center;
-        padding: 20px;
-        width: 100%;
-        margin-top: 20px;
-        height: 200px;
+.contenedorFormulario {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-left:  310px;
+    background-color: #fff; /* O el color que desees */
+    z-index: 1; /* Asegura que el formulario esté sobre otros elementos */
+}
 
+.formularioMensaje {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Esto distribuye el espacio entre los elementos */
+    width: 100%;
+}
+
+.btnEnviar {
+    font-size: 20px;
+    width: 10%;
+    background-color: var(--tercero); /* Color de ejemplo para el botón */
+    border: none;
+    cursor: pointer;
+}
+
+.btnEnviar:hover{
+    background-color: var(--tercero-contraste);
+}
+    
+    .botonEnviar-contenedor button{
+        border: none;
+        padding: 24px;
     }
 
     .chat-topbar-user {
@@ -219,20 +239,14 @@
 
     .textarea{
         resize: none;
-        height: 115px;
-        width: 100%;
-        background-color: none;
         border: 0 none;
-        background: transparent;
         outline: none;
         box-shadow: none;
-        font-size: 1.5rem;
-    }
-
-    .textarea:focus{
-        border: 0 none;
-        background: transparent;
-        box-shadow: none;
+        border-radius: 0;
+        font-size: 20px;
+        overflow: hidden;
+        height: 70px;
+        padding: 8px;
     }
 
     .container-msg {
@@ -269,48 +283,24 @@
         margin: auto;
     }
 
-    .botonEnviar-contenedor {
-        display: flex;
-        margin-top: 20px;
-        width: 25%;
-        height: 70px;
-    }
-
-    .formularioMensaje {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center
-
-    }
-
 @media (max-width: 1200px){
 
-    .contenedor-sendmsg {
-        background-image: url(/images/papel-comment.svg);
-        background-size: cover;
-        background-position: center;
-        padding: 20px;
-        width: 100%;
-        margin-top: 20px;
-        height: 200px;
+    .contenedorFormulario{
+        margin-bottom: 79px;
+        padding: 0;
     }
 
-    .formularioMensaje {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center
+    .contenedor-sendmsg{
+        width: 100%;
     }
 
     .botonEnviar-contenedor {
         display: flex;
         margin-top: 20px;
-        width: 50%;
-        height: auto;
         margin-bottom: 20px;
     }
 }
+
     
 
 </style>

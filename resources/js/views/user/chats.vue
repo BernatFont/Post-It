@@ -2,7 +2,7 @@
     
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between topbar-title">
-            <div class="itty col-8 pl-5 ">
+            <div class="itty col-8">
                 <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
                 <span class="pt-2 title-target">{{$t('chat')}}</span>
             </div>   

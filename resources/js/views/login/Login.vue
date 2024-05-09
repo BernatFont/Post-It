@@ -1,57 +1,59 @@
 <template>
-    <div class="containerLogin">
-        <div class="row no-margin-row justify-content-center pt-5">
-            <div class="col-sm-9 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
-                <div class="title-logo card inclinacion1">
-                    <div></div>
-                    <img class="imgLogo" src="/images/logo_principal.svg" alt="">
-                </div>
-                <div class="card border-0 shadow-sm">
-                    <div class="card-body itty">
-                        <form @submit.prevent="submitLogin">
-                            <div class="containerForm">
-                                <div class="btnContainer-volver">
-                                    <router-link class="btn-href" :to="{name: 'inicio'}">< {{ $t('back')}}</router-link>
-                                </div>
-                                <!-- Email -->
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="email" class="label-width">{{ $t('email') }}</label>
-                                    <input v-model="loginForm.email" id="email" type="email" class="input-width" required autofocus autocomplete="username">
-                                </div>
-                                <!-- Password -->
-                                <div class="mb-3 text-type-1 div-input-width">
-                                    <label for="password" class="label-width">{{ $t('password') }}</label>
-                                    <input v-model="loginForm.password" id="password" type="password" class="input-width" required autocomplete="current-password">
-                                </div>
-                                <!-- Validation Errors -->
-                                <div class="text-danger mt-1 error-width">
-                                    <div v-for="message in validationErrors?.email">
-                                        {{ message }}
+    <div class="contenedorGeneral">
+        <div class="containerLogin">
+            <div class="row no-margin-row justify-content-center pt-5">
+                <div class="col-sm-9 col-md-8 col-lg-7 col-xl-6 col-xxl-5">
+                    <div class="title-logo card inclinacion1">
+                        <div></div>
+                        <img class="imgLogo" src="/images/logo_principal.svg" alt="">
+                    </div>
+                    <div class="card border-0 shadow-sm">
+                        <div class="card-body itty">
+                            <form @submit.prevent="submitLogin">
+                                <div class="containerForm">
+                                    <div class="btnContainer-volver">
+                                        <router-link class="btn-href" :to="{name: 'inicio'}">< {{ $t('back')}}</router-link>
+                                    </div>
+                                    <!-- Email -->
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="email" class="label-width">{{ $t('email') }}</label>
+                                        <input v-model="loginForm.email" id="email" type="email" class="input-width" required autofocus autocomplete="username">
+                                    </div>
+                                    <!-- Password -->
+                                    <div class="mb-3 text-type-1 div-input-width">
+                                        <label for="password" class="label-width">{{ $t('password') }}</label>
+                                        <input v-model="loginForm.password" id="password" type="password" class="input-width" required autocomplete="current-password">
+                                    </div>
+                                    <!-- Validation Errors -->
+                                    <div class="text-danger mt-1 error-width">
+                                        <div v-for="message in validationErrors?.email">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                    <div class="text-danger-600 mt-1 error-width">
+                                        <div v-for="message in validationErrors?.password">
+                                            {{ message }}
+                                        </div>
+                                    </div>
+                                    <div class="d-flex justify-content-between itty btnContainer-bottom">
+                                       <!-- Remember me -->
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="remember" v-model="loginForm.remember" id="flexCheckIndeterminate">
+                                            <label class="form-check-label btn-href" for="flexCheckIndeterminate">
+                                                {{ $t('remember_me') }}
+                                            </label>
+                                        </div>
+                                        <router-link class="btn-href" :to="{name: 'auth.forgot-password'}">{{ $t('forgot_password')}}</router-link>
+                                    </div>
+                                    
+                                    <!-- Boton iniciar sesion -->
+                                    <div class="container-boton">
+                                        <div class="sticky-btn-sticker"></div>
+                                        <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('login') }}</button>
                                     </div>
                                 </div>
-                                <div class="text-danger-600 mt-1 error-width">
-                                    <div v-for="message in validationErrors?.password">
-                                        {{ message }}
-                                    </div>
-                                </div>
-                                <div class="d-flex justify-content-between itty btnContainer-bottom">
-                                   <!-- Remember me -->
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" name="remember" v-model="loginForm.remember" id="flexCheckIndeterminate">
-                                        <label class="form-check-label btn-href" for="flexCheckIndeterminate">
-                                            {{ $t('remember_me') }}
-                                        </label>
-                                    </div>
-                                    <router-link class="btn-href" :to="{name: 'auth.forgot-password'}">{{ $t('forgot_password')}}</router-link>
-                                </div>
-                                
-                                <!-- Boton iniciar sesion -->
-                                <div class="container-boton">
-                                    <div class="sticky-btn-sticker"></div>
-                                    <button class="btnSticky sticky-btn-1 itty" :disabled="processing">{{ $t('login') }}</button>
-                                </div>
-                            </div>
-                        </form>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -106,7 +108,7 @@ const { loginForm, validationErrors, processing, submitLogin } = useAuth();
         background-image: url(images/Corcho.jpg);
         background-repeat: no-repeat;
         background-size: cover;
-        height: 100vh;
+        height: 100%;
     }
     .no-margin-row {
         margin: 0px;

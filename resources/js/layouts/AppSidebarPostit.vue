@@ -46,7 +46,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-right: solid 2px #E1BC83;
-    box-shadow: 8px 0px 10px rgba(0, 0, 0, 0.5);
+    box-shadow: 8px 0px 10px rgba(0, 0, 0, 0.2);
 }
 
 .top-sidebar{

@@ -90,6 +90,10 @@ li:hover .logo-sidebar-7{
     min-height: 100vh;
 }
 
+.contenedorGeneral{
+    height: 100vh;
+}
+
 @media (max-width: 1200px){
     .mainPrincipal{
         margin-bottom: 80px;
@@ -526,7 +530,7 @@ align-self: flex-end;
 
 @media (max-width: 600px){
     .card-post{
-        width: 100%;
+        width: 90%;
     }
 }
 .soporte{

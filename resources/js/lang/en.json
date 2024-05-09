@@ -91,5 +91,7 @@
     "admin_panel": "Admin Panel",
     "block_message": "You cannot see this user's posts because they have blocked you",
     "join_date": "Joined on",
-    "delete_all": "Delete All"
+    "delete_all": "Delete All",
+    "show_followed": "Show followed",
+    "show_all": "Show all"
 }

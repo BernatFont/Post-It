@@ -1,7 +1,7 @@
 <template>
     <div class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between searchContainer row topbar-title">
-            <div class="itty col-8 pl-5 ">
+            <div class="itty col-8">
                 <router-link :to="{ name: 'feed'}" class="pt-2 title-target">< </router-link>    
                 <span class="pt-2 title-target">{{$t('post')}}</span>
             </div>
@@ -91,12 +91,12 @@
                         </div>
                         <div class="d-flex justify-content-center align-items-center">
                             <span class="font2">{{ formatearFecha(comentario.created_at) }} </span>
-                            <div class="ml-3"  @click="eliminarComentario(comentario.id)">
-                                <div class="img-btn"></div>
-                            </div>
                         </div>
                     </div>
                     <div class="my-3 font1">{{ comentario.contenido }}</div>
+                    <div v-if="usuarioActual.id == comentario.id_usuario" class="d-flex justify-content-end"  @click="eliminarComentario(comentario.id)">
+                        <div class="img-btn"></div>
+                    </div>
                 </div>
             </div>
         </div>
