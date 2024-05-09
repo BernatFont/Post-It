@@ -45,7 +45,7 @@
                     <div class="card-post-bottom d-flex">
                         <div class="d-flex align-items-center cursor-pointer" @click="like(publicacion)">
                             <div class="pi p-3">
-                                <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                                <img v-if="comprobarLike(publicacion) == true" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
                                 <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
                             </div>
                             <span class="itty number-of">{{ publicacion.likes_count }}</span>
@@ -112,7 +112,6 @@ const like = (publicacion) => {
     axios.post('/api/like/add/' + publicacion.id)
         .then(response => {
             console.log("Like");
-            const like = comprobarLike(publicacion.id);
             obtenerPublicaciones();
             if(like == false) {
                 enviarNotificacion(publicacion, 0);
@@ -122,17 +121,6 @@ const like = (publicacion) => {
         .catch(error => {
             console.error("Error al dar like:", error);
         });
-};
-
-const comprobarLike = (id) => {
-    const index = publicaciones.value.findIndex(publicacion => publicacion.id === id);
-    if (index !== -1 && publicaciones.value[index].likes && usuarioActual.value) {
-        const tieneLike = publicaciones.value[index].likes.some(like => like.id_usuario === usuarioActual.value.id);
-        publicaciones.value[index].liked = tieneLike; // Actualiza el estado de liked en la publicación
-        return tieneLike;
-    } else {
-        return false;
-    }
 };
 // Función para calcular la diferencia en minutos, horas y días
 const calcularDiferencia = (fechaPublicacion) => {
@@ -181,7 +169,7 @@ const enviarNotificacion = (publicacion, tipo) => {
 // Verificar si el usuario está bloqueado por alguno de los usuarios bloqueados
 const usuarioBloqueado = (usuario) => {
     if (usuario && usuario.bloqueado) {
-        return usuario.bloqueado.some(bloqueado => bloqueado.id === usuarioActual.value.id);
+        return usuario.bloqueados.some(bloqueado => bloqueado.id === usuarioActual.value.id);
     } else {
         return false;
     }
@@ -239,6 +227,16 @@ function position(pos) {
             return ''; // Clase por defecto
     }
 }
+
+const comprobarLike = (publicacion) => {
+    let tieneLike = false;
+    publicacion.likes.forEach(like => {
+        if(like.pivot.id_usuario == usuarioActual.value.id) {
+            tieneLike = true;
+        }
+    });
+    return tieneLike;
+};
 
 const windowWidth = ref(window.innerWidth);  // Propiedad reactiva para almacenar el ancho de la ventana
 

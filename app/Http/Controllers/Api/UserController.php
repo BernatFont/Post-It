@@ -56,21 +56,7 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return UserResource
      */
-    // public function store(StoreUserRequest $request)
-    // {
-    //     $role = Role::find($request->role_id);
-    //     $user = new User();
-    //     $user->name = $request->name;
-    //     $user->email = $request->email;
-    //     $user->password = Hash::make($request->password);
-
-    //     if ($user->save()) {
-    //         if ($role) {
-    //             $user->assignRole($role);
-    //         }
-    //         return new UserResource($user);
-    //     }
-    // }
+    
     public function store(StoreUserRequest $request)
 {
     $role = Role::find($request->role_id);

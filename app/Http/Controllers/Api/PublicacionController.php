@@ -7,7 +7,6 @@ use Illuminate\Http\Request;
 use App\Models\Publicacion;
 //Importamos modelo usuario para poder hacer la relacion con el post (como un join)
 use App\Models\User;
-use App\Models\Like;
 use App\Models\Comentario;
 use App\Models\Media;
 use App\Models\Notificacion;
@@ -110,6 +109,7 @@ class PublicacionController extends Controller
         return response()->noContent();
     }
     
+    // Funcion para filtrar los posts por texto
     public function filterPosts(Request $request, $filter){
         $query = Publicacion::query();
 
@@ -120,6 +120,24 @@ class PublicacionController extends Controller
         }
 
         return $query->get();
+    }
+
+    // Funcion para dar like a una publicación
+    public function like(Request $request, $id_publicacion)
+    {
+        $user = auth()->user();
+        $publicacion = Publicacion::findOrFail($id_publicacion);
+
+        // Verificar si el usuario ya dio like a esta publicación
+        if ($publicacion->likes()->where('id_usuario', $user->id)->exists()) {
+            // Si ya dio like, retornar un mensaje indicando que ya dio like
+            $publicacion->likes()->detach($user->id);
+            return response()->json(['liked' => false, 'message' => 'Ya has dado like a esta publicación.'], 200);
+        } else {
+            // Si no dio like, agregar el like a través de attach
+            $publicacion->likes()->attach($user->id);
+            return response()->json(['liked' => true, 'message' => 'Has dado like a esta publicación.'], 200);
+        }
     }
 }
 

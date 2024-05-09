@@ -87,7 +87,7 @@
                 </div>
             </div>
             <!-- Publicaciones del usuario *Si el usuario esta bloqueado no se muestran*-->
-            <div v-if="usuario.publicaciones && usuario.bloqueado[0]?.id !== userLogin.id" class="d-flex flex-column">
+            <div v-if="usuario.publicaciones && usuario.bloqueados[0]?.id !== userLogin.id" class="d-flex flex-column">
                 <!-- Contenedor de una publicacion-->
                 <div v-for="(publicacion, index) in usuario.publicaciones" :key="publicacion.id" class="publicacion-perfil-container mb-5" :class="[bgClass(usuario.style), rotate(publicacion.rotation), position(2)]">
                     <router-link :to="{ name: 'publicacion.mostrar', params: { id: publicacion.id } }" class="textColor itty">
@@ -119,7 +119,7 @@
                         <div class="card-post-bottom d-flex">
                             <div class="d-flex align-items-center cursor-pointer" @click.prevent="like(publicacion)">
                                 <div class="pi p-3">
-                                    <img v-if="comprobarLike(publicacion.id)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                                    <img v-if="comprobarLike(publicacion)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
                                     <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
                                 </div>
                                 <span class="itty number-of">{{ publicacion.likes.length }}</span>
@@ -225,8 +225,8 @@ const bloquear = () => {
 
 const comprobarBloqueado = () => {
     if (usuario.value && userLogin.value) {
-        const bloqueados = usuario.value.bloqueados.map(bloqueado => bloqueado.id);
-        return bloquearUsuarioActual.value = bloqueados.includes(userLogin.value.id);
+        const bloqueado = usuario.value.bloqueado.map(bloqueado => bloqueado.id);
+        return bloquearUsuarioActual.value = bloqueado.includes(userLogin.value.id);
     } else {
         return false;
     }
@@ -253,7 +253,7 @@ const like = (publicacion) => {
     axios.post('/api/like/add/' + publicacion.id)
         .then(response => {
             console.log("Like");
-            const like = comprobarLike(publicacion.id);
+            const like = comprobarLike(publicacion);
             obtenerUsuario()
             if(like == false) {
                 enviarNotificacion(publicacion, 0);
@@ -266,15 +266,15 @@ const like = (publicacion) => {
 };
 
 // Comprueba si una publicacion ya tenia like o no.
-const comprobarLike = (id) => {
-    if (usuario.value && usuario.value.publicaciones) {
-        const publicacion = usuario.value.publicaciones.find(pub => pub.id === id);
-        if (publicacion && publicacion.likes && userLogin.value) {
-            const tieneLike = publicacion.likes.some(like => like.id_usuario === userLogin.value.id);
-            return tieneLike;
+
+const comprobarLike = (publicacion) => {
+    let tieneLike = false;
+    publicacion.likes.forEach(like => {
+        if(like.pivot.id_usuario == userLogin.value.id) {
+            tieneLike = true;
         }
-    }
-    return false;
+    });
+    return tieneLike;
 };
 
 

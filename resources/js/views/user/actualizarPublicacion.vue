@@ -34,7 +34,8 @@
                             </div>
                             <div class="card-post-bottom d-flex">
                                 <div class="pi p-3">
-                                    <img src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
+                                    <img v-if="comprobarLike(publicacion)" src="/images/like_check.svg" alt="Corazón activo" class="corazon-img">
+                                    <img v-else src="/images/like.svg" alt="Corazón inactivo" class="corazon-img">
                                 </div>
                                 <div class="d-flex align-items-center justify-content-center"><span class="itty number-of">{{publicacion.likes_count}}</span>
                                     <img src="/images/comentarios.svg" alt="icono de comentarios" class="mx-3 comment-icon"><span class="itty number-of">{{publicacion.comentarios_count}}</span>
@@ -190,7 +191,15 @@ onMounted(() => {
             return `Hace ${dias} días`;
         }
     };
-    
+    const comprobarLike = (publicacion) => {
+    let tieneLike = false;
+    publicacion.likes.forEach(like => {
+        if(like.pivot.id_usuario == user.value.id) {
+            tieneLike = true;
+        }
+    });
+    return tieneLike;
+};
 </script>
 
 <style setup>

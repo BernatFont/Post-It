@@ -32,8 +32,7 @@ Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacio
 Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar publicacion
 Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar publicacion
 Route::get('publicacions/filter/{filter}', [PublicacionController::class, 'filterPosts']); // Eliminar publicacion
-
-Route::post('/like/add/{id}', [LikeController::class, 'store']); // Ejecuta la funcion de like
+Route::post('/like/add/{id}', [PublicacionController::class, 'like']); // Da o quita like a una publicacion
 
 Route::get('comentarios', [ComentarioController::class, 'index']); // Obtener comentarios
 Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']); // Añadir comentario
@@ -45,13 +44,11 @@ Route::post('/usuarios/modificar', [UserController::class, 'modificarUsuario']);
 Route::post('/usuarios/{username}/modificarImagen', [UserController::class, 'modificarImagenUsuario']); // Modifica la imagen de un usuario
 Route::post('/usuarios/colorPost/{color}/{username}', [UserController::class, 'colorPost']); // Modifica el color de los post de el usuario logeado
 Route::delete('usuarios/{user}', [UserController::class, 'destroy']);// Elimina a un usuario con todas las dependencias
-Route::post('usuarios/seguir/{user}', [UserController::class, 'seguir']);// Elimina a un usuario con todas las dependencias
-Route::post('usuarios/bloquear/{user}', [UserController::class, 'bloquear']);// Elimina a un usuario con todas las dependencias
 
 Route::get('/chats', [ChatController::class, 'index']); // Obtener todos los chat
 Route::get('/chats/{id}', [ChatController::class, 'obtenerChat']); // Obtener conversacion deu n chat
-// Route::post('/follow/{id}', [SeguidoController::class, 'store']); // Seguir usuario
-// Route::post('/block/{id}', [BloqueadoController::class, 'store']); // Bloquear usuario
+Route::post('usuarios/seguir/{user}', [UserController::class, 'seguir']);// Seguir o dejar de seguir un usuario
+Route::post('usuarios/bloquear/{user}', [UserController::class, 'bloquear']);// Bloquear o desbloquear un usuario
 Route::post('/chat/{id}', [ChatController::class, 'store']); // Crear chat
 Route::get('/chat/mensajes/{id}', [MensajeController::class, 'index']); // Obtener mensajes de un chat
 Route::post('/chat/mensajes/{id}', [MensajeController::class, 'store']); // Añadir mensaje al chat

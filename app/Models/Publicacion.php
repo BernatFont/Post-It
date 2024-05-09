@@ -26,19 +26,13 @@ class Publicacion extends Model implements HasMedia
         return $this->belongsTo(User::class, 'id_usuario', 'id');
     }
 
-    public function like()
-    {
-        return $this->belongsTo(Like::class, 'id_publicacion', 'id'); 
-    }
-
-    public function likes()
-    {
-        return $this->hasMany(Like::class, 'id_publicacion');
-    }
-
     public function comentarios()
     {
         return $this->hasMany(Comentario::class, 'id_publicacion');
+    }
+
+    public function likes() {
+        return $this->belongsToMany(User::class, 'likes', 'id_publicacion', 'id_usuario')->withPivot('id_usuario');;
     }
     
     /**

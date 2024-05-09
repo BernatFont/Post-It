@@ -363,13 +363,13 @@ const like = (publicacion) => {
 };
 
 const comprobarLike = (publicacion) => {
-    if (publicacion && publicacion.likes && usuarioActual.value) {
-        const tieneLike = publicacion.likes.some(like => like.id_usuario === usuarioActual.value.id);
-        publicacion.liked = tieneLike; // Actualiza el estado de liked en la publicación
-        return tieneLike;
-    } else {
-        return false;
-    }
+    let tieneLike = false;
+    publicacion.likes.forEach(like => {
+        if(like.pivot.id_usuario == usuarioActual.value.id) {
+            tieneLike = true;
+        }
+    });
+    return tieneLike;
 };
 
 // Función para calcular la diferencia en minutos, horas y días
