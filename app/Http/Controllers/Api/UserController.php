@@ -195,6 +195,43 @@ class UserController extends Controller
         
     }
 
+    public function seguir($usuario){
+        $userId = auth()->id();
+    
+        $user = User::find($userId);
+        $seguido = User::find($usuario);
+    
+        // Verificar si el usuario ya sigue al usuario especificado
+        if ($user->seguidos()->where('id_usuario_seguido', $seguido->id)->exists()) {
+            // Si ya lo sigue, realizar un detach
+            $user->seguidos()->detach($seguido->id);
+            return "Ya no sigues a este usuario.";
+        } else {
+            // Si no lo sigue, realizar un attach
+            $user->seguidos()->attach($seguido->id);
+            return "Ahora estás siguiendo a este usuario.";
+        }
+    }
+
+    public function bloquear($usuario){
+        $userId = auth()->id();
+    
+        $user = User::find($userId);
+        $bloqueado = User::find($usuario);
+    
+        // Verificar si el usuario ya sigue al usuario especificado
+        if ($user->bloqueados()->where('id_usuario_bloqueado', $bloqueado->id)->exists()) {
+            // Si ya lo sigue, realizar un detach
+            $user->bloqueados()->detach($bloqueado->id);
+            return "Ya no sigues a este usuario.";
+        } else {
+            // Si no lo sigue, realizar un attach
+            $user->bloqueados()->attach($bloqueado->id);
+            return "Ahora estás siguiendo a este usuario.";
+        }
+    }
+    
+
     public function modificarImagenUsuario(Request $request, $username){
         try {
             $user = User::where('username', $username)->firstOrFail();

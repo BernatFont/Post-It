@@ -11,15 +11,15 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('seguidos', function (Blueprint $table) {
+        Schema::create('user_blocks', function (Blueprint $table) {
             $table->unsignedBigInteger('id_usuario');
-            $table->unsignedBigInteger('id_usuario_seguido');
+            $table->unsignedBigInteger('id_usuario_bloqueado');
             $table->timestamps();
 
             $table->foreign('id_usuario')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('id_usuario_seguido')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('id_usuario_bloqueado')->references('id')->on('users')->onDelete('cascade');
 
-            $table->primary(['id_usuario','id_usuario_seguido']);
+            $table->primary(['id_usuario','id_usuario_bloqueado']);
         });
     }
 
@@ -28,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('seguidos');
+        Schema::dropIfExists('user_blocks');
     }
 };

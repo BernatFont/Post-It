@@ -64,45 +64,61 @@ class User extends Authenticatable implements HasMedia
         return $this->belongsTo(Publicacion::class);
     }
 
-    public function seguidores() {
-        // Relación que obtiene los seguidores del usuario a través de la tabla intermedia Seguido.
-        return $this->hasManyThrough(User::class, Seguido::class,
-            'id_usuario_seguido', // Clave foránea de la tabla intermedia en Seguido
-            'id', // Clave primaria de la tabla de usuarios
-            'id', // Clave primaria local en el modelo de usuario
-            'id_usuario' // Clave foránea local en el modelo de usuario
-        );
+    // public function seguidores() {
+    //     // Relación que obtiene los seguidores del usuario a través de la tabla intermedia Seguido.
+    //     return $this->hasManyThrough(User::class, Seguido::class,
+    //         'id_usuario_seguido', // Clave foránea de la tabla intermedia en Seguido
+    //         'id', // Clave primaria de la tabla de usuarios
+    //         'id', // Clave primaria local en el modelo de usuario
+    //         'id_usuario' // Clave foránea local en el modelo de usuario
+    //     );
+    // }
+
+    // public function seguidos() {
+    //     // Relación que obtiene los usuarios seguidos por el usuario a través de la tabla intermedia Seguido.
+    //     return $this->hasManyThrough(User::class, Seguido::class,
+    //         'id_usuario', // Clave foránea local en la tabla intermedia en Seguido
+    //         'id', // Clave primaria de la tabla de usuarios
+    //         'id', // Clave primaria local en el modelo de usuario
+    //         'id_usuario_seguido' // Clave foránea en la tabla de usuarios en Seguido
+    //     );
+    // }
+
+    public function seguidos(){
+        return $this->belongsToMany(User::class, 'user_user','id_usuario', 'id_usuario_seguido');
+    }
+    
+    public function seguidores(){
+        return $this->belongsToMany(User::class,'user_user','id_usuario_seguido','id_usuario');
+    }
+    
+    public function bloqueados(){
+        return $this->belongsToMany(User::class, 'user_blocks','id_usuario', 'id_usuario_bloqueado');
+    }
+    
+    public function bloqueado(){
+        return $this->belongsToMany(User::class,'user_blocks','id_usuario_bloqueado','id_usuario');
     }
 
-    public function seguidos() {
-        // Relación que obtiene los usuarios seguidos por el usuario a través de la tabla intermedia Seguido.
-        return $this->hasManyThrough(User::class, Seguido::class,
-            'id_usuario', // Clave foránea local en la tabla intermedia en Seguido
-            'id', // Clave primaria de la tabla de usuarios
-            'id', // Clave primaria local en el modelo de usuario
-            'id_usuario_seguido' // Clave foránea en la tabla de usuarios en Seguido
-        );
-    }
+    // public function bloqueados() {
+    //     // Relación que obtiene los usuarios que han bloqueado al usuario actual.
+    //     return $this->hasManyThrough(User::class, Bloqueado::class,
+    //         'id_usuario_bloqueado', // Clave foránea de la tabla intermedia Blqqueado
+    //         'id', // Clave primaria de la tabla de usuarios
+    //         'id', // Clave primaria local en el modelo de usuario
+    //         'id_usuario' // Clave foránea local en el modelo de usuario
+    //     );
+    // }
 
-    public function bloqueados() {
-        // Relación que obtiene los usuarios que han bloqueado al usuario actual.
-        return $this->hasManyThrough(User::class, Bloqueado::class,
-            'id_usuario_bloqueado', // Clave foránea de la tabla intermedia Blqqueado
-            'id', // Clave primaria de la tabla de usuarios
-            'id', // Clave primaria local en el modelo de usuario
-            'id_usuario' // Clave foránea local en el modelo de usuario
-        );
-    }
-
-    public function bloqueado() {
-        // Relación que obtiene los usuarios bloqueados por el usuario a través de la tabla intermedia Bloqueados.
-        return $this->hasManyThrough(User::class, Bloqueado::class,
-            'id_usuario', // Clave foránea local en la tabla intermedia Bloqueado
-            'id', // Clave primaria de la tabla de usuarios
-            'id', // Clave primaria local en el modelo de usuario
-            'id_usuario_bloqueado' // Clave foránea en la tabla de usuarios Bloqueado
-        );
-    }
+    // public function bloqueado() {
+    //     // Relación que obtiene los usuarios bloqueados por el usuario a través de la tabla intermedia Bloqueados.
+    //     return $this->hasManyThrough(User::class, Bloqueado::class,
+    //         'id_usuario', // Clave foránea local en la tabla intermedia Bloqueado
+    //         'id', // Clave primaria de la tabla de usuarios
+    //         'id', // Clave primaria local en el modelo de usuario
+    //         'id_usuario_bloqueado' // Clave foránea en la tabla de usuarios Bloqueado
+    //     );
+    // }
 
     public function publicaciones()
     {

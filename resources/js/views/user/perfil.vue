@@ -181,7 +181,7 @@ const obtenerUsuario = () => {
 };
 
 const seguir = () => {
-    axios.post('/api/follow/' + usuario.value.id)
+    axios.post('/api/usuarios/seguir/' + usuario.value.id)
     
     .then(response => {
         console.log("Seguir");
@@ -211,7 +211,7 @@ const comprobarSeguido = () => {
 };
 
 const bloquear = () => {
-    axios.post('/api/block/' + usuario.value.id)
+    axios.post('/api/usuarios/bloquear/' + usuario.value.id)
     
     .then(response => {
         console.log("Bloquear");
