@@ -194,7 +194,7 @@ class UserController extends Controller
             return "Ya no sigues a este usuario.";
         } else {
             // Si no lo sigue, realizar un attach
-            $user->seguidos()->attach($seguido->id);
+            $user->seguidos()->attach($seguido->id, ['fecha_seguido' => now()]);
             return "Ahora estás siguiendo a este usuario.";
         }
     }

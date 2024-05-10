@@ -65,11 +65,13 @@ class User extends Authenticatable implements HasMedia
     }
 
     public function seguidos(){
-        return $this->belongsToMany(User::class, 'user_user','id_usuario', 'id_usuario_seguido');
+        return $this->belongsToMany(User::class, 'user_user','id_usuario', 'id_usuario_seguido')
+                    ->withPivot('fecha_seguido');
     }
     
     public function seguidores(){
-        return $this->belongsToMany(User::class,'user_user','id_usuario_seguido','id_usuario');
+        return $this->belongsToMany(User::class,'user_user','id_usuario_seguido','id_usuario')
+                    ->withPivot('fecha_seguido');
     }
     
     public function bloqueados(){
