@@ -364,11 +364,13 @@ const like = (publicacion) => {
 
 const comprobarLike = (publicacion) => {
     let tieneLike = false;
-    publicacion.likes.forEach(like => {
-        if(like.pivot.id_usuario == usuarioActual.value.id) {
-            tieneLike = true;
-        }
-    });
+        if(publicacion.likes != null) {
+            publicacion.likes.forEach(like => {
+            if(like.pivot.id_usuario == usuarioActual.value.id) {
+                tieneLike = true;
+            }
+        });
+    }
     return tieneLike;
 };
 

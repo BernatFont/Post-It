@@ -112,8 +112,10 @@ const like = (publicacion) => {
     axios.post('/api/like/add/' + publicacion.id)
         .then(response => {
             console.log("Like");
+            const like = comprobarLike(publicacion);
             obtenerPublicaciones();
             if(like == false) {
+                console.log('Notificacion enviada')
                 enviarNotificacion(publicacion, 0);
             }
             
