@@ -8,10 +8,7 @@ use App\Http\Controllers\Api\ProfileController;
 use App\Http\Controllers\Api\RoleController;
 use App\Http\Controllers\Api\UserController;
 use App\Http\Controllers\Api\PublicacionController;
-use App\Http\Controllers\Api\LikeController;
 use App\Http\Controllers\Api\ComentarioController;
-use App\Http\Controllers\Api\SeguidoController;
-use App\Http\Controllers\Api\BloqueadoController;
 use App\Http\Controllers\Api\ChatController;
 use App\Http\Controllers\Api\MensajeController;
 use App\Http\Controllers\Api\NotificacionController;
@@ -57,7 +54,7 @@ Route::get('/notificaciones', [NotificacionController::class, 'index']); // Obte
 Route::get('/notificaciones/contador',[NotificacionController::class, 'numNotificaciones']); // Obtener numero de notificaciones
 Route::post('/notificacion', [NotificacionController::class, 'store']); // Crear notificacion
 Route::delete('/notificacion/delete/{id}', [NotificacionController::class, 'destroy']); // Eliminar notificacion
-Route::delete('/notificacion/deleteAll/{id}', [NotificacionController::class, 'eliminarNotificacionesUsuario']); // Eliminar notificacion
+Route::delete('/notificacion/deleteAll/{id}', [NotificacionController::class, 'eliminarNotificacionesUsuario']); // Eliminar todas las notificaciones de un usuario
 
 Route::group(['middleware' => 'auth:sanctum'], function() {
     Route::apiResource('users', UserController::class);
