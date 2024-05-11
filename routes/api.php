@@ -27,12 +27,12 @@ Route::post('forget-password', [ForgotPasswordController::class, 'sendResetLinkE
 Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
 
 Route::get('publicacions', [PublicacionController::class, 'index']); // Devuelve todas las publicaciones
-Route::post('publicacions/',[PublicacionController::class,'store']); // Crea una publicacion
+Route::post('publicacions/',[PublicacionController::class,'store'])->name('publicaciones.store'); // Crea una publicacion
 Route::get('publicacions/{id}',[PublicacionController::class, 'mostrarPublicacion']); // Muestra una publicacion por id
 Route::put('publicacions/update/{id}', [PublicacionController::class,'update']); //Editar publicacion
-Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy']); // Eliminar publicacion
+Route::delete('publicacions/delete/{id}', [PublicacionController::class, 'destroy'])->name('publicaciones.destroy'); // Eliminar publicacion
 Route::get('publicacions/filter/{filter}', [PublicacionController::class, 'filterPosts']); // Eliminar publicacion
-Route::post('/like/add/{id}', [PublicacionController::class, 'like']); // Da o quita like a una publicacion
+Route::post('/like/add/{id}', [PublicacionController::class, 'like'])->name('publicaciones.like'); // Da o quita like a una publicacion
 
 Route::get('comentarios', [ComentarioController::class, 'index']); // Obtener comentarios
 Route::post('/comentario/add/{id}', [ComentarioController::class, 'store']); // Añadir comentario

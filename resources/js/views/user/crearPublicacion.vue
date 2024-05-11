@@ -55,7 +55,7 @@
                             <div class="sticky-btn-sticker bg-2c"></div>
                             <button @click="discardImage" class="btnSticky sticky-btn-1 bg-2 itty">{{ $t('discard_image')}}</button>
                         </div>
-                        <div class="container-boton mt-5">
+                        <div class="container-boton">
                             <div class="sticky-btn-sticker bg-3c"></div>
                             <button type="submit" class="btnSticky sticky-btn-1 bg-3 itty">{{ $t('publish')}}</button>
                         </div>

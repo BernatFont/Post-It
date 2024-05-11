@@ -103,7 +103,7 @@ class PublicacionController extends Controller
             Notificacion::whereIn('id_contenido', $comentarios)->delete();
             
             // Elimina los likes asociados a la publicación eliminada
-            Like::where('id_publicacion', $id)->delete();
+            // Like::where('id_publicacion', $id)->delete();
         }
         
         return response()->noContent();

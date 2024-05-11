@@ -20,7 +20,8 @@
                     <span class="itty font2">@{{ usuario.username }}</span>
                 </div> 
             </div>
-            <div>
+            <div class="d-flex align-items-center">
+                <span class="font2">{{ obtenerFecha(usuario.pivot.fecha_seguido) }}</span>
                 <router-link class="btnIr itty" :to="{ name: 'usuario.mostrar', params: { username: usuario.username } }">{{ $t('show') }}</router-link>
             </div>
         </div>
@@ -46,6 +47,19 @@
                 console.log(usuario.value);
             })
     })
+
+function obtenerFecha(fecha) {
+    // Crear un objeto de fecha a partir de la cadena proporcionada
+    const fechaObjeto = new Date(fecha);
+
+    // Obtener los componentes de la fecha
+    const dia = fechaObjeto.getDate().toString().padStart(2, '0');
+    const mes = (fechaObjeto.getMonth() + 1).toString().padStart(2, '0'); // El mes es base 0, por lo que se agrega 1
+    const año = fechaObjeto.getFullYear();
+
+    // Devolver la fecha formateada en el formato deseado
+    return `${dia}/${mes}/${año}`;
+}
 
 </script>
 
