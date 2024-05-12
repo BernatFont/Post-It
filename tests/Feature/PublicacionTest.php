@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Hash;
 class PublicacionTest extends TestCase
 {
 
-    //use RefreshDatabase;
+    use RefreshDatabase;
     use WithFaker;
 
     /**
