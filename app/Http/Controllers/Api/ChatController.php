@@ -11,6 +11,7 @@ use App\Models\Media;
 
 class ChatController extends Controller
 {
+    // Funcion que devuelve todos los chats que tiene el usuario logeado.
     public function index()
     {
         $userLogeado = auth()->id();
@@ -19,6 +20,7 @@ class ChatController extends Controller
         return $chats;
     }
 
+    // Funcion que crea y almacena un nuevo chat.
     public function store($id, Request $request)
     {
         $userLogeado = auth()->id();
@@ -40,6 +42,7 @@ class ChatController extends Controller
         }
     }
 
+    // Funcion que obtiene un chat en base a un id.
     public function obtenerChat($id, Request $request) {
         $chat = Chat::find($id);
     

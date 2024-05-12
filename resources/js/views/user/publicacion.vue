@@ -399,6 +399,7 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
+// Funcion que envia una notificacion, se envia la publicacion, el id del contenido relacionado y el tipo de interaccion que es, Like, comentario, seguidor...
 const enviarNotificacion = (publicacion, contenido, tipo) => {
     const remitente = usuarioActual.value.id;
     const destinatario = publicacion.id_usuario; 
@@ -419,6 +420,7 @@ const enviarNotificacion = (publicacion, contenido, tipo) => {
         });
 }
 
+// Comprueba si el texto supera el maximo de caracteres
     const maxLenghtTexto = (texto) => {
         const maxLength = 300;
 
@@ -430,6 +432,7 @@ const enviarNotificacion = (publicacion, contenido, tipo) => {
         }
     }
 
+    // Aplica una clase en funcion del color elegido por el usuario a sus publicaciones.
 function bgClass(color) {
     switch(color) {
     case 2:

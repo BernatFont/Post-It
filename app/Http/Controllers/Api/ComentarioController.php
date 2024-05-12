@@ -9,13 +9,14 @@ use App\Models\Notificacion;
 
 class ComentarioController extends Controller
 {
-    //
+    // Funcion para obtener todos los comentarios de una publicacion.
     public function index()
     {
         $comentarios = Comentario::all()->toArray();
         return $comentarios;
     }
 
+    // Esta funcion es utilizada para crear un nuevo comentario y almacenarlo.
     public function store($id, Request $request)
     {
         $request->validate([
@@ -36,7 +37,7 @@ class ComentarioController extends Controller
         return response()->json(['success' => true, 'data' => $comentario]);
     }
     
-    // Funcion que elimina un comentario
+    // Funcion que elimina un comentario en base a su id.
     public function destroy($id) 
     {
         $comentario = Comentario::find($id);

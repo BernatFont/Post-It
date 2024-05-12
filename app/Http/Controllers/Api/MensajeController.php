@@ -15,6 +15,7 @@ class MensajeController extends Controller
         return $mensajes;
     }
 
+    // Esta funcion añade un nuevo mensaje a un chat.
     public function store(Request $request, $chatId)
     {
         // Validación de los datos del mensaje

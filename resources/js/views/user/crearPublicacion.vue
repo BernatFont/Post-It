@@ -185,7 +185,7 @@
         return texto;
     };
 
-
+    // Funcion que comprueba si se ha superado el maximo de caractes permitidos.
     const maxLenghtTexto = (texto) => {
         const maxLength = 300;
 
@@ -203,6 +203,8 @@
     let imageUrl = ref('');
 
 
+
+// Funcion utilizada para subir una imagen y mostrarla.
     const onFileChange = (event) => {
         const file = event.target.files[0];
         const filePath =event.target.value; // Obtiene la ruta completa del archivo seleccionado
@@ -220,7 +222,7 @@
         reader.readAsDataURL(file);
     };
 
-
+// Funcion que descarta la imagen seleccionada.
     const discardImage = () => {
         // Reinicia las variables relacionadas con la imagen seleccionada
         imageUrl.value = '';
@@ -228,6 +230,7 @@
     };
 
 
+// Funcion para crear una nueva publicacion.
     const addPublicacion = async () => {
 
         // Verifica si hay al menos un campo presente (texto o imagen)
@@ -275,6 +278,7 @@
             });
     };
 
+    // Funcion que aplica el color a la publicacion en base al estilo elegido por el usuario.
     function bgClass(color) {
       switch(color) {
         case 1:

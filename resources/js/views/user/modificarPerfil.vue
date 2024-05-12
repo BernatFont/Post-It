@@ -194,6 +194,7 @@ onMounted(() => {
     obtenerUsuario();
 });
 
+// Obtiene el usuario en base al username.
 const obtenerUsuario = () => {
     axios.get('/api/usuario/' + username)
     .then(response => {
@@ -213,6 +214,7 @@ const obtenerUsuario = () => {
     }); 
 };
 
+// Funcion para seleccionar una iamgen
 const seleccionarImagen = (event) => {
     const file = event.target.files[0];
     if (file) {
@@ -247,7 +249,7 @@ const seleccionarImagen = (event) => {
     }
 };
 
-
+// Funcion utilizada por el boton de guardar cambios, guarda los cambios aplicados en el formulario.
 const guardarCambios = () => {
     const name = document.getElementById('name')
     console.log(usuario.value)

@@ -11,6 +11,7 @@ use App\Models\Comentario;
 
 class NotificacionController extends Controller
 {
+    // Funcion que devuelve todas las notificaciones de el usuario que ha iniciado sesion.
     public function index(){
         // Obtener las notificaciones para el usuario autenticado
         $userId = auth()->id();
@@ -19,6 +20,7 @@ class NotificacionController extends Controller
         return response()->json($notificaciones);
     }
 
+    // Funcion para crear una nueva notificacion.
     public function store(Request $request) {
         // Verificar si ya existe una notificación exactamente igual en la base de datos
         $existeNotificacion = Notificacion::where('id_remitente', $request->remitente)
@@ -43,6 +45,7 @@ class NotificacionController extends Controller
         return response()->json(['mensaje' => 'Notificación creada correctamente'], 201);
     }
 
+    // Funcion para eliminar una notificacion en base a su id.
     public function destroy($id) 
     {
         $notificacion = Notificacion::find($id);
@@ -75,8 +78,8 @@ class NotificacionController extends Controller
         return response()->json(['mensaje' => 'Eliminadas todas las notificaciones del usuario'], 200);
     }
 
+    // Funcion para obtener el recuento de notificaciones para el usuario autenticado
     public function numNotificaciones(){
-        // Obtener el recuento de notificaciones para el usuario autenticado
         $userId = auth()->id();
         $numNotificaciones = Notificacion::where('id_destinatario', $userId)->count();
     

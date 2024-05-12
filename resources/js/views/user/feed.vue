@@ -79,6 +79,7 @@ onMounted(() => {
     obtenerPublicaciones();
 })
 
+// Funcion que obtiene todas las publicaciones.
 const obtenerPublicaciones = () => {
     axios.get('/api/publicacions')
     .then(response => {
@@ -108,6 +109,7 @@ const toggleFiltro = () => {
     obtenerPublicaciones(); // Vuelve a obtener las publicaciones al cambiar el filtro
 }
 
+// Funcion para dar like o quitarlo de una publicacion.
 const like = (publicacion) => {
     axios.post('/api/like/add/' + publicacion.id)
         .then(response => {
@@ -149,6 +151,8 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
+
+// Funcion para enviar una notificacion.
 const enviarNotificacion = (publicacion, tipo) => {
     const remitente = usuarioActual.value.id;
     const destinatario = publicacion.id_usuario; 
@@ -177,6 +181,7 @@ const usuarioBloqueado = (usuario) => {
     }
 };
 
+// Funcion para aplicar color a las publicaciones en base al estilo elegido por el usuario que la ha creado.
 function color(color) {
     switch(color) {
         case 2:
@@ -194,6 +199,7 @@ function color(color) {
     }
 }
 
+// Funcion aplicada sobre las publicaciones para aplicarles rotacion.
 function rotate(rot) {
     switch(rot) {
         case 1:
@@ -216,7 +222,7 @@ function rotate(rot) {
 if (window.innerWidth <= 600){
     const posCent = 2;
 }
-   
+// Funcion aplicada sobre las publicaciones para indicar su posicion, ya sea izquierda, centro o derecha.
 function position(pos) {
     switch(pos) {
         case 1:
@@ -230,6 +236,7 @@ function position(pos) {
     }
 }
 
+// Funcion que comprueba si se ha dado like a una publicacion y devuelve true o false, utilizada por el icono de like para mostrar si se ha dado like o no.
 const comprobarLike = (publicacion) => {
     let tieneLike = false;
     publicacion.likes.forEach(like => {

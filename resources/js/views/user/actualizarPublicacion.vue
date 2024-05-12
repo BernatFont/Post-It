@@ -111,6 +111,7 @@ onMounted(() => {
         }); 
     };
 
+    // Funcion para actualizar una publicacion, envia el id de la publicacion y el texto modificado por parametro.
     function actualizar() {
     axios.put('/api/publicacions/update/' + id, { texto: publicacion.value.texto })
         .then(response => {
@@ -137,6 +138,7 @@ onMounted(() => {
         });
     }
 
+    // Comprueba que los caracteres del post sean menos de 300, en caso de ser mas devuelve true y se muestra el mensaje de maximo numero de caracteres superados.
     const maxLenghtTexto = (texto) => {
         const maxLength = 300;
 
@@ -148,6 +150,7 @@ onMounted(() => {
         }
     }
 
+    // Aplica el color a una publicacion en base al estilo elegido por el usuario que lo publico.
     function bgClass(color) {
       switch(color) {
         case 1:
@@ -168,6 +171,7 @@ onMounted(() => {
       }
     }
 
+    // Obtiene una fecha y la desglosa en minutos, horas o dias.
     const calcularDiferencia = (fechaPublicacion) => {
         const fechaPublicacionObjeto = new Date(fechaPublicacion);
         const fechaActual = new Date();
@@ -178,7 +182,7 @@ onMounted(() => {
         return { minutos: diferenciaEnMinutos, horas: diferenciaEnHoras, dias: diferenciaEnDias };
     };
 
-    // Función para formatear la fecha de publicación
+    // obtiene los valores de calcularDiferencia con los minutos, horas y dias y formatea la fecha de una forma u otra en funcion del tiempo.
     const formatearFecha = (fechaPublicacion) => {
         const { minutos, horas, dias } = calcularDiferencia(fechaPublicacion);
         if (minutos <= 60) {
@@ -191,6 +195,8 @@ onMounted(() => {
             return `Hace ${dias} días`;
         }
     };
+
+    // Comprueba si se ha dado like a una publicacion por parte del usuario logeado para mostrar el boton de like relleno.
     const comprobarLike = (publicacion) => {
     let tieneLike = false;
     publicacion.likes.forEach(like => {

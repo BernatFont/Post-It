@@ -146,6 +146,7 @@ const obtenerUsuarios = () => {
     });
 }  
 
+// Funcion que llama al api para borrar un usuario en base al id proporcionado.
 const eliminarUsuario = (id) => {
     if (confirm('¿Estás seguro de que deseas eliminar este usuario?')) {
         axios.delete(`/api/usuarios/${id}`)
@@ -161,6 +162,7 @@ const eliminarUsuario = (id) => {
     }
 }
 
+// Filtro para buscar un usuario en base al nombre
 function pageFilter(){
     mostrarUsuarios.value = !mostrarUsuarios.value;
     filtroActivo.value = !filtroActivo.value;
@@ -177,6 +179,7 @@ watch(search, (newSearch, oldSearch) => {
     }
 })
 
+// Funcion que devuelve las publicaciones que su contenido coincida con el filtrado.
 function getFilteredPosts(filter){
     axios.get('/api/publicacions/filter/' + filter)
     .then(response => {
@@ -185,6 +188,7 @@ function getFilteredPosts(filter){
     })
 }
 
+// Funcion que obtiene todas las publicaciones
 function getAllPosts(){
     axios.get('/api/publicacions')
     .then(response => {
@@ -192,6 +196,7 @@ function getAllPosts(){
     })
 }
 
+// Funcion para eliminar una publicacion en base al id.
 function deletePost(id){
     if (confirm('¿Estás seguro de que deseas eliminar este post?')) {
         axios.delete(`/api/publicacions/delete/${id}`)

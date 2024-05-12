@@ -203,6 +203,7 @@ onMounted(() => {
     obtenerNotificaciones();
 });
 
+// Funcion que obtiene todas las notificaciones del usuario.
 const obtenerNotificaciones = () => {
     axios.get('/api/notificaciones/')
         .then(response => {
@@ -254,7 +255,7 @@ function obtenerFecha(fecha) {
     return `${dia}/${mes}/${año}`;
 }
 
-// Elimina una notificacio
+// Elimina una notificacion en base al id.
 const eliminarNotificacion = (idNotificacion) => {
     swal({
         title: '¿Estás seguro?',
@@ -286,7 +287,7 @@ const eliminarNotificacion = (idNotificacion) => {
     })
 }
 
-// Eliminar todas las notificaciones
+// Elimina todas las notificaciones del usuario.
 const eliminarNotificaciones = (idDestinatario) => {
     swal({
         title: '¿Estás seguro?',

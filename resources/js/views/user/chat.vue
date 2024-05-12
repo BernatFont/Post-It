@@ -112,6 +112,7 @@
             });
     }
 
+    // Funcion que obtiene todos los mensajes del chat indicado.
     const obtenerChat = () => {
         axios.get('/api/chats/' + chatId)
             .then(response => {
@@ -127,7 +128,7 @@
     }
 
     
-
+    // Funcion para añadir un nuevo mensaje al chat.
     const añadirMensaje = () => {
         const chatId = route.params.id;
         axios.post(`/api/chat/mensajes/${chatId}`, {
@@ -168,6 +169,7 @@
     }
     };
     
+    // Comprueba que el numero de caracteres de un mensaje sea menor de 255, en caso contrario devuelve true y aparece el mensaje de maximo de caracteres superados.
     const maxLenghtTexto = (texto) => {
         const maxLength = 255;
 

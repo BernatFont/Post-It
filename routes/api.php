@@ -20,8 +20,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Auth\ForgotPasswordController;
 
-Route::post('forget-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forget.password.post');
-Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset');
+Route::post('forget-password', [ForgotPasswordController::class, 'sendResetLinkEmail'])->name('forget.password.post'); // Recuperar contraseña
+Route::post('reset-password', [ResetPasswordController::class, 'reset'])->name('password.reset'); // Reiniciar contraseña
 
 Route::get('publicacions', [PublicacionController::class, 'index']); // Devuelve todas las publicaciones
 Route::post('publicacions/',[PublicacionController::class,'store'])->name('publicaciones.store'); // Crea una publicacion

@@ -180,6 +180,7 @@ const obtenerUsuario = () => {
     }); 
 };
 
+// Funcion para seguir al usuario.
 const seguir = () => {
     axios.post('/api/usuarios/seguir/' + usuario.value.id)
     
@@ -201,6 +202,7 @@ const seguir = () => {
     });
 }
 
+// Comprueba si el usuario logeado ya sigue al usuario mostrado.
 const comprobarSeguido = () => {
     if (usuario.value && userLogin.value) {
         const seguidores = usuario.value.seguidores.map(seguidor => seguidor.id);
@@ -210,6 +212,7 @@ const comprobarSeguido = () => {
     }
 };
 
+// Funcion para bloquear al usuario mostrado, al hacerlo dejara de ver tus publicaciones.
 const bloquear = () => {
     axios.post('/api/usuarios/bloquear/' + usuario.value.id)
     
@@ -223,6 +226,7 @@ const bloquear = () => {
     });
 }
 
+// Comprueba si el usuario logeado ya ha bloqueado al usuario mostrado.
 const comprobarBloqueado = () => {
     if (usuario.value && userLogin.value) {
         const bloqueado = usuario.value.bloqueado.map(bloqueado => bloqueado.id);
@@ -232,6 +236,7 @@ const comprobarBloqueado = () => {
     }
 };
 
+// Funcion que aplica en el boton de mensaje del usuario, esta funcion llama a la api chat y le pasa el id del usuario, posteriormente redirigue al chat.
 const chat = () => {
     // Verificar si ya existe un chat entre el usuario actualmente logueado y el usuario visitado
     axios.post('/api/chat/' + usuario.value.id)
@@ -266,7 +271,6 @@ const like = (publicacion) => {
 };
 
 // Comprueba si una publicacion ya tenia like o no.
-
 const comprobarLike = (publicacion) => {
     let tieneLike = false;
     publicacion.likes.forEach(like => {
@@ -303,6 +307,7 @@ const formatearFecha = (fechaPublicacion) => {
   }
 };
 
+// Obtiene la fecha proporcionada y la convierte en formato dia, mes en formato texto y año.
 function obtenerFecha(fecha) {
     // Definidos los meses
     const nombresMeses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
@@ -322,6 +327,7 @@ function obtenerFecha(fecha) {
     return `${dia} de ${nombreMes} de ${año}`;
 }
 
+// Funcion que aplica color a los post en base al color elegido por el usuario
 function bgClass(color) {
     switch(color) {
     case 2:
@@ -339,6 +345,7 @@ function bgClass(color) {
     }
 }
 
+// Funcion que aplica la rotacion de la publicacion en base al atributo rotate de la publicacion.
 function rotate(rot) {
     switch(rot) {
         case 1:
@@ -359,6 +366,7 @@ function rotate(rot) {
         }
 }
 
+// Funcion que aplica la posicion, izq, cen, der, en base al atributo de la publicacion.
 function position(pos) {
     switch(Number(pos)) {
         case 1:
@@ -372,6 +380,7 @@ function position(pos) {
     }  
 }
 
+// Funcion que envia una notificacion en base a los datos proporcionados.
 const enviarNotificacion = (usuario, tipo) => {
     const remitente = userLogin.value.id;
     const destinatario = usuario.id; 

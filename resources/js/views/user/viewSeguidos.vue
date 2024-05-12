@@ -51,6 +51,7 @@
             })
     })
 
+// Obtiene la fecha en el formato almacenado y lo convierte a formato DD/MM/YYYY.
 function obtenerFecha(fecha) {
     // Crear un objeto de fecha a partir de la cadena proporcionada
     const fechaObjeto = new Date(fecha);

@@ -150,10 +150,12 @@ class UserController extends Controller
         }
     }
 
+    // Funcion que obtiene todos los usuarios con sus imagenes.
     public function obtenerTodosUsuarios(){
         return $usuarios = User::with('media')->get();;
     }
 
+    // Funcion que modifica los datos del usuario.
     public function modificarUsuario(Request $request){
 
         // Valida los datos de entrada
@@ -181,6 +183,7 @@ class UserController extends Controller
         
     }
 
+    // Funcion para seguir a un usuario
     public function seguir($usuario){
         $userId = auth()->id();
     
@@ -199,6 +202,7 @@ class UserController extends Controller
         }
     }
 
+    // Funcion para bloquar un usuario
     public function bloquear($usuario){
         $userId = auth()->id();
     
@@ -218,6 +222,7 @@ class UserController extends Controller
     }
     
 
+    // Funcion para modificar la imagen de perfil de un usuario.
     public function modificarImagenUsuario(Request $request, $username){
         try {
             $user = User::where('username', $username)->firstOrFail();
@@ -240,6 +245,7 @@ class UserController extends Controller
         }
     }
     
+    // Funcion donde se define de que color quiere un usuario que se muestren sus publciaciones.
     public function colorPost($color,$username){
         $user = User::where('username', $username)->firstOrFail();
         // Encuentra al usuario
