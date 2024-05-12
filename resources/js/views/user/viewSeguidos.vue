@@ -1,7 +1,10 @@
 <template>
     <div v-if="usuario" class="topbar-container bg-v2 ">
         <div class="d-flex justify-content-between topbar-title">
-            <span class="pt-2 itty col-8 pl-5 title-target">{{$t('seguidos')}}</span>
+            <div class="itty col-8">
+                <router-link class="pt-2 title-target" :to="{ name: 'usuario.mostrar', params: { username: userLogin.username } }">< </router-link>
+                <span class="pt-2 title-target">{{$t('seguidos')}}</span>
+            </div> 
             <div class="notification-alert target-value">
                 <span class="itty">{{ usuario.seguidos_count }}</span>
             </div>
